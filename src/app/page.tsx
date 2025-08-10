@@ -124,10 +124,20 @@ export default function Home() {
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">
       <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
-        <div className="absolute z-[999999] flex h-14 w-full bg-transparent">
-          <h1 className="left-0 top-0 flex items-center justify-center p-3 pb-2 text-center font-[Cute] text-3xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:pb-4">
+        <div className="absolute z-[999999] flex h-14 w-full flex-col items-start justify-start bg-transparent">
+          <h1 className="flex items-center justify-center p-3 pb-2 text-center font-[Cute] text-3xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:pb-4">
             cantopop地圖
           </h1>
+        </div>
+        <div className="absolute bottom-0 z-[999999] flex h-14 w-full items-center justify-center bg-transparent">
+          <a
+            href="https://github.com/dcrebbin/cantopop-map/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-0 p-3 font-[Cute] text-xl text-white underline drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
+          >
+            Request locations here
+          </a>
         </div>
         <div ref={mapContainer} className="map-container relative" />
         <style jsx>{`
