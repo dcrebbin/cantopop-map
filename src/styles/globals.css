@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Cute";
+  src: url("/fonts/XiaolaiSC-Regular.ttf") format("truetype");
+}
