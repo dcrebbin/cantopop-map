@@ -14,6 +14,7 @@ interface SearchResult {
   url: string;
   image: string;
   address: string;
+  coordinates: [number, number];
 }
 
 export default function Home() {
@@ -107,16 +108,38 @@ export default function Home() {
     address.className = "text-xs text-center";
     address.textContent = data.address;
     container.appendChild(address);
+    const linksContainer = document.createElement("div");
+    linksContainer.className = "flex items-center justify-center gap-2";
 
-    const url = document.createElement("a");
-    url.href = data.url;
-    url.target = "_blank";
+    const videoUrl = document.createElement("a");
+    videoUrl.href = data.url;
+    videoUrl.target = "_blank";
     const svg = document.createElement("svg");
-    svg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+    svg.innerHTML = `<svg height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 461.001 461.001" xml:space="preserve">
+<g>
+	<path style="fill:#F61C0D;" d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
+		c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137
+		C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607
+		c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"/>
+</g>
 </svg>`;
-    url.appendChild(svg);
-    container.appendChild(url);
+    videoUrl.appendChild(svg);
+    linksContainer.appendChild(videoUrl);
+
+    const locationUrl = document.createElement("a");
+    locationUrl.href = `https://www.google.com/maps/@${data.coordinates[0]},${data.coordinates[1]},18z`;
+    locationUrl.target = "_blank";
+    const locationSvg = document.createElement("svg");
+    locationSvg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+</svg>
+`;
+    locationUrl.appendChild(locationSvg);
+    linksContainer.appendChild(locationUrl);
+
+    container.appendChild(linksContainer);
 
     return container;
   }

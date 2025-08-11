@@ -159,4 +159,12 @@ export const LOCATIONS = [
     url: "https://www.youtube.com/watch?v=N_bghNhUpkA",
     image: "https://i.ytimg.com/vi/N_bghNhUpkA/maxresdefault.jpg",
   },
+  {
+    coordinates: [43.30424161106344, 5.39431220992521],
+    artist: "moon tang",
+    address: "Longchamp",
+    name: "趁你旅行時搬走",
+    url: "https://www.youtube.com/watch?v=OqZqJ6yaeOw",
+    image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
+  },
 ];
