@@ -9,13 +9,11 @@ import { useMapStore } from "./_state/map.store";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
-//
-
 export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const { selectedLocationId, setSelectedLocationId, clearSelectedLocation } =
-    useMapStore();
+
+  const { setSelectedLocationId, clearSelectedLocation } = useMapStore();
 
   const zoom = 4.5;
   const center = [121.81339247320467, 25.69196539319919];
@@ -64,21 +62,33 @@ export default function Home() {
     image.onclick = () => {
       if (!map.current) return;
       const contentIsVisible = markerElement.classList.contains("visible");
+      const { lastPopup: currentLastPopup, lastMarker: currentLastMarker } =
+        useMapStore.getState();
+
       if (contentIsVisible) {
-        popup.remove();
-        markerElement.classList.remove("visible");
-        clearSelectedLocation();
+        hidePopup(popup, markerElement);
       } else {
-        const container = createPopupContent(data);
-        popup.setDOMContent(container);
+        if (currentLastPopup !== null && currentLastMarker !== null) {
+          hidePopup(currentLastPopup, currentLastMarker);
+        }
+        const content = createPopupContent(data);
+        popup.setDOMContent(content);
         popup.addTo(map.current);
         markerElement.classList.add("visible");
         setSelectedLocationId(data.id);
+        useMapStore.getState().setLastPopup(popup);
+        useMapStore.getState().setLastMarker(markerElement);
       }
     };
     markerElement.style.marginTop = "40px";
     markerElement.appendChild(image);
     return markerElement;
+  }
+
+  function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement) {
+    popup.remove();
+    marker.classList.remove("visible");
+    clearSelectedLocation();
   }
 
   function createPopupContent(data: LocationItem) {
