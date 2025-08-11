@@ -20,17 +20,8 @@ interface SearchResult {
 export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const zoom = 3;
-  const center = [103.98641487138919, 1.3559609211311883];
-
-  function requestLocation() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      map.current?.setCenter([longitude, latitude]);
-      map.current?.setZoom(9);
-    });
-  }
-
+  const zoom = 4.5;
+  const center = [121.81339247320467, 25.69196539319919];
   useEffect(() => {
     if (map.current) return;
     map.current = new mapboxgl.Map({
@@ -43,8 +34,6 @@ export default function Home() {
     LOCATIONS.forEach((location) => {
       addPlace(location.coordinates[1]!, location.coordinates[0]!, location);
     });
-
-    requestLocation();
   }, []);
 
   function addPlace(longitude: number, latitude: number, data: SearchResult) {
