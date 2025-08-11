@@ -40,6 +40,7 @@ export default function Home() {
       closeButton: false,
       closeOnClick: false,
       closeOnMove: false,
+      focusAfterOpen: false,
     });
 
     if (!map.current) return;
@@ -68,7 +69,8 @@ export default function Home() {
         markerElement.classList.remove("visible");
         clearSelectedLocation();
       } else {
-        popup.setDOMContent(createPopupContent(data));
+        const container = createPopupContent(data);
+        popup.setDOMContent(container);
         popup.addTo(map.current);
         markerElement.classList.add("visible");
         setSelectedLocationId(data.id);
@@ -83,6 +85,7 @@ export default function Home() {
     const container = document.createElement("div");
     container.className =
       "max-w-[150px] min-w-[90px] h-fit rounded-md bg-white p-2 flex flex-col items-center justify-center top-24";
+    container.tabIndex = -1;
 
     const artistName = document.createElement("p");
     artistName.className = "text-base text-center font-bold";
@@ -132,7 +135,6 @@ export default function Home() {
     linksContainer.appendChild(locationUrl);
 
     container.appendChild(linksContainer);
-
     return container;
   }
 
