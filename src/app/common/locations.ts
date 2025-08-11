@@ -1,4 +1,34 @@
-export const LOCATIONS = [
+import { z } from "zod";
+
+// Zod schema for raw items as written in the data file
+const RawLocationSchema = z.object({
+  coordinates: z.tuple([z.number(), z.number()]), // [lat, lng] as authored
+  artist: z.string(),
+  address: z.string(),
+  name: z.string(),
+  url: z.string().url(),
+  image: z.string().url(),
+});
+
+// Normalized item with guaranteed lng/lat ordering, and a stable id
+export const LocationItemSchema = RawLocationSchema.transform((raw) => {
+  const [lat, lng] = raw.coordinates;
+  const id = `${raw.artist}-${raw.name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
+  return {
+    id,
+    artist: raw.artist,
+    address: raw.address,
+    name: raw.name,
+    url: raw.url,
+    image: raw.image,
+    lat,
+    lng,
+  };
+});
+
+export type LocationItem = z.infer<typeof LocationItemSchema>;
+
+const RAW_LOCATIONS = [
   {
     coordinates: [22.321142053555345, 114.16485142381293],
     artist: "MC 張天賦",
@@ -168,3 +198,8 @@ export const LOCATIONS = [
     image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
   },
 ];
+
+// Validate and normalize at module load; throws early if data is invalid
+export const LOCATIONS: LocationItem[] = z
+  .array(LocationItemSchema)
+  .parse(RAW_LOCATIONS);

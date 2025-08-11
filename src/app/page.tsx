@@ -1,82 +1,85 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import Image from "next/image";
 import { LOCATIONS } from "./common/locations";
+import type { LocationItem } from "./common/locations";
+import { useMapStore } from "./_state/map.store";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
-interface SearchResult {
-  artist: string;
-  name: string;
-  url: string;
-  image: string;
-  address: string;
-  coordinates: [number, number];
-}
+//
 
 export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const { selectedLocationId, setSelectedLocationId, clearSelectedLocation } =
+    useMapStore();
+
   const zoom = 4.5;
   const center = [121.81339247320467, 25.69196539319919];
-  useEffect(() => {
-    if (map.current) return;
+
+  const handleMapContainerRef = (node: HTMLDivElement | null) => {
+    if (!node || map.current) return;
+    mapContainer.current = node;
     map.current = new mapboxgl.Map({
-      container: mapContainer.current!,
+      container: node,
       style: "mapbox://styles/mapbox/streets-v11",
       center: center as mapboxgl.LngLatLike,
       zoom: zoom,
     });
 
     LOCATIONS.forEach((location) => {
-      addPlace(location.coordinates[1]!, location.coordinates[0]!, location);
+      addPlace(location);
     });
-  }, []);
+  };
 
-  function addPlace(longitude: number, latitude: number, data: SearchResult) {
+  function addPlace(data: LocationItem) {
     const popup = new mapboxgl.Popup({
       closeButton: false,
       closeOnClick: false,
       closeOnMove: false,
     });
 
-    const marker = new mapboxgl.Marker({
+    if (!map.current) return;
+
+    new mapboxgl.Marker({
       element: createCustomMarker(popup, data),
       anchor: "bottom",
     })
-      .setLngLat([longitude, latitude])
-      .addTo(map.current!);
+      .setLngLat([data.lng, data.lat])
+      .addTo(map.current);
 
-    popup.setLngLat([longitude, latitude]);
+    popup.setLngLat([data.lng, data.lat]);
   }
 
-  function createCustomMarker(popup: mapboxgl.Popup, data: SearchResult) {
+  function createCustomMarker(popup: mapboxgl.Popup, data: LocationItem) {
     const markerElement = document.createElement("div");
 
-    const duck = document.createElement("img");
-    duck.src = data.image;
-    duck.alt = "Duck";
-    duck.className = "w-auto h-14 cursor-pointer mt-8 z-[1000] rounded-md";
-    duck.onclick = () => {
+    const image = document.createElement("img");
+    image.src = data.image;
+    image.className = "w-auto h-14 cursor-pointer mt-8 z-[1000] rounded-md";
+    image.onclick = () => {
+      if (!map.current) return;
       const contentIsVisible = markerElement.classList.contains("visible");
       if (contentIsVisible) {
         popup.remove();
         markerElement.classList.remove("visible");
+        clearSelectedLocation();
       } else {
         popup.setDOMContent(createPopupContent(data));
-        popup.addTo(map.current!);
+        popup.addTo(map.current);
         markerElement.classList.add("visible");
+        setSelectedLocationId(data.id);
       }
     };
     markerElement.style.marginTop = "40px";
-    markerElement.appendChild(duck);
+    markerElement.appendChild(image);
     return markerElement;
   }
 
-  function createPopupContent(data: SearchResult) {
+  function createPopupContent(data: LocationItem) {
     const container = document.createElement("div");
     container.className =
       "max-w-[150px] min-w-[90px] h-fit rounded-md bg-white p-2 flex flex-col items-center justify-center top-24";
@@ -117,7 +120,7 @@ export default function Home() {
     linksContainer.appendChild(videoUrl);
 
     const locationUrl = document.createElement("a");
-    locationUrl.href = `https://www.google.com/maps/@${data.coordinates[0]},${data.coordinates[1]},18z`;
+    locationUrl.href = `https://www.google.com/maps/@${data.lat},${data.lng},18z`;
     locationUrl.target = "_blank";
     const locationSvg = document.createElement("svg");
     locationSvg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -151,7 +154,7 @@ export default function Home() {
             Request locations here
           </a>
         </div>
-        <div ref={mapContainer} className="map-container relative" />
+        <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`
           .map-container {
             height: 100vh;
