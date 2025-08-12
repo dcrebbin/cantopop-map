@@ -70,6 +70,22 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/YZTdYEJvVBU/hqdefault.jpg",
   },
   {
+    coordinates: [22.29904788270136, 114.15558672262901],
+    artist: "Zpecial",
+    address: "West Kowloon Art Park",
+    name: "《深夜告別練習》",
+    url: "https://www.youtube.com/watch?v=dVgmEuwMPxo",
+    image: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.397007979454223, 114.19462980063042],
+    artist: "DAY 許軼",
+    address: "Au Pui Wan St, Sha Tin (Estimation)",
+    name: "《Wait A Second》",
+    url: "https://www.youtube.com/watch?v=4ZRo4BrJdU4",
+    image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.294262905901675, 114.17187443107473],
     artist: "MC 張天賦",
     address: "HK Space Museum",
