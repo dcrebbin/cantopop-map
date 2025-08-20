@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Appbar() {
   return (
-    <div className="w-78 absolute z-[999999] flex h-14 flex-col items-center justify-start gap-2 bg-transparent">
+    <div className="w-78 absolute z-[999999] flex h-fit flex-col items-center justify-start gap-2 rounded-lg bg-transparent backdrop-blur-[3px]">
       <h1 className="flex h-fit items-center justify-center px-3 pb-0 pt-3 text-center font-[Cute] text-4xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]">
         cantopop地圖
       </h1>
