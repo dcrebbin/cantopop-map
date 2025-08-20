@@ -6,6 +6,8 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { LOCATIONS } from "./common/locations";
 import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
+import Appbar from "./components/appbar";
+import Footer from "./components/footer";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
@@ -15,8 +17,8 @@ export default function Home() {
 
   const { setSelectedLocationId, clearSelectedLocation } = useMapStore();
 
-  const zoom = 4.5;
-  const center = [121.81339247320467, 25.69196539319919];
+  const zoom = 10;
+  const center = [114.16819296950341, 22.31382741410536];
 
   const handleMapContainerRef = (node: HTMLDivElement | null) => {
     if (!node || map.current) return;
@@ -27,7 +29,6 @@ export default function Home() {
       center: center as mapboxgl.LngLatLike,
       zoom: zoom,
     });
-
     LOCATIONS.forEach((location) => {
       addPlace(location);
     });
@@ -120,7 +121,7 @@ export default function Home() {
     videoUrl.href = data.url;
     videoUrl.target = "_blank";
     const svg = document.createElement("svg");
-    svg.innerHTML = `<svg height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+    svg.innerHTML = `<svg height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 viewBox="0 0 461.001 461.001" xml:space="preserve">
 <g>
 	<path style="fill:#F61C0D;" d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
@@ -151,21 +152,8 @@ export default function Home() {
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">
       <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
-        <div className="absolute z-[999999] flex h-14 w-full flex-col items-start justify-start bg-transparent">
-          <h1 className="flex items-center justify-center p-3 pb-2 text-center font-[Cute] text-3xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:pb-4">
-            cantopop地圖
-          </h1>
-        </div>
-        <div className="absolute bottom-0 z-[999999] flex h-14 w-full items-center justify-center bg-transparent">
-          <a
-            href="https://github.com/dcrebbin/cantopop-map/issues"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute bottom-0 p-3 font-[Cute] text-xl text-white underline drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
-          >
-            Request locations here
-          </a>
-        </div>
+        <Appbar />
+        <Footer />
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`
           .map-container {
