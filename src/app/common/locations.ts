@@ -40,6 +40,16 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
   },
   {
+    coordinates: [22.3118286, 114.186127],
+    streetView:
+      "https://www.google.com/maps/place/Boston+restaurant/@22.3118286,114.186127,3a,20.7y,112.21h,74.13t/data=!3m7!1e1!3m5!1sHxri6Bk3IK0N7CEqYmAtZg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.867936901216908%26panoid%3DHxri6Bk3IK0N7CEqYmAtZg%26yaw%3D112.20733141427111!7i16384!8i8192!4m6!3m5!1s0x340400deb2a3fff1:0xbc804a6339445298!8m2!3d22.3118659!4d114.1863231!16s%2Fg%2F1tffx2x5?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
+    artist: "moon tang & Kiri T ",
+    address: "Boston Restaurant",
+    name: "i hate u owe me $$t",
+    url: "https://www.youtube.com/watch?v=4hRZudEMff8",
+    image: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.368659777303858, 114.11300064743985],
     artist: "MC 張天賦",
     address: "Nina Hotel Tsuen Wan West",
@@ -110,6 +120,8 @@ const RAW_LOCATIONS = [
     name: "銀河修理員 Galactic Repairman",
     url: "https://www.youtube.com/watch?v=sg8V5BLMEhE",
     image: "https://i.ytimg.com/vi/bM-3drXQ4TI/maxresdefault.jpg",
+    streetView:
+      "https://www.google.com/maps/place/22%C2%B017'10.2%22N+114%C2%B008'27.0%22E/@22.2861574,114.1407242,3a,75y,102.58h,78.05t/data=!3m7!1e1!3m5!1s-i8wnvyBBU0VwuItG00iVQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D11.949899332072064%26panoid%3D-i8wnvyBBU0VwuItG00iVQ%26yaw%3D102.575493856485!7i16384!8i8192!4m4!3m3!8m2!3d22.2861561!4d114.1408185?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
   },
   {
     coordinates: [22.276876218375246, 114.1230363750542],
@@ -124,6 +136,8 @@ const RAW_LOCATIONS = [
     artist: "Kiri T, Gareth T, Gordon Flanders & moon tang",
     address: "Coffeelin",
     name: "Christmas Playlist",
+    streetView:
+      "https://www.google.com/maps/place/22%C2%B016'06.4%22N+114%C2%B011'12.7%22E/@22.268567,114.1868155,3a,75y,147.02h,82.82t/data=!3m7!1e1!3m5!1ss1bn_R27bLHP8vrV5M0sPw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.1787387254073565%26panoid%3Ds1bn_R27bLHP8vrV5M0sPw%26yaw%3D147.02454317766063!7i16384!8i8192!4m4!3m3!8m2!3d22.2684441!4d114.1868635?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=SHFZkBPub5c",
     image: "https://i.ytimg.com/vi/SHFZkBPub5c/maxresdefault.jpg",
   },
@@ -195,8 +209,10 @@ const RAW_LOCATIONS = [
     coordinates: [25.053851659626282, 121.52030632579022],
     artist: "Nancy Kwai",
     address: "Vacanza Accessory Cafe",
+    streetView:
+      "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     name: "歸綽嶢 - Let go",
-    url: "https://www.youtube.com/watch?v=CbpX1RgSOl8",
+    url: "hhttps://youtu.be/CbpX1RgSOl8?t=143",
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
   {
@@ -274,7 +290,9 @@ const RAW_LOCATIONS = [
     artist: "moon tang",
     address: "Longchamp",
     name: "趁你旅行時搬走",
-    url: "https://www.youtube.com/watch?v=OqZqJ6yaeOw",
+    streetView:
+      "https://www.google.com/maps/place/43%C2%B018'15.3%22N+5%C2%B023'39.5%22E/@43.3037165,5.3933466,3a,75y,63.77h,90t/data=!3m7!1e1!3m5!1sJ2WLORH1TUQEjxMioUpznA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DJ2WLORH1TUQEjxMioUpznA%26yaw%3D63.774932406866725!7i13312!8i6656!4m4!3m3!8m2!3d43.3042416!4d5.3943122?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/OqZqJ6yaeOw?t=132",
     image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
   },
 ];
