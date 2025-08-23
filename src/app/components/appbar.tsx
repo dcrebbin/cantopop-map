@@ -2,14 +2,14 @@ import Image from "next/image";
 
 export default function Appbar() {
   return (
-    <div className="w-78 absolute z-[999999] flex h-fit flex-col items-center justify-start gap-2 rounded-lg bg-transparent backdrop-blur-[3px]">
-      <h1 className="flex h-fit items-center justify-center px-3 pb-0 pt-3 text-center font-[Cute] text-4xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]">
+    <div className="w-78 absolute z-[999999] flex h-fit flex-col items-center justify-start gap-2 rounded-lg bg-transparent px-2 backdrop-blur-[3px]">
+      <h1 className="flex h-fit items-center justify-center px-3 pb-0 pt-3 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
         cantopop地圖
       </h1>
       <a
         target="_blank"
         href="https://savecantonese.org"
-        className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-xl leading-none text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)] hover:underline"
+        className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] hover:underline md:text-xl md:no-underline"
       >
         savecantonese.org
         <Image
