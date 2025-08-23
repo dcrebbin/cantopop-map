@@ -70,7 +70,9 @@ const RAW_LOCATIONS = [
     artist: "Edan 呂爵安 ",
     address: "Tai Ping Shan",
     name: "《E先生連環不幸事件》",
-    url: "https://www.youtube.com/watch?v=7FPL4DRizgk",
+    url: "https://youtu.be/7FPL4DRizgk?t=163",
+    streetView:
+      "https://www.google.com/maps/place/22%C2%B017'06.7%22N+114%C2%B008'53.7%22E/@22.2851263,114.1482969,3a,75y,311.6h,75.07t/data=!3m7!1e1!3m5!1su31CYnduqRoYhPYEkj2pKQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D14.932997962100217%26panoid%3Du31CYnduqRoYhPYEkj2pKQ%26yaw%3D311.59964401687176!7i16384!8i8192!4m4!3m3!8m2!3d22.2851862!4d114.1482355?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/7FPL4DRizgk/hq720.jpg",
   },
   {
@@ -118,7 +120,7 @@ const RAW_LOCATIONS = [
     artist: "Dear Jane",
     address: "Second Street",
     name: "銀河修理員 Galactic Repairman",
-    url: "https://www.youtube.com/watch?v=sg8V5BLMEhE",
+    url: "https://youtu.be/sg8V5BLMEhE?t=138",
     image: "https://i.ytimg.com/vi/bM-3drXQ4TI/maxresdefault.jpg",
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'10.2%22N+114%C2%B008'27.0%22E/@22.2861574,114.1407242,3a,75y,102.58h,78.05t/data=!3m7!1e1!3m5!1s-i8wnvyBBU0VwuItG00iVQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D11.949899332072064%26panoid%3D-i8wnvyBBU0VwuItG00iVQ%26yaw%3D102.575493856485!7i16384!8i8192!4m4!3m3!8m2!3d22.2861561!4d114.1408185?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
