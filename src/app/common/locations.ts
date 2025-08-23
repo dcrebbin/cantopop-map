@@ -8,6 +8,7 @@ const RawLocationSchema = z.object({
   name: z.string(),
   url: z.string().url(),
   image: z.string().url(),
+  streetView: z.string().url().optional(),
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
@@ -23,6 +24,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     image: raw.image,
     lat,
     lng,
+    streetView: raw.streetView ?? null,
   };
 });
 
@@ -217,16 +219,20 @@ const RAW_LOCATIONS = [
     coordinates: [22.280477738664846, 114.1857419378452],
     artist: "Kiri T",
     address: "Great George Street",
+    streetView:
+      "https://www.google.com/maps/@22.2804309,114.1855097,3a,75y,75.41h,79.06t/data=!3m7!1e1!3m5!1sg375DufGdUJujemIJNByEA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D10.937259800306904%26panoid%3Dg375DufGdUJujemIJNByEA%26yaw%3D75.40512162212868!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     name: "中暑傷風加失戀x2 Arctic Summer",
-    url: "https://www.youtube.com/watch?v=NL0bqEs9Izs",
+    url: "https://youtu.be/NL0bqEs9Izs?t=8",
     image: "https://i.ytimg.com/vi/NL0bqEs9Izs/hq720.jpg",
   },
   {
     coordinates: [22.243714192525864, 114.22165535643198],
     artist: "Kiri T",
+    streetView:
+      "https://www.google.com/maps/@22.2447515,114.2211254,3a,75y,336.32h,81.11t/data=!3m7!1e1!3m5!1s3pJUCqvY23a8I70qY_bMjg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D8.893341064367647%26panoid%3D3pJUCqvY23a8I70qY_bMjg%26yaw%3D336.32179936240084!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D",
     address: "Tai Tam Tuk",
     name: "至少做一件離譜的事 You Gotta Screw Up At Least Once",
-    url: "https://www.youtube.com/watch?v=RPoNXvSFHE4",
+    url: "https://youtu.be/RPoNXvSFHE4?t=205",
     image: "https://i.ytimg.com/vi/RPoNXvSFHE4/maxresdefault.jpg",
   },
   {
@@ -239,10 +245,12 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.372380870346085, 113.98814799363147],
+    streetView:
+      "https://www.google.com/maps/@22.372946,113.9885462,3a,75y,276.89h,89.15t/data=!3m7!1e1!3m5!1sCGSk_CAhmTSznEYci6zFaQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0.8542203553719503%26panoid%3DCGSk_CAhmTSznEYci6zFaQ%26yaw%3D276.8895835171635!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D",
     artist: "Gordon Flanders",
     address: "Golden Beach",
     name: "冬天一個遊",
-    url: "https://www.youtube.com/watch?v=oVpmZoj9mOM",
+    url: "https://youtu.be/oVpmZoj9mOM?t=37",
     image: "https://i.ytimg.com/vi/oVpmZoj9mOM/maxresdefault.jpg",
   },
   {
