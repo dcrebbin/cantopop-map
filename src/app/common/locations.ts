@@ -40,13 +40,33 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
   },
   {
+    coordinates: [22.200515988665213, 113.54521352526373],
+    artist: "林靜翬 winifai",
+    address: "愛星屋",
+    name: "可有甚麼 (Before I'm Gone)",
+    streetView:
+      "https://www.google.com/maps/place/%E6%84%9B%E6%98%9F%E5%B1%8B/@22.2005237,113.5450258,3a,17.4y,47.79h,85.52t/data=!3m7!1e1!3m5!1sxjEQ9tdsJi9D7YiFVWRPtA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D4.479524584813959%26panoid%3DxjEQ9tdsJi9D7YiFVWRPtA%26yaw%3D47.79128069709897!7i13312!8i6656!4m6!3m5!1s0x34017bc549f6edef:0x58865e9c1eeff8d3!8m2!3d22.2005169!4d113.5452015!16s%2Fg%2F11y74n1nz0?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://www.youtube.com/watch?v=fAc4ZSVYOJU",
+    image: "https://i.ytimg.com/vi/fAc4ZSVYOJU/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.471754454186954, 114.02208959807898],
+    artist: "Gordon Flanders",
+    address: "Fung Lok Wai Fish Ponds (estimation)",
+    name: "全世界停電 第二年 The Blackout, Year 2 ",
+    streetView:
+      "https://www.google.com/maps/@22.473348,114.024313,3a,57.3y,184.14h,81.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDq3LDU3gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HbpwtC1DNElZZ30HhUjsS7deGl2Ny68igkVQYF3jY-7VNiFntK3khg8fwzqu6Mqvr3QDQ9b6DzbpQm99IrDU6aYWGRdL1s0CqvHRQNzBpWk8cF21BV_5HeI-63NSGfWyTNB0ZBJ%3Dw900-h600-k-no-pi8.043024207959391-ya171.64525490982788-ro0-fo100!7i10000!8i5000?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/MIhQlIlxAbk?t=162",
+    image: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.3118286, 114.186127],
     streetView:
       "https://www.google.com/maps/place/Boston+restaurant/@22.3118286,114.186127,3a,20.7y,112.21h,74.13t/data=!3m7!1e1!3m5!1sHxri6Bk3IK0N7CEqYmAtZg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.867936901216908%26panoid%3DHxri6Bk3IK0N7CEqYmAtZg%26yaw%3D112.20733141427111!7i16384!8i8192!4m6!3m5!1s0x340400deb2a3fff1:0xbc804a6339445298!8m2!3d22.3118659!4d114.1863231!16s%2Fg%2F1tffx2x5?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     artist: "moon tang & Kiri T ",
     address: "Boston Restaurant",
-    name: "i hate u owe me $$t",
-    url: "https://www.youtube.com/watch?v=4hRZudEMff8",
+    name: "i hate u owe me $$$",
+    url: "https://youtu.be/4hRZudEMff8?t=13",
     image: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
   },
   {
@@ -114,6 +134,26 @@ const RAW_LOCATIONS = [
     name: "房屋供應問題",
     url: "https://www.youtube.com/watch?v=O96-8g_6NII",
     image: "https://i.ytimg.com/vi/O96-8g_6NII/hq720.jpg",
+  },
+  {
+    coordinates: [-8.65321318543236, 115.13240595625565],
+    artist: "moon tang",
+    address: "Bottega Italiana",
+    name: "一口一",
+    streetView:
+      "https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://www.youtube.com/watch?v=tWPQSKm5WyQ",
+    image: "https://i.ytimg.com/vi/tWPQSKm5WyQ/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.480945015645847, 114.15602924346081],
+    artist: "moon tang & Marf邱彥筒",
+    address: "near Yuk Hing Temple",
+    name: "grwm",
+    url: "https://youtu.be/aqDDCiZoJIY?t=44",
+    streetView:
+      "https://www.google.com/maps/place/22%C2%B028'51.3%22N+114%C2%B009'21.7%22E/@22.481028,114.1560802,3a,28.6y,310.18h,91.34t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDmh_-gkwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZ2XLcqKzEMGYqKBzis-T2veI6s-SxJsnI9tuN-0rD-OL862eRkh3Bth49G08kFHIFv0013vFdgs6uwGRYsDEil5yVFEXsVw8TaLo6FYbXKQubLQLA7QzUBrlA26ESQq1-37uc6%3Dw900-h600-k-no-pi-1.3402438159201182-ya252.3987914797783-ro0-fo100!7i5760!8i2880!4m4!3m3!8m2!3d22.4809167!4d114.1560278?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    image: "https://i.ytimg.com/vi/aqDDCiZoJIY/maxresdefault.jpg",
   },
   {
     coordinates: [22.286156071954025, 114.14081848365555],
@@ -230,7 +270,9 @@ const RAW_LOCATIONS = [
     artist: "moon tang",
     address: "Sea Life",
     name: "戀人絮語",
-    url: "https://www.youtube.com/watch?v=SmlOWWRJZcc",
+    url: "https://youtu.be/SmlOWWRJZcc?t=124",
+    streetView:
+      "https://www.google.com/maps/@22.246055,114.176123,2a,58.4y,339.13h,96.91t/data=!3m7!1e1!3m5!1syhcc5BbMGRkAAAQvvewcSw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-6.910184776316683%26panoid%3Dyhcc5BbMGRkAAAQvvewcSw%26yaw%3D339.1276907332437!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/SmlOWWRJZcc/maxresdefault.jpg",
   },
   {
