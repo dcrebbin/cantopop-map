@@ -60,6 +60,36 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
   },
   {
+    coordinates: [22.326956446741637, 114.16372901966172],
+    artist: "Dear Jane",
+    address: "Around Kowloon",
+    name: "不消失戀愛連續 (I Don't Wanna Be Your IG Story)",
+    streetView:
+      "https://www.google.com/maps/place/Loong+Jun+Enterprises+Ltd/@22.3268597,114.1637183,3a,75y,22.3h,91.5t/data=!3m7!1e1!3m5!1s-3Jda4lLwiQrjvug-CA7kA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4987673664758887%26panoid%3D-3Jda4lLwiQrjvug-CA7kA%26yaw%3D22.29617937600097!7i16384!8i8192!4m6!3m5!1s0x340400b42691e4d1:0xdc3fe8132f680566!8m2!3d22.326932!4d114.163766!16s%2Fg%2F12m9k28vc?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/4-85jDmMQNo?t=409",
+    image: "https://i.ytimg.com/vi/4-85jDmMQNo/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.3067739577149, 114.18289026614131],
+    artist: "林家謙 Terence Lam",
+    address: "Ho Man Tin & various locations",
+    name: " 《普渡眾生》 - 電影",
+    streetView:
+      "https://www.google.com/maps/place/Ho+Man+Tin/@22.3068186,114.1828286,3a,37.5y,129.55h,87.5t/data=!3m7!1e1!3m5!1slorJ8mtOeOzhO4XZXb2dcA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D2.504974932997399%26panoid%3DlorJ8mtOeOzhO4XZXb2dcA%26yaw%3D129.55358498814783!7i16384!8i8192!4m6!3m5!1s0x340400dd0e16ed7d:0x34039828f896379b!8m2!3d22.3093594!4d114.1827294!16zL20vMDR5dGgz?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/GUCoNfRmchM?t=159",
+    image: "https://i.ytimg.com/vi/GUCoNfRmchM/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.282396863718144, 114.1524964001634],
+    artist: "Dear Jane",
+    address: "Around Central",
+    name: "未開始已經結束 (Ended Before We Even Started)",
+    streetView:
+      "https://www.google.com/maps/place/Soho+Corner/@22.2823981,114.1523301,3a,75y,76.18h,76.05t/data=!3m7!1e1!3m5!1sivBCw7hfXtykxpxIIgRZDA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D13.94533764092887%26panoid%3DivBCw7hfXtykxpxIIgRZDA%26yaw%3D76.18336602604404!7i16384!8i8192!4m6!3m5!1s0x3404007ba1c6bab5:0xf07c3974d8c252e1!8m2!3d22.2823924!4d114.1524921!16s%2Fg%2F1tgjhx6l?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/HwlYipX78Qo?t=154",
+    image: "https://i.ytimg.com/vi/HwlYipX78Qo/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.3118286, 114.186127],
     streetView:
       "https://www.google.com/maps/place/Boston+restaurant/@22.3118286,114.186127,3a,20.7y,112.21h,74.13t/data=!3m7!1e1!3m5!1sHxri6Bk3IK0N7CEqYmAtZg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.867936901216908%26panoid%3DHxri6Bk3IK0N7CEqYmAtZg%26yaw%3D112.20733141427111!7i16384!8i8192!4m6!3m5!1s0x340400deb2a3fff1:0xbc804a6339445298!8m2!3d22.3118659!4d114.1863231!16s%2Fg%2F1tffx2x5?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
