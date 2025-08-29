@@ -60,6 +60,25 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
   },
   {
+    coordinates: [26.213946263905513, 127.68680782679441],
+    artist: "Nancy Kwai",
+    address: "Naha, Japan",
+    name: "You took my breath away",
+    streetView:
+      "https://www.google.com/maps/place/%E5%9B%BD%E9%9A%9B%E3%82%BF%E3%82%A6%E3%83%B3%E3%82%BA%E3%82%A4%E3%83%B3/@26.2141087,127.6867703,3a,75y,214.71h,92.32t/data=!3m7!1e1!3m5!1shpdFKr7pHNmotf_ktdOMyg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-2.324460523223493%26panoid%3DhpdFKr7pHNmotf_ktdOMyg%26yaw%3D214.7148547149733!7i16384!8i8192!4m9!3m8!1s0x34e56970cc742a63:0xbe9e97f7d882e967!5m2!4m1!1i2!8m2!3d26.2139367!4d127.6868028!16s%2Fg%2F1vm_vn1f?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/e5TplXPYKt8?t=75",
+    image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
+  },
+  {
+    coordinates: [13.693665356188005, 100.74896215331042],
+    artist: "moon tang",
+    address: "Bangkok Airport, Thailand (estimation)",
+    name: "二十五圓舞曲",
+    streetView: "https://maps.app.goo.gl/au5kud7843H3C8T77",
+    url: "https://youtu.be/vqlzYiT5_aQ?t=10",
+    image: "https://i.ytimg.com/vi/vqlzYiT5_aQ/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.326956446741637, 114.16372901966172],
     artist: "Dear Jane",
     address: "Around Kowloon",
