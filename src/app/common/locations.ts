@@ -70,6 +70,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [24.936166454393945, 121.88634390077614],
+    artist: "moon tang",
+    address: "Yilan County, Taiwan",
+    name: "外星人接我回去 (take me home)",
+    streetView: "https://maps.app.goo.gl/fFp7RaqAN75h56ZPA",
+    url: "https://youtu.be/HIGEklrsMnQ?t=28",
+    image: "https://i.ytimg.com/vi/HIGEklrsMnQ/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.233327554455837, 114.17248136072266],
     artist: "Gordon Flanders ",
     address: "Ocean Park",
