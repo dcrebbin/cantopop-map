@@ -70,6 +70,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [22.329886487567233, 114.18847680470455],
+    artist: "Gareth T",
+    address: "Kowloon",
+    name: "偶像已死 (idole sind tot)",
+    streetView: "https://maps.app.goo.gl/Z7qQELhGgLZLJY5h8",
+    url: "https://youtu.be/-24iWWT9hj4?t=42",
+    image: "https://i.ytimg.com/vi/-24iWWT9hj4/maxresdefault.jpg",
+  },
+  {
     coordinates: [25.122005390322126, 121.86668051886002],
     artist: "Gareth T",
     address: "Lianxin Village, Taiwan",
