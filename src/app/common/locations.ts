@@ -70,6 +70,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [25.122005390322126, 121.86668051886002],
+    artist: "Gareth T",
+    address: "Lianxin Village, Taiwan",
+    name: "你都不知道 自己有多好",
+    streetView: "https://maps.app.goo.gl/3AR2FiQ8ZAZuK7TM7",
+    url: "https://youtu.be/7jXqxjPfRjw?t=38",
+    image: "https://i.ytimg.com/vi/7jXqxjPfRjw/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.221167497754198, 113.88650243288781],
     artist: "Cloud 雲浩影",
     address: "Tai Long Wan Beach",
