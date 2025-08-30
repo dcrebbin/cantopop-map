@@ -70,6 +70,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [22.221167497754198, 113.88650243288781],
+    artist: "Cloud 雲浩影",
+    address: "Tai Long Wan Beach",
+    name: "慢性分手 (Breaking Up Slowly)",
+    streetView: "https://maps.app.goo.gl/9TV5ZWJRWq2GYgu19",
+    url: "https://youtu.be/VHt8upfvSQ8?t=85",
+    image: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
+  },
+  {
     coordinates: [24.936166454393945, 121.88634390077614],
     artist: "moon tang",
     address: "Yilan County, Taiwan",
