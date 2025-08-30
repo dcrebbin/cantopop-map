@@ -70,6 +70,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [-37.81971104480582, 144.96839465665767],
+    artist: "馮允謙 Jay Fung",
+    address: "Melbourne, Australia",
+    name: " 會再見的 (See You Soon, It's Not A Goodbye)",
+    streetView: "https://maps.app.goo.gl/ZTLN5CkXJrvo5Z4j8",
+    url: "https://youtu.be/SRG29U7Fw_o?t=166",
+    image: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.329886487567233, 114.18847680470455],
     artist: "Gareth T",
     address: "Kowloon",
