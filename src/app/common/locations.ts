@@ -78,6 +78,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
   },
   {
+    coordinates: [22.308195267462157, 114.17169792196543],
+    artists: ["張蔓姿 Gigi"],
+    address: "Eaton HK, Yau Ma Tei",
+    name: "深夜浪漫 (Midnight Romance)",
+    streetView: "https://maps.app.goo.gl/2qYVjwWaEjazJ8YTA",
+    url: "https://youtu.be/EMPUP9Ph8q0?t=96",
+    image: "https://i.ytimg.com/vi/EMPUP9Ph8q0/maxresdefault.jpg",
+  },
+  {
     coordinates: [26.213946263905513, 127.68680782679441],
     artists: ["Nancy Kwai"],
     address: "Naha, Japan",
