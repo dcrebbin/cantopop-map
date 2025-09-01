@@ -8,6 +8,7 @@ export default function Appbar() {
       </h1>
       <a
         target="_blank"
+        rel="noopener noreferrer"
         href="https://savecantonese.org"
         className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] hover:underline md:text-xl md:no-underline"
       >

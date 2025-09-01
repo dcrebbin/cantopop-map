@@ -102,7 +102,7 @@ export default function Home() {
     artistName.className = "text-base text-center font-bold";
     artistName.style.wordWrap = "break-word";
     artistName.style.maxWidth = "100%";
-    artistName.textContent = data.artist;
+    artistName.textContent = data.artists.join(", ");
     container.appendChild(artistName);
 
     const songTitle = document.createElement("p");

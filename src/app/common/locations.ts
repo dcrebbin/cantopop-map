@@ -3,7 +3,7 @@ import { z } from "zod";
 // Zod schema for raw items as written in the data file
 const RawLocationSchema = z.object({
   coordinates: z.tuple([z.number(), z.number()]), // [lat, lng] as authored
-  artist: z.string(),
+  artists: z.array(z.string()),
   address: z.string(),
   name: z.string(),
   url: z.string().url(),
@@ -14,10 +14,10 @@ const RawLocationSchema = z.object({
 // Normalized item with guaranteed lng/lat ordering, and a stable id
 export const LocationItemSchema = RawLocationSchema.transform((raw) => {
   const [lat, lng] = raw.coordinates;
-  const id = `${raw.artist}-${raw.name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
+  const id = `${raw.artists.join(", ")}-${raw.name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
   return {
     id,
-    artist: raw.artist,
+    artists: raw.artists,
     address: raw.address,
     name: raw.name,
     url: raw.url,
@@ -33,15 +33,24 @@ export type LocationItem = z.infer<typeof LocationItemSchema>;
 const RAW_LOCATIONS = [
   {
     coordinates: [22.321142053555345, 114.16485142381293],
-    artist: "MC 張天賦",
+    artists: ["MC 張天賦"],
     address: "EASY JOE's",
     name: "懷疑人生 In Doubt",
     url: "https://www.youtube.com/watch?v=Lmm6dfPiJDM",
     image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
   },
   {
+    coordinates: [22.447133466533547, 113.99309961351902],
+    artists: ["MC 張天賦"],
+    address: "Tang Ancestral Hall, Ha Tsuen",
+    name: "老派約會之必要 (A Gentleman's Guide to Old-Fashioned Dating)",
+    url: "https://youtu.be/u14rrcxENDw?t=134",
+    streetView: "https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18",
+    image: "https://i.ytimg.com/vi/u14rrcxENDw/hq720.jpg",
+  },
+  {
     coordinates: [22.200515988665213, 113.54521352526373],
-    artist: "林靜翬 winifai",
+    artists: ["林靜翬 winifai"],
     address: "愛星屋",
     name: "可有甚麼 (Before I'm Gone)",
     streetView:
@@ -51,7 +60,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.471754454186954, 114.02208959807898],
-    artist: "Gordon Flanders",
+    artists: ["Gordon Flanders"],
     address: "Fung Lok Wai Fish Ponds (estimation)",
     name: "全世界停電 第二年 The Blackout, Year 2 ",
     streetView:
@@ -60,8 +69,17 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
   },
   {
+    coordinates: [22.265923840469792, 114.24243828964133],
+    artists: ["張蔓姿 Gigi"],
+    address: "Chai Wan",
+    name: "緊張大師 (Overthinker)",
+    streetView: "https://maps.app.goo.gl/FY5WayGRF7jtGEc19",
+    url: "https://youtu.be/cM_L276Vhvc?t=20",
+    image: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
+  },
+  {
     coordinates: [26.213946263905513, 127.68680782679441],
-    artist: "Nancy Kwai",
+    artists: ["Nancy Kwai"],
     address: "Naha, Japan",
     name: "You took my breath away",
     streetView:
@@ -71,7 +89,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [-37.81971104480582, 144.96839465665767],
-    artist: "馮允謙 Jay Fung",
+    artists: ["馮允謙 Jay Fung"],
     address: "Melbourne, Australia",
     name: " 會再見的 (See You Soon, It's Not A Goodbye)",
     streetView: "https://maps.app.goo.gl/ZTLN5CkXJrvo5Z4j8",
@@ -80,7 +98,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.329886487567233, 114.18847680470455],
-    artist: "Gareth T",
+    artists: ["Gareth T"],
     address: "Kowloon",
     name: "偶像已死 (idole sind tot)",
     streetView: "https://maps.app.goo.gl/Z7qQELhGgLZLJY5h8",
@@ -89,7 +107,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [25.122005390322126, 121.86668051886002],
-    artist: "Gareth T",
+    artists: ["Gareth T"],
     address: "Lianxin Village, Taiwan",
     name: "你都不知道 自己有多好",
     streetView: "https://maps.app.goo.gl/3AR2FiQ8ZAZuK7TM7",
@@ -98,7 +116,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.221167497754198, 113.88650243288781],
-    artist: "Cloud 雲浩影",
+    artists: ["Cloud 雲浩影"],
     address: "Tai Long Wan Beach",
     name: "慢性分手 (Breaking Up Slowly)",
     streetView: "https://maps.app.goo.gl/9TV5ZWJRWq2GYgu19",
@@ -107,7 +125,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [24.936166454393945, 121.88634390077614],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Yilan County, Taiwan",
     name: "外星人接我回去 (take me home)",
     streetView: "https://maps.app.goo.gl/fFp7RaqAN75h56ZPA",
@@ -116,7 +134,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.233327554455837, 114.17248136072266],
-    artist: "Gordon Flanders ",
+    artists: ["Gordon Flanders "],
     address: "Ocean Park",
     name: "歌頓花園 (Gordon's Garden)",
     streetView: "https://maps.app.goo.gl/WDr19mxqC4zdQ1uz7",
@@ -125,16 +143,16 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.33865812105351, 114.17100484175822],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Shek Kip Mei Park",
-    name: "i hate u",
+    name: "i hate u (en)",
     streetView: "https://maps.app.goo.gl/FHpCdhHoTprpERm48",
     url: "https://youtu.be/Fw4m0jQsoug?t=42",
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/maxresdefault.jpg",
   },
   {
     coordinates: [13.693665356188005, 100.74896215331042],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Bangkok Airport, Thailand (estimation)",
     name: "二十五圓舞曲",
     streetView: "https://maps.app.goo.gl/au5kud7843H3C8T77",
@@ -143,7 +161,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.326956446741637, 114.16372901966172],
-    artist: "Dear Jane",
+    artists: ["Dear Jane"],
     address: "Around Kowloon",
     name: "不消失戀愛連續 (I Don't Wanna Be Your IG Story)",
     streetView:
@@ -153,7 +171,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.3067739577149, 114.18289026614131],
-    artist: "林家謙 Terence Lam",
+    artists: ["林家謙 Terence Lam"],
     address: "Ho Man Tin & various locations",
     name: " 《普渡眾生》 - 電影",
     streetView:
@@ -163,7 +181,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.282396863718144, 114.1524964001634],
-    artist: "Dear Jane",
+    artists: ["Dear Jane"],
     address: "Around Central",
     name: "未開始已經結束 (Ended Before We Even Started)",
     streetView:
@@ -175,15 +193,15 @@ const RAW_LOCATIONS = [
     coordinates: [22.3118286, 114.186127],
     streetView:
       "https://www.google.com/maps/place/Boston+restaurant/@22.3118286,114.186127,3a,20.7y,112.21h,74.13t/data=!3m7!1e1!3m5!1sHxri6Bk3IK0N7CEqYmAtZg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.867936901216908%26panoid%3DHxri6Bk3IK0N7CEqYmAtZg%26yaw%3D112.20733141427111!7i16384!8i8192!4m6!3m5!1s0x340400deb2a3fff1:0xbc804a6339445298!8m2!3d22.3118659!4d114.1863231!16s%2Fg%2F1tffx2x5?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
-    artist: "moon tang & Kiri T ",
+    artists: ["moon tang", "Kiri T"],
     address: "Boston Restaurant",
-    name: "i hate u owe me $$$",
+    name: "i hate u owe me $$$ (en)",
     url: "https://youtu.be/4hRZudEMff8?t=13",
     image: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
   },
   {
     coordinates: [22.368659777303858, 114.11300064743985],
-    artist: "MC 張天賦",
+    artists: ["MC 張天賦"],
     address: "Nina Hotel Tsuen Wan West",
     name: "記憶棉 Pillow Talk",
     url: "https://www.youtube.com/watch?v=YZPFbnk_RS0",
@@ -191,7 +209,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.286483244707423, 114.22412123018327],
-    artist: "林家謙 Terence Lam",
+    artists: ["林家謙 Terence Lam"],
     address: "Sai Wan Ho Ferry Pier",
     name: "《四月物語》April Whispers",
     url: "https://www.youtube.com/watch?v=325j6LVzpYI",
@@ -199,7 +217,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.285186191915162, 114.14823550450804],
-    artist: "Edan 呂爵安 ",
+    artists: ["Edan 呂爵安"],
     address: "Tai Ping Shan",
     name: "《E先生連環不幸事件》",
     url: "https://youtu.be/7FPL4DRizgk?t=163",
@@ -209,7 +227,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.334387844185283, 114.12895972674531],
-    artist: "Yan Ting 周殷廷 ",
+    artists: ["Yan Ting 周殷廷"],
     address: "Container Port Road",
     name: "意外現場 METANOIA",
     url: "https://www.youtube.com/watch?v=YZTdYEJvVBU",
@@ -217,7 +235,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.29904788270136, 114.15558672262901],
-    artist: "Zpecial",
+    artists: ["Zpecial"],
     address: "West Kowloon Art Park",
     name: "《深夜告別練習》",
     url: "https://www.youtube.com/watch?v=dVgmEuwMPxo",
@@ -225,7 +243,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.397007979454223, 114.19462980063042],
-    artist: "DAY 許軼",
+    artists: ["DAY 許軼"],
     address: "Au Pui Wan St, Sha Tin (Estimation)",
     name: "《Wait A Second》",
     url: "https://www.youtube.com/watch?v=4ZRo4BrJdU4",
@@ -233,7 +251,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.294262905901675, 114.17187443107473],
-    artist: "MC 張天賦",
+    artists: ["MC 張天賦"],
     address: "HK Space Museum",
     name: "世一 The One For U",
     url: "https://www.youtube.com/watch?v=ESmaELNy8GE",
@@ -241,7 +259,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.375363303213085, 114.11323532131911],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "IKEA",
     name: "房屋供應問題",
     url: "https://www.youtube.com/watch?v=O96-8g_6NII",
@@ -249,9 +267,9 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [-8.65321318543236, 115.13240595625565],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Bottega Italiana",
-    name: "一口一",
+    name: "一口一 (zh)",
     streetView:
       "https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=tWPQSKm5WyQ",
@@ -259,7 +277,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.480945015645847, 114.15602924346081],
-    artist: "moon tang & Marf邱彥筒",
+    artists: ["moon tang", "Marf 邱彥筒"],
     address: "near Yuk Hing Temple",
     name: "grwm",
     url: "https://youtu.be/aqDDCiZoJIY?t=44",
@@ -269,7 +287,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.286156071954025, 114.14081848365555],
-    artist: "Dear Jane",
+    artists: ["Dear Jane"],
     address: "Second Street",
     name: "銀河修理員 Galactic Repairman",
     url: "https://youtu.be/sg8V5BLMEhE?t=138",
@@ -279,7 +297,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.276876218375246, 114.1230363750542],
-    artist: "陳奕迅 Eason Chan ",
+    artists: ["陳奕迅 Eason Chan"],
     address: "Mt. Davis Battery",
     name: "陀飛輪",
     url: "https://www.youtube.com/watch?v=URUIcYDq3_I",
@@ -287,9 +305,9 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.268444112797834, 114.18686345380075],
-    artist: "Kiri T, Gareth T, Gordon Flanders & moon tang",
+    artists: ["Kiri T", "Gareth T", "Gordon Flanders", "moon tang"],
     address: "Coffeelin",
-    name: "Christmas Playlist",
+    name: "Christmas Playlist (en)",
     streetView:
       "https://www.google.com/maps/place/22%C2%B016'06.4%22N+114%C2%B011'12.7%22E/@22.268567,114.1868155,3a,75y,147.02h,82.82t/data=!3m7!1e1!3m5!1ss1bn_R27bLHP8vrV5M0sPw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.1787387254073565%26panoid%3Ds1bn_R27bLHP8vrV5M0sPw%26yaw%3D147.02454317766063!7i16384!8i8192!4m4!3m3!8m2!3d22.2684441!4d114.1868635?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=SHFZkBPub5c",
@@ -297,7 +315,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [34.70259615177415, 135.49608298379817],
-    artist: "Cloud 雲浩影",
+    artists: ["Cloud 雲浩影"],
     address: "Osaka (Estimation)",
     name: "回憶半分鐘 Memento",
     url: "https://www.youtube.com/watch?v=oSeRj1sW3To",
@@ -305,7 +323,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [35.66997711629859, 139.7061296885545],
-    artist: "陳蕾 Panther Chan",
+    artists: ["陳蕾 Panther Chan"],
     address: "Shibuya Restaurants",
     name: "相信一切是最好的安排 (In Good Hands)",
     url: "https://www.youtube.com/watch?v=RJFcyoDhzKU",
@@ -313,7 +331,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [25.08684077657262, 121.48108208383434],
-    artist: "MC張天賦",
+    artists: ["MC 張天賦"],
     address: "Tainan (Estimation)",
     name: "抽 Inhale",
     url: "https://www.youtube.com/watch?v=JmjKVtw6BrQ",
@@ -321,7 +339,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [35.71418744329801, 139.77755003071206],
-    artist: "洪嘉豪 Hung Kaho",
+    artists: ["洪嘉豪 Hung Kaho"],
     address: "Ueno Station (Estimation)",
     name: "黑玻璃 Tinted Windows",
     url: "https://www.youtube.com/watch?v=Rp4iHpTvBY8",
@@ -329,7 +347,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.27703996311955, 114.16131794662428],
-    artist: "Faye Wong 王菲",
+    artists: ["Faye Wong 王菲"],
     address: "Olympic Square (Estimation)",
     name: "無奈那天",
     url: "https://www.youtube.com/watch?v=_zomc3Nz_-s",
@@ -337,7 +355,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.361638356138272, 114.1073902050347],
-    artist: "Kiri T",
+    artists: ["Kiri T"],
     address: "North Tsing Yi (Estimation)",
     name: "哀傷和愛上算不算同音字 (Is love enough)",
     url: "https://www.youtube.com/watch?v=8Pvj_lEapJ4",
@@ -345,7 +363,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.221232130006396, 114.19814778230364],
-    artist: "Marf",
+    artists: ["Marf 邱彥筒"],
     address: "Near South Bay Beach (?)",
     name: "I'm Marf-elous",
     url: "https://www.youtube.com/watch?v=oAgXQwQtoHE",
@@ -353,7 +371,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.305281524932298, 114.16992231540047],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Jordan Street",
     name: "霓虹黯色 - 《傾城》選曲 (cover)",
     url: "https://www.youtube.com/watch?v=jQHM-dB4NXg",
@@ -361,7 +379,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [25.053851659626282, 121.52030632579022],
-    artist: "Nancy Kwai",
+    artists: ["Nancy Kwai"],
     address: "Vacanza Accessory Cafe",
     streetView:
       "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
@@ -371,7 +389,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.287147009589365, 114.1592487574377],
-    artist: "Kiri T",
+    artists: ["Kiri T"],
     address: "Central Ferry Pier (?)",
     name: "傷心的時候別説話 Beyond Words",
     url: "https://www.youtube.com/watch?v=CjGGpzZN2P0",
@@ -379,7 +397,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.246342882117737, 114.1761378888844],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Sea Life",
     name: "戀人絮語",
     url: "https://youtu.be/SmlOWWRJZcc?t=124",
@@ -389,7 +407,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.280477738664846, 114.1857419378452],
-    artist: "Kiri T",
+    artists: ["Kiri T"],
     address: "Great George Street",
     streetView:
       "https://www.google.com/maps/@22.2804309,114.1855097,3a,75y,75.41h,79.06t/data=!3m7!1e1!3m5!1sg375DufGdUJujemIJNByEA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D10.937259800306904%26panoid%3Dg375DufGdUJujemIJNByEA%26yaw%3D75.40512162212868!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
@@ -399,7 +417,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.243714192525864, 114.22165535643198],
-    artist: "Kiri T",
+    artists: ["Kiri T"],
     streetView:
       "https://www.google.com/maps/@22.2447515,114.2211254,3a,75y,336.32h,81.11t/data=!3m7!1e1!3m5!1s3pJUCqvY23a8I70qY_bMjg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D8.893341064367647%26panoid%3D3pJUCqvY23a8I70qY_bMjg%26yaw%3D336.32179936240084!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D",
     address: "Tai Tam Tuk",
@@ -409,7 +427,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.338096905356913, 114.18373215318775],
-    artist: "Cloud 雲浩影",
+    artists: ["Cloud 雲浩影"],
     address: "Junction Road Park Tennis Courts",
     name: "別畏高 Acrophobia",
     url: "https://www.youtube.com/watch?v=JTsi1Bc8zuk",
@@ -419,7 +437,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.372380870346085, 113.98814799363147],
     streetView:
       "https://www.google.com/maps/@22.372946,113.9885462,3a,75y,276.89h,89.15t/data=!3m7!1e1!3m5!1sCGSk_CAhmTSznEYci6zFaQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0.8542203553719503%26panoid%3DCGSk_CAhmTSznEYci6zFaQ%26yaw%3D276.8895835171635!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxNy4wIKXMDSoASAFQAw%3D%3D",
-    artist: "Gordon Flanders",
+    artists: ["Gordon Flanders"],
     address: "Golden Beach",
     name: "冬天一個遊",
     url: "https://youtu.be/oVpmZoj9mOM?t=37",
@@ -427,7 +445,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.246050823338784, 114.14459785038378],
-    artist: "Gareth T",
+    artists: ["Gareth T"],
     address: "Aberdeen Fishing Village",
     name: "勁浪漫 超溫馨",
     url: "https://www.youtube.com/watch?v=YPJljJJzKFo",
@@ -435,7 +453,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.997512585996827, 120.21257852590679],
-    artist: "Cloud雲浩影",
+    artists: ["Cloud 雲浩影"],
     address: "Tainan Train Station Front Station",
     name: "你的損失 your loss , not mine",
     url: "https://www.youtube.com/watch?v=N_bghNhUpkA",
@@ -443,7 +461,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [43.30424161106344, 5.39431220992521],
-    artist: "moon tang",
+    artists: ["moon tang"],
     address: "Longchamp",
     name: "趁你旅行時搬走",
     streetView:
