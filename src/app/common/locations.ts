@@ -78,6 +78,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
   },
   {
+    coordinates: [22.325305480711116, 114.16367494918416],
+    artists: ["張蔓姿 Gigi"],
+    address: "Tai Kok Tsui",
+    name: "不言自明 (Frequency)",
+    streetView: "https://maps.app.goo.gl/Gzs1krr2H9XknBZa7",
+    url: "https://youtu.be/2RPuyWSUJP0?t=14",
+    image: "https://i.ytimg.com/vi/2RPuyWSUJP0/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.308195267462157, 114.17169792196543],
     artists: ["張蔓姿 Gigi"],
     address: "Eaton HK, Yau Ma Tei",
@@ -393,7 +402,7 @@ const RAW_LOCATIONS = [
     streetView:
       "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     name: "歸綽嶢 - Let go",
-    url: "hhttps://youtu.be/CbpX1RgSOl8?t=143",
+    url: "https://youtu.be/CbpX1RgSOl8?t=143",
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
   {
