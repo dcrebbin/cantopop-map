@@ -87,6 +87,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/JEOhR2zApI4/maxresdefault.jpg",
   },
   {
+    coordinates: [22.309840668354344, 114.17015110041449],
+    artists: ["Gareth T"],
+    address: "Yau Ma Tei Community Rest Garden",
+    name: "let me know (en)",
+    streetView: "https://maps.app.goo.gl/Pcfdfp4vxtmVSjYz8",
+    url: "https://youtu.be/FNtirnQzweQ?t=94",
+    image: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.3392477451512, 114.1702242800071],
     artists: ["張蔓姿 Gigi"],
     address: "Shek Kip Mei Park",
