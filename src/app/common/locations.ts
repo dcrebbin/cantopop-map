@@ -78,6 +78,24 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
   },
   {
+    coordinates: [25.05590865962602, 121.52047332658746],
+    artists: ["張蔓姿 Gigi"],
+    address: "Coffee Dumbo",
+    name: "過電 (Connected)",
+    streetView: "https://maps.app.goo.gl/WKDK9JtNDwx5B5m59",
+    url: "https://youtu.be/JEOhR2zApI4?t=7",
+    image: "https://i.ytimg.com/vi/JEOhR2zApI4/maxresdefault.jpg",
+  },
+  {
+    coordinates: [22.3392477451512, 114.1702242800071],
+    artists: ["張蔓姿 Gigi"],
+    address: "Shek Kip Mei Park",
+    name: "不眠遊戲 (SLEEPLESS GAME)",
+    streetView: "https://maps.app.goo.gl/2xAZxAwLAEUB6hNU7",
+    url: "https://youtu.be/Pv-v5502KxU?t=15",
+    image: "https://i.ytimg.com/vi/Pv-v5502KxU/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.325305480711116, 114.16367494918416],
     artists: ["張蔓姿 Gigi"],
     address: "Tai Kok Tsui",
@@ -160,7 +178,7 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
   },
   {
-    coordinates: [22.33865812105351, 114.17100484175822],
+    coordinates: [22.3382397656572, 114.17155355139583],
     artists: ["moon tang"],
     address: "Shek Kip Mei Park",
     name: "i hate u (en)",
