@@ -49,6 +49,15 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/u14rrcxENDw/hq720.jpg",
   },
   {
+    coordinates: [22.9884936, 120.2209808],
+    artists: ["Marf 邱彈"],
+    address: "Tainan, Taiwan",
+    name: "Love me down",
+    url: "https://youtu.be/AgEkYyeu3Jg?t=115",
+    streetView: "https://maps.app.goo.gl/qXgnNfKoZHzybtRp6",
+    image: "https://i.ytimg.com/vi/AgEkYyeu3Jg/hq720.jpg",
+  },
+  {
     coordinates: [22.200515988665213, 113.54521352526373],
     artists: ["林靜翬 winifai"],
     address: "愛星屋",
