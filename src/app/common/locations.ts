@@ -516,6 +516,22 @@ const RAW_LOCATIONS = [
   },
 ];
 
+export function constructTitle(location: LocationItem) {
+  const songTitle = location?.name.replace(/ /g, "-") ?? "";
+  const artists = location?.artists.join("-").replace(/ /g, "-") ?? "";
+
+  return `${artists}-${songTitle}`;
+}
+
+export const nameToLocation = RAW_LOCATIONS.reduce(
+  (acc, location) => {
+    const title = constructTitle(LocationItemSchema.parse(location));
+    acc[title] = LocationItemSchema.parse(location);
+    return acc;
+  },
+  {} as Record<string, LocationItem>,
+);
+
 // Validate and normalize at module load; throws early if data is invalid
 export const LOCATIONS: LocationItem[] = z
   .array(LocationItemSchema)

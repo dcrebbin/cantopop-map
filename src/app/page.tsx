@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { LOCATIONS } from "./common/locations";
+import { constructTitle, LOCATIONS, nameToLocation } from "./common/locations";
 import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
@@ -54,6 +54,28 @@ export default function Home() {
     popup.setLngLat([data.lng, data.lat]);
   }
 
+  useEffect(() => {
+    const url = new URLSearchParams(window.location.search);
+    const title = url.get("title");
+    if (title) {
+      const location = nameToLocation[title];
+      if (location) {
+        map.current?.flyTo({
+          center: [location.lng, location.lat],
+          zoom: 15,
+        });
+      }
+
+      if (!map.current || !location) return;
+
+      const locationData = new mapboxgl.LngLat(location.lng, location.lat);
+      map.current?.flyTo({
+        center: locationData,
+        zoom: 15,
+      });
+    }
+  }, []);
+
   function createCustomMarker(popup: mapboxgl.Popup, data: LocationItem) {
     const markerElement = document.createElement("div");
 
@@ -65,6 +87,9 @@ export default function Home() {
       const contentIsVisible = markerElement.classList.contains("visible");
       const { lastPopup: currentLastPopup, lastMarker: currentLastMarker } =
         useMapStore.getState();
+
+      const songTitle = constructTitle(data);
+      window.history.pushState({}, "", `/?title=${songTitle}`);
 
       if (contentIsVisible) {
         hidePopup(popup, markerElement);
