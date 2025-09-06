@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className="absolute bottom-0 z-[999999] flex h-14 w-full items-center justify-center bg-transparent">
+    <div className="absolute bottom-0 z-[90] flex h-14 w-full items-center justify-center bg-transparent">
       <a
         href="https://github.com/dcrebbin/cantopop-map/issues"
         target="_blank"
