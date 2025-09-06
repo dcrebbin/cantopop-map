@@ -296,11 +296,12 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
   },
   {
-    coordinates: [22.397007979454223, 114.19462980063042],
+    coordinates: [22.4085224, 114.2204968],
     artists: ["DAY 許軼"],
-    address: "Au Pui Wan St, Sha Tin (Estimation)",
+    address: "Tai Shui Hang",
     name: "《Wait A Second》",
     url: "https://www.youtube.com/watch?v=4ZRo4BrJdU4",
+    streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
     image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
   },
   {
