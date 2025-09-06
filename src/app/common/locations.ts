@@ -300,7 +300,7 @@ const RAW_LOCATIONS = [
     artists: ["DAY 許軼"],
     address: "Tai Shui Hang",
     name: "《Wait A Second》",
-    url: "https://www.youtube.com/watch?v=4ZRo4BrJdU4",
+    url: "https://youtu.be/4ZRo4BrJdU4?t=22",
     streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
     image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
   },
