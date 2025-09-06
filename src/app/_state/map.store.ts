@@ -8,6 +8,8 @@ interface MapState {
   lastMarker: HTMLDivElement | null;
   setLastPopup: (popup: mapboxgl.Popup) => void;
   setLastMarker: (marker: HTMLDivElement) => void;
+  allMarkers: HTMLDivElement[];
+  addMarker: (marker: HTMLDivElement) => void;
 }
 
 export const useMapStore = create<MapState>((set) => ({
@@ -18,4 +20,7 @@ export const useMapStore = create<MapState>((set) => ({
   setLastPopup: (popup: mapboxgl.Popup) => set({ lastPopup: popup }),
   lastMarker: null,
   setLastMarker: (marker: HTMLDivElement) => set({ lastMarker: marker }),
+  allMarkers: [],
+  addMarker: (marker: HTMLDivElement) =>
+    set((state) => ({ allMarkers: [...state.allMarkers, marker] })),
 }));

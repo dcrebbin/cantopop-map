@@ -546,3 +546,7 @@ export const nameToLocation = RAW_LOCATIONS.reduce(
 export const LOCATIONS: LocationItem[] = z
   .array(LocationItemSchema)
   .parse(RAW_LOCATIONS);
+
+export const ARTISTS = [
+  ...new Set(LOCATIONS.map((location) => location.artists).flat()),
+];

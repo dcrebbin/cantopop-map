@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { constructTitle, LOCATIONS, nameToLocation } from "./common/locations";
+import {
+  ARTISTS,
+  constructTitle,
+  LOCATIONS,
+  nameToLocation,
+} from "./common/locations";
 import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
@@ -14,8 +19,14 @@ mapboxgl.accessToken =
 export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-
-  const { setSelectedLocationId, clearSelectedLocation } = useMapStore();
+  const [selectedArtists, setSelectedArtists] = useState<string[]>([]);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const {
+    setSelectedLocationId,
+    clearSelectedLocation,
+    allMarkers,
+    addMarker,
+  } = useMapStore();
 
   const zoom = 10;
   const center = [114.16819296950341, 22.31382741410536];
@@ -44,13 +55,16 @@ export default function Home() {
 
     if (!map.current) return;
 
+    const markerElement = createCustomMarker(popup, data);
+
     new mapboxgl.Marker({
-      element: createCustomMarker(popup, data),
+      element: markerElement,
       anchor: "bottom",
     })
       .setLngLat([data.lng, data.lat])
       .addTo(map.current);
 
+    addMarker(markerElement);
     popup.setLngLat([data.lng, data.lat]);
   }
 
@@ -75,6 +89,14 @@ export default function Home() {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedArtists.length === 0) {
+      allMarkers.forEach((marker) => {
+        marker.style.display = "block";
+      });
+    }
+  }, [allMarkers, selectedArtists]);
 
   function createCustomMarker(popup: mapboxgl.Popup, data: LocationItem) {
     const markerElement = document.createElement("div");
@@ -106,8 +128,10 @@ export default function Home() {
         useMapStore.getState().setLastMarker(markerElement);
       }
     };
+    markerElement.dataset.artist = data.artists.join(", ");
     markerElement.style.marginTop = "40px";
     markerElement.appendChild(image);
+
     return markerElement;
   }
 
@@ -176,10 +200,75 @@ export default function Home() {
     return container;
   }
 
+  function handleArtistCheckboxChange(artist: string) {
+    const newSelectedArtists = selectedArtists.includes(artist)
+      ? selectedArtists.filter((a) => a !== artist)
+      : [...selectedArtists, artist];
+
+    setSelectedArtists(newSelectedArtists);
+
+    allMarkers.forEach((marker) => {
+      const markerArtists = marker.dataset.artist?.split(", ") ?? [];
+
+      if (newSelectedArtists.length === 0) {
+        marker.style.display = "block";
+      } else {
+        const hasSelectedArtist = newSelectedArtists.some((selectedArtist) =>
+          markerArtists.includes(selectedArtist),
+        );
+        marker.style.display = hasSelectedArtist ? "block" : "none";
+      }
+    });
+  }
+
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">
       <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
         <Appbar />
+        <div className="absolute right-0 top-0 z-[100] m-0 p-8">
+          <button
+            className="absolute right-0 top-0 z-20 mr-3"
+            onClick={() => {
+              setMenuOpen(!menuOpen);
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="white"
+              className={`size-12 cursor-pointer ${menuOpen ? "rotate-90 transition-transform duration-300" : ""}`}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <div
+            className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-y-auto rounded-md bg-black/10 p-2 backdrop-blur-md lg:h-[40rem] lg:w-80`}
+          >
+            <div className="flex flex-col gap-2">
+              <h1 className="text-2xl text-white">Artists</h1>
+              {ARTISTS.map((artist: string) => (
+                <div
+                  key={artist}
+                  className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
+                >
+                  {artist}{" "}
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 cursor-pointer rounded-full border-none"
+                    checked={selectedArtists.includes(artist)}
+                    onChange={() => handleArtistCheckboxChange(artist)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
         <Footer />
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`

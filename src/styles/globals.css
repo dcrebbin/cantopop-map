@@ -6,3 +6,7 @@
   font-family: "Cute";
   src: url("/fonts/cantopop.woff2") format("woff2");
 }
+
+input[type="checkbox"] {
+  border: none;
+}
