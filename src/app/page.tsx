@@ -13,6 +13,7 @@ import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
 import Footer from "./components/footer";
+import { share } from "@trpc/server/observable";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
@@ -179,8 +180,26 @@ export default function Home() {
 		c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"/>
 </g>
 </svg>`;
+
     videoUrl.appendChild(svg);
     linksContainer.appendChild(videoUrl);
+
+    const shareButton = document.createElement("button");
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    shareButton.addEventListener("click", async () => {
+      await navigator.share({
+        title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
+        url: document.URL,
+      });
+    });
+
+    const shareSvg = document.createElement("svg");
+    shareSvg.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+</svg>
+`;
+    shareButton.appendChild(shareSvg);
+    linksContainer.appendChild(shareButton);
 
     const locationUrl = document.createElement("a");
     locationUrl.href =
