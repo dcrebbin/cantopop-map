@@ -526,7 +526,9 @@ const RAW_LOCATIONS = [
   },
 ];
 
-export function constructTitle(location: LocationItem) {
+export function constructTitle(
+  location: LocationItem | { name: string; artists: string[] },
+) {
   const songTitle = location?.name.replace(/ /g, "-") ?? "";
   const artists = location?.artists.join("-").replace(/ /g, "-") ?? "";
 
@@ -549,4 +551,12 @@ export const LOCATIONS: LocationItem[] = z
 
 export const ARTISTS = [
   ...new Set(LOCATIONS.map((location) => location.artists).flat()),
+];
+
+export const SONGS = [
+  ...new Set(
+    LOCATIONS.map((location) => {
+      return { name: location.name, artists: location.artists };
+    }),
+  ),
 ];

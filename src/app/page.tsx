@@ -8,6 +8,7 @@ import {
   constructTitle,
   LOCATIONS,
   nameToLocation,
+  SONGS,
 } from "./common/locations";
 import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
@@ -21,6 +22,10 @@ export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const [selectedArtists, setSelectedArtists] = useState<string[]>([]);
+  const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
+  const [filteredArtists, setFilteredArtists] = useState<string[]>(ARTISTS);
+  const [filteredSongs, setFilteredSongs] =
+    useState<{ name: string; artists: string[] }[]>(SONGS);
   const [menuOpen, setMenuOpen] = useState(false);
   const {
     setSelectedLocationId,
@@ -92,12 +97,12 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (selectedArtists.length === 0) {
+    if (selectedArtists.length === 0 && selectedSongs.length === 0) {
       allMarkers.forEach((marker) => {
         marker.style.display = "block";
       });
     }
-  }, [allMarkers, selectedArtists]);
+  }, [allMarkers, selectedArtists, selectedSongs]);
 
   function createCustomMarker(popup: mapboxgl.Popup, data: LocationItem) {
     const markerElement = document.createElement("div");
@@ -130,6 +135,7 @@ export default function Home() {
       }
     };
     markerElement.dataset.artist = data.artists.join(", ");
+    markerElement.dataset.song = data.name;
     markerElement.style.marginTop = "40px";
     markerElement.appendChild(image);
 
@@ -231,6 +237,27 @@ export default function Home() {
     return container;
   }
 
+  function handleSongCheckboxChange(song: string) {
+    const newSelectedSongs = selectedSongs.includes(song)
+      ? selectedSongs.filter((s) => s !== song)
+      : [...selectedSongs, song];
+
+    setSelectedSongs(newSelectedSongs);
+
+    allMarkers.forEach((marker) => {
+      const markerSongs = marker.dataset.song?.split(", ") ?? [];
+
+      if (newSelectedSongs.length === 0) {
+        marker.style.display = "block";
+      } else {
+        const hasSelectedSong = newSelectedSongs.some((selectedSong) =>
+          markerSongs.includes(selectedSong),
+        );
+        marker.style.display = hasSelectedSong ? "block" : "none";
+      }
+    });
+  }
+
   function handleArtistCheckboxChange(artist: string) {
     const newSelectedArtists = selectedArtists.includes(artist)
       ? selectedArtists.filter((a) => a !== artist)
@@ -252,12 +279,31 @@ export default function Home() {
     });
   }
 
+  function handleSearchChange(search: string) {
+    const artists = ARTISTS.filter((artist) => artist.includes(search));
+    const songs = SONGS.filter((song) => song.name.includes(search));
+    setFilteredArtists(artists);
+    setFilteredSongs(songs);
+  }
+
+  function handleSongSelection(song: { name: string; artists: string[] }) {
+    const title = constructTitle(song);
+    const location = nameToLocation[title];
+    if (location) {
+      map.current?.flyTo({
+        center: [location.lng, location.lat],
+        zoom: 15,
+      });
+    }
+  }
+
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">
       <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
         <Appbar />
         <div className="absolute right-0 top-0 z-[100] m-0 p-8">
           <button
+            type="button"
             className="absolute right-0 top-0 z-20 mr-3"
             onClick={() => {
               setMenuOpen(!menuOpen);
@@ -269,34 +315,77 @@ export default function Home() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="white"
-              className={`size-12 cursor-pointer ${menuOpen ? "rotate-90 transition-transform duration-300" : ""}`}
+              className={
+                "m-2 size-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)] " +
+                (menuOpen ? "rotate-90 transition-transform duration-300" : "")
+              }
             >
+              <title>Menu</title>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
               />
             </svg>
           </button>
           <div
-            className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-y-auto rounded-md bg-black/10 p-2 backdrop-blur-md lg:h-[40rem] lg:w-80`}
+            className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-y-auto rounded-md bg-black/10 p-2 backdrop-blur-md lg:h-[46rem] lg:w-80`}
           >
             <div className="flex flex-col gap-2">
-              <h1 className="text-2xl text-white">Artists</h1>
-              {ARTISTS.map((artist: string) => (
-                <div
-                  key={artist}
-                  className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
-                >
-                  {artist}{" "}
-                  <input
-                    type="checkbox"
-                    className="h-4 w-4 cursor-pointer rounded-full border-none"
-                    checked={selectedArtists.includes(artist)}
-                    onChange={() => handleArtistCheckboxChange(artist)}
-                  />
-                </div>
-              ))}
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full rounded-md border-none p-2"
+                onChange={(e) => handleSearchChange(e.target.value)}
+              />
+              <div className="flex h-auto max-h-[22rem] flex-col gap-2 overflow-y-auto">
+                <h1 className="text-2xl text-white">Artists</h1>
+                <hr className="my-1" />
+                {filteredArtists.map((artist: string) => (
+                  <div
+                    key={artist}
+                    className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
+                  >
+                    {artist}{" "}
+                    <input
+                      type="checkbox"
+                      aria-label={artist}
+                      className="h-4 w-4 cursor-pointer rounded-full border-none"
+                      checked={selectedArtists.includes(artist)}
+                      onChange={() => handleArtistCheckboxChange(artist)}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="flex h-auto max-h-[22rem] flex-col gap-2 overflow-y-auto">
+                <h1 className="text-2xl text-white">Songs</h1>
+                <hr className="my-1" />
+                {filteredSongs.map(
+                  (song: { name: string; artists: string[] }) => (
+                    <div
+                      key={song.name}
+                      className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
+                    >
+                      <button
+                        type="button"
+                        className="w-full text-left underline"
+                        onClick={() => handleSongSelection(song)}
+                      >
+                        {" "}
+                        {song.name}{" "}
+                      </button>
+
+                      <input
+                        type="checkbox"
+                        aria-label={song.name}
+                        className="h-4 w-4 cursor-pointer rounded-full border-none"
+                        checked={selectedSongs.includes(song.name)}
+                        onChange={() => handleSongCheckboxChange(song.name)}
+                      />
+                    </div>
+                  ),
+                )}
+              </div>
             </div>
           </div>
         </div>
