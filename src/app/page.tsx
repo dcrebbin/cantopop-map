@@ -117,9 +117,9 @@ export default function Home() {
         useMapStore.getState();
 
       const songTitle = constructTitle(data);
-      window.history.pushState({}, "", `/?title=${songTitle}`);
 
       if (contentIsVisible) {
+        window.history.pushState({}, "", "/");
         hidePopup(popup, markerElement);
       } else {
         if (currentLastPopup !== null && currentLastMarker !== null) {
@@ -132,6 +132,7 @@ export default function Home() {
         setSelectedLocationId(data.id);
         useMapStore.getState().setLastPopup(popup);
         useMapStore.getState().setLastMarker(markerElement);
+        window.history.pushState({}, "", `/?title=${songTitle}`);
       }
     };
     markerElement.dataset.artist = data.artists.join(", ");
