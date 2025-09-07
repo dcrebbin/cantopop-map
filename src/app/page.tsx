@@ -50,7 +50,7 @@ export default function Home() {
       focusAfterOpen: false,
     });
 
-    const targetMap = mapInstance || map;
+    const targetMap = mapInstance ?? map;
     if (!targetMap) return;
 
     const markerElement = createCustomMarker(popup, data, targetMap);
