@@ -48,7 +48,11 @@ export default function Menu() {
 
   function handleSearchChange(search: string) {
     const artists = ARTISTS.filter((artist) => artist.includes(search));
-    const songs = SONGS.filter((song) => song.name.includes(search));
+    const songs = SONGS.filter(
+      (song) =>
+        song.name.includes(search) ||
+        song.artists.some((artist) => artist.includes(search)),
+    );
     setFilteredArtists(artists);
     setFilteredSongs(songs);
   }
@@ -76,6 +80,13 @@ export default function Menu() {
       });
     }
   }, [allMarkers, selectedArtists]);
+
+  const artistsToShow = Array.from(
+    new Set([
+      ...filteredArtists,
+      ...filteredSongs.flatMap((song) => song.artists),
+    ]),
+  );
 
   return (
     <div className="absolute right-0 top-0 z-[100] m-0 p-8">
@@ -109,7 +120,7 @@ export default function Menu() {
         </svg>
       </button>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-y-auto rounded-md bg-black/10 p-2 backdrop-blur-md lg:h-[50rem] lg:w-[30rem]`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-y-auto rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
       >
         <div className="flex flex-col gap-2">
           <input
@@ -119,63 +130,64 @@ export default function Menu() {
             className="w-full rounded-md border-none p-2"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
-          <h1 className="text-2xl text-white">Artists</h1>
-          <div className="flex h-auto max-h-[18rem] flex-col gap-2 overflow-y-auto lg:max-h-[20rem]">
-            <hr className="my-1" />
-            {filteredArtists.map((artist: string) => (
-              <div
-                key={artist}
-                className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
-              >
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center justify-between text-left"
-                  onClick={() => handleArtistCheckboxChange(artist)}
+          <div className="flex h-auto flex-col gap-2 overflow-y-auto">
+            {artistsToShow.map((artist: string) => {
+              const songsForArtist = filteredSongs.filter((song) =>
+                song.artists.includes(artist),
+              );
+              if (songsForArtist.length === 0) return null;
+              return (
+                <div
+                  key={artist}
+                  className="flex w-full flex-col pr-2 text-white"
                 >
-                  {artist}{" "}
-                  <input
-                    type="checkbox"
-                    aria-label={artist}
-                    className="h-4 w-4 cursor-pointer rounded-full border-none"
-                    checked={selectedArtists.includes(artist)}
-                  />
-                </button>
-              </div>
-            ))}
-          </div>
-          <h1 className="text-2xl text-white">Songs</h1>
-          <div className="flex h-auto max-h-[18rem] flex-col gap-2 overflow-y-auto lg:max-h-[20rem]">
-            <hr className="my-1" />
-            {filteredSongs.map((song: { name: string; artists: string[] }) => (
-              <div
-                key={song.name}
-                className="flex w-full flex-col items-center justify-between gap-4 pr-4 text-white"
-              >
-                <button
-                  type="button"
-                  className="my-1 flex w-full cursor-pointer items-center justify-between text-left underline"
-                  onClick={() => handleSongSelection(song)}
-                >
-                  {" "}
-                  {song.name}{" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="white"
-                    className="size-6"
-                  >
-                    <title>Select</title>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                    />
-                  </svg>
-                </button>
-              </div>
-            ))}
+                  <div className="flex w-full flex-row items-center justify-between gap-2 pr-2">
+                    <span className="text-base">{artist}</span>
+                    <button
+                      type="button"
+                      className="flex cursor-pointer items-center gap-2 text-left"
+                      onClick={() => handleArtistCheckboxChange(artist)}
+                    >
+                      <input
+                        type="checkbox"
+                        aria-label={artist}
+                        className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                        checked={selectedArtists.includes(artist)}
+                        readOnly
+                      />
+                    </button>
+                  </div>
+                  <div className="mr-1 mt-1 flex flex-col gap-1 px-6">
+                    {songsForArtist.map((song) => (
+                      <button
+                        key={`${artist}-${song.name}`}
+                        type="button"
+                        className="flex w-full cursor-pointer items-center justify-between text-left underline"
+                        onClick={() => handleSongSelection(song)}
+                      >
+                        <span className="truncate text-sm">{song.name}</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="white"
+                          className="size-5"
+                        >
+                          <title>Select</title>
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                          />
+                        </svg>
+                      </button>
+                    ))}
+                  </div>
+                  <hr className="my-1 opacity-30" />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
