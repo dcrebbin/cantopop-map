@@ -14,7 +14,7 @@ import type { LocationItem } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
 import Footer from "./components/footer";
-import { share } from "@trpc/server/observable";
+import { useIsOnMobile } from "./hooks/useIsOnMobile";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
@@ -33,6 +33,7 @@ export default function Home() {
     allMarkers,
     addMarker,
   } = useMapStore();
+  const isOnMobile = useIsOnMobile();
 
   const zoom = 10;
   const center = [114.16819296950341, 22.31382741410536];
@@ -289,6 +290,10 @@ export default function Home() {
 
   function handleSongSelection(song: { name: string; artists: string[] }) {
     const title = constructTitle(song);
+
+    if (isOnMobile) {
+      setMenuOpen(false);
+    }
     const location = nameToLocation[title];
     if (location) {
       map.current?.flyTo({
@@ -339,27 +344,32 @@ export default function Home() {
                 className="w-full rounded-md border-none p-2"
                 onChange={(e) => handleSearchChange(e.target.value)}
               />
-              <div className="flex h-auto max-h-[22rem] flex-col gap-2 overflow-y-auto">
-                <h1 className="text-2xl text-white">Artists</h1>
+              <h1 className="text-2xl text-white">Artists</h1>
+              <div className="flex h-auto max-h-[18rem] flex-col gap-2 overflow-y-auto lg:max-h-[22rem]">
                 <hr className="my-1" />
                 {filteredArtists.map((artist: string) => (
                   <div
                     key={artist}
                     className="flex w-full flex-row items-center justify-between gap-2 pr-4 text-white"
                   >
-                    {artist}{" "}
-                    <input
-                      type="checkbox"
-                      aria-label={artist}
-                      className="h-4 w-4 cursor-pointer rounded-full border-none"
-                      checked={selectedArtists.includes(artist)}
-                      onChange={() => handleArtistCheckboxChange(artist)}
-                    />
+                    <button
+                      type="button"
+                      className="flex w-full cursor-pointer items-center justify-between text-left"
+                      onClick={() => handleArtistCheckboxChange(artist)}
+                    >
+                      {artist}{" "}
+                      <input
+                        type="checkbox"
+                        aria-label={artist}
+                        className="h-4 w-4 cursor-pointer rounded-full border-none"
+                        checked={selectedArtists.includes(artist)}
+                      />
+                    </button>
                   </div>
                 ))}
               </div>
-              <div className="flex h-auto max-h-[22rem] flex-col gap-2 overflow-y-auto">
-                <h1 className="text-2xl text-white">Songs</h1>
+              <h1 className="text-2xl text-white">Songs</h1>
+              <div className="flex h-auto max-h-[18rem] flex-col gap-2 overflow-y-auto lg:max-h-[22rem]">
                 <hr className="my-1" />
                 {filteredSongs.map(
                   (song: { name: string; artists: string[] }) => (
@@ -369,7 +379,7 @@ export default function Home() {
                     >
                       <button
                         type="button"
-                        className="w-full text-left underline"
+                        className="w-full cursor-pointer text-left underline"
                         onClick={() => handleSongSelection(song)}
                       >
                         {" "}
@@ -390,6 +400,40 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => {
+            navigator.geolocation.getCurrentPosition((position) => {
+              console.log(position);
+              map.current?.flyTo({
+                center: [position.coords.longitude, position.coords.latitude],
+                zoom: 10,
+              });
+            });
+          }}
+          className="absolute bottom-0 right-0 z-[100] m-0 cursor-pointer p-6"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="white"
+            className="size-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
+          >
+            <title>Clear Filters</title>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+            />
+          </svg>
+        </button>
         <Footer />
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`
