@@ -8,10 +8,38 @@ export default function LocationButton() {
     <button
       type="button"
       onClick={async () => {
+        if (typeof window === "undefined") return;
+
+        if (!("geolocation" in navigator)) {
+          alert(
+            "Geolocation is not supported in this browser. Try opening in Safari or Chrome.",
+          );
+          return;
+        }
+
+        if (!window.isSecureContext) {
+          alert(
+            "Location requires HTTPS. On iOS, open this site over https in Safari and allow location.",
+          );
+          return;
+        }
+
+        try {
+          const result = await (
+            navigator as Navigator & { permissions?: Permissions }
+          ).permissions?.query?.({ name: "geolocation" as PermissionName });
+          if (result?.state === "denied") {
+            alert(
+              "Location permission is denied. On iOS: Settings > Privacy & Security > Location Services > Safari Websites > While Using the App, and enable Precise Location. Then reload.",
+            );
+            return;
+          }
+        } catch {
+          console.error("Geolocation permission query failed");
+        }
+
         navigator.geolocation.getCurrentPosition(
           (position) => {
-            console.log(position);
-            alert("test");
             if (!map) return;
             map.flyTo({
               center: [position.coords.longitude, position.coords.latitude],
@@ -20,9 +48,22 @@ export default function LocationButton() {
           },
           (error) => {
             console.error("Geolocation error:", error);
-            alert(
-              "Unable to get your location. Please check your permissions.",
-            );
+            const base = "Unable to get your location.";
+            let message = base;
+            switch (error.code) {
+              case error.PERMISSION_DENIED:
+                message = `${base} Please allow location access. On iOS: Settings > Privacy & Security > Location Services > Safari Websites > While Using the App, and enable Precise Location.`;
+                break;
+              case error.POSITION_UNAVAILABLE:
+                message = `${base} Position unavailable. Try moving to an open area and ensure Location Services are enabled.`;
+                break;
+              case error.TIMEOUT:
+                message = `${base} Request timed out. Try again.`;
+                break;
+              default:
+                message = `${base} Please check your permissions.`;
+            }
+            alert(message);
           },
           {
             enableHighAccuracy: true,
