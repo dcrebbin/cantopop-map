@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { ARTISTS, SONGS } from "../common/locations";
 
 interface NewLocationState {
   songTitle: string;
