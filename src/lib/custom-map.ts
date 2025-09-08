@@ -5,6 +5,7 @@ import { shareIcon } from "./icons/shareIcon";
 import { streetViewIcon } from "./icons/streetViewIcon";
 import { locationIcon } from "./icons/locationIcon";
 import { youtubeIcon } from "./icons/youtubeIcon";
+import { closeIcon } from "./icons/closeIcon";
 
 function createCustomMarker(
   popup: mapboxgl.Popup,
@@ -82,6 +83,7 @@ function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement) {
 
 function createPopupContent(data: LocationItem) {
   const container = document.createElement("div");
+  container.dataset.song = `popup-${data.name}`;
   container.className =
     "max-w-[150px] min-w-[90px] h-fit rounded-md bg-white p-2 flex flex-col items-center justify-center top-24";
   container.tabIndex = -1;
@@ -126,15 +128,31 @@ function createPopupContent(data: LocationItem) {
   shareButton.appendChild(shareSvg);
   linksContainer.appendChild(shareButton);
 
-  const streetViewUrl = document.createElement("a");
-  streetViewUrl.href =
-    data.streetView ??
-    `https://www.google.com/maps/@${data.lat},${data.lng},18z`;
-  streetViewUrl.target = "_blank";
-  const streetViewUrlSvg = document.createElement("svg");
-  streetViewUrlSvg.innerHTML = streetViewIcon;
-  streetViewUrl.appendChild(streetViewUrlSvg);
-  linksContainer.appendChild(streetViewUrl);
+  if (data.streetView) {
+    const streetViewUrl = document.createElement("a");
+    streetViewUrl.href =
+      data.streetView ??
+      `https://www.google.com/maps/@${data.lat},${data.lng},18z`;
+    streetViewUrl.target = "_blank";
+    const streetViewUrlSvg = document.createElement("svg");
+    streetViewUrlSvg.innerHTML = streetViewIcon;
+    streetViewUrl.appendChild(streetViewUrlSvg);
+    linksContainer.appendChild(streetViewUrl);
+  }
+
+  if (data.isCustom) {
+    const deleteButton = document.createElement("button");
+    deleteButton.addEventListener("click", () => {
+      deletePlace(data);
+    });
+    deleteButton.className = "absolute top-0 right-0";
+    linksContainer.appendChild(deleteButton);
+
+    const deleteSvg = document.createElement("svg");
+    deleteSvg.innerHTML = closeIcon;
+    deleteButton.appendChild(deleteSvg);
+    linksContainer.appendChild(deleteButton);
+  }
 
   const locationUrl = document.createElement("a");
   locationUrl.href = `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
@@ -146,4 +164,16 @@ function createPopupContent(data: LocationItem) {
 
   container.appendChild(linksContainer);
   return container;
+}
+
+function deletePlace(data: LocationItem) {
+  const marker = document.querySelector(`[data-song="${data.name}"]`);
+  if (marker) {
+    marker.remove();
+  }
+  const popup = document.querySelector(`[data-song="popup-${data.name}"]`)
+    ?.parentElement?.parentElement as HTMLDivElement;
+  if (popup) {
+    popup.remove();
+  }
 }

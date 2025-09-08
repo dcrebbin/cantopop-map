@@ -2,7 +2,10 @@
 import { useState } from "react";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "../_state/ui.store";
-import { ARTISTS } from "../common/locations";
+import { ARTISTS, LocationItem } from "../common/locations";
+import { addPlace } from "~/lib/custom-map";
+import { useMapStore } from "../_state/map.store";
+import mapboxgl from "mapbox-gl";
 
 export default function NewLocationModal() {
   const { newLocationModalOpen, setNewLocationModalOpen } = useUIStore();
@@ -36,15 +39,49 @@ export default function NewLocationModal() {
     );
   }
 
+  function retrieveVideoIdFromUrl(url: string) {
+    if (url.includes("v=")) {
+      const videoId = url?.split("v=")[1]?.split("&")[0];
+      return videoId;
+    }
+
+    if (url.includes("youtu.be")) {
+      const videoId = url?.split("youtu.be/")[1]?.split("?")[0];
+      return videoId;
+    }
+
+    return null;
+  }
+
   function addLocationMarkerToMap() {
-    console.log(
-      songTitle,
+    if (!locationCoordinates || !songTitle || !artists || !videoUrl || !address)
+      return;
+
+    const imageUrl = `https://i.ytimg.com/vi/${retrieveVideoIdFromUrl(videoUrl)}/maxresdefault.jpg`;
+
+    const lat = parseInt(locationCoordinates.split(",")[0] ?? "0") ?? 0;
+    const lng = parseInt(locationCoordinates.split(",")[1] ?? "0") ?? 0;
+    const newLocation: LocationItem = {
+      id: songTitle,
       artists,
-      videoUrl,
+      url: videoUrl,
+      isCustom: true,
+      image: imageUrl ?? "",
+      lat,
+      lng,
       address,
-      locationCoordinates,
+      name: songTitle,
       streetView,
-    );
+    };
+    const { map } = useMapStore.getState();
+    addPlace(newLocation, map ?? undefined);
+    setNewLocationModalOpen(false);
+
+    const locationData = new mapboxgl.LngLat(lng, lat);
+    map?.flyTo({
+      center: locationData,
+      zoom: 8,
+    });
   }
 
   function handleAddArtist() {

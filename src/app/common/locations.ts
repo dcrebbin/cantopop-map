@@ -9,6 +9,7 @@ const RawLocationSchema = z.object({
   url: z.string().url(),
   image: z.string().url(),
   streetView: z.string().url().optional(),
+  isCustom: z.boolean().optional(),
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
@@ -25,6 +26,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     lat,
     lng,
     streetView: raw.streetView ?? null,
+    isCustom: raw.isCustom ?? false,
   };
 });
 
