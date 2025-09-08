@@ -50,7 +50,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.9884936, 120.2209808],
-    artists: ["Marf 邱彈"],
+    artists: ["Marf 邱彥筒"],
     address: "Tainan, Taiwan",
     name: "Love me down",
     url: "https://youtu.be/AgEkYyeu3Jg?t=115",
