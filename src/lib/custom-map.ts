@@ -48,6 +48,31 @@ function createCustomMarker(
   };
   markerElement.dataset.artist = data.artists.join(", ");
   markerElement.dataset.song = data.name;
+  const contributorNames: string[] = (() => {
+    const result = new Set<string>();
+    const anyData = data as unknown as {
+      contributors?: {
+        song?: Record<string, string[]>;
+        musicVideo?: Record<string, string[]>;
+      } | null;
+    };
+    const contributors = anyData.contributors;
+    if (!contributors) return [];
+    const buckets = [contributors.song, contributors.musicVideo].filter(
+      Boolean,
+    ) as Array<Record<string, string[]>>;
+    for (const bucket of buckets) {
+      for (const role of Object.keys(bucket)) {
+        for (const person of bucket[role] ?? []) {
+          if (person && person.trim().length > 0) result.add(person);
+        }
+      }
+    }
+    return Array.from(result);
+  })();
+  if (contributorNames.length > 0) {
+    markerElement.dataset.contributors = contributorNames.join(", ");
+  }
   markerElement.style.marginTop = "40px";
   markerElement.appendChild(image);
 

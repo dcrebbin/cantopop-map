@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
   ARTISTS,
+  CONTRIBUTORS,
+  CONTRIBUTOR_ROLE_GROUPS,
   constructTitle,
   nameToLocation,
   SONGS,
@@ -16,15 +18,41 @@ export default function Menu() {
     searchRef,
     selectedArtists,
     setSelectedArtists,
+    selectedContributors,
+    setSelectedContributors,
     filteredArtists,
     setFilteredArtists,
     filteredSongs,
     setFilteredSongs,
+    filteredContributors,
+    setFilteredContributors,
     setNewLocationModalOpen,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
+
+  const updateMarkerVisibility = useCallback(
+    (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
+      allMarkers.forEach((marker) => {
+        const markerArtists = marker.dataset.artist?.split(", ") ?? [];
+        const markerContributors =
+          marker.dataset.contributors?.split(", ") ?? [];
+
+        const matchesArtist =
+          nextSelectedArtists.length === 0 ||
+          nextSelectedArtists.some((a) => markerArtists.includes(a));
+
+        const matchesContributor =
+          nextSelectedContributors.length === 0 ||
+          nextSelectedContributors.some((c) => markerContributors.includes(c));
+
+        const shouldShow = matchesArtist && matchesContributor;
+        marker.style.display = shouldShow ? "block" : "none";
+      });
+    },
+    [allMarkers],
+  );
 
   function handleArtistCheckboxChange(artist: string) {
     const newSelectedArtists = selectedArtists.includes(artist)
@@ -32,30 +60,43 @@ export default function Menu() {
       : [...selectedArtists, artist];
 
     setSelectedArtists(newSelectedArtists);
+    updateMarkerVisibility(newSelectedArtists, selectedContributors);
+  }
 
-    allMarkers.forEach((marker) => {
-      const markerArtists = marker.dataset.artist?.split(", ") ?? [];
+  function handleContributorCheckboxChange(contributor: string) {
+    const newSelectedContributors = selectedContributors.includes(contributor)
+      ? selectedContributors.filter((c) => c !== contributor)
+      : [...selectedContributors, contributor];
 
-      if (newSelectedArtists.length === 0) {
-        marker.style.display = "block";
-      } else {
-        const hasSelectedArtist = newSelectedArtists.some((selectedArtist) =>
-          markerArtists.includes(selectedArtist),
-        );
-        marker.style.display = hasSelectedArtist ? "block" : "none";
-      }
-    });
+    setSelectedContributors(newSelectedContributors);
+    updateMarkerVisibility(selectedArtists, newSelectedContributors);
   }
 
   function handleSearchChange(search: string) {
-    const artists = ARTISTS.filter((artist) => artist.includes(search));
+    const q = search.toLowerCase();
+    const artists = ARTISTS.filter((artist) =>
+      artist.toLowerCase().includes(q),
+    );
     const songs = SONGS.filter(
       (song) =>
-        song.name.includes(search) ||
-        song.artists.some((artist) => artist.includes(search)),
+        song.name.toLowerCase().includes(q) ||
+        song.artists.some((artist) => artist.toLowerCase().includes(q)),
+    );
+    const roleMatchedContributors = new Set<string>();
+    CONTRIBUTOR_ROLE_GROUPS.forEach((group) => {
+      if (group.title.toLowerCase().includes(q)) {
+        group.names.forEach((n) => roleMatchedContributors.add(n));
+      }
+    });
+    const contributorsByName = CONTRIBUTORS.filter((c) =>
+      c.toLowerCase().includes(q),
+    );
+    const contributors = Array.from(
+      new Set<string>([...contributorsByName, ...roleMatchedContributors]),
     );
     setFilteredArtists(artists);
     setFilteredSongs(songs);
+    setFilteredContributors(contributors);
   }
 
   function handleSongSelection(song: { name: string; artists: string[] }) {
@@ -75,12 +116,19 @@ export default function Menu() {
   }
 
   useEffect(() => {
-    if (selectedArtists.length === 0) {
+    if (selectedArtists.length === 0 && selectedContributors.length === 0) {
       allMarkers.forEach((marker) => {
         marker.style.display = "block";
       });
+    } else {
+      updateMarkerVisibility(selectedArtists, selectedContributors);
     }
-  }, [allMarkers, selectedArtists]);
+  }, [
+    allMarkers,
+    selectedArtists,
+    selectedContributors,
+    updateMarkerVisibility,
+  ]);
 
   const artistsToShow = Array.from(
     new Set([
@@ -121,7 +169,7 @@ export default function Menu() {
         </svg>
       </button>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-hidden rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 max-h-[100vh] w-[100vw] rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
       >
         <div className="flex flex-col items-center justify-center gap-2">
           <input
@@ -132,7 +180,8 @@ export default function Menu() {
             onChange={(e) => handleSearchChange(e.target.value)}
           />
 
-          <div className="flex h-[87vh] w-full flex-col gap-2 overflow-y-auto pb-20">
+          <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto pb-20 lg:h-[60vh]">
+            <h2 className="text-white">Artists & Songs</h2>
             {artistsToShow.map((artist: string) => {
               const songsForArtist = filteredSongs.filter((song) =>
                 song.artists.includes(artist),
@@ -190,6 +239,49 @@ export default function Menu() {
                 </div>
               );
             })}
+            <h2 className="text-white">Contributors</h2>
+            <div className="flex w-full flex-col gap-2 pr-2 text-white">
+              {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
+                const namesToShow = group.names.filter((n) =>
+                  filteredContributors.includes(n),
+                );
+                if (namesToShow.length === 0) return null;
+                return (
+                  <div
+                    key={`${group.category}-${group.roleKey}`}
+                    className="flex w-full flex-col gap-1"
+                  >
+                    <hr className="my-1 opacity-30" />
+                    <div className="text-base font-semibold">{group.title}</div>
+                    {namesToShow.map((contributor) => (
+                      <div
+                        key={`${group.category}-${group.roleKey}-${contributor}`}
+                        className="flex w-full flex-row items-center justify-between gap-2 pr-2"
+                      >
+                        <button
+                          type="button"
+                          className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
+                          onClick={() =>
+                            handleContributorCheckboxChange(contributor)
+                          }
+                        >
+                          <span className="truncate text-sm">
+                            {contributor}
+                          </span>
+                          <input
+                            type="checkbox"
+                            aria-label={contributor}
+                            className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                            checked={selectedContributors.includes(contributor)}
+                            readOnly
+                          />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
+            </div>
           </div>
           <button
             type="button"

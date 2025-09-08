@@ -48,8 +48,8 @@ export default function NewLocationModal() {
 
     const imageUrl = `https://i.ytimg.com/vi/${retrieveVideoIdFromUrl(videoUrl)}/maxresdefault.jpg`;
 
-    const lat = parseInt(locationCoordinates.split(",")[0] ?? "0") ?? 0;
-    const lng = parseInt(locationCoordinates.split(",")[1] ?? "0") ?? 0;
+    const lat = parseFloat(locationCoordinates.split(",")[0] ?? "0") ?? 0;
+    const lng = parseFloat(locationCoordinates.split(",")[1] ?? "0") ?? 0;
     const newLocation: LocationItem = {
       id: songTitle,
       artists,
@@ -69,7 +69,7 @@ export default function NewLocationModal() {
     const locationData = new mapboxgl.LngLat(lng, lat);
     map?.flyTo({
       center: locationData,
-      zoom: 8,
+      zoom: 13,
     });
 
     resetForm();
