@@ -12,6 +12,8 @@ interface MapState {
   addMarker: (marker: HTMLDivElement) => void;
   map: mapboxgl.Map | null;
   setMap: (map: mapboxgl.Map) => void;
+  personalMarker: mapboxgl.Marker | null;
+  addPersonalMarker: (marker: mapboxgl.Marker) => void;
 }
 
 export const useMapStore = create<MapState>((set) => ({
@@ -27,4 +29,7 @@ export const useMapStore = create<MapState>((set) => ({
     set((state) => ({ allMarkers: [...state.allMarkers, marker] })),
   map: null,
   setMap: (map: mapboxgl.Map) => set({ map }),
+  personalMarker: null,
+  addPersonalMarker: (marker: mapboxgl.Marker) =>
+    set({ personalMarker: marker }),
 }));

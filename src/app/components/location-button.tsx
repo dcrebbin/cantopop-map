@@ -1,3 +1,4 @@
+import mapboxgl from "mapbox-gl";
 import { useMapStore } from "../_state/map.store";
 
 export default function LocationButton() {
@@ -43,8 +44,19 @@ export default function LocationButton() {
             if (!map) return;
             map.flyTo({
               center: [position.coords.longitude, position.coords.latitude],
-              zoom: 10,
+              zoom: 16,
             });
+
+            if (useMapStore.getState().personalMarker) {
+              useMapStore.getState()?.personalMarker?.remove();
+            }
+            const personalMarker = new mapboxgl.Marker({
+              color: "black",
+            })
+              .setLngLat([position.coords.longitude, position.coords.latitude])
+              .addTo(map);
+
+            useMapStore.getState().addPersonalMarker(personalMarker);
           },
           (error) => {
             console.error("Geolocation error:", error);
