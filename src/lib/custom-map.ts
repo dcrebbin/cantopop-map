@@ -122,12 +122,15 @@ function createPopupContent(data: LocationItem) {
   videoUrl.href = data.url;
   videoUrl.target = "_blank";
   const youtubeSvg = document.createElement("svg");
+  youtubeSvg.style.width = "auto";
+  youtubeSvg.style.height = "28px";
   youtubeSvg.innerHTML = youtubeIcon;
   videoUrl.appendChild(youtubeSvg);
   linksContainer.appendChild(videoUrl);
 
   const shareButton = document.createElement("button");
-  shareButton.className = "w-6 h-auto";
+  shareButton.style.width = "24px";
+  shareButton.style.height = "24px";
   shareButton.addEventListener("click", (event) => {
     event.preventDefault();
     void navigator.share({
@@ -137,6 +140,8 @@ function createPopupContent(data: LocationItem) {
   });
 
   const shareSvg = document.createElement("svg");
+  shareSvg.style.width = "24px";
+  shareSvg.style.height = "24px";
   shareSvg.innerHTML = shareIcon;
   shareButton.appendChild(shareSvg);
   linksContainer.appendChild(shareButton);
@@ -148,6 +153,8 @@ function createPopupContent(data: LocationItem) {
       `https://www.google.com/maps/@${data.lat},${data.lng},18z`;
     streetViewUrl.target = "_blank";
     const streetViewUrlSvg = document.createElement("svg");
+    streetViewUrlSvg.style.width = "24px";
+    streetViewUrlSvg.style.height = "24px";
     streetViewUrlSvg.innerHTML = streetViewIcon;
     streetViewUrl.appendChild(streetViewUrlSvg);
     linksContainer.appendChild(streetViewUrl);
@@ -161,6 +168,8 @@ function createPopupContent(data: LocationItem) {
     deleteButton.className = "absolute top-0 right-0";
 
     const deleteSvg = document.createElement("svg");
+    deleteSvg.style.width = "24px";
+    deleteSvg.style.height = "24px";
     deleteSvg.innerHTML = closeIcon;
     deleteButton.appendChild(deleteSvg);
     container.appendChild(deleteButton);
@@ -173,6 +182,8 @@ function createPopupContent(data: LocationItem) {
     editButton.style.left = "0";
 
     const editSvg = document.createElement("svg");
+    editSvg.style.width = "24px";
+    editSvg.style.height = "24px";
     editSvg.innerHTML = editIcon;
     editButton.appendChild(editSvg);
     container.appendChild(editButton);
@@ -182,6 +193,8 @@ function createPopupContent(data: LocationItem) {
   locationUrl.href = `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
   locationUrl.target = "_blank";
   const locationSvg = document.createElement("svg");
+  locationSvg.style.width = "24px";
+  locationSvg.style.height = "24px";
   locationSvg.innerHTML = locationIcon;
   locationUrl.appendChild(locationSvg);
   linksContainer.appendChild(locationUrl);
