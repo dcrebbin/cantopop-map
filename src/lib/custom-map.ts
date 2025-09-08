@@ -144,8 +144,9 @@ function createPopupContent(data: LocationItem) {
   linksContainer.appendChild(videoUrl);
 
   const shareButton = document.createElement("button");
-  shareButton.addEventListener("click", async () => {
-    await navigator.share({
+  shareButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    void navigator.share({
       title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
       url: document.URL,
     });
