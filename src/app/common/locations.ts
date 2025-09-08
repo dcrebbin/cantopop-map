@@ -190,7 +190,7 @@ const RAW_LOCATIONS = [
   },
   {
     coordinates: [22.233327554455837, 114.17248136072266],
-    artists: ["Gordon Flanders "],
+    artists: ["Gordon Flanders"],
     address: "Ocean Park",
     name: "歌頓花園 (Gordon's Garden)",
     streetView: "https://maps.app.goo.gl/WDr19mxqC4zdQ1uz7",
@@ -553,6 +553,18 @@ export const LOCATIONS: LocationItem[] = z
 
 export const ARTISTS = [
   ...new Set(LOCATIONS.map((location) => location.artists).flat()),
+  "COLLAR",
+  "MIRROR",
+  "AGA 江海迦",
+  "Gin Lee 李幸倪",
+  "衛蘭 Janice Vidal",
+  "張蔓莎 Sabrina Cheung",
+  "Lewsz",
+  "BILLY CHOI",
+  "Claudia Koh",
+  "WINKA 陳泳伽",
+  "Jace Chan 陳凱詠",
+  "Other",
 ];
 
 export const SONGS = [

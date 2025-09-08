@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "../_state/ui.store";
-import { ARTISTS, LocationItem } from "../common/locations";
+import { ARTISTS, type LocationItem } from "../common/locations";
 import { addPlace } from "~/lib/custom-map";
 import { useMapStore } from "../_state/map.store";
 import mapboxgl from "mapbox-gl";
@@ -27,17 +27,6 @@ export default function NewLocationModal() {
   const [artistToAdd, setArtistToAdd] = useState<string>("");
 
   if (!newLocationModalOpen) return null;
-
-  function submitLocation() {
-    console.log(
-      songTitle,
-      artists,
-      videoUrl,
-      address,
-      locationCoordinates,
-      streetView,
-    );
-  }
 
   function retrieveVideoIdFromUrl(url: string) {
     if (url.includes("v=")) {
@@ -82,6 +71,17 @@ export default function NewLocationModal() {
       center: locationData,
       zoom: 8,
     });
+
+    resetForm();
+  }
+
+  function resetForm() {
+    setSongTitle("");
+    setArtists([]);
+    setVideoUrl("");
+    setAddress("");
+    setLocationCoordinates("");
+    setStreetView("");
   }
 
   function handleAddArtist() {
@@ -95,6 +95,21 @@ export default function NewLocationModal() {
     const updated = artists.filter((a) => a !== artist);
     setArtists(updated);
   }
+
+  const mailtoSubject = "Cantopop地圖: New Location Submission";
+  const mailtoBody = [
+    `Song Title: ${songTitle || ""}`,
+    `Artists: ${(artists || []).join(", ")}`,
+    `Video URL: ${videoUrl || ""}`,
+    `Address: ${address || ""}`,
+    `Coordinates: ${locationCoordinates || ""}`,
+    `Street View: ${streetView || ""}`,
+  ].join("\r\n");
+  const mailtoParams = new URLSearchParams({
+    subject: mailtoSubject,
+    body: mailtoBody,
+  });
+  const mailtoHref = `mailto:devon@langpal.com.hk?${mailtoParams.toString()}`;
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 text-white">
@@ -215,13 +230,9 @@ export default function NewLocationModal() {
               Add Location
             </button>
 
-            <button
-              type="button"
-              onClick={submitLocation}
-              className="rounded-md bg-white p-2 text-black"
-            >
+            <a href={mailtoHref} className="rounded-md bg-white p-2 text-black">
               Submit Location
-            </button>
+            </a>
           </div>
         </div>
       </div>

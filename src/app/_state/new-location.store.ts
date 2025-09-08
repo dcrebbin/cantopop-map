@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { LocationItem } from "../common/locations";
 
 interface NewLocationState {
   songTitle: string;
@@ -13,6 +14,7 @@ interface NewLocationState {
   setLocationCoordinates: (locationCoordinates: string) => void;
   streetView: string;
   setStreetView: (streetView: string) => void;
+  setEditLocation: (editLocation: LocationItem) => void;
 }
 
 export const useNewLocationStore = create<NewLocationState>((set) => ({
@@ -29,4 +31,14 @@ export const useNewLocationStore = create<NewLocationState>((set) => ({
     set({ locationCoordinates }),
   streetView: "",
   setStreetView: (streetView: string) => set({ streetView }),
+  setEditLocation: (editLocation: LocationItem) =>
+    set({
+      songTitle: editLocation.name,
+      artists: editLocation.artists,
+      videoUrl: editLocation.url,
+      address: editLocation.address,
+      locationCoordinates:
+        editLocation.lat.toString() + "," + editLocation.lng.toString(),
+      streetView: editLocation.streetView ?? "",
+    }),
 }));

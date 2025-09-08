@@ -6,6 +6,9 @@ import { streetViewIcon } from "./icons/streetViewIcon";
 import { locationIcon } from "./icons/locationIcon";
 import { youtubeIcon } from "./icons/youtubeIcon";
 import { closeIcon } from "./icons/closeIcon";
+import { editIcon } from "./icons/editIcon";
+import { useNewLocationStore } from "~/app/_state/new-location.store";
+import { useUIStore } from "~/app/_state/ui.store";
 
 function createCustomMarker(
   popup: mapboxgl.Popup,
@@ -146,12 +149,23 @@ function createPopupContent(data: LocationItem) {
       deletePlace(data);
     });
     deleteButton.className = "absolute top-0 right-0";
-    linksContainer.appendChild(deleteButton);
 
     const deleteSvg = document.createElement("svg");
     deleteSvg.innerHTML = closeIcon;
     deleteButton.appendChild(deleteSvg);
-    linksContainer.appendChild(deleteButton);
+    container.appendChild(deleteButton);
+
+    const editButton = document.createElement("button");
+    editButton.addEventListener("click", () => {
+      editPlace(data);
+    });
+    editButton.className = "absolute top-0";
+    editButton.style.left = "0";
+
+    const editSvg = document.createElement("svg");
+    editSvg.innerHTML = editIcon;
+    editButton.appendChild(editSvg);
+    container.appendChild(editButton);
   }
 
   const locationUrl = document.createElement("a");
@@ -164,6 +178,11 @@ function createPopupContent(data: LocationItem) {
 
   container.appendChild(linksContainer);
   return container;
+}
+
+function editPlace(data: LocationItem) {
+  useNewLocationStore.getState().setEditLocation(data);
+  useUIStore.getState().setNewLocationModalOpen(true);
 }
 
 function deletePlace(data: LocationItem) {

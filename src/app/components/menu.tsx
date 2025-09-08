@@ -121,7 +121,7 @@ export default function Menu() {
         </svg>
       </button>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] overflow-hidden rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
       >
         <div className="flex flex-col items-center justify-center gap-2">
           <input
@@ -132,7 +132,7 @@ export default function Menu() {
             onChange={(e) => handleSearchChange(e.target.value)}
           />
 
-          <div className="flex h-[89vh] w-full flex-col gap-2 overflow-y-auto pb-20">
+          <div className="flex h-[87vh] w-full flex-col gap-2 overflow-y-auto pb-20">
             {artistsToShow.map((artist: string) => {
               const songsForArtist = filteredSongs.filter((song) =>
                 song.artists.includes(artist),
