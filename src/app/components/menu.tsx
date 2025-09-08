@@ -20,6 +20,7 @@ export default function Menu() {
     setFilteredArtists,
     filteredSongs,
     setFilteredSongs,
+    setNewLocationModalOpen,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -122,7 +123,7 @@ export default function Menu() {
       <div
         className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 w-[100vw] rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
       >
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center justify-center gap-2">
           <input
             type="text"
             placeholder="Search"
@@ -130,7 +131,8 @@ export default function Menu() {
             className="w-full rounded-md border-none p-2"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
-          <div className="flex h-[100vh] flex-col gap-2 overflow-y-auto pb-20">
+
+          <div className="flex h-[89vh] w-full flex-col gap-2 overflow-y-auto pb-20">
             {artistsToShow.map((artist: string) => {
               const songsForArtist = filteredSongs.filter((song) =>
                 song.artists.includes(artist),
@@ -189,6 +191,16 @@ export default function Menu() {
               );
             })}
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              setNewLocationModalOpen(true);
+              setMenuOpen(false);
+            }}
+            className="w-fit rounded-md bg-white p-2 text-black"
+          >
+            Add New Location
+          </button>
         </div>
       </div>
     </div>

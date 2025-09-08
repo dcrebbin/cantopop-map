@@ -10,6 +10,7 @@ import Appbar from "./components/appbar";
 import Footer from "./components/footer";
 import LocationButton from "./components/location-button";
 import Menu from "./components/menu";
+import NewLocationModal from "./components/new-location-modal";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
@@ -233,6 +234,7 @@ export default function Home() {
         <Appbar />
         <Menu />
         <LocationButton />
+        <NewLocationModal />
         <Footer />
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`

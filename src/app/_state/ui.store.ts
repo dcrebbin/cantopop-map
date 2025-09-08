@@ -13,6 +13,8 @@ interface UIState {
   setFilteredArtists: (artists: string[]) => void;
   filteredSongs: { name: string; artists: string[] }[];
   setFilteredSongs: (songs: { name: string; artists: string[] }[]) => void;
+  newLocationModalOpen: boolean;
+  setNewLocationModalOpen: (open: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -29,4 +31,7 @@ export const useUIStore = create<UIState>((set) => ({
   filteredSongs: SONGS,
   setFilteredSongs: (songs: { name: string; artists: string[] }[]) =>
     set({ filteredSongs: songs }),
+  newLocationModalOpen: false,
+  setNewLocationModalOpen: (open: boolean) =>
+    set({ newLocationModalOpen: open }),
 }));
