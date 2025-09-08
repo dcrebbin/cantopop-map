@@ -7,17 +7,31 @@ export default function LocationButton() {
   return (
     <button
       type="button"
-      onClick={() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-          console.log(position);
-          if (!map) return;
-          map.flyTo({
-            center: [position.coords.longitude, position.coords.latitude],
-            zoom: 10,
-          });
-        });
+      onClick={async () => {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            console.log(position);
+            alert("test");
+            if (!map) return;
+            map.flyTo({
+              center: [position.coords.longitude, position.coords.latitude],
+              zoom: 10,
+            });
+          },
+          (error) => {
+            console.error("Geolocation error:", error);
+            alert(
+              "Unable to get your location. Please check your permissions.",
+            );
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 600000,
+          },
+        );
       }}
-      className="absolute bottom-0 right-0 z-[100] m-0 cursor-pointer p-6"
+      className="absolute bottom-0 right-0 z-[90] m-0 mb-4 cursor-pointer p-8"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
