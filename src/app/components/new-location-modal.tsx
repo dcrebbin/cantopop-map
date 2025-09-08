@@ -53,6 +53,7 @@ export default function NewLocationModal() {
     const newLocation: LocationItem = {
       id: songTitle,
       artists,
+      contributors: null,
       url: videoUrl,
       isCustom: true,
       image: imageUrl ?? "",
