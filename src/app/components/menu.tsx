@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -32,6 +32,8 @@ export default function Menu() {
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
 
+  const hasAppliedUrlFiltersRef = useRef(false);
+
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
       allMarkers.forEach((marker) => {
@@ -39,19 +41,54 @@ export default function Menu() {
         const markerContributors =
           marker.dataset.contributors?.split(", ") ?? [];
 
-        const matchesArtist =
-          nextSelectedArtists.length === 0 ||
+        const hasArtistFilter = nextSelectedArtists.length > 0;
+        const hasContributorFilter = nextSelectedContributors.length > 0;
+
+        const artistMatch =
+          hasArtistFilter &&
           nextSelectedArtists.some((a) => markerArtists.includes(a));
 
-        const matchesContributor =
-          nextSelectedContributors.length === 0 ||
+        const contributorMatch =
+          hasContributorFilter &&
           nextSelectedContributors.some((c) => markerContributors.includes(c));
 
-        const shouldShow = matchesArtist && matchesContributor;
+        const hasAnyFilter = hasArtistFilter || hasContributorFilter;
+        const shouldShow = !hasAnyFilter || artistMatch || contributorMatch;
         marker.style.display = shouldShow ? "block" : "none";
       });
     },
     [allMarkers],
+  );
+
+  const syncFiltersToUrl = useCallback(
+    (artists: string[], contributors: string[]) => {
+      const params = new URLSearchParams(window.location.search);
+      // Preserve the title parameter if it exists
+      const title = params.get("title");
+
+      if (artists.length > 0) {
+        params.set("artists", artists.join(","));
+      } else {
+        params.delete("artists");
+      }
+      if (contributors.length > 0) {
+        params.set("contributors", contributors.join(","));
+      } else {
+        params.delete("contributors");
+      }
+
+      // Restore the title parameter if it existed
+      if (title) {
+        params.set("title", title);
+      }
+
+      const query = params.toString();
+      const newUrl = query
+        ? `${window.location.pathname}?${query}`
+        : window.location.pathname;
+      window.history.replaceState({}, "", newUrl);
+    },
+    [],
   );
 
   function handleArtistCheckboxChange(artist: string) {
@@ -129,6 +166,44 @@ export default function Menu() {
     selectedContributors,
     updateMarkerVisibility,
   ]);
+
+  // Keep URL in sync with current filters
+  useEffect(() => {
+    if (!hasAppliedUrlFiltersRef.current) return;
+    syncFiltersToUrl(selectedArtists, selectedContributors);
+  }, [selectedArtists, selectedContributors, syncFiltersToUrl]);
+
+  // On load, read filters from URL and apply
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const artistsParam = params.get("artists");
+    const contributorsParam = params.get("contributors");
+
+    if (artistsParam) {
+      const nextArtists = artistsParam
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .filter((a) => ARTISTS.includes(a));
+      if (nextArtists.length > 0) {
+        setSelectedArtists(nextArtists);
+      }
+    }
+
+    if (contributorsParam) {
+      const nextContributors = contributorsParam
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .filter((c) => CONTRIBUTORS.includes(c));
+      if (nextContributors.length > 0) {
+        setSelectedContributors(nextContributors);
+      }
+    }
+
+    // Enable syncing after initial URL-derived state is applied
+    hasAppliedUrlFiltersRef.current = true;
+  }, [setSelectedArtists, setSelectedContributors]);
 
   const artistsToShow = Array.from(
     new Set([

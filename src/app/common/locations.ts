@@ -622,7 +622,9 @@ export const SONGS = [
   ),
 ];
 
-function extractContributorNamesFromLocation(location: LocationItem): string[] {
+export function extractContributorNamesFromLocation(
+  location: LocationItem,
+): string[] {
   const names = new Set<string>();
   const c = location as unknown as {
     contributors?: {
