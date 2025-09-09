@@ -24,4 +24,5 @@ export const nameToInstagramMap = {
   "Titus Chan": "titus1118",
   "Adrian Law": "adrian_lhc",
   陳天順: "shunyumo",
+  ZAIN: "malikzainali",
 };

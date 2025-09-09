@@ -83,18 +83,26 @@ export function PopupContent({
             <p>
               {humanizeRoleKey(key)} <br></br>
             </p>
-            <p className="text-left text-xs font-normal">
-              {value
-                .map((name) => {
-                  if (
-                    nameToInstagramMap[name as keyof typeof nameToInstagramMap]
-                  ) {
-                    return `@${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`;
-                  }
-                  return name;
-                })
-                .join(", ")}
-            </p>
+            <div className="flex flex-col gap-1 text-left text-xs font-normal">
+              {value.map((name) => {
+                if (
+                  nameToInstagramMap[name as keyof typeof nameToInstagramMap]
+                ) {
+                  return (
+                    <a
+                      key={name}
+                      href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                      target="_blank"
+                      className="text-blue-500 underline"
+                      rel="noreferrer"
+                    >
+                      {name}
+                    </a>
+                  );
+                }
+                return <span key={name}>{name}</span>;
+              })}
+            </div>
           </div>
         ))}
       </div>
@@ -120,12 +128,7 @@ export function PopupContent({
                         className="text-blue-500 underline"
                         rel="noreferrer"
                       >
-                        @
-                        {
-                          nameToInstagramMap[
-                            name as keyof typeof nameToInstagramMap
-                          ]
-                        }
+                        {name}
                       </a>
                     );
                   }
