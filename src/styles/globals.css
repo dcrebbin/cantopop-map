@@ -10,3 +10,7 @@
 input[type="checkbox"] {
   border: none;
 }
+
+.mapboxgl-popup-content{
+  width: fit-content!important;
+}

@@ -484,6 +484,49 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
   },
   {
+    coordinates: [23.267013149595147, 113.02207964706872],
+    artists: ["moon tang"],
+    address: "Lepingzhen (Estimation)",
+    name: "some days (en)",
+    url: "https://youtu.be/qTay36oNgIs?t=90",
+    image: "https://i.ytimg.com/vi/qTay36oNgIs/maxresdefault.jpg",
+    contributors: {
+      song: {
+        producer: ["PhD"],
+        composers: ["Moon Tang", "Kiri T", "Peter Wallevik", "Daniel Davidsen"],
+        lyricists: ["Moon Tang", "Kiri T"],
+        arrangers: ["Peter Wallevik", "Daniel Davidsen"],
+        mixingMastering: ["Matt Sim"],
+      },
+      musicVideo: {
+        ar: ["Malik Zain Ali", "Nicholas Cheung"],
+        creativeDirector: ["Cherie Kong"],
+        assistantDirector: ["Agnes Kahei @The Besties"],
+        production: ["@The Besties"],
+        directorOfPhotography: ["Samson Huang"],
+        technoCraneTechnician: ["林少雄"],
+        focusPuller: ["文明"],
+        cameraAssistant: ["許良", "唐斌", "龐於新"],
+        gaffer: ["Sunny Yip"],
+        bestBoy: ["Brian Choi", "肖智龍", "李曉嵩", "陽利玉"],
+        choreographer: ["Yuen Yuen"],
+        actors: ["Thomae Brenners", "moon tang"],
+        stylist: ["Cherie Kong"],
+        makeUpArtist: ["Kidd Sun"],
+        hairStylist: ["Ian Tsoi"],
+        stylingAssistant: ["Sam Law", "Clayton Mang"],
+        artTeam: ["Sam Law", "Clayton Mang"],
+        toyDesigner: ["Mia Chu @ YAYAMIMI STUDIO"],
+        offlineEditor: ["FuChai @THE BASTARDS"],
+        onlineEditor: ["Fai Chan @THE BASTARDS"],
+        animatorTitleDesigner: ["Manmen Tam"],
+        colorist: ["Eric Chan @ IXAGON"],
+        photographerCoverDesigner: ["Austin Cheng @Janthought"],
+        projectArtistManagers: ["Malik Zain Ali", "Nicholas Cheung"],
+      },
+    },
+  },
+  {
     coordinates: [35.66997711629859, 139.7061296885545],
     artists: ["陳蕾 Panther Chan"],
     address: "Shibuya Restaurants",
@@ -716,7 +759,7 @@ export const CONTRIBUTORS: string[] = [
 
 type ContributorCategory = "song" | "musicVideo";
 
-function humanizeRoleKey(roleKey: string): string {
+export function humanizeRoleKey(roleKey: string): string {
   const specialMap: Record<string, string> = {
     directorOfPhotographys: "Director of Photography",
     productionAssistants: "Production Assistants",

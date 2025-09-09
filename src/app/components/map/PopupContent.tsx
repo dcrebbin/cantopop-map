@@ -1,12 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
-import { type LocationItem } from "~/app/common/locations";
+import { humanizeRoleKey, type LocationItem } from "~/app/common/locations";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
 import { closeIcon } from "~/lib/icons/closeIcon";
 import { editIcon } from "~/lib/icons/editIcon";
+import { useState } from "react";
+import { plusIcon } from "~/lib/icons/plusIcon";
+import { minusIcon } from "~/lib/icons/minusIcon";
 
 function SvgIcon({ html, className }: { html: string; className?: string }) {
   return (
@@ -24,10 +28,92 @@ export function PopupContent({
   onDelete?: () => void;
   onEdit?: () => void;
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const actionButtons = (
+    <div className="flex items-center justify-center gap-2">
+      <a href={data.url} target="_blank" rel="noreferrer">
+        <SvgIcon html={youtubeIcon} className="h-[28px] w-auto" />
+      </a>
+
+      <button
+        type="button"
+        onClick={() =>
+          navigator.share({
+            title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
+            url: document.URL,
+          })
+        }
+      >
+        <SvgIcon html={shareIcon} className="h-6 w-6" />
+      </button>
+
+      {data.streetView && (
+        <a
+          href={
+            data.streetView ||
+            `https://www.google.com/maps/@${data.lat},${data.lng},18z`
+          }
+          target="_blank"
+          rel="noreferrer"
+        >
+          <SvgIcon html={streetViewIcon} className="h-6 w-6" />
+        </a>
+      )}
+
+      <a
+        href={`https://www.google.com/maps/dir//${data.lat},${data.lng}/`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <SvgIcon html={locationIcon} className="h-6 w-6" />
+      </a>
+    </div>
+  );
+  const contributorSection = (
+    <div className="flex w-full flex-col items-start justify-start overflow-y-auto font-bold">
+      <h3 className="my-1 text-base">Contributors</h3>
+      <hr className="my-1 w-full text-black" />
+
+      <h3>Song</h3>
+      <div className="grid grid-cols-2 gap-2">
+        {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
+          <div className="flex flex-col items-start justify-start" key={key}>
+            <p>
+              {humanizeRoleKey(key)} <br></br>
+            </p>
+            <p className="text-left text-xs font-normal">{value.join(", ")}</p>
+          </div>
+        ))}
+      </div>
+      <hr className="my-1 w-full text-black" />
+      <h3 className="text-md">Music Video</h3>
+      <div className="grid w-full grid-cols-2 gap-2">
+        {Object.entries(data.contributors?.musicVideo ?? {}).map(
+          ([key, value]) => (
+            <div className="flex flex-col items-start justify-start" key={key}>
+              <p>
+                {humanizeRoleKey(key)} <br></br>
+              </p>
+              <p className="text-left text-xs font-normal">
+                {value.join(", ")}
+              </p>
+            </div>
+          ),
+        )}
+      </div>
+    </div>
+  );
   return (
     <div
-      className="top-24 flex h-fit min-w-[90px] max-w-[150px] flex-col items-center justify-center rounded-md bg-white p-2"
+      className="relative top-0 flex h-fit min-w-[90px] max-w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
       tabIndex={-1}
+      style={{
+        maxWidth: isExpanded ? "none" : "150px",
+        maxHeight: isExpanded ? "none" : "100%",
+        height: isExpanded ? "350px" : "100%",
+        width: isExpanded ? "350px" : "auto",
+      }}
       data-song={`popup-${data.name}`}
     >
       <p className="text-center text-base font-bold">
@@ -53,44 +139,20 @@ export function PopupContent({
           </button>
         </>
       )}
-      <div className="flex items-center justify-center gap-2">
-        <a href={data.url} target="_blank" rel="noreferrer">
-          <SvgIcon html={youtubeIcon} className="h-[28px] w-auto" />
-        </a>
-
+      {isExpanded && contributorSection}
+      {actionButtons}
+      {data.contributors && (
         <button
+          className={`absolute right-0 top-0`}
           type="button"
-          onClick={() =>
-            navigator.share({
-              title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
-              url: document.URL,
-            })
-          }
+          onClick={() => setIsExpanded(!isExpanded)}
         >
-          <SvgIcon html={shareIcon} className="h-6 w-6" />
+          <SvgIcon
+            html={isExpanded ? minusIcon : plusIcon}
+            className={`h-6 w-6`}
+          />
         </button>
-
-        {data.streetView && (
-          <a
-            href={
-              data.streetView ||
-              `https://www.google.com/maps/@${data.lat},${data.lng},18z`
-            }
-            target="_blank"
-            rel="noreferrer"
-          >
-            <SvgIcon html={streetViewIcon} className="h-6 w-6" />
-          </a>
-        )}
-
-        <a
-          href={`https://www.google.com/maps/dir//${data.lat},${data.lng}/`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SvgIcon html={locationIcon} className="h-6 w-6" />
-        </a>
-      </div>
+      )}
     </div>
   );
 }
