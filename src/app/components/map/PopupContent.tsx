@@ -12,6 +12,7 @@ import { useState } from "react";
 import { plusIcon } from "~/lib/icons/plusIcon";
 import { minusIcon } from "~/lib/icons/minusIcon";
 import { nameToInstagramMap } from "~/app/common/social-media";
+import posthog from "posthog-js";
 
 function SvgIcon({ html, className }: { html: string; className?: string }) {
   return (
@@ -182,7 +183,13 @@ export function PopupContent({
         <button
           className={`absolute right-0 top-0`}
           type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            setIsExpanded(!isExpanded);
+            posthog.capture("toggle_contributor_section", {
+              artists: data.artists.join(", "),
+              songTitle: data.name,
+            });
+          }}
         >
           <SvgIcon
             html={isExpanded ? minusIcon : plusIcon}

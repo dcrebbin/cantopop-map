@@ -10,6 +10,7 @@ import { useMapStore } from "~/app/_state/map.store";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "~/app/_state/ui.store";
 import { PopupContent } from "~/app/components/map/PopupContent";
+import posthog from "posthog-js";
 
 const markerRoots = new WeakMap<HTMLDivElement, Root>();
 const popupRoots = new WeakMap<mapboxgl.Popup, Root>();
@@ -45,6 +46,10 @@ function createCustomMarker(
             hidePopup(currentLastPopup, currentLastMarker);
           }
           const { container, root } = createPopupContent(data);
+          posthog.capture("view_location", {
+            artists: data.artists.join(", "),
+            songTitle: data.name,
+          });
           popup.setDOMContent(container);
           popupRoots.set(popup, root);
           popup.addTo(targetMap);
