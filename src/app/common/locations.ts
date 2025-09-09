@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 
 // Zod schema for raw items as written in the data file
 const ContributorsSchema = z
@@ -649,12 +650,48 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/oVpmZoj9mOM/maxresdefault.jpg",
   },
   {
+    coordinates: [22.282462397339906, 114.18495594378834],
+    artists: ["馮允謙 Jay Fung"],
+    address: "Cha Cha Cha",
+    name: "報復式浪漫 Sweeetly",
+    streetView: "https://maps.app.goo.gl/3ey1TasCZFUjqBJu8",
+    url: "https://youtu.be/k2W2RGDOtaw?t=38",
+    image: "https://i.ytimg.com/vi/k2W2RGDOtaw/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.246050823338784, 114.14459785038378],
     artists: ["Gareth T"],
     address: "Aberdeen Fishing Village",
     name: "勁浪漫 超溫馨",
     url: "https://www.youtube.com/watch?v=YPJljJJzKFo",
     image: "https://i.ytimg.com/vi/YPJljJJzKFo/maxresdefault.jpg",
+    contributors: {
+      musicVideo: {
+        producer: ["五芳影業 Ng Fong Pictures"],
+        director: ["李卓軒 Nature Hin"],
+        assistantDirector: ["曾銘森 Tsang Ming Sum"],
+        directorOfPhotography: ["李卓軒 Nature Hin"],
+        lineProducer: ["曾銘森 Tsang Ming Sum"],
+        secondAssistantProducer: ["張紓綾 Sheling Chang"],
+        editor: ["李卓軒 Nature Hin"],
+        artDirector: ["譚伊南 Emmy Tam"],
+        artAssistant: [
+          "歐陽沛詩 Au Yeung Pui Sze Janice",
+          "方俊皓 Fongbao",
+          "Amanda Chu",
+        ],
+        gaffer: ["楊佚 J. Yeung", "劉德平 Lau Tak Ping Tom"],
+        assistantCamera: ["楊佚 J. Yeung", "劉德平 Lau Tak Ping Tom"],
+        productionAssistant: ["陳思澄 Cissie Chan"],
+        costumeDesigner: ["譚伊南 Emmy Tam"],
+        makeUpArtist: ["李洛誼 Candice Li"],
+        hairstylist: ["李洛誼 Candice Li"],
+        assistantMakeUp: ["黃蓉 Joyce Wong"],
+        stillPhotography: ["梁睿偉 Leung Yui Wai", "郭潤森 Sam Kwok"],
+        projectArtistManager: ["Nicholas Cheung 張軒培"],
+        venue: ["樂口福酒家 Lok Hau Fook Restaurant"],
+      },
+    },
   },
   {
     coordinates: [22.997512585996827, 120.21257852590679],
@@ -663,6 +700,33 @@ const RAW_LOCATIONS = [
     name: "你的損失 your loss , not mine",
     url: "https://www.youtube.com/watch?v=N_bghNhUpkA",
     image: "https://i.ytimg.com/vi/N_bghNhUpkA/maxresdefault.jpg",
+    contributors: {
+      musicVideo: {
+        actors: ["Cloud Wan"],
+        directors: ["J.him Lee"],
+        producers: ["Nova Sy"],
+        directorOfPhotography: ["DF"],
+        focusPuller: ["Chen Hsing Hao"],
+        cameraAssistant: ["Kuo Bo Shawn"],
+        lightingAssistant: ["Lin Po Ang"],
+        artDirector: ["Doro Lee"],
+        artAssistant: ["Cheng Ya-Yun"],
+        productionSupport: ["Presence Images Studio"],
+        productionManager: ["Wang Kuan Chieh", "Wu Jia-Ci"],
+        production: ["Cheng Ya-Yun"],
+        stillPhotographer: ["Lin Po Ang"],
+        equipmentSupport: ["Haowei Video Studio"],
+        editor: ["J.him Lee"],
+        assistantEditor: ["Jojo Shek"],
+        colorist: ["Mario Hui"],
+        online: ["Mok"],
+        voiceOverMixing: ["Sara Fung"],
+        projectManagement: ["Tiffany Lin"],
+        makeUp: ["Monique Ching"],
+        hair: ["Wing Wong @ The Attic"],
+        stylist: ["Matthew Chan"],
+      },
+    },
   },
   {
     coordinates: [43.30424161106344, 5.39431220992521],
