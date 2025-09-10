@@ -53,6 +53,7 @@ export default function NewLocationModal() {
     const newLocation: LocationItem = {
       id: songTitle,
       artists,
+      streetViewEmbed: null,
       contributors: null,
       url: videoUrl,
       isCustom: true,
