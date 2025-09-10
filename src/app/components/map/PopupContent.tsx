@@ -84,7 +84,7 @@ export function PopupContent({
       <hr className="my-1 w-full text-black" />
 
       <h3>Song</h3>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid w-full grid-cols-2 gap-2">
         {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
           <div className="flex flex-col items-start justify-start" key={key}>
             <p>
@@ -118,7 +118,10 @@ export function PopupContent({
       <div className="grid w-full grid-cols-2 gap-2">
         {Object.entries(data.contributors?.musicVideo ?? {}).map(
           ([key, value]) => (
-            <div className="flex flex-col items-start justify-start" key={key}>
+            <div
+              className="flex w-full flex-col items-start justify-start"
+              key={key}
+            >
               <p>
                 {humanizeRoleKey(key)} <br></br>
               </p>
@@ -153,7 +156,7 @@ export function PopupContent({
       className="relative top-0 flex h-fit min-w-[90px] max-w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
       tabIndex={-1}
       style={{
-        maxWidth: isExpanded ? "none" : "150px",
+        maxWidth: "100%",
         maxHeight: isExpanded ? "none" : "100%",
         height: isExpanded ? "350px" : "100%",
         width: isExpanded ? "350px" : "auto",

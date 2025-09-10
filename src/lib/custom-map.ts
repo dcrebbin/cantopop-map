@@ -25,10 +25,14 @@ function createCustomMarker(
 
   const markerRoot = createRoot(markerElement);
   markerRoots.set(markerElement, markerRoot);
+
+  const id = `${data.artists.join(", ")}-${data.name}`;
   markerRoot.render(
     createElement("img", {
       src: data.image,
-      className: "w-auto h-14 cursor-pointer mt-8 z-[1000] rounded-md",
+      id,
+      className:
+        "w-auto h-14 cursor-pointer mt-8 z-[1000] rounded-md hover:scale-110",
       onClick: () => {
         const targetMap = mapInstance;
         if (!targetMap) return;
@@ -46,10 +50,10 @@ function createCustomMarker(
             ? `${window.location.pathname}?${query}`
             : window.location.pathname;
           window.history.pushState({}, "", newUrl);
-          hidePopup(popup, markerElement);
+          hidePopup(popup, markerElement, id);
         } else {
           if (currentLastPopup !== null && currentLastMarker !== null) {
-            hidePopup(currentLastPopup, currentLastMarker);
+            hidePopup(currentLastPopup, currentLastMarker, id);
           }
           const { container, root } = createPopupContent(data);
           posthog.capture("view_location", {
@@ -68,6 +72,10 @@ function createCustomMarker(
           const query = params.toString();
           const newUrl = `${window.location.pathname}?${query}`;
           window.history.pushState({}, "", newUrl);
+          const image = document.querySelector(`[id="${id}"]`);
+          if (image) {
+            image.classList.add("scale-110");
+          }
         }
       },
     }),
@@ -107,11 +115,15 @@ export function addPlace(data: LocationItem, mapInstance?: mapboxgl.Map) {
   popup.setLngLat([data.lng, data.lat]);
 }
 
-function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement) {
+function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement, id: string) {
   const root = popupRoots.get(popup);
   if (root) {
     root.unmount();
     popupRoots.delete(popup);
+  }
+  const image = document.querySelector(`[id="${id}"]`);
+  if (image) {
+    image.classList.remove("scale-110");
   }
   popup.remove();
   marker.classList.remove("visible");

@@ -14,3 +14,7 @@ input[type="checkbox"] {
 .mapboxgl-popup-content{
   width: fit-content!important;
 }
+
+.mapboxgl-popup{
+  max-width: 100%!important;
+}
