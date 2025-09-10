@@ -39,7 +39,13 @@ function createCustomMarker(
         const songTitle = constructTitle(data);
 
         if (contentIsVisible) {
-          window.history.pushState({}, "", "/");
+          const params = new URLSearchParams(window.location.search);
+          params.delete("title");
+          const query = params.toString();
+          const newUrl = query
+            ? `${window.location.pathname}?${query}`
+            : window.location.pathname;
+          window.history.pushState({}, "", newUrl);
           hidePopup(popup, markerElement);
         } else {
           if (currentLastPopup !== null && currentLastMarker !== null) {
@@ -57,7 +63,11 @@ function createCustomMarker(
           useMapStore.getState().setSelectedLocationId(data.id);
           useMapStore.getState().setLastPopup(popup);
           useMapStore.getState().setLastMarker(markerElement);
-          window.history.pushState({}, "", `/?title=${songTitle}`);
+          const params = new URLSearchParams(window.location.search);
+          params.set("title", songTitle);
+          const query = params.toString();
+          const newUrl = `${window.location.pathname}?${query}`;
+          window.history.pushState({}, "", newUrl);
         }
       },
     }),
