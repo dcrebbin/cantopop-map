@@ -12,6 +12,7 @@ import {
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
+import GameButton from "./game-button";
 
 export default function Menu() {
   const {
@@ -219,10 +220,11 @@ export default function Menu() {
   );
 
   return (
-    <div className="absolute right-0 top-0 z-[100] m-0 p-8">
+    <div className="absolute right-0 top-0 z-[100] m-0 flex flex-row gap-4">
+      {!menuOpen && <GameButton />}
       <button
         type="button"
-        className="absolute right-0 top-0 z-20 mr-3"
+        className="z-20 mr-3"
         onClick={() => {
           setMenuOpen(!menuOpen);
           setTimeout(() => {
@@ -257,7 +259,7 @@ export default function Menu() {
             type="text"
             placeholder="Search"
             ref={searchRef}
-            className="w-full rounded-md border-none p-2"
+            className="z-[100] w-full rounded-md border-none p-2"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
 

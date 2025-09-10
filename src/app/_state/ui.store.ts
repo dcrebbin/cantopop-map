@@ -23,6 +23,22 @@ interface UIState {
   setSongsAndArtistsOpen: (open: boolean) => void;
   contributorsOpen: boolean;
   setContributorsOpen: (open: boolean) => void;
+  gameOpen: boolean;
+  gameScore: number;
+  totalLocations: number;
+  setGameScore: (score: number) => void;
+  setTotalLocations: (total: number) => void;
+  setGameOpen: (open: boolean) => void;
+  selectedLocation: {
+    value: string;
+    artists: string[];
+    streetViewEmbed: string;
+  } | null;
+  setSelectedLocation: (location: {
+    value: string;
+    artists: string[];
+    streetViewEmbed: string;
+  }) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -52,4 +68,16 @@ export const useUIStore = create<UIState>((set) => ({
   setSongsAndArtistsOpen: (open: boolean) => set({ songsAndArtistsOpen: open }),
   contributorsOpen: true,
   setContributorsOpen: (open: boolean) => set({ contributorsOpen: open }),
+  gameOpen: false,
+  setGameOpen: (open: boolean) => set({ gameOpen: open }),
+  gameScore: 0,
+  totalLocations: 0,
+  setTotalLocations: (total: number) => set({ totalLocations: total }),
+  setGameScore: (score: number) => set({ gameScore: score }),
+  selectedLocation: null,
+  setSelectedLocation: (location: {
+    value: string;
+    artists: string[];
+    streetViewEmbed: string;
+  }) => set({ selectedLocation: location }),
 }));

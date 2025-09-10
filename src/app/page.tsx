@@ -11,12 +11,17 @@ import LocationButton from "./components/location-button";
 import Menu from "./components/menu";
 import NewLocationModal from "./components/new-location-modal";
 import { addPlace } from "~/lib/custom-map";
+import StreetView from "./components/street-view";
+import GameButton from "./components/game-button";
+import { useUIStore } from "./_state/ui.store";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
 export default function Home() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
+
+  const { gameOpen } = useUIStore();
 
   const { map, setMap } = useMapStore();
 
@@ -70,6 +75,8 @@ export default function Home() {
         <LocationButton />
         <NewLocationModal />
         <Footer />
+        {gameOpen && <StreetView />}
+
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`
           .map-container {

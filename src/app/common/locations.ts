@@ -17,6 +17,7 @@ const RawLocationSchema = z.object({
   url: z.string().url(),
   image: z.string().url(),
   streetView: z.string().url().optional(),
+  streetViewEmbed: z.string().url().optional(),
   isCustom: z.boolean().optional(),
   contributors: ContributorsSchema,
 });
@@ -35,6 +36,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     lat,
     lng,
     streetView: raw.streetView ?? null,
+    streetViewEmbed: raw.streetViewEmbed ?? null,
     isCustom: raw.isCustom ?? false,
     contributors: raw.contributors ?? null,
   };
@@ -90,6 +92,8 @@ const RAW_LOCATIONS = [
     address: "Tang Ancestral Hall, Ha Tsuen",
     name: "老派約會之必要 (A Gentleman's Guide to Old-Fashioned Dating)",
     url: "https://youtu.be/u14rrcxENDw?t=134",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757527654563!6m8!1m7!1s8kZwr4vIuvgRmy85jUlOKA!2m2!1d22.44731071377599!2d113.9931841031054!3f196.45222955852861!4f-1.1711255918759207!5f1.5204554155564356",
     streetView: "https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18",
     image: "https://i.ytimg.com/vi/u14rrcxENDw/hq720.jpg",
   },
@@ -99,6 +103,8 @@ const RAW_LOCATIONS = [
     address: "Tainan, Taiwan",
     name: "Love me down",
     url: "https://youtu.be/AgEkYyeu3Jg?t=115",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757528023299!6m8!1m7!1sva_3cuxUNA0hRnsKcVVgVw!2m2!1d22.98849358840259!2d120.2209808058009!3f321.1557645257022!4f-11.260670884993061!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/qXgnNfKoZHzybtRp6",
     image: "https://i.ytimg.com/vi/AgEkYyeu3Jg/hq720.jpg",
   },
@@ -117,6 +123,8 @@ const RAW_LOCATIONS = [
     artists: ["Gordon Flanders"],
     address: "Fung Lok Wai Fish Ponds (estimation)",
     name: "全世界停電 第二年 The Blackout, Year 2 ",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757528265827!6m8!1m7!1sCIHM0ogKEICAgIDq3LDU3gE!2m2!1d22.473348!2d114.024313!3f184.1424012714811!4f-11.960669122036352!5f0.4000000000000002",
     streetView:
       "https://www.google.com/maps/@22.473348,114.024313,3a,57.3y,184.14h,81.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDq3LDU3gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HbpwtC1DNElZZ30HhUjsS7deGl2Ny68igkVQYF3jY-7VNiFntK3khg8fwzqu6Mqvr3QDQ9b6DzbpQm99IrDU6aYWGRdL1s0CqvHRQNzBpWk8cF21BV_5HeI-63NSGfWyTNB0ZBJ%3Dw900-h600-k-no-pi8.043024207959391-ya171.64525490982788-ro0-fo100!7i10000!8i5000?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/MIhQlIlxAbk?t=162",
@@ -127,6 +135,8 @@ const RAW_LOCATIONS = [
     artists: ["張蔓姿 Gigi"],
     address: "Chai Wan",
     name: "緊張大師 (Overthinker)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534415473!6m8!1m7!1sPM1g-S6Z0G1rhVkE-X750A!2m2!1d22.26584600993253!2d114.2426315636989!3f324.63!4f-1.5499999999999972!5f3.325193203789971",
     streetView: "https://maps.app.goo.gl/FY5WayGRF7jtGEc19",
     url: "https://youtu.be/cM_L276Vhvc?t=20",
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
@@ -171,6 +181,8 @@ const RAW_LOCATIONS = [
     artists: ["張蔓姿 Gigi"],
     address: "Coffee Dumbo",
     name: "過電 (Connected)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534462413!6m8!1m7!1stI-TeHb56CO6kkMDI6564Q!2m2!1d25.05582118680902!2d121.5204518689158!3f275.98!4f-9.480000000000004!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/WKDK9JtNDwx5B5m59",
     url: "https://youtu.be/JEOhR2zApI4?t=7",
     image: "https://i.ytimg.com/vi/JEOhR2zApI4/maxresdefault.jpg",
@@ -180,6 +192,8 @@ const RAW_LOCATIONS = [
     artists: ["Gareth T"],
     address: "Yau Ma Tei Community Rest Garden",
     name: "let me know (en)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534505994!6m8!1m7!1sq-PaT5SalyLh0cqL77ln1g!2m2!1d22.30980189599026!2d114.1699720629664!3f82.97!4f0.04000000000000625!5f1.8817596243290082",
     streetView: "https://maps.app.goo.gl/Pcfdfp4vxtmVSjYz8",
     url: "https://youtu.be/FNtirnQzweQ?t=94",
     image: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
@@ -237,6 +251,8 @@ const RAW_LOCATIONS = [
     name: "深夜浪漫 (Midnight Romance)",
     streetView: "https://maps.app.goo.gl/2qYVjwWaEjazJ8YTA",
     url: "https://youtu.be/EMPUP9Ph8q0?t=96",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534551019!6m8!1m7!1s4GX0sDJcr1E15cnDydio7A!2m2!1d22.30837486302836!2d114.1716643943522!3f335.63!4f2.7900000000000063!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/EMPUP9Ph8q0/maxresdefault.jpg",
     contributors: {
       musicVideo: {
@@ -264,6 +280,8 @@ const RAW_LOCATIONS = [
     artists: ["Nancy Kwai"],
     address: "Naha, Japan",
     name: "You took my breath away",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534607522!6m8!1m7!1shpdFKr7pHNmotf_ktdOMyg!2m2!1d26.21410869215542!2d127.6867702758708!3f214.71!4f2.319999999999993!5f0.7820865974627469",
     streetView:
       "https://www.google.com/maps/place/%E5%9B%BD%E9%9A%9B%E3%82%BF%E3%82%A6%E3%83%B3%E3%82%BA%E3%82%A4%E3%83%B3/@26.2141087,127.6867703,3a,75y,214.71h,92.32t/data=!3m7!1e1!3m5!1shpdFKr7pHNmotf_ktdOMyg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-2.324460523223493%26panoid%3DhpdFKr7pHNmotf_ktdOMyg%26yaw%3D214.7148547149733!7i16384!8i8192!4m9!3m8!1s0x34e56970cc742a63:0xbe9e97f7d882e967!5m2!4m1!1i2!8m2!3d26.2139367!4d127.6868028!16s%2Fg%2F1vm_vn1f?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/e5TplXPYKt8?t=75",
@@ -292,7 +310,9 @@ const RAW_LOCATIONS = [
     artists: ["Gareth T"],
     address: "Lianxin Village, Taiwan",
     name: "你都不知道 自己有多好",
-    streetView: "https://maps.app.goo.gl/3AR2FiQ8ZAZuK7TM7",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534758858!6m8!1m7!1sxqhKNasppkK9apuWk2mM3A!2m2!1d25.12192525020563!2d121.866712705366!3f180.93230351886578!4f-13.715150022961126!5f0.5412317992315563",
+    streetView: "https://maps.app.goo.gl/ybCGJSbFBKupkjWn8",
     url: "https://youtu.be/7jXqxjPfRjw?t=38",
     image: "https://i.ytimg.com/vi/7jXqxjPfRjw/maxresdefault.jpg",
   },
@@ -301,6 +321,8 @@ const RAW_LOCATIONS = [
     artists: ["Cloud 雲浩影"],
     address: "Tai Long Wan Beach",
     name: "慢性分手 (Breaking Up Slowly)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534696810!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRHE3Zi1meWdF!2m2!1d22.22091470487148!2d113.8861307639452!3f29.89!4f-4.329999999999998!5f0.5766985730221924",
     streetView: "https://maps.app.goo.gl/9TV5ZWJRWq2GYgu19",
     url: "https://youtu.be/VHt8upfvSQ8?t=85",
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
@@ -310,6 +332,8 @@ const RAW_LOCATIONS = [
     artists: ["moon tang"],
     address: "Yilan County, Taiwan",
     name: "外星人接我回去 (take me home)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534724758!6m8!1m7!1sOQnIWBAYh-n7BbsTZIpdFw!2m2!1d24.93575055292044!2d121.8864994688883!3f334.37!4f2.769999999999996!5f1.5370994932325743",
     streetView: "https://maps.app.goo.gl/fFp7RaqAN75h56ZPA",
     url: "https://youtu.be/HIGEklrsMnQ?t=28",
     image: "https://i.ytimg.com/vi/HIGEklrsMnQ/maxresdefault.jpg",
@@ -339,6 +363,8 @@ const RAW_LOCATIONS = [
     name: "二十五圓舞曲",
     streetView: "https://maps.app.goo.gl/au5kud7843H3C8T77",
     url: "https://youtu.be/vqlzYiT5_aQ?t=10",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757534809167!6m8!1m7!1sl5_Tb8EOKTnbBJ4sDaqrRw!2m2!1d13.69387778906042!2d100.7491095746951!3f270.414504122176!4f-1.249899399932218!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/vqlzYiT5_aQ/maxresdefault.jpg",
   },
   {

@@ -72,10 +72,6 @@ function createCustomMarker(
           const query = params.toString();
           const newUrl = `${window.location.pathname}?${query}`;
           window.history.pushState({}, "", newUrl);
-          const image = document.querySelector(`[id="${id}"]`);
-          if (image) {
-            image.classList.add("scale-110");
-          }
         }
       },
     }),
@@ -120,10 +116,6 @@ function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement, id: string) {
   if (root) {
     root.unmount();
     popupRoots.delete(popup);
-  }
-  const image = document.querySelector(`[id="${id}"]`);
-  if (image) {
-    image.classList.remove("scale-110");
   }
   popup.remove();
   marker.classList.remove("visible");
