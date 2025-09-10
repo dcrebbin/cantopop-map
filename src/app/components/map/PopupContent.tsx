@@ -14,7 +14,13 @@ import { minusIcon } from "~/lib/icons/minusIcon";
 import { nameToInstagramMap } from "~/app/common/social-media";
 import posthog from "posthog-js";
 
-function SvgIcon({ html, className }: { html: string; className?: string }) {
+export function SvgIcon({
+  html,
+  className,
+}: {
+  html: string;
+  className?: string;
+}) {
   return (
     // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
     <span className={className} dangerouslySetInnerHTML={{ __html: html }} />

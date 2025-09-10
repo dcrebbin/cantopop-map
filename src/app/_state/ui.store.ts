@@ -19,6 +19,10 @@ interface UIState {
   setFilteredContributors: (contributors: string[]) => void;
   newLocationModalOpen: boolean;
   setNewLocationModalOpen: (open: boolean) => void;
+  songsAndArtistsOpen: boolean;
+  setSongsAndArtistsOpen: (open: boolean) => void;
+  contributorsOpen: boolean;
+  setContributorsOpen: (open: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -44,4 +48,8 @@ export const useUIStore = create<UIState>((set) => ({
   newLocationModalOpen: false,
   setNewLocationModalOpen: (open: boolean) =>
     set({ newLocationModalOpen: open }),
+  songsAndArtistsOpen: true,
+  setSongsAndArtistsOpen: (open: boolean) => set({ songsAndArtistsOpen: open }),
+  contributorsOpen: true,
+  setContributorsOpen: (open: boolean) => set({ contributorsOpen: open }),
 }));

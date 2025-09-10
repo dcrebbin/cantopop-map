@@ -10,6 +10,8 @@ import {
   SONGS,
 } from "../common/locations";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
+import { SvgIcon } from "./map/PopupContent";
+import { arrowIcon } from "~/lib/icons/arrowIcon";
 
 export default function Menu() {
   const {
@@ -27,6 +29,10 @@ export default function Menu() {
     filteredContributors,
     setFilteredContributors,
     setNewLocationModalOpen,
+    songsAndArtistsOpen,
+    setSongsAndArtistsOpen,
+    contributorsOpen,
+    setContributorsOpen,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -256,106 +262,142 @@ export default function Menu() {
           />
 
           <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto pb-20 lg:h-[60vh]">
-            <h2 className="text-white">Artists & Songs</h2>
-            {artistsToShow.map((artist: string) => {
-              const songsForArtist = filteredSongs.filter((song) =>
-                song.artists.includes(artist),
-              );
-              if (songsForArtist.length === 0) return null;
-              return (
-                <div
-                  key={artist}
-                  className="flex w-full flex-col pr-2 text-white"
+            <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full flex-row items-center justify-between gap-2">
+                <h2 className="text-white">Artists & Songs</h2>
+                <button
+                  type="button"
+                  className={`text-white ${songsAndArtistsOpen ? "" : "rotate-180"}`}
+                  onClick={() => setSongsAndArtistsOpen(!songsAndArtistsOpen)}
                 >
-                  <div className="flex w-full flex-row items-center justify-between gap-2 pr-2">
-                    <span className="text-base">{artist}</span>
-                    <button
-                      type="button"
-                      className="flex cursor-pointer items-center gap-2 text-left"
-                      onClick={() => handleArtistCheckboxChange(artist)}
-                    >
-                      <input
-                        type="checkbox"
-                        aria-label={artist}
-                        className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
-                        checked={selectedArtists.includes(artist)}
-                        readOnly
-                      />
-                    </button>
-                  </div>
-                  <div className="mr-1 mt-1 flex flex-col gap-1 px-6">
-                    {songsForArtist.map((song) => (
-                      <button
-                        key={`${artist}-${song.name}`}
-                        type="button"
-                        className="flex w-full cursor-pointer items-center justify-between text-left underline"
-                        onClick={() => handleSongSelection(song)}
-                      >
-                        <span className="truncate text-sm">{song.name}</span>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth="1.5"
-                          stroke="white"
-                          className="size-5"
-                        >
-                          <title>Select</title>
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
-                          />
-                        </svg>
-                      </button>
-                    ))}
-                  </div>
-                  <hr className="my-1 opacity-30" />
-                </div>
-              );
-            })}
-            <h2 className="text-white">Contributors</h2>
-            <div className="flex w-full flex-col gap-2 pr-2 text-white">
-              {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
-                const namesToShow = group.names.filter((n) =>
-                  filteredContributors.includes(n),
-                );
-                if (namesToShow.length === 0) return null;
-                return (
-                  <div
-                    key={`${group.category}-${group.roleKey}`}
-                    className="flex w-full flex-col gap-1"
-                  >
-                    <hr className="my-1 opacity-30" />
-                    <div className="text-base font-semibold">{group.title}</div>
-                    {namesToShow.map((contributor) => (
+                  <SvgIcon html={arrowIcon} className="size-6" />
+                </button>
+              </div>
+              {songsAndArtistsOpen && (
+                <div className="flex w-full flex-col gap-2">
+                  {artistsToShow.map((artist: string) => {
+                    const songsForArtist = filteredSongs.filter((song) =>
+                      song.artists.includes(artist),
+                    );
+                    if (songsForArtist.length === 0) return null;
+                    return (
                       <div
-                        key={`${group.category}-${group.roleKey}-${contributor}`}
-                        className="flex w-full flex-row items-center justify-between gap-2 pr-2"
+                        key={artist}
+                        className="flex w-full flex-col pr-2 text-white"
                       >
-                        <button
-                          type="button"
-                          className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
-                          onClick={() =>
-                            handleContributorCheckboxChange(contributor)
-                          }
-                        >
-                          <span className="truncate text-sm">
-                            {contributor}
-                          </span>
-                          <input
-                            type="checkbox"
-                            aria-label={contributor}
-                            className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
-                            checked={selectedContributors.includes(contributor)}
-                            readOnly
-                          />
-                        </button>
+                        <div className="flex w-full flex-row items-center justify-between gap-2 pr-2">
+                          <span className="text-base">{artist}</span>
+                          <button
+                            type="button"
+                            className="flex cursor-pointer items-center gap-2 text-left"
+                            onClick={() => handleArtistCheckboxChange(artist)}
+                          >
+                            <input
+                              type="checkbox"
+                              aria-label={artist}
+                              className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                              checked={selectedArtists.includes(artist)}
+                              readOnly
+                            />
+                          </button>
+                        </div>
+                        <div className="mr-1 mt-1 flex flex-col gap-1 px-6">
+                          {songsForArtist.map((song) => (
+                            <button
+                              key={`${artist}-${song.name}`}
+                              type="button"
+                              className="flex w-full cursor-pointer items-center justify-between text-left underline"
+                              onClick={() => handleSongSelection(song)}
+                            >
+                              <span className="truncate text-sm">
+                                {song.name}
+                              </span>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="white"
+                                className="size-5"
+                              >
+                                <title>Select</title>
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                />
+                              </svg>
+                            </button>
+                          ))}
+                        </div>
+                        <hr className="my-1 opacity-30" />
                       </div>
-                    ))}
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full flex-row items-center justify-between gap-2">
+                <h2 className="text-white">Contributors</h2>
+                <button
+                  type="button"
+                  className={`text-white ${contributorsOpen ? "" : "rotate-180"}`}
+                  onClick={() => setContributorsOpen(!contributorsOpen)}
+                >
+                  <SvgIcon html={arrowIcon} className="size-6" />
+                </button>
+              </div>
+
+              {contributorsOpen && (
+                <div className="flex w-full flex-col gap-2 pr-2 text-white">
+                  {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
+                    const namesToShow = group.names.filter((n) =>
+                      filteredContributors.includes(n),
+                    );
+                    if (namesToShow.length === 0) return null;
+                    return (
+                      <div
+                        key={`${group.category}-${group.roleKey}`}
+                        className="flex w-full flex-col gap-1"
+                      >
+                        <hr className="my-1 opacity-30" />
+                        <div className="text-base font-semibold">
+                          {group.title}
+                        </div>
+                        {namesToShow.map((contributor) => (
+                          <div
+                            key={`${group.category}-${group.roleKey}-${contributor}`}
+                            className="flex w-full flex-row items-center justify-between gap-2 pr-2"
+                          >
+                            <button
+                              type="button"
+                              className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
+                              onClick={() =>
+                                handleContributorCheckboxChange(contributor)
+                              }
+                            >
+                              <span className="truncate text-sm">
+                                {contributor}
+                              </span>
+                              <input
+                                type="checkbox"
+                                aria-label={contributor}
+                                className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                                checked={selectedContributors.includes(
+                                  contributor,
+                                )}
+                                readOnly
+                              />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
           <button
