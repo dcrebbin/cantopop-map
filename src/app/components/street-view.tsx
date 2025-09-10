@@ -58,8 +58,8 @@ export default function StreetView() {
   }, []);
 
   return (
-    <div className="fixed bottom-0 right-0 z-[90] flex h-full w-full items-center justify-center">
-      <div className="mb-48 flex h-auto w-[600px] flex-col items-center gap-4 rounded-lg bg-white p-4">
+    <div className="fixed bottom-0 right-0 z-[90] flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="mx-4 mb-10 flex h-auto w-full flex-col items-center gap-4 rounded-lg bg-white p-4 lg:mb-28 lg:w-[55rem]">
         <div className="flex w-full flex-row items-center justify-between">
           <h1>Cantopop地圖 Guesser</h1>
           <button type="button" onClick={() => setGameOpen(false)}>
@@ -68,9 +68,9 @@ export default function StreetView() {
         </div>
         <iframe
           src={selectedLocation?.streetViewEmbed ?? ""}
-          width="550"
-          height="400"
-          className="rounded-lg drop-shadow-md"
+          width="100%"
+          height="100%"
+          className="h-[20rem] rounded-lg drop-shadow-md lg:h-[30rem]"
           style={{ border: "0" }}
           allowFullScreen
           title="Street View"
