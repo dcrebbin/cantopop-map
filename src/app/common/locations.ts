@@ -124,7 +124,7 @@ const RAW_LOCATIONS = [
     address: "Fung Lok Wai Fish Ponds (estimation)",
     name: "全世界停電 第二年 The Blackout, Year 2 ",
     streetViewEmbed:
-      "https://www.google.com/maps/embed?pb=!4v1757528265827!6m8!1m7!1sCIHM0ogKEICAgIDq3LDU3gE!2m2!1d22.473348!2d114.024313!3f184.1424012714811!4f-11.960669122036352!5f0.4000000000000002",
+      "https://www.google.com/maps/embed?pb=!4v1757540569713!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRHEzTERVM2dF!2m2!1d22.47334796743392!2d114.0243129647726!3f184.14!4f-11.959999999999994!5f0.4000000000000002",
     streetView:
       "https://www.google.com/maps/@22.473348,114.024313,3a,57.3y,184.14h,81.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDq3LDU3gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HbpwtC1DNElZZ30HhUjsS7deGl2Ny68igkVQYF3jY-7VNiFntK3khg8fwzqu6Mqvr3QDQ9b6DzbpQm99IrDU6aYWGRdL1s0CqvHRQNzBpWk8cF21BV_5HeI-63NSGfWyTNB0ZBJ%3Dw900-h600-k-no-pi8.043024207959391-ya171.64525490982788-ro0-fo100!7i10000!8i5000?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/MIhQlIlxAbk?t=162",
@@ -240,6 +240,8 @@ const RAW_LOCATIONS = [
     artists: ["張蔓姿 Gigi"],
     address: "Tai Kok Tsui",
     name: "不言自明 (Frequency)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757541941114!6m8!1m7!1sNaHq8IhxEtE7pQV-4rGZ1A!2m2!1d22.32527694741373!2d114.1636762902887!3f97.48!4f4.799999999999997!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/Gzs1krr2H9XknBZa7",
     url: "https://youtu.be/2RPuyWSUJP0?t=14",
     image: "https://i.ytimg.com/vi/2RPuyWSUJP0/maxresdefault.jpg",
@@ -291,7 +293,9 @@ const RAW_LOCATIONS = [
     coordinates: [-37.81971104480582, 144.96839465665767],
     artists: ["馮允謙 Jay Fung"],
     address: "Melbourne, Australia",
-    name: " 會再見的 (See You Soon, It's Not A Goodbye)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757541999053!6m8!1m7!1sVYLz_QVtZKGhlhhlMwrhnw!2m2!1d-37.81954365979709!2d144.9683383302688!3f294.92095360191445!4f1.5259597594675967!5f1.0504756025805146",
+    name: "會再見的 (See You Soon, It's Not A Goodbye)",
     streetView: "https://maps.app.goo.gl/ZTLN5CkXJrvo5Z4j8",
     url: "https://youtu.be/SRG29U7Fw_o?t=166",
     image: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
@@ -301,6 +305,8 @@ const RAW_LOCATIONS = [
     artists: ["Gareth T"],
     address: "Kowloon",
     name: "偶像已死 (idole sind tot)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542028839!6m8!1m7!1sWFzV474cwGtFPG_0p5puGg!2m2!1d22.3297550581031!2d114.188473420921!3f7.17!4f-6.150000000000006!5f0.42014447740813105",
     streetView: "https://maps.app.goo.gl/Z7qQELhGgLZLJY5h8",
     url: "https://youtu.be/-24iWWT9hj4?t=42",
     image: "https://i.ytimg.com/vi/-24iWWT9hj4/maxresdefault.jpg",
@@ -354,6 +360,8 @@ const RAW_LOCATIONS = [
     name: "i hate u (en)",
     streetView: "https://maps.app.goo.gl/FHpCdhHoTprpERm48",
     url: "https://youtu.be/Fw4m0jQsoug?t=42",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542063918!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRHlqY25DcmdF!2m2!1d22.3387009168915!2d114.1712234417779!3f255.92!4f-13.780000000000001!5f1.517141583428868",
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/maxresdefault.jpg",
   },
   {
@@ -415,6 +423,8 @@ const RAW_LOCATIONS = [
     artists: ["林家謙 Terence Lam"],
     address: "Ho Man Tin & various locations",
     name: " 《普渡眾生》 - 電影",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542100072!6m8!1m7!1slorJ8mtOeOzhO4XZXb2dcA!2m2!1d22.30681862444589!2d114.1828285753351!3f129.55!4f-2.5!5f1.9587109090973311",
     streetView:
       "https://www.google.com/maps/place/Ho+Man+Tin/@22.3068186,114.1828286,3a,37.5y,129.55h,87.5t/data=!3m7!1e1!3m5!1slorJ8mtOeOzhO4XZXb2dcA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D2.504974932997399%26panoid%3DlorJ8mtOeOzhO4XZXb2dcA%26yaw%3D129.55358498814783!7i16384!8i8192!4m6!3m5!1s0x340400dd0e16ed7d:0x34039828f896379b!8m2!3d22.3093594!4d114.1827294!16zL20vMDR5dGgz?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/GUCoNfRmchM?t=159",
@@ -435,6 +445,8 @@ const RAW_LOCATIONS = [
     streetView:
       "https://www.google.com/maps/place/Boston+restaurant/@22.3118286,114.186127,3a,20.7y,112.21h,74.13t/data=!3m7!1e1!3m5!1sHxri6Bk3IK0N7CEqYmAtZg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.867936901216908%26panoid%3DHxri6Bk3IK0N7CEqYmAtZg%26yaw%3D112.20733141427111!7i16384!8i8192!4m6!3m5!1s0x340400deb2a3fff1:0xbc804a6339445298!8m2!3d22.3118659!4d114.1863231!16s%2Fg%2F1tffx2x5?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     artists: ["moon tang", "Kiri T"],
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542135354!6m8!1m7!1sHxri6Bk3IK0N7CEqYmAtZg!2m2!1d22.31182976901097!2d114.1861265055741!3f112.21!4f-15.870000000000005!5f2.8529851388007312",
     address: "Boston Restaurant",
     name: "i hate u owe me $$$ (en)",
     url: "https://youtu.be/4hRZudEMff8?t=13",
@@ -462,6 +474,8 @@ const RAW_LOCATIONS = [
     address: "Tai Ping Shan",
     name: "《E先生連環不幸事件》",
     url: "https://youtu.be/7FPL4DRizgk?t=163",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542170056!6m8!1m7!1su31CYnduqRoYhPYEkj2pKQ!2m2!1d22.28512634634416!2d114.1482969323193!3f311.6!4f-14.930000000000007!5f0.7820865974627469",
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'06.7%22N+114%C2%B008'53.7%22E/@22.2851263,114.1482969,3a,75y,311.6h,75.07t/data=!3m7!1e1!3m5!1su31CYnduqRoYhPYEkj2pKQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D14.932997962100217%26panoid%3Du31CYnduqRoYhPYEkj2pKQ%26yaw%3D311.59964401687176!7i16384!8i8192!4m4!3m3!8m2!3d22.2851862!4d114.1482355?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/7FPL4DRizgk/hq720.jpg",
@@ -488,6 +502,8 @@ const RAW_LOCATIONS = [
     address: "Tai Shui Hang",
     name: "《Wait A Second》",
     url: "https://youtu.be/4ZRo4BrJdU4?t=22",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542195340!6m8!1m7!1sA2uQOXNvRAKc59-ci_1Tzw!2m2!1d22.40852222990237!2d114.2204960873621!3f310.7!4f-1.480000000000004!5f1.8040437927425104",
     streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
     image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
   },
@@ -531,6 +547,8 @@ const RAW_LOCATIONS = [
         colorists: ["kidney"],
       },
     },
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542220770!6m8!1m7!1s2J69iBDPQeY7q183ElG1Aw!2m2!1d-8.653257027760217!2d115.1325177286686!3f276.27!4f-7.450000000000003!5f0.9464259723508612",
     streetView:
       "https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=tWPQSKm5WyQ",
@@ -542,6 +560,8 @@ const RAW_LOCATIONS = [
     address: "near Yuk Hing Temple",
     name: "grwm",
     url: "https://youtu.be/aqDDCiZoJIY?t=44",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542250449!6m8!1m7!1sCIHM0ogKEICAgIDmh_-gkwE!2m2!1d22.48102814707211!2d114.1560802220131!3f310.18!4f-9.480000000000004!5f0.4000000000000002",
     streetView:
       "https://www.google.com/maps/place/22%C2%B028'51.3%22N+114%C2%B009'21.7%22E/@22.481028,114.1560802,3a,28.6y,310.18h,91.34t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDmh_-gkwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZ2XLcqKzEMGYqKBzis-T2veI6s-SxJsnI9tuN-0rD-OL862eRkh3Bth49G08kFHIFv0013vFdgs6uwGRYsDEil5yVFEXsVw8TaLo6FYbXKQubLQLA7QzUBrlA26ESQq1-37uc6%3Dw900-h600-k-no-pi-1.3402438159201182-ya252.3987914797783-ro0-fo100!7i5760!8i2880!4m4!3m3!8m2!3d22.4809167!4d114.1560278?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/aqDDCiZoJIY/maxresdefault.jpg",
@@ -552,6 +572,8 @@ const RAW_LOCATIONS = [
     address: "Second Street",
     name: "銀河修理員 Galactic Repairman",
     url: "https://youtu.be/sg8V5BLMEhE?t=138",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542275527!6m8!1m7!1s-i8wnvyBBU0VwuItG00iVQ!2m2!1d22.28615736618844!2d114.1407241720116!3f102.58!4f-11.950000000000003!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/bM-3drXQ4TI/maxresdefault.jpg",
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'10.2%22N+114%C2%B008'27.0%22E/@22.2861574,114.1407242,3a,75y,102.58h,78.05t/data=!3m7!1e1!3m5!1s-i8wnvyBBU0VwuItG00iVQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D11.949899332072064%26panoid%3D-i8wnvyBBU0VwuItG00iVQ%26yaw%3D102.575493856485!7i16384!8i8192!4m4!3m3!8m2!3d22.2861561!4d114.1408185?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
@@ -569,6 +591,8 @@ const RAW_LOCATIONS = [
     artists: ["Kiri T", "Gareth T", "Gordon Flanders", "moon tang"],
     address: "Coffeelin",
     name: "Christmas Playlist (en)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542292758!6m8!1m7!1ss1bn_R27bLHP8vrV5M0sPw!2m2!1d22.26856698070912!2d114.1868155328461!3f147.02!4f-7.180000000000007!5f0.7820865974627469",
     streetView:
       "https://www.google.com/maps/place/22%C2%B016'06.4%22N+114%C2%B011'12.7%22E/@22.268567,114.1868155,3a,75y,147.02h,82.82t/data=!3m7!1e1!3m5!1ss1bn_R27bLHP8vrV5M0sPw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.1787387254073565%26panoid%3Ds1bn_R27bLHP8vrV5M0sPw%26yaw%3D147.02454317766063!7i16384!8i8192!4m4!3m3!8m2!3d22.2684441!4d114.1868635?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=SHFZkBPub5c",
