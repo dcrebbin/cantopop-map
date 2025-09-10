@@ -601,7 +601,10 @@ const RAW_LOCATIONS = [
   {
     coordinates: [34.70259615177415, 135.49608298379817],
     artists: ["Cloud 雲浩影"],
-    address: "Osaka (Estimation)",
+    address: "Osaka Station",
+    streetView: "https://maps.app.goo.gl/hJCa55YrTaVZUvvf6",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757543959304!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3VvTlBsbWdF!2m2!1d34.70285577086902!2d135.497586898638!3f151.750789695359!4f0.8880319415493005!5f1.8581076242228396",
     name: "回憶半分鐘 Memento",
     url: "https://www.youtube.com/watch?v=oSeRj1sW3To",
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
