@@ -250,7 +250,7 @@ export default function Menu() {
         </svg>
       </button>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 max-h-[100vh] w-[100vw] rounded-md bg-black/10 p-2 backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem]`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/[15%] p-2 drop-shadow-md backdrop-blur-lg lg:max-h-[45rem] lg:w-[30rem]`}
       >
         <div className="flex flex-col items-center justify-center gap-2">
           <input
