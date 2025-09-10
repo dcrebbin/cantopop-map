@@ -1,4 +1,4 @@
-export const gamepadIcon = `<svg class="h-10 w-10" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+export const gamepadIcon = `<svg class="h-10 w-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)] " version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 viewBox="0 0 512 512"  xml:space="preserve">
 <style type="text/css">
 	.st0{fill:#ffffff;}

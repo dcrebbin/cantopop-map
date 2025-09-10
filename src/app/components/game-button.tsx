@@ -7,13 +7,10 @@ export default function GameButton() {
   return (
     <button
       type="button"
-      className="z-[100] cursor-pointer"
+      className="z-[100] cursor-pointer transition-transform duration-300 hover:scale-110"
       onClick={() => setGameOpen(!gameOpen)}
     >
-      <SvgIcon
-        html={gamepadIcon}
-        className="h-6 w-6 text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
-      />{" "}
+      <SvgIcon html={gamepadIcon} className="h-6 w-6 text-white" />{" "}
     </button>
   );
 }

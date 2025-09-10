@@ -224,7 +224,7 @@ export default function Menu() {
       {!menuOpen && <GameButton />}
       <button
         type="button"
-        className="z-20 mr-3"
+        className="z-20 mr-3 transition-transform duration-300 hover:scale-110"
         onClick={() => {
           setMenuOpen(!menuOpen);
           setTimeout(() => {
