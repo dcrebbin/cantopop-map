@@ -41,4 +41,5 @@ export const nameToInstagramMap = {
   "Teddy Fan": "teddyfanguitar",
   "Goo Chan": "_goochan_",
   "Justin Yau": "justinyauyan",
+  Howai: "wwwwwwwwai",
 };
