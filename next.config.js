@@ -1,11 +1,7 @@
-/**
- * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
- * for Docker builds.
- */
-await import("./src/env.js");
+import "./src/env.js";
+import withPWAInit from "next-pwa";
 
-/** @type {import("next").NextConfig} */
-const config = {
+const baseConfig = {
   async rewrites() {
     return [
       {
@@ -22,8 +18,14 @@ const config = {
       },
     ];
   },
-  // This is required to support PostHog trailing slash API requests
   skipTrailingSlashRedirect: true,
 };
 
-export default config;
+const withPWA = withPWAInit({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+});
+
+export default withPWA(baseConfig);

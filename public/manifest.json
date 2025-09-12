@@ -1,0 +1,75 @@
+{
+    "name": "cantopop地圖 - A map for cantpop MV locations!",
+    "short_name": "cantopop地圖",
+    "icons": [
+        {
+            "src": "icons/cantopop-48x48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-128x128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-144x144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-152x152.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/cantopop-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "id": "/",
+    "start_url": "/",
+    "display": "standalone",
+    "description": "Find the locations for your favourite cantopop music videos",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "screenshots": [
+        {
+            "src": "images/screenshot.png",
+            "sizes": "1280x720",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "images/screenshot.png",
+            "sizes": "1280x720",
+            "type": "image/png"
+        }
+    ]
+}
