@@ -42,4 +42,8 @@ export const nameToInstagramMap = {
   "Goo Chan": "_goochan_",
   "Justin Yau": "justinyauyan",
   Howai: "wwwwwwwwai",
+  "Sze To Pak": "szetopak",
+  "Katherine Ho": "katherinehosw",
+  "Samuel Wong": "hongjai_makeup",
+  "Leo Yuen": "leooo.foto",
 };
