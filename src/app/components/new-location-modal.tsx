@@ -52,6 +52,7 @@ export default function NewLocationModal() {
     const lng = parseFloat(locationCoordinates.split(",")[1] ?? "0") ?? 0;
     const newLocation: LocationItem = {
       id: songTitle,
+      mapEmbed: null,
       artists,
       streetViewEmbed: null,
       contributors: null,
