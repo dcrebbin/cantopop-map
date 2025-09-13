@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { memo, useCallback, useEffect, useRef } from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -13,6 +13,7 @@ import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import GameButton from "./game-button";
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 
 export default function Menu() {
   const {
@@ -34,6 +35,7 @@ export default function Menu() {
     setSongsAndArtistsOpen,
     contributorsOpen,
     setContributorsOpen,
+    setIsPwaTutorialVisible,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -219,11 +221,23 @@ export default function Menu() {
     ]),
   );
 
+  const MemoizedArrowDownTrayIcon = memo(ArrowDownTrayIcon);
+
   return (
     <div
       className="absolute right-0 top-0 m-0 flex flex-row gap-4"
       style={{ zIndex: menuOpen ? 110 : 90 }}
     >
+      <button
+        type="button"
+        name="Download PWA Tutorial"
+        className="drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
+        onClick={() => {
+          setIsPwaTutorialVisible(true);
+        }}
+      >
+        <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white md:hidden" />
+      </button>
       {!menuOpen && <GameButton />}
       <button
         type="button"

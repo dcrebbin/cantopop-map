@@ -39,6 +39,8 @@ interface UIState {
     artists: string[];
     streetViewEmbed: string;
   }) => void;
+  isPwaTutorialVisible: boolean;
+  setIsPwaTutorialVisible: (visible: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -80,4 +82,7 @@ export const useUIStore = create<UIState>((set) => ({
     artists: string[];
     streetViewEmbed: string;
   }) => set({ selectedLocation: location }),
+  isPwaTutorialVisible: true,
+  setIsPwaTutorialVisible: (visible: boolean) =>
+    set({ isPwaTutorialVisible: visible }),
 }));
