@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prebuild": "tsx scripts/generate-llms.ts",
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
@@ -26,6 +27,7 @@
     "react-dom": "^18.3.1",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
+    "tsx": "^4.20.5",
     "zod": "^3.23.3",
     "zustand": "^4.5.5"
   },
