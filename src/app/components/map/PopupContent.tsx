@@ -107,6 +107,20 @@ export function PopupContent({
                     </a>
                   );
                 }
+                if (name.includes("@")) {
+                  return (
+                    <a
+                      key={name}
+                      href={`https://www.instagram.com/${name.split("@")[1]}`}
+                      target="_blank"
+                      className="text-blue-500 underline"
+                      rel="noreferrer"
+                    >
+                      {name}
+                    </a>
+                  );
+                }
+
                 return <span key={name}>{name}</span>;
               })}
             </div>
@@ -134,6 +148,19 @@ export function PopupContent({
                       <a
                         key={name}
                         href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                        target="_blank"
+                        className="text-blue-500 underline"
+                        rel="noreferrer"
+                      >
+                        {name}
+                      </a>
+                    );
+                  }
+                  if (name.includes("@")) {
+                    return (
+                      <a
+                        key={name}
+                        href={`https://www.instagram.com/${name.split("@")[1]}`}
                         target="_blank"
                         className="text-blue-500 underline"
                         rel="noreferrer"
