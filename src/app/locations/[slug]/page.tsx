@@ -9,6 +9,8 @@ import { notFound } from "next/navigation";
 import Home from "~/app/page";
 import { SvgIcon } from "~/app/components/map/PopupContent";
 import { arrowRightIcon } from "~/lib/icons/arrowRightIcon";
+import Script from "next/script";
+import CloseButton from "~/app/components/close-button";
 
 export function generateStaticParams() {
   return Object.keys(nameToLocation).map((slug) => ({ slug }));
@@ -24,7 +26,7 @@ export function generateMetadata({
   if (!location) return {};
 
   const title = `${location.name} by ${location.artists.join(", ")} - Music Video Location`;
-  const description = `${location.name} by ${location.artists.join(", ")} — filmed at ${location.address}. View Street View and watch the MV.`;
+  const description = `${location.name} by ${location.artists.join(", ")} — filmed at ${location.address}. View Street View and watch the Music Video.`;
   const images = location.image ? [location.image] : ["/images/og-image.png"];
 
   return {
@@ -62,29 +64,48 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
     ? location?.url.split("youtu.be/")[1]?.split("?")[0]
     : location?.url.split("v=")[1]?.split("&")[0];
 
-  if (!videoId) {
-    return notFound();
-  }
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MusicRecording",
+    name: location.name,
+    byArtist: location.artists.map((a) => ({ "@type": "MusicGroup", name: a })),
+    url: location.url,
+    image: location.image,
+    locationCreated: {
+      "@type": "Place",
+      name: location.address,
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: location.lat,
+        longitude: location.lng,
+      },
+    },
+    potentialAction: {
+      "@type": "WatchAction",
+      target: location.url,
+    },
+  } as const;
 
   return (
     <div className="relative h-screen w-screen">
       <div
-        className="fixed z-[99999] flex h-screen w-screen flex-col items-center justify-center bg-black/50"
+        className="fixed z-[95] flex h-screen w-screen flex-col items-center justify-center bg-black/30"
         id="location-modal"
       >
-        <div className="my-10 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-[90rem]">
+        <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-[60rem] xl:w-[80rem] 2xl:w-[90rem]">
+          <script type="application/ld+json" suppressHydrationWarning>
+            {JSON.stringify(jsonLd)}
+          </script>
           <div className="flex w-full flex-row items-center justify-between">
             <h1 className="text-xl font-bold">
               {location?.artists.join(", ")} - {location?.name} | Music Video
               Location
             </h1>
-            <a href={`/?title=${title}`}>
-              <SvgIcon html={arrowRightIcon} className="h-6 w-6 text-black" />
-            </a>
+            <CloseButton />
           </div>
           <div className="flex w-full flex-col items-start justify-start px-4">
-            <div className="mt-4 flex w-full flex-row items-start justify-evenly gap-2">
-              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-[600px]">
+            <div className="mt-4 grid w-full justify-center gap-2 lg:grid-cols-2">
+              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
                 <iframe
                   src={location?.streetViewEmbed ?? location?.mapEmbed ?? ""}
                   width="100%"
@@ -94,15 +115,21 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                   style={{ border: "0" }}
                 ></iframe>
               </div>
-              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-[600px]">
-                <iframe
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                  width="100%"
-                  height="100%"
-                  title="Youtube Video"
-                  className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
-                  style={{ border: "0" }}
-                ></iframe>
+              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
+                {videoId ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${videoId}`}
+                    width="100%"
+                    height="100%"
+                    title="Youtube Video"
+                    className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
+                    style={{ border: "0" }}
+                  ></iframe>
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center rounded-lg bg-white/60 text-sm">
+                    Video unavailable
+                  </div>
+                )}
               </div>
             </div>
             <hr className="my-2 w-full" />
@@ -131,6 +158,18 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                 <h3 className="my-1 text-base">Contributors</h3>
                 <hr className="my-1 w-full text-black" />
                 <h3 className="my-2">Song</h3>
+                {Object.entries(location.contributors?.song ?? {}).length ===
+                  0 && (
+                  <div className="flex w-full flex-col items-center justify-center text-sm">
+                    <p className="text-center">No song contributors found</p>
+                    <a
+                      className="my-2 font-normal underline"
+                      href={`mailto:devon@langpal.com.hk?subject=Cantopop地圖: ${location.name} Song Contributors`}
+                    >
+                      Submit contributors
+                    </a>
+                  </div>
+                )}
                 <div className="grid w-full grid-cols-2 gap-2">
                   {Object.entries(location?.contributors?.song ?? {}).map(
                     ([key, value]) => (
@@ -167,8 +206,21 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                     ),
                   )}
                 </div>
-                <hr className="my-1 w-full text-black" />
                 <h3 className="text-md my-2">Music Video</h3>
+                {Object.entries(location.contributors?.musicVideo ?? {})
+                  .length === 0 && (
+                  <div className="flex w-full flex-col items-center justify-center text-sm">
+                    <p className="text-center">
+                      No music video contributors found
+                    </p>
+                    <a
+                      className="my-2 font-normal underline"
+                      href={`mailto:devon@langpal.com.hk?subject=Cantopop地圖: ${location.name} Music Video Contributors`}
+                    >
+                      Submit contributors
+                    </a>
+                  </div>
+                )}
                 <div className="grid w-full grid-cols-2 gap-2">
                   {Object.entries(location?.contributors?.musicVideo ?? {}).map(
                     ([key, value]) => (
@@ -210,7 +262,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <Home />
+      <Home location={location} />
     </div>
   );
 }

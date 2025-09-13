@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { LOCATIONS, nameToLocation } from "./common/locations";
+import { LocationItem, LOCATIONS, nameToLocation } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
 import Footer from "./components/footer";
@@ -17,7 +17,7 @@ import { useUIStore } from "./_state/ui.store";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
 
-export default function Home() {
+export default function Home({ location }: { location: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
 
   const { gameOpen } = useUIStore();
@@ -45,6 +45,12 @@ export default function Home() {
   };
 
   useEffect(() => {
+    if (!map) return;
+    if (location) {
+      map.setCenter([location.lng, location.lat]);
+      map.setZoom(15);
+    }
+
     const url = new URLSearchParams(window.location.search);
     const title = url.get("title");
     if (title) {
@@ -64,7 +70,7 @@ export default function Home() {
         zoom: 15,
       });
     }
-  }, [map]);
+  }, [map, location]);
 
   return (
     <div className="flex h-screen w-screen flex-col overflow-hidden">

@@ -4,7 +4,10 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { PostHogProvider } from "./components/PostHogProvider";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL;
+
 export const metadata: Metadata = {
+  metadataBase: siteUrl ? new URL(siteUrl) : undefined,
   title: "Cantopop Map | 粵語歌地圖 🇭🇰",
   description: "Find the locations for your favourite cantopop songs",
   applicationName: "cantopop地圖",

@@ -92,7 +92,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.447133466533547, 113.99309961351902],
     artists: ["MC 張天賦"],
     address: "Tang Ancestral Hall, Ha Tsuen",
-    name: "老派約會之必要 (A Gentleman's Guide to Old-Fashioned Dating)",
+    name: "老派約會之必要 A Gentleman's Guide to Old Fashioned Dating",
     url: "https://youtu.be/u14rrcxENDw?t=134",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757527654563!6m8!1m7!1s8kZwr4vIuvgRmy85jUlOKA!2m2!1d22.44731071377599!2d113.9931841031054!3f196.45222955852861!4f-1.1711255918759207!5f1.5204554155564356",
@@ -114,7 +114,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.200515988665213, 113.54521352526373],
     artists: ["林靜翬 winifai"],
     address: "愛星屋",
-    name: "可有甚麼 (Before I'm Gone)",
+    name: "可有甚麼 Before I'm Gone",
     streetView:
       "https://www.google.com/maps/place/%E6%84%9B%E6%98%9F%E5%B1%8B/@22.2005237,113.5450258,3a,17.4y,47.79h,85.52t/data=!3m7!1e1!3m5!1sxjEQ9tdsJi9D7YiFVWRPtA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D4.479524584813959%26panoid%3DxjEQ9tdsJi9D7YiFVWRPtA%26yaw%3D47.79128069709897!7i13312!8i6656!4m6!3m5!1s0x34017bc549f6edef:0x58865e9c1eeff8d3!8m2!3d22.2005169!4d113.5452015!16s%2Fg%2F11y74n1nz0?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=fAc4ZSVYOJU",
@@ -136,7 +136,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.265923840469792, 114.24243828964133],
     artists: ["張蔓姿 Gigi"],
     address: "Chai Wan",
-    name: "緊張大師 (Overthinker)",
+    name: "緊張大師 Overthinker",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534415473!6m8!1m7!1sPM1g-S6Z0G1rhVkE-X750A!2m2!1d22.26584600993253!2d114.2426315636989!3f324.63!4f-1.5499999999999972!5f3.325193203789971",
     streetView: "https://maps.app.goo.gl/FY5WayGRF7jtGEc19",
@@ -182,7 +182,7 @@ const RAW_LOCATIONS = [
     coordinates: [25.05590865962602, 121.52047332658746],
     artists: ["張蔓姿 Gigi"],
     address: "Coffee Dumbo",
-    name: "過電 (Connected)",
+    name: "過電 Connected",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534462413!6m8!1m7!1stI-TeHb56CO6kkMDI6564Q!2m2!1d25.05582118680902!2d121.5204518689158!3f275.98!4f-9.480000000000004!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/WKDK9JtNDwx5B5m59",
@@ -204,7 +204,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.3392477451512, 114.1702242800071],
     artists: ["張蔓姿 Gigi"],
     address: "Shek Kip Mei Park",
-    name: "不眠遊戲 (SLEEPLESS GAME)",
+    name: "不眠遊戲 SLEEPLESS GAME",
     streetView: "https://maps.app.goo.gl/2xAZxAwLAEUB6hNU7",
     url: "https://youtu.be/Pv-v5502KxU?t=15",
     image: "https://i.ytimg.com/vi/Pv-v5502KxU/maxresdefault.jpg",
@@ -241,7 +241,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.325305480711116, 114.16367494918416],
     artists: ["張蔓姿 Gigi"],
     address: "Tai Kok Tsui",
-    name: "不言自明 (Frequency)",
+    name: "不言自明 Frequency",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757541941114!6m8!1m7!1sNaHq8IhxEtE7pQV-4rGZ1A!2m2!1d22.32527694741373!2d114.1636762902887!3f97.48!4f4.799999999999997!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/Gzs1krr2H9XknBZa7",
@@ -252,7 +252,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.308195267462157, 114.17169792196543],
     artists: ["張蔓姿 Gigi"],
     address: "Eaton HK, Yau Ma Tei",
-    name: "深夜浪漫 (Midnight Romance)",
+    name: "深夜浪漫 Midnight Romance",
     streetView: "https://maps.app.goo.gl/2qYVjwWaEjazJ8YTA",
     url: "https://youtu.be/EMPUP9Ph8q0?t=96",
     streetViewEmbed:
