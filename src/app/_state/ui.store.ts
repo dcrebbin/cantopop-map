@@ -82,7 +82,7 @@ export const useUIStore = create<UIState>((set) => ({
     artists: string[];
     streetViewEmbed: string;
   }) => set({ selectedLocation: location }),
-  isPwaTutorialVisible: true,
+  isPwaTutorialVisible: false,
   setIsPwaTutorialVisible: (visible: boolean) =>
     set({ isPwaTutorialVisible: visible }),
 }));
