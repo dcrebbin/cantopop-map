@@ -220,7 +220,10 @@ export default function Menu() {
   );
 
   return (
-    <div className="absolute right-0 top-0 z-[90] m-0 flex flex-row gap-4">
+    <div
+      className="absolute right-0 top-0 m-0 flex flex-row gap-4"
+      style={{ zIndex: menuOpen ? 110 : 90 }}
+    >
       {!menuOpen && <GameButton />}
       <button
         type="button"
