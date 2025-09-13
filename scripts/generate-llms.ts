@@ -35,7 +35,7 @@ async function generateLlmsTxt(): Promise<void> {
 
   const locationLines = slugs.map((slug) => {
     const loc = nameToLocation[slug];
-    const pageUrl = `${url}/locations/${encodeURIComponent(slug)}`;
+    const pageUrl = `${url}/locations/${decodeURIComponent(slug)}`;
     const parts: string[] = [pageUrl];
 
     const title = `${loc?.artists.join(", ")} — ${loc?.name}`;
