@@ -180,13 +180,12 @@ export function PopupContent({
   );
   return (
     <div
-      className="relative top-0 flex h-fit min-w-[90px] max-w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
+      className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
       tabIndex={-1}
       style={{
-        maxWidth: "100%",
-        maxHeight: isExpanded ? "none" : "100%",
+        maxHeight: isExpanded ? "none" : "150px",
         height: isExpanded ? "350px" : "100%",
-        width: isExpanded ? "350px" : "auto",
+        width: isExpanded ? "350px" : "150px",
       }}
       data-song={`popup-${data.name}`}
     >
