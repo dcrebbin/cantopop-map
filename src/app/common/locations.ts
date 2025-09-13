@@ -383,7 +383,7 @@ const RAW_LOCATIONS = [
     address: "Siu Hong, Tuen Mun",
     name: "若果我們未曾遇過 (If We Never Met)",
     streetView: "https://maps.app.goo.gl/u1FSjrs3ToKsgo6J6",
-    url: "https://youtu.be/B19QxFpTUWY?&t=93",
+    url: "https://youtu.be/B19QxFpTUWY?t=93",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757537957208!6m8!1m7!1sufs3tKWSOHu1vedlt-OcwA!2m2!1d22.41478164220148!2d113.9795030658556!3f228.04410402190794!4f-21.999652624153967!5f0.40032265550254637",
     image: "https://i.ytimg.com/vi/B19QxFpTUWY/maxresdefault.jpg",
@@ -857,7 +857,7 @@ const RAW_LOCATIONS = [
     artists: ["Zpecial"],
     address: "Stonecutters Bridge Viewing Point",
     name: "第四名的星空 The Shining No.4",
-    url: "https://youtu.be/Wmprpb7aF34?&t=26",
+    url: "https://youtu.be/Wmprpb7aF34?t=26",
     streetView: "https://maps.app.goo.gl/wFV3qBYZkYkR9UR38",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757701090785!6m8!1m7!1sj91aCo_7LA4XNgSjz2vfuw!2m2!1d22.32295739006709!2d114.1225594944134!3f191.45458453553783!4f7.2596490290598155!5f0.4000000000000002",
@@ -1010,7 +1010,7 @@ const RAW_LOCATIONS = [
     streetView: "https://maps.app.goo.gl/4Zb5tmr6dwKwzmLz8",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757599853488!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ0VwcnlsUkE.!2m2!1d22.27748886972953!2d114.1220578000749!3f57.18942202533517!4f2.9925477937404423!5f1.4923418075005124",
-    url: "https://youtu.be/Jdqd4fyXFgQ?&t=65",
+    url: "https://youtu.be/Jdqd4fyXFgQ?t=65",
     image: "https://i.ytimg.com/vi/Jdqd4fyXFgQ/maxresdefault.jpg",
     contributors: {
       song: {
