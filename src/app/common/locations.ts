@@ -350,7 +350,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.233327554455837, 114.17248136072266],
     artists: ["Gordon Flanders"],
     address: "Ocean Park",
-    name: "歌頓花園 (Gordon's Garden)",
+    name: "歌頓花園 Gordon's Garden",
     streetView: "https://maps.app.goo.gl/WDr19mxqC4zdQ1uz7",
     url: "https://youtu.be/iYAtwuZXEC8?t=94",
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
@@ -381,7 +381,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.414696717181048, 113.9793662731995],
     artists: ["Zpecial"],
     address: "Siu Hong, Tuen Mun",
-    name: "若果我們未曾遇過 (If We Never Met)",
+    name: "若果我們未曾遇過 If We Never Met",
     streetView: "https://maps.app.goo.gl/u1FSjrs3ToKsgo6J6",
     url: "https://youtu.be/B19QxFpTUWY?t=93",
     streetViewEmbed:
@@ -414,7 +414,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.326956446741637, 114.16372901966172],
     artists: ["Dear Jane"],
     address: "Around Kowloon",
-    name: "不消失戀愛連續 (I Don't Wanna Be Your IG Story)",
+    name: "不消失戀愛連續 I Don't Wanna Be Your IG Story",
     streetView:
       "https://www.google.com/maps/place/Loong+Jun+Enterprises+Ltd/@22.3268597,114.1637183,3a,75y,22.3h,91.5t/data=!3m7!1e1!3m5!1s-3Jda4lLwiQrjvug-CA7kA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4987673664758887%26panoid%3D-3Jda4lLwiQrjvug-CA7kA%26yaw%3D22.29617937600097!7i16384!8i8192!4m6!3m5!1s0x340400b42691e4d1:0xdc3fe8132f680566!8m2!3d22.326932!4d114.163766!16s%2Fg%2F12m9k28vc?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/4-85jDmMQNo?t=409",
@@ -436,7 +436,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.282396863718144, 114.1524964001634],
     artists: ["Dear Jane"],
     address: "Around Central",
-    name: "未開始已經結束 (Ended Before We Even Started)",
+    name: "未開始已經結束 Ended Before We Even Started",
     streetView:
       "https://www.google.com/maps/place/Soho+Corner/@22.2823981,114.1523301,3a,75y,76.18h,76.05t/data=!3m7!1e1!3m5!1sivBCw7hfXtykxpxIIgRZDA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D13.94533764092887%26panoid%3DivBCw7hfXtykxpxIIgRZDA%26yaw%3D76.18336602604404!7i16384!8i8192!4m6!3m5!1s0x3404007ba1c6bab5:0xf07c3974d8c252e1!8m2!3d22.2823924!4d114.1524921!16s%2Fg%2F1tgjhx6l?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/HwlYipX78Qo?t=154",
@@ -450,7 +450,7 @@ const RAW_LOCATIONS = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542135354!6m8!1m7!1sHxri6Bk3IK0N7CEqYmAtZg!2m2!1d22.31182976901097!2d114.1861265055741!3f112.21!4f-15.870000000000005!5f2.8529851388007312",
     address: "Boston Restaurant",
-    name: "i hate u owe me $$$ (en)",
+    name: "i hate u owe me $$$ - en",
     url: "https://youtu.be/4hRZudEMff8?t=13",
     image: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
   },
@@ -502,7 +502,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.4085224, 114.2204968],
     artists: ["DAY 許軼"],
     address: "Tai Shui Hang",
-    name: "《Wait A Second》",
+    name: "Wait A Second",
     url: "https://youtu.be/4ZRo4BrJdU4?t=22",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542195340!6m8!1m7!1sA2uQOXNvRAKc59-ci_1Tzw!2m2!1d22.40852222990237!2d114.2204960873621!3f310.7!4f-1.480000000000004!5f1.8040437927425104",
@@ -529,7 +529,7 @@ const RAW_LOCATIONS = [
     coordinates: [-8.65321318543236, 115.13240595625565],
     artists: ["moon tang"],
     address: "Bottega Italiana",
-    name: "一口一 (zh)",
+    name: "一口一 zh",
     contributors: {
       song: {
         producers: ["Daniel Toh"],
@@ -658,7 +658,7 @@ const RAW_LOCATIONS = [
     coordinates: [35.66997711629859, 139.7061296885545],
     artists: ["陳蕾 Panther Chan"],
     address: "Shibuya Restaurants",
-    name: "相信一切是最好的安排 (In Good Hands)",
+    name: "相信一切是最好的安排 In Good Hands",
     url: "https://www.youtube.com/watch?v=RJFcyoDhzKU",
     image: "https://i.ytimg.com/vi/RJFcyoDhzKU/hq720.jpg",
   },
@@ -694,7 +694,7 @@ const RAW_LOCATIONS = [
     coordinates: [22.361638356138272, 114.1073902050347],
     artists: ["Kiri T"],
     address: "North Tsing Yi (Estimation)",
-    name: "哀傷和愛上算不算同音字 (Is love enough)",
+    name: "哀傷和愛上算不算同音字 Is love enough",
     url: "https://www.youtube.com/watch?v=8Pvj_lEapJ4",
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
   },
@@ -808,7 +808,7 @@ const RAW_LOCATIONS = [
     address: "Vacanza Accessory Cafe",
     streetView:
       "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
-    name: "歸綽嶢 - Let go",
+    name: "歸綽嶢 Let go",
     url: "https://youtu.be/CbpX1RgSOl8?t=143",
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
