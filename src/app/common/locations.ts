@@ -18,6 +18,7 @@ const RawLocationSchema = z.object({
   image: z.string().url(),
   streetView: z.string().url().optional(),
   streetViewEmbed: z.string().url().optional(),
+  mapEmbed: z.string().url().optional(),
   isCustom: z.boolean().optional(),
   contributors: ContributorsSchema,
 });
@@ -37,6 +38,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     lng,
     streetView: raw.streetView ?? null,
     streetViewEmbed: raw.streetViewEmbed ?? null,
+    mapEmbed: raw.mapEmbed ?? null,
     isCustom: raw.isCustom ?? false,
     contributors: raw.contributors ?? null,
   };
@@ -667,12 +669,16 @@ const RAW_LOCATIONS = [
     name: "抽 Inhale",
     url: "https://www.youtube.com/watch?v=JmjKVtw6BrQ",
     image: "https://i.ytimg.com/vi/JmjKVtw6BrQ/hq720.jpg",
+    mapEmbed:
+      "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6379.986363075926!2d121.47850717715063!3d25.086840777782257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDA1JzEyLjYiTiAxMjHCsDI4JzUxLjkiRQ!5e1!3m2!1sen!2shk!4v1757779896993!5m2!1sen!2shk",
   },
   {
     coordinates: [35.71418744329801, 139.77755003071206],
     artists: ["洪嘉豪 Hung Kaho"],
     address: "Ueno Station (Estimation)",
     name: "黑玻璃 Tinted Windows",
+    mapEmbed:
+      "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3170.096160411515!2d139.776151103393!3d35.71433559935765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzXCsDQyJzUxLjEiTiAxMznCsDQ2JzM5LjIiRQ!5e1!3m2!1sen!2shk!4v1757779751283!5m2!1sen!2shk",
     url: "https://www.youtube.com/watch?v=Rp4iHpTvBY8",
     image: "https://i.ytimg.com/vi/Rp4iHpTvBY8/hq720.jpg",
   },
@@ -1280,6 +1286,10 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
   },
 ];
+
+export const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
+  return { [constructTitle(LocationItemSchema.parse(location))]: location };
+});
 
 export function constructTitle(
   location: LocationItem | { name: string; artists: string[] },

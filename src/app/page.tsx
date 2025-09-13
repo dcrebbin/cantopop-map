@@ -12,7 +12,6 @@ import Menu from "./components/menu";
 import NewLocationModal from "./components/new-location-modal";
 import { addPlace } from "~/lib/custom-map";
 import StreetView from "./components/street-view";
-import GameButton from "./components/game-button";
 import { useUIStore } from "./_state/ui.store";
 
 mapboxgl.accessToken =
