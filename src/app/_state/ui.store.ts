@@ -41,6 +41,10 @@ interface UIState {
   }) => void;
   isPwaTutorialVisible: boolean;
   setIsPwaTutorialVisible: (visible: boolean) => void;
+  combinedFilters: { type: "artist" | "contributor"; name: string }[];
+  setCombinedFilters: (
+    filters: { type: "artist" | "contributor"; name: string }[],
+  ) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -85,4 +89,8 @@ export const useUIStore = create<UIState>((set) => ({
   isPwaTutorialVisible: false,
   setIsPwaTutorialVisible: (visible: boolean) =>
     set({ isPwaTutorialVisible: visible }),
+  combinedFilters: [],
+  setCombinedFilters: (
+    filters: { type: "artist" | "contributor"; name: string }[],
+  ) => set({ combinedFilters: filters }),
 }));

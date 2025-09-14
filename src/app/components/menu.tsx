@@ -36,6 +36,8 @@ export default function Menu() {
     contributorsOpen,
     setContributorsOpen,
     setIsPwaTutorialVisible,
+    combinedFilters,
+    setCombinedFilters,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -104,7 +106,6 @@ export default function Menu() {
     const newSelectedArtists = selectedArtists.includes(artist)
       ? selectedArtists.filter((a) => a !== artist)
       : [...selectedArtists, artist];
-
     setSelectedArtists(newSelectedArtists);
     updateMarkerVisibility(newSelectedArtists, selectedContributors);
   }
@@ -113,7 +114,6 @@ export default function Menu() {
     const newSelectedContributors = selectedContributors.includes(contributor)
       ? selectedContributors.filter((c) => c !== contributor)
       : [...selectedContributors, contributor];
-
     setSelectedContributors(newSelectedContributors);
     updateMarkerVisibility(selectedArtists, newSelectedContributors);
   }
@@ -182,6 +182,18 @@ export default function Menu() {
     syncFiltersToUrl(selectedArtists, selectedContributors);
   }, [selectedArtists, selectedContributors, syncFiltersToUrl]);
 
+  // Keep combinedFilters in sync with selected artists and contributors
+  useEffect(() => {
+    const nextCombined = [
+      ...selectedArtists.map((name) => ({ type: "artist" as const, name })),
+      ...selectedContributors.map((name) => ({
+        type: "contributor" as const,
+        name,
+      })),
+    ];
+    setCombinedFilters(nextCombined);
+  }, [selectedArtists, selectedContributors, setCombinedFilters]);
+
   // On load, read filters from URL and apply
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -239,35 +251,42 @@ export default function Menu() {
         <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white md:hidden" />
       </button>
       {!menuOpen && <GameButton />}
-      <button
-        type="button"
-        className="z-20 mr-3 transition-transform duration-300 hover:scale-110"
-        onClick={() => {
-          setMenuOpen(!menuOpen);
-          setTimeout(() => {
-            searchRef?.current?.focus();
-          }, 100);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="white"
-          className={
-            "m-2 size-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)] " +
-            (menuOpen ? "rotate-90 transition-transform duration-300" : "")
-          }
+      <div className="h-full w-fit">
+        <button
+          type="button"
+          className="relative z-20 mr-3 transition-transform duration-300 hover:scale-110"
+          onClick={() => {
+            setMenuOpen(!menuOpen);
+            setTimeout(() => {
+              searchRef?.current?.focus();
+            }, 100);
+          }}
         >
-          <title>Menu</title>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="white"
+            className={
+              "m-2 size-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)] " +
+              (menuOpen ? "rotate-90 transition-transform duration-300" : "")
+            }
+          >
+            <title>Menu</title>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+        </button>
+        {combinedFilters.length > 0 && (
+          <div className="absolute right-0 top-0 z-30 mr-[0.9rem] mt-1 flex h-auto w-6 items-center justify-center rounded-full bg-blue-500 text-center text-white">
+            {combinedFilters.length}
+          </div>
+        )}
+      </div>
       <div
         className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/[15%] p-2 drop-shadow-md backdrop-blur-lg lg:max-h-[45rem] lg:w-[30rem]`}
       >
@@ -281,6 +300,36 @@ export default function Menu() {
           />
 
           <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto pb-20 lg:h-[60vh]">
+            <h3 className="text-white">Selected Filters</h3>
+            {combinedFilters.length === 0 && (
+              <p className="my-1 text-center text-white">No selected filters</p>
+            )}
+            <div>
+              {combinedFilters.map((filter) => (
+                <button
+                  onClick={() => {
+                    if (filter.type === "artist") {
+                      const next = selectedArtists.filter(
+                        (a) => a !== filter.name,
+                      );
+                      setSelectedArtists(next);
+                      updateMarkerVisibility(next, selectedContributors);
+                    } else {
+                      const next = selectedContributors.filter(
+                        (c) => c !== filter.name,
+                      );
+                      setSelectedContributors(next);
+                      updateMarkerVisibility(selectedArtists, next);
+                    }
+                  }}
+                  type="button"
+                  className="mx-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600"
+                  key={`${filter.type}:${filter.name}`}
+                >
+                  {filter.name}
+                </button>
+              ))}
+            </div>
             <div className="flex w-full flex-col gap-2">
               <div className="flex w-full flex-row items-center justify-between gap-2">
                 <h2 className="text-white">Artists & Songs</h2>

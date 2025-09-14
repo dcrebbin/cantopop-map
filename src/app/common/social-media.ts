@@ -46,4 +46,5 @@ export const nameToInstagramMap = {
   "Katherine Ho": "katherinehosw",
   "Samuel Wong": "hongjai_makeup",
   "Leo Yuen": "leooo.foto",
+  "Tammy Au": "tammyau_makeup",
 };
