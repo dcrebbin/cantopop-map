@@ -1367,12 +1367,15 @@ const RAW_LOCATIONS = [
     },
   },
   {
-    coordinates: [25.044823691549308, 121.07102877019913],
+    coordinates: [23.104907301496308, 120.03737771075848],
     artists: ["Gordon Flanders"],
-    address: "Taiwan Dunes (Estimation)",
+    address: "Dingtoue Sandbar",
     name: "沒有送出的詩 Unsent Poems",
     url: "https://youtu.be/O5eamIMVvNs?t=211",
     image: "https://i.ytimg.com/vi/O5eamIMVvNs/maxresdefault.jpg",
+    streetView: "https://maps.app.goo.gl/ZfPEBHPdoahRPu2s7",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757867908693!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGUzOHE3aXdF!2m2!1d23.10515750597604!2d120.0365962360383!3f190.48708641391016!4f-16.755404570848185!5f2.509060231851157",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
