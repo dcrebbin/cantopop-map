@@ -1204,6 +1204,34 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/k2W2RGDOtaw/maxresdefault.jpg",
   },
   {
+    coordinates: [25.0389002, 121.4960284],
+    artists: ["Kiri T"],
+    address: "Lane 228, Guilin Road, Taiwan",
+    name: "有些話要用英文說 Bilingual Problems",
+    streetView: "https://maps.app.goo.gl/K9H1EYYn8DwVgsYAA",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757864078102!6m8!1m7!1sSoT-rCzmPPxup9jwdmEuHw!2m2!1d25.03890020414165!2d121.496028361376!3f146.804793862258!4f-7.874700136711837!5f0.7820865974627469",
+    url: "https://youtu.be/qw4T2OWrqEc?t=114",
+    image: "https://i.ytimg.com/vi/qw4T2OWrqEc/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Kiri T", "Gavin Chan"],
+        lyricist: ["陳詠謙", "Kiri T"],
+        arranger: ["Kiri T", "Justin Yau"],
+        producer: ["Kiri T", "Jeffero Chan"],
+      },
+      musicVideo: {
+        producedBy: ["@thisismy.prod", "入屋叫人"],
+        director: ["Titus Chan"],
+        cinematographer: ["Titus Chan"],
+        creative: ["Adrian Law", "Titus Chan"],
+        productionManager: ["Lolo"],
+        makeupArtist: ["@lolonhermakeuplab"],
+        titleDesigner: ["Peter Lam"],
+      },
+    },
+  },
+  {
     coordinates: [22.2850189, 114.1488048],
     artists: ["張蔓莎 Sabrina Cheung"],
     address: "175 Hollywood Road",
