@@ -691,9 +691,10 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/_zomc3Nz_-s/maxresdefault.jpg",
   },
   {
-    coordinates: [22.361638356138272, 114.1073902050347],
+    coordinates: [22.3584504, 113.9520403],
     artists: ["Kiri T"],
-    address: "North Tsing Yi (Estimation)",
+    streetView: "https://maps.app.goo.gl/ZeKp3XdFNmVeKi1V6",
+    address: "Tuen Mun Fire station",
     name: "哀傷和愛上算不算同音字 Is love enough",
     url: "https://www.youtube.com/watch?v=8Pvj_lEapJ4",
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
