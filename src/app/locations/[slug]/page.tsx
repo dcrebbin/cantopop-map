@@ -182,26 +182,28 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                           {humanizeRoleKey(key)} <br></br>
                         </p>
                         <div className="flex flex-col gap-1 text-left text-xs font-normal">
-                          {value.map((name) => {
-                            if (
-                              nameToInstagramMap[
-                                name as keyof typeof nameToInstagramMap
-                              ]
-                            ) {
-                              return (
-                                <a
-                                  key={name}
-                                  href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
-                                  target="_blank"
-                                  className="text-blue-500 underline"
-                                  rel="noreferrer"
-                                >
-                                  {name}
-                                </a>
-                              );
-                            }
-                            return <span key={name}>{name}</span>;
-                          })}
+                          {Array.isArray(value)
+                            ? value.map((name) => {
+                                if (
+                                  nameToInstagramMap[
+                                    name as keyof typeof nameToInstagramMap
+                                  ]
+                                ) {
+                                  return (
+                                    <a
+                                      key={name as string}
+                                      href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                                      target="_blank"
+                                      className="text-blue-500 underline"
+                                      rel="noreferrer"
+                                    >
+                                      {name}
+                                    </a>
+                                  );
+                                }
+                                return null;
+                              })
+                            : null}
                         </div>
                       </div>
                     ),
