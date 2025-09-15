@@ -501,6 +501,26 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
   },
   {
+    coordinates: [36.2515599, 137.9419535],
+    artists: ["Amy Lo"],
+    address: "Matsumoto, Nagano",
+    name: "綠縈 Green Reed",
+    url: "https://youtu.be/lsfn8FpYDQ8?t=44",
+    streetView: "https://maps.app.goo.gl/L5UvF54Lm8Ka6exZ6",
+    image: "https://i.ytimg.com/vi/lsfn8FpYDQ8/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["蘇珮卿 Paige Su"],
+        lyrics: ["Oscar"],
+        arrangement: ["Perry Lau"],
+        producer: ["Perry Lau"],
+      },
+      musicVideo: {
+        producer: ["Amy Lo", "Dorian Chui", "Xinyi Liang"],
+      },
+    },
+  },
+  {
     coordinates: [35.6898955, 139.7043327],
     artists: ["張蔓莎 Sabrina Cheung"],
     address: "Shinjuku City, Tokyo",
