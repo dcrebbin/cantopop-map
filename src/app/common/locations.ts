@@ -1,10 +1,9 @@
 import { z } from "zod";
-import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 
 // Zod schema for raw items as written in the data file
 const ContributorsSchema = z
   .object({
-    song: z.record(z.array(z.string())).optional(),
+    song: z.object({}).optional(),
     musicVideo: z.record(z.array(z.string())).optional(),
   })
   .optional();
@@ -44,9 +43,11 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
   };
 });
 
+type RawLocationSchema = z.infer<typeof RawLocationSchema>;
+
 export type LocationItem = z.infer<typeof LocationItemSchema>;
 
-const RAW_LOCATIONS = [
+const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [22.321142053555345, 114.16485142381293],
     artists: ["MC 張天賦"],
@@ -215,7 +216,7 @@ const RAW_LOCATIONS = [
         arranger: ["Lee Yat Ding", "rosemances"],
         producer: ["Lee Yat Ding"],
         drums: ["Lee Yat Ding"],
-        mixers: ["Jay Tse"],
+        mixer: ["Jay Tse"],
       },
       musicVideo: {
         directors: ["Terry To"],
@@ -259,6 +260,7 @@ const RAW_LOCATIONS = [
       "https://www.google.com/maps/embed?pb=!4v1757534551019!6m8!1m7!1s4GX0sDJcr1E15cnDydio7A!2m2!1d22.30837486302836!2d114.1716643943522!3f335.63!4f2.7900000000000063!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/EMPUP9Ph8q0/maxresdefault.jpg",
     contributors: {
+      song: {},
       musicVideo: {
         directors: ["Halftalk"],
         producers: ["Anson Ng", "Alvin Chu"],
@@ -499,6 +501,47 @@ const RAW_LOCATIONS = [
     image: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
   },
   {
+    coordinates: [35.6898955, 139.7043327],
+    artists: ["張蔓莎 Sabrina Cheung"],
+    address: "Shinjuku City, Tokyo",
+    name: "AMERICANO",
+    url: "https://youtu.be/hdNwlTajyLk?t=24",
+    image: "https://i.ytimg.com/vi/hdNwlTajyLk/maxresdefault.jpg",
+    streetView: "https://maps.app.goo.gl/KpGQELuDhGqFC92i9",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757945668841!6m8!1m7!1sQqJIsILHwr1DvIIARt35gA!2m2!1d35.68989545592974!2d139.7043326717666!3f187.4819852629021!4f-10.792572349094897!5f0.7820865974627469",
+    contributors: {
+      song: {
+        composer: ["Sabrina Cheung", "張蔓莎", "Derek Dali"],
+        lyrics: ["鍾說"],
+        arrangement: ["Seatravl"],
+        producer: ["陳考威"],
+        allProgrammingBy: ["Seatravl"],
+        backingVocal: ["朱琳"],
+        vocalEditing: ["陳考威"],
+        mixingMasteringEngineer: ["Matthew Sim"],
+      },
+      musicVideo: {
+        editor: ["Kendra Koh"],
+        retoucher: ["Mok"],
+        graphicDesign: ["Ron Wan"],
+        stillPhotographer: ["Yuri Horie"],
+        director: ["Gigi Cheung"],
+      },
+    },
+  },
+  {
+    coordinates: [22.306499, 114.1711781],
+    artists: ["陳健安 On Chan"],
+    address: "Nathan Road",
+    name: "在錯誤的宇宙尋找愛",
+    streetView: "https://maps.app.goo.gl/LsFtPBbaZRkLTais6",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1757542205669!6m8!1m7!1sLsFtPBbaZRkLTais6!2m2!1d22.29904788270136!2d114.15558672262901!3f180.0!4f-1.480000000000004!5f1.8040437927425104",
+    url: "https://youtu.be/2J_0nahRxBk?t=218",
+    image: "https://i.ytimg.com/vi/2J_0nahRxBk/maxresdefault.jpg",
+  },
+  {
     coordinates: [22.4085224, 114.2204968],
     artists: ["DAY 許軼"],
     address: "Tai Shui Hang",
@@ -508,6 +551,56 @@ const RAW_LOCATIONS = [
       "https://www.google.com/maps/embed?pb=!4v1757542195340!6m8!1m7!1sA2uQOXNvRAKc59-ci_1Tzw!2m2!1d22.40852222990237!2d114.2204960873621!3f310.7!4f-1.480000000000004!5f1.8040437927425104",
     streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
     image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Antoine Adel Aboulkassim (Adile)", "Shallyn M Kim"],
+        lyricist: ["甄敏延"],
+        arranger: ["Adile"],
+        producer: ["Nic Tsui"],
+        drums: ["Adile"],
+        vocals: ["Coey Young", "Day@Collar"],
+        vocalsRecordedBy: ["Mountain Hui @ Heaven Recording Studio"],
+        mixer: ["Jay Tse"],
+        mastering: ["Jay Tse"],
+      },
+      musicVideo: {
+        director: ["Gigi Cheung"],
+        producer: ["Vivian Wong"],
+        dop: ["Dun Lamb"],
+        "1stAssistantCamera": ["Kelvin Lam"],
+        "2ndAssistantCamera": ["Jimmy Sheung"],
+        gaffer: ["Hero Poon"],
+        electrician: ["Malo Ma", "Randy Lee", "Wong Kai Yeung"],
+        productionTeam: ["Ka Lok", "Lui Man"],
+        artDirector: ["Karson Liu"],
+        setAssistant: ["Cyrus Chan", "Jasline Chung"],
+        animator: ["Heidimensions"],
+        retoucher: ["Mok"],
+        editor: ["Kendra Koh"],
+        colorist: ["Eric Chan"],
+        stillPhotographer: ["Karlson Tsang"],
+        titleDesign: ["Llam", "Llamm"],
+        firstAssistantCamera: ["Kelvin Lam"],
+        secondAssistantCamera: ["Jimmy Sheung"],
+        makeUp: ["Cathy Zhang"],
+        hairStylist: ["Taurus Lee", "Smile Lam"],
+        stylist: ["Cedric Cheung"],
+        wardrobe: ["Jaded London", "CFIERCE", "Brandy Melville"],
+        accessories: ["APM Monaco", "Chanel"],
+        shoes: ["Charles & Keith", "Repetto"],
+        artistManagement: [
+          "Jocelyn Wang",
+          "Wing Tai",
+          "Ava Yau",
+          "Polly Wu",
+          "Sarah Yue",
+          "Susan Hung",
+          "Kobi Chan",
+          "Avis Or",
+        ],
+        aAndR: ["Victor Tse"],
+      },
+    },
   },
   {
     coordinates: [22.294262905901675, 114.17187443107473],
@@ -1525,7 +1618,7 @@ export const LOCATIONS: LocationItem[] = z
   .parse(RAW_LOCATIONS);
 
 export const ARTISTS = [
-  ...new Set(LOCATIONS.map((location) => location.artists).flat()),
+  ...new Set(LOCATIONS.flatMap((location) => location.artists)),
   "COLLAR",
   "MIRROR",
   "AGA 江海迦",
