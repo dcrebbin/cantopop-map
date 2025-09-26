@@ -408,6 +408,37 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/HIGEklrsMnQ/maxresdefault.jpg",
   },
   {
+    coordinates: [35.5448611, 140.4673352],
+    artists: ["moon tang"],
+    address: "Sakuda Beach, Tokyo",
+    name: "夜闌人靜",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1758903388505!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0tvWi1FM0FF!2m2!1d35.54486110566749!2d140.4673352308183!3f247.39422254082402!4f-0.7677163181735551!5f1.4529372934287887",
+    streetView: "https://maps.app.goo.gl/4CFsQ2Mz1j2UYy7g9",
+    url: "https://youtu.be/v3rDVWZd72c?t=100",
+    image: "https://i.ytimg.com/vi/v3rDVWZd72c/maxresdefault.jpg",
+    contributors: {
+      song: {
+        producer: ["Moon Tang", "Gordon Flanders"],
+        musicComposition: ["Gordon Flanders"],
+        lyrics: ["小克"],
+        arrangement: ["Gordon Flanders"],
+        mixingAndMastering: ["Matt Sim"],
+      },
+      musicVideo: {
+        producer: ["Zain", "Elaine Lam"],
+        director: ["Elaine Lam"],
+        cinematographer: ["Elaine Lam"],
+        costume: ["Ayano Nakai"],
+        costumeAssistant: ["Marina Otsu"],
+        makeup: ["Kotoe Saito"],
+        designer: ["Sarene Chan"],
+        colorist: ["Sota Ito"],
+        bts: ["Zain"],
+      },
+    },
+  },
+  {
     coordinates: [22.233327554455837, 114.17248136072266],
     artists: ["Gordon Flanders"],
     address: "Ocean Park",
