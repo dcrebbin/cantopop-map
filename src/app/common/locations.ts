@@ -326,10 +326,31 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "You took my breath away",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534607522!6m8!1m7!1shpdFKr7pHNmotf_ktdOMyg!2m2!1d26.21410869215542!2d127.6867702758708!3f214.71!4f2.319999999999993!5f0.7820865974627469",
-    streetView:
-      "https://www.google.com/maps/place/%E5%9B%BD%E9%9A%9B%E3%82%BF%E3%82%A6%E3%83%B3%E3%82%BA%E3%82%A4%E3%83%B3/@26.2141087,127.6867703,3a,75y,214.71h,92.32t/data=!3m7!1e1!3m5!1shpdFKr7pHNmotf_ktdOMyg!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-2.324460523223493%26panoid%3DhpdFKr7pHNmotf_ktdOMyg%26yaw%3D214.7148547149733!7i16384!8i8192!4m9!3m8!1s0x34e56970cc742a63:0xbe9e97f7d882e967!5m2!4m1!1i2!8m2!3d26.2139367!4d127.6868028!16s%2Fg%2F1vm_vn1f?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
+    streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
     url: "https://youtu.be/e5TplXPYKt8?t=75",
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
+  },
+  {
+    coordinates: [25.0461231, 121.509388],
+    artists: ["Nancy Kwai"],
+    address: "Taipei, Taiwan",
+    name: "Will you answer me?",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1758888291790!6m8!1m7!1s7S5OmOXTlgsU9l1LoROmng!2m2!1d25.04612310815421!2d121.5093879512971!3f226.19381579834692!4f6.8657789798810995!5f0.7820865974627469",
+    streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
+    url: "https://youtu.be/MWDaME5LyG4?t=118",
+    image: "https://i.ytimg.com/vi/MWDaME5LyG4/maxresdefault.jpg",
+    contributors: {
+      song: {
+        musicComposition: ["陳思翰"],
+        lyrics: ["小克"],
+        arrangement: ["Seatravel"],
+        producer: ["陳考威"],
+      },
+      musicVideo: {
+        directorOfPhotography: ["Dun Lamb"],
+      },
+    },
   },
   {
     coordinates: [-37.81971104480582, 144.96839465665767],
