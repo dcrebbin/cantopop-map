@@ -6,14 +6,14 @@ import { SvgIcon } from "./map/PopupContent";
 import { closeIcon } from "~/lib/icons/closeIcon";
 
 export default function StreetView() {
-  const options = LOCATIONS.filter((location) => location.streetViewEmbed).map(
-    (location) => ({
+  const options = LOCATIONS.filter((location) => location.streetViewEmbed)
+    .map((location) => ({
       value: location.name,
       label: location.name,
       artists: location.artists,
       streetViewEmbed: location.streetViewEmbed,
-    }),
-  );
+    }))
+    .toSorted((a, b) => a.artists[0]?.localeCompare(b.artists[0] ?? "") ?? 0);
   const guessInputRef = useRef<HTMLSelectElement>(null);
   const {
     selectedLocation,
