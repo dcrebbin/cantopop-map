@@ -3,7 +3,7 @@ import { z } from "zod";
 // Zod schema for raw items as written in the data file
 const ContributorsSchema = z
   .object({
-    song: z.object({}).optional(),
+    song: z.record(z.array(z.string())).optional(),
     musicVideo: z.record(z.array(z.string())).optional(),
   })
   .optional();
