@@ -82,7 +82,6 @@ export function PopupContent({
     <div className="flex w-full flex-col items-start justify-start overflow-y-auto font-bold">
       <h3 className="my-1 text-base">Contributors</h3>
       <hr className="my-1 w-full text-black" />
-
       <h3>Song</h3>
       <div className="grid w-full grid-cols-2 gap-2">
         {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
