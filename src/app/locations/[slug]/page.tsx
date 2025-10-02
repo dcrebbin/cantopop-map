@@ -191,7 +191,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                                 ) {
                                   return (
                                     <a
-                                      key={name as string}
+                                      key={name}
                                       href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
                                       target="_blank"
                                       className="text-blue-500 underline"
