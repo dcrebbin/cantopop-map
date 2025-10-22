@@ -404,6 +404,17 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
   },
   {
+    coordinates: [47.8968699, 106.9071844],
+    artists: ["Gareth T"],
+    address: "Bogd Khaan Palace Museum, Mongolia",
+    name: "緊急聯絡人",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1761133330572!6m8!1m7!1sgMRivJimCwN7RY_Dt8fKng!2m2!1d47.89686986842094!2d106.9071843519436!3f350.0372363042417!4f6.861534245606862!5f0.7820865974627469",
+    streetView: "https://maps.app.goo.gl/SdbnSFDs9hwuoRQa9",
+    url: "https://youtu.be/mt56HEafeWU?t=202",
+    image: "https://i.ytimg.com/vi/mt56HEafeWU/maxresdefault.jpg",
+  },
+  {
     coordinates: [25.0461231, 121.509388],
     artists: ["Nancy Kwai"],
     address: "Taipei, Taiwan",
