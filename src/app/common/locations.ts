@@ -674,6 +674,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairStylistCloud: ["Wing Wong @ The Attic"],
         stylistCast: ["June Wan"],
         hairAndMakeUpArtistCast: ["Agnes Yeung"],
+        editor: ["Y"],
+        colorist: ["FMLIK @ IXAGON"],
+        retoucher: ["Mok"],
+        soundDesigner: ["Hirsk"],
+        stillPhotographer: ["Cow10"],
+        songTitleDesigner: ["Cynthia Choy"],
       },
       song: {
         musicComposition: ["Yungie"],
