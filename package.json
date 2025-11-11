@@ -7,6 +7,7 @@
     "prebuild": "tsx scripts/generate-llms.ts",
     "build": "next build",
     "dev": "next dev",
+    "dev:https": "NODE_ENV=development tsx scripts/dev-https.ts",
     "dev:host": "npx next dev -H 0.0.0.0 -p 3000",
     "lint": "next lint",
     "start": "next start"
