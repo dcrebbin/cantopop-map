@@ -3,12 +3,14 @@ import { SvgIcon } from "./map/PopupContent";
 import { useUIStore } from "../_state/ui.store";
 
 export default function GameButton() {
-  const { setGameOpen, gameOpen } = useUIStore();
+  const { setGameOpen, gameOpen, mobileCameraViewOpen } = useUIStore();
   return (
     <button
       type="button"
+      disabled={mobileCameraViewOpen}
       className="z-[100] cursor-pointer transition-transform duration-300 hover:scale-110"
       onClick={() => setGameOpen(!gameOpen)}
+      style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
     >
       <SvgIcon html={gamepadIcon} className="h-6 w-6 text-white" />{" "}
     </button>

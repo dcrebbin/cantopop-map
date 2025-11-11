@@ -40,6 +40,7 @@ export default function Menu() {
     combinedFilters,
     setCombinedFilters,
     setMobileCameraViewOpen,
+    mobileCameraViewOpen,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -240,7 +241,7 @@ export default function Menu() {
   return (
     <div
       className="absolute right-0 top-0 m-0 flex flex-row gap-4"
-      style={{ zIndex: menuOpen ? 110 : 90 }}
+      style={{ zIndex: menuOpen ? 120 : 110 }}
     >
       <button
         type="button"
@@ -257,14 +258,18 @@ export default function Menu() {
         type="button"
         className="z-[100] cursor-pointer transition-transform duration-300 hover:scale-110"
         onClick={() => {
-          setMobileCameraViewOpen(true);
+          setMobileCameraViewOpen(!mobileCameraViewOpen);
         }}
       >
         <SvgIcon html={phoneIcon} className="h-6 w-6 text-white" />{" "}
       </button>
-      <div className="h-full w-fit">
+      <div
+        className="h-full w-fit"
+        style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
+      >
         <button
           type="button"
+          disabled={mobileCameraViewOpen}
           className="relative z-20 mr-3 transition-transform duration-300 hover:scale-110"
           onClick={() => {
             setMenuOpen(!menuOpen);
@@ -300,6 +305,7 @@ export default function Menu() {
       </div>
       <div
         className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/[15%] p-2 drop-shadow-md backdrop-blur-lg lg:max-h-[45rem] lg:w-[30rem]`}
+        style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
       >
         <div className="flex flex-col items-center justify-center gap-2">
           <input

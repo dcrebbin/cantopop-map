@@ -3,7 +3,7 @@ import posthog from "posthog-js";
 
 export default function Appbar() {
   return (
-    <div className="w-78 absolute z-[100] flex h-fit flex-col items-center justify-start gap-2 rounded-lg bg-transparent px-2 backdrop-blur-[3px]">
+    <div className="w-78 absolute z-[120] flex h-fit flex-col items-center justify-start gap-2 rounded-lg bg-transparent px-2 backdrop-blur-[3px]">
       <h1 className="flex h-fit items-center justify-center px-3 pb-0 pt-3 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
         cantopop地圖
       </h1>
