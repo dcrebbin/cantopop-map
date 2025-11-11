@@ -181,23 +181,8 @@ export default function MobileCameraView() {
     };
   }, [isActive]);
 
-  useEffect(() => {
-    if (!isActive) return;
-    if (!("geolocation" in navigator)) {
-      setLocationError(
-        "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
-      );
-      return;
-    }
-    if (!window.isSecureContext) {
-      setLocationError(
-        "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
-      );
-      return;
-    }
-
-    let watchId: number | null = null;
-    watchId = navigator.geolocation.watchPosition(
+  function getLocation() {
+    return navigator.geolocation.watchPosition(
       (pos) => {
         setPosition({
           lat: pos.coords.latitude,
@@ -230,6 +215,25 @@ export default function MobileCameraView() {
         maximumAge: 0,
       },
     );
+  }
+
+  useEffect(() => {
+    if (!isActive) return;
+    if (!("geolocation" in navigator)) {
+      setLocationError(
+        "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
+      );
+      return;
+    }
+    if (!window.isSecureContext) {
+      setLocationError(
+        "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
+      );
+      return;
+    }
+
+    let watchId: number | null = null;
+    watchId = getLocation();
 
     return () => {
       if (watchId !== null) navigator.geolocation.clearWatch(watchId);
@@ -394,9 +398,13 @@ export default function MobileCameraView() {
 
       <div className="pointer-events-auto absolute bottom-6 left-1/2 z-[120] flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-xs text-white">
         <span className="font-semibold">
-          {position
-            ? `Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`
-            : "Locating..."}
+          {position ? (
+            `Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`
+          ) : (
+            <button type="button" onClick={() => getLocation()}>
+              Locate
+            </button>
+          )}
         </span>
         <span className="text-white/70">|</span>
         <span>
