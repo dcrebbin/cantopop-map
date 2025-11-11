@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable no-alert */
 "use client";
 
@@ -10,6 +11,27 @@ const RAD2DEG = 180 / Math.PI;
 const EARTH_RADIUS_KM = 6371;
 const MAX_RENDER_DISTANCE_KM = 10;
 const FIELD_OF_VIEW_DEG = 60;
+
+function createDefaultTestLocation(
+  overrides: Partial<LocationItem> = {},
+): LocationItem {
+  return {
+    id: "__test_location",
+    artists: ["Test Artist"],
+    address: "Testing Address",
+    name: "Testing Location",
+    url: "https://example.com",
+    image: "https://i.ytimg.com/vi/YPJljJJzKFo/maxresdefault.jpg",
+    lat: 0,
+    lng: 0,
+    streetView: null,
+    streetViewEmbed: null,
+    mapEmbed: null,
+    isCustom: true,
+    contributors: null,
+    ...overrides,
+  };
+}
 
 function toRadians(degrees: number) {
   return degrees * DEG2RAD;
@@ -247,8 +269,19 @@ export default function MobileCameraView() {
   }, [isActive, orientationPermission]);
 
   const annotations = useMemo<AnnotatedLocation[]>(() => {
-    if (!position || heading === null) return [];
-    return LOCATIONS.map((location) => {
+    if (!position || heading === null) {
+      return [
+        {
+          location: createDefaultTestLocation(),
+          distanceKm: Number.POSITIVE_INFINITY,
+          bearing: 0,
+          relativeBearing: 0,
+          horizontalPercent: 50,
+          verticalPercent: 60,
+        },
+      ];
+    }
+    const computed = LOCATIONS.map((location) => {
       const distanceKm = haversineDistanceKm(
         position.lat,
         position.lng,
@@ -284,6 +317,23 @@ export default function MobileCameraView() {
         verticalPercent,
       };
     }).filter(Boolean) as AnnotatedLocation[];
+
+    const withDefault: AnnotatedLocation[] = [
+      ...computed,
+      {
+        location: createDefaultTestLocation({
+          lat: position.lat,
+          lng: position.lng,
+        }),
+        distanceKm: 0,
+        bearing: heading,
+        relativeBearing: 0,
+        horizontalPercent: 50,
+        verticalPercent: 65,
+      },
+    ];
+
+    return withDefault;
   }, [heading, position]);
 
   const sortedAnnotations = useMemo(() => {
@@ -310,28 +360,7 @@ export default function MobileCameraView() {
       />
 
       <div className="pointer-events-none absolute inset-0">
-        {sortedAnnotations.map((entry) => (
-          <div
-            key={entry.location.id}
-            className="absolute flex w-48 -translate-x-1/2 flex-col items-center gap-2 rounded-xl border border-white/40 bg-black/50 p-3 text-center text-white backdrop-blur-lg transition-transform duration-150"
-            style={{
-              left: `${entry.horizontalPercent}%`,
-              top: `${entry.verticalPercent}%`,
-            }}
-          >
-            <span className="text-xs uppercase tracking-wide text-white/80">
-              {entry.distanceKm < 1
-                ? `${Math.round(entry.distanceKm * 1000)} m`
-                : `${entry.distanceKm.toFixed(1)} km`}
-            </span>
-            <strong className="text-base font-semibold leading-tight">
-              {entry.location.name}
-            </strong>
-            <span className="text-sm text-white/75">
-              {entry.location.artists.join(", ")}
-            </span>
-          </div>
-        ))}
+        {sortedAnnotations.map((entry, index) => locationMarker(entry, index))}
       </div>
 
       {needsOrientationPrompt ? (
@@ -402,4 +431,37 @@ export default function MobileCameraView() {
       </div>
     </div>
   );
+
+  function locationMarker(entry: AnnotatedLocation, index: number) {
+    return (
+      <div
+        key={entry.location.id}
+        className="absolute flex h-28 w-48 -translate-x-1/2 flex-col items-center rounded-xl border border-white/40 bg-black/50 text-center text-white backdrop-blur-lg transition-transform duration-150"
+        style={{
+          left: `${entry.horizontalPercent}%`,
+          top: `${entry.verticalPercent}%`,
+          zIndex: sortedAnnotations.length - index,
+        }}
+      >
+        <div className="relative z-[2] flex flex-col items-center gap-1">
+          <span className="text-xs uppercase tracking-wide text-white/80">
+            {entry.distanceKm < 1
+              ? `${Math.round(entry.distanceKm * 1000)} m`
+              : `${entry.distanceKm.toFixed(1)} km`}
+          </span>
+          <strong className="text-base font-semibold leading-tight">
+            {entry.location.name}
+          </strong>
+          <span className="text-sm text-white/75">
+            {entry.location.artists.join(", ")}
+          </span>
+        </div>
+        <img
+          src={entry.location.image}
+          alt={entry.location.name}
+          className="absolute z-[0] h-full w-full rounded-xl object-cover brightness-[30%]"
+        />
+      </div>
+    );
+  }
 }
