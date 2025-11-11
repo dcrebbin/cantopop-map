@@ -11,8 +11,6 @@ const RAD2DEG = 180 / Math.PI;
 const EARTH_RADIUS_KM = 6371;
 const MAX_RENDER_DISTANCE_KM = 10;
 const FIELD_OF_VIEW_DEG = 60;
-const MAX_PITCH_OFFSET_DEG = 60;
-const PITCH_VERTICAL_SENSITIVITY = 25;
 
 function createDefaultTestLocation(
   overrides: Partial<LocationItem> = {},
@@ -85,10 +83,6 @@ function shortestRotation(target: number, current: number) {
   return ((((target - current + 540) % 360) + 360) % 360) - 180;
 }
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(Math.max(value, min), max);
-}
-
 interface AnnotatedLocation {
   location: LocationItem;
   distanceKm: number;
@@ -108,7 +102,6 @@ export default function MobileCameraView() {
     null,
   );
   const [heading, setHeading] = useState<number | null>(null);
-  const [pitch, setPitch] = useState<number | null>(null);
   const [orientationPermission, setOrientationPermission] = useState<
     "unknown" | "granted" | "denied"
   >("unknown");
@@ -123,7 +116,6 @@ export default function MobileCameraView() {
     setOrientationError(null);
     setPosition(null);
     setHeading(null);
-    setPitch(null);
     setOrientationPermission("unknown");
   }, [isActive]);
 
@@ -267,10 +259,6 @@ export default function MobileCameraView() {
         const normalized = (calculatedHeading + 360) % 360;
         setHeading(normalized);
       }
-
-      if (typeof event.beta === "number" && !Number.isNaN(event.beta)) {
-        setPitch(event.beta);
-      }
     };
 
     window.addEventListener("deviceorientation", handleOrientation, true);
@@ -281,12 +269,6 @@ export default function MobileCameraView() {
   }, [isActive, orientationPermission]);
 
   const annotations = useMemo<AnnotatedLocation[]>(() => {
-    const pitchRatio =
-      pitch === null
-        ? 0
-        : clamp(pitch, -MAX_PITCH_OFFSET_DEG, MAX_PITCH_OFFSET_DEG) /
-          MAX_PITCH_OFFSET_DEG;
-
     if (!position || heading === null) {
       return [
         {
@@ -295,11 +277,7 @@ export default function MobileCameraView() {
           bearing: 0,
           relativeBearing: 0,
           horizontalPercent: 50,
-          verticalPercent: clamp(
-            60 - pitchRatio * PITCH_VERTICAL_SENSITIVITY,
-            15,
-            85,
-          ),
+          verticalPercent: 60,
         },
       ];
     }
@@ -324,20 +302,18 @@ export default function MobileCameraView() {
 
       if (!inField) return null;
 
+      const horizontalPercent =
+        ((relativeBearing + FIELD_OF_VIEW_DEG / 2) / FIELD_OF_VIEW_DEG) * 100;
+
       const distanceRatio = Math.min(distanceKm / MAX_RENDER_DISTANCE_KM, 1);
-      const baseVertical = 55 + distanceRatio * 15;
-      const verticalPercent = clamp(
-        baseVertical - pitchRatio * PITCH_VERTICAL_SENSITIVITY,
-        15,
-        85,
-      );
+      const verticalPercent = 40 + distanceRatio * 40;
 
       return {
         location,
         distanceKm,
         bearing,
         relativeBearing,
-        horizontalPercent: 50,
+        horizontalPercent: Math.min(Math.max(horizontalPercent, 0), 100),
         verticalPercent,
       };
     }).filter(Boolean) as AnnotatedLocation[];
@@ -353,16 +329,12 @@ export default function MobileCameraView() {
         bearing: heading,
         relativeBearing: 0,
         horizontalPercent: 50,
-        verticalPercent: clamp(
-          60 - pitchRatio * PITCH_VERTICAL_SENSITIVITY,
-          15,
-          85,
-        ),
+        verticalPercent: 65,
       },
     ];
 
     return withDefault;
-  }, [heading, pitch, position]);
+  }, [heading, position]);
 
   const sortedAnnotations = useMemo(() => {
     return [...annotations]
