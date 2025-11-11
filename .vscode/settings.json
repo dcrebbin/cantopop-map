@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["mapboxgl"]
+  "cSpell.words": ["mapboxgl"],
+  "editor.formatOnSave": true
 }

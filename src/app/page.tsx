@@ -14,6 +14,7 @@ import { addPlace } from "~/lib/custom-map";
 import StreetView from "./components/street-view";
 import { useUIStore } from "./_state/ui.store";
 import PwaTutorial from "./components/pwa-tutorial";
+import MobileCameraView from "./components/mobile-camera-view";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
@@ -78,6 +79,7 @@ export default function Home({ location }: { location: LocationItem }) {
       <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
         <Appbar />
         <Menu />
+        <MobileCameraView />
         <PwaTutorial />
         <LocationButton />
         <NewLocationModal />

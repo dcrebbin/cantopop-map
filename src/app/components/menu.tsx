@@ -14,6 +14,7 @@ import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import GameButton from "./game-button";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { phoneIcon } from "~/lib/icons/phoneIcon";
 
 export default function Menu() {
   const {
@@ -38,6 +39,7 @@ export default function Menu() {
     setIsPwaTutorialVisible,
     combinedFilters,
     setCombinedFilters,
+    setMobileCameraViewOpen,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -251,6 +253,15 @@ export default function Menu() {
         <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white md:hidden" />
       </button>
       {!menuOpen && <GameButton />}
+      <button
+        type="button"
+        className="z-[100] cursor-pointer transition-transform duration-300 hover:scale-110"
+        onClick={() => {
+          setMobileCameraViewOpen(true);
+        }}
+      >
+        <SvgIcon html={phoneIcon} className="h-6 w-6 text-white" />{" "}
+      </button>
       <div className="h-full w-fit">
         <button
           type="button"

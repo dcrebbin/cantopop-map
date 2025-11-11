@@ -23,6 +23,8 @@ interface UIState {
   setSongsAndArtistsOpen: (open: boolean) => void;
   contributorsOpen: boolean;
   setContributorsOpen: (open: boolean) => void;
+  mobileCameraViewOpen: boolean;
+  setMobileCameraViewOpen: (open: boolean) => void;
   gameOpen: boolean;
   gameScore: number;
   totalLocations: number;
@@ -52,6 +54,9 @@ export const useUIStore = create<UIState>((set) => ({
   setMenuOpen: (open: boolean) => set({ menuOpen: open }),
   searchRef: null,
   selectedArtists: [],
+  mobileCameraViewOpen: false,
+  setMobileCameraViewOpen: (open: boolean) =>
+    set({ mobileCameraViewOpen: open }),
   setSelectedArtists: (artists: string[]) => set({ selectedArtists: artists }),
   selectedContributors: [],
   setSelectedContributors: (contributors: string[]) =>
