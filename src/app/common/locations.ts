@@ -633,7 +633,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/7jXqxjPfRjw/maxresdefault.jpg",
   },
   {
-    coordinates: [22.238043, 114.200814],
+    coordinates: [22.23768937441389, 114.19433439718017],
     artists: ["J Jelly"],
     address: "Repulse Bay Beach",
     name: "Love me first",
