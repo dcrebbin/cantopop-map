@@ -5,6 +5,7 @@ export const nameToInstagramMap = {
   "Cloud 雲浩影": "cloudwann",
   "Gareth T": "gareth_t",
   "Gordon Flanders": "gordon4x",
+  "Agnes Kahei": "AGNESCKH",
   "Edan 呂爵安": "edanlui",
   Zpecial: "zpecial_hk",
   "DAY 許軼": "6y_day",
@@ -24,7 +25,7 @@ export const nameToInstagramMap = {
   "Titus Chan": "titus1118",
   "Adrian Law": "adrian_lhc",
   陳天順: "shunyumo",
-  ZAIN: "malikzainali",
+  "Malik Zain Ali": "malikzainali",
   "李卓軒 Nature Hin": "naturehin_will_not_dm_first",
   "五芳影業 Ng Fong Pictures": "ngfongpictures",
   "Zev Troxler": "zevtroxler",
@@ -47,4 +48,6 @@ export const nameToInstagramMap = {
   "Samuel Wong": "hongjai_makeup",
   "Leo Yuen": "leooo.foto",
   "Tammy Au": "tammyau_makeup",
+  "Samson Huang": "SAMSONHUANG",
+  LauOnIn: "LAUONIN",
 };
