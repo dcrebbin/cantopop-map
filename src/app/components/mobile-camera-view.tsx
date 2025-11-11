@@ -270,16 +270,7 @@ export default function MobileCameraView() {
 
   const annotations = useMemo<AnnotatedLocation[]>(() => {
     if (!position || heading === null) {
-      return [
-        {
-          location: createDefaultTestLocation(),
-          distanceKm: Number.POSITIVE_INFINITY,
-          bearing: 0,
-          relativeBearing: 0,
-          horizontalPercent: 50,
-          verticalPercent: 60,
-        },
-      ];
+      return [];
     }
     const computed = LOCATIONS.map((location) => {
       const distanceKm = haversineDistanceKm(
@@ -318,22 +309,7 @@ export default function MobileCameraView() {
       };
     }).filter(Boolean) as AnnotatedLocation[];
 
-    const withDefault: AnnotatedLocation[] = [
-      ...computed,
-      {
-        location: createDefaultTestLocation({
-          lat: position.lat,
-          lng: position.lng,
-        }),
-        distanceKm: 0,
-        bearing: heading,
-        relativeBearing: 0,
-        horizontalPercent: 50,
-        verticalPercent: 65,
-      },
-    ];
-
-    return withDefault;
+    return computed;
   }, [heading, position]);
 
   const sortedAnnotations = useMemo(() => {
