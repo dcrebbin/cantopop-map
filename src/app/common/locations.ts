@@ -644,6 +644,28 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
   },
   {
+    coordinates: [11.9156481, 108.3392875],
+    artists: ["J Jelly"],
+    address: "Mongo Land, Vietnam",
+    name: "人海 (sea of us)",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1762843782984!6m8!1m7!1sCAoSHENJQUJJaEJXX3dKV2o5RmtnRnNaTTZ1UlJUWGY.!2m2!1d11.9156481153699!2d108.3392875181811!3f14.66546389573336!4f-53.697074709798194!5f1.797301862974066",
+    url: "https://youtu.be/DHCWa3SxGiM?t=129",
+    image: "https://i.ytimg.com/vi/DHCWa3SxGiM/maxresdefault.jpg",
+    contributors: {
+      musicVideo: {
+        director: ["J Jelly"],
+        editor: ["Travis good"],
+      },
+      song: {
+        composer: ["J Jelly"],
+        lyricist: ["J Jelly"],
+        arranger: ["mikeygoincrazy"],
+        producer: ["DaiShin", "mikeygoincrazy"],
+      },
+    },
+  },
+  {
     coordinates: [22.2872383, 114.1413353],
     artists: ["陳健安 On Chan"],
     address: "Artlane, Sai Ying Pun",
