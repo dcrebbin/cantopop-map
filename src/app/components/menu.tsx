@@ -241,7 +241,7 @@ export default function Menu() {
   return (
     <div
       className="absolute right-0 top-0 m-0 flex flex-row gap-4"
-      style={{ zIndex: menuOpen ? 120 : 110 }}
+      style={{ zIndex: menuOpen ? 100 : 90 }}
     >
       <button
         type="button"
