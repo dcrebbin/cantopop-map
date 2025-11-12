@@ -246,23 +246,14 @@ export default function Menu() {
       <button
         type="button"
         name="Download PWA Tutorial"
-        className="drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
+        className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
         onClick={() => {
           setIsPwaTutorialVisible(true);
         }}
       >
-        <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white md:hidden" />
+        <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white" />
       </button>
       {!menuOpen && <GameButton />}
-      <button
-        type="button"
-        className="z-[100] cursor-pointer transition-transform duration-300 hover:scale-110"
-        onClick={() => {
-          setMobileCameraViewOpen(!mobileCameraViewOpen);
-        }}
-      >
-        <SvgIcon html={phoneIcon} className="h-6 w-6 text-white" />{" "}
-      </button>
       <div
         className="h-full w-fit"
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
