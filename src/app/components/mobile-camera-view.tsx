@@ -9,7 +9,6 @@ import { useUIStore } from "../_state/ui.store";
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
 const EARTH_RADIUS_KM = 6371;
-const MAX_RENDER_DISTANCE_KM = 10;
 const FIELD_OF_VIEW_DEG = 60;
 
 function createDefaultTestLocation(
@@ -291,16 +290,13 @@ export default function MobileCameraView() {
       );
       const relativeBearing = shortestRotation(bearing, heading);
 
-      const inField =
-        Math.abs(relativeBearing) <= FIELD_OF_VIEW_DEG / 2 &&
-        distanceKm <= MAX_RENDER_DISTANCE_KM;
-
+      const inField = Math.abs(relativeBearing) <= FIELD_OF_VIEW_DEG / 2;
       if (!inField) return null;
 
       const horizontalPercent =
         ((relativeBearing + FIELD_OF_VIEW_DEG / 2) / FIELD_OF_VIEW_DEG) * 100;
 
-      const distanceRatio = Math.min(distanceKm / MAX_RENDER_DISTANCE_KM, 1);
+      const distanceRatio = Math.min(distanceKm, 1);
       const verticalPercent = 40 + distanceRatio * 40;
 
       return {
