@@ -3,7 +3,11 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { LocationItem, LOCATIONS, nameToLocation } from "./common/locations";
+import {
+  type LocationItem,
+  LOCATIONS,
+  nameToLocation,
+} from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
 import Footer from "./components/footer";
@@ -75,8 +79,8 @@ export default function Home({ location }: { location: LocationItem }) {
   }, [map, location]);
 
   return (
-    <div className="flex h-screen w-screen flex-col overflow-hidden">
-      <div className="relative flex h-[100vh] w-[100vw] overflow-hidden">
+    <div className="full-height flex w-screen flex-col overflow-hidden">
+      <div className="relative flex w-[100vw] overflow-hidden">
         <Appbar />
         <Menu />
         <MobileCameraView />
@@ -89,7 +93,8 @@ export default function Home({ location }: { location: LocationItem }) {
         <div ref={handleMapContainerRef} className="map-container relative" />
         <style jsx>{`
           .map-container {
-            height: 100vh;
+            height: 100dvh;
+            min-height: 100vh;
             width: 100vw;
           }
         `}</style>

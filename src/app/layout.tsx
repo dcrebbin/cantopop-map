@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: "#000000",
+  viewportFit: "cover", // Enable safe area insets for Safari
 };
 
 export default function RootLayout({

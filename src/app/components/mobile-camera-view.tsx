@@ -1,11 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
-/** biome-ignore-all lint/performance/noImgElement: <explanation> */
+// biome-ignore lint/performance/noImgElement: Images are dynamically loaded from location data
 /* eslint-disable no-alert */
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LOCATIONS, type LocationItem } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
+import { useSafeAreaInsets } from "../hooks/useSafeAreaInsets";
 
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
@@ -107,10 +108,12 @@ export default function MobileCameraView() {
   >("unknown");
   const [requiresOrientationPermission, setRequiresOrientationPermission] =
     useState(false);
+  const safeArea = useSafeAreaInsets();
 
   const isActive = mobileCameraViewOpen;
 
   useEffect(() => {
+    if (!isActive) return;
     setCameraError(null);
     setLocationError(null);
     setOrientationError(null);
@@ -181,7 +184,7 @@ export default function MobileCameraView() {
     };
   }, [isActive]);
 
-  function getLocation() {
+  const getLocation = useCallback(() => {
     return navigator.geolocation.watchPosition(
       (pos) => {
         setPosition({
@@ -215,7 +218,7 @@ export default function MobileCameraView() {
         maximumAge: 0,
       },
     );
-  }
+  }, []);
 
   useEffect(() => {
     if (!isActive) return;
@@ -238,7 +241,7 @@ export default function MobileCameraView() {
     return () => {
       if (watchId !== null) navigator.geolocation.clearWatch(watchId);
     };
-  }, [isActive]);
+  }, [isActive, getLocation]);
 
   useEffect(() => {
     if (!isActive || orientationPermission !== "granted") return;
@@ -384,7 +387,12 @@ export default function MobileCameraView() {
       ) : null}
 
       {showOverlayMessage ? (
-        <div className="pointer-events-auto absolute bottom-0 left-0 right-0 z-[120] m-4 rounded-2xl bg-black/70 p-4 text-sm text-white backdrop-blur">
+        <div
+          className="pointer-events-auto absolute left-0 right-0 z-[120] m-4 rounded-2xl bg-black/70 p-4 text-sm text-white backdrop-blur"
+          style={{
+            bottom: `${safeArea.bottom}px`,
+          }}
+        >
           {cameraError ? (
             <p className="mb-2 font-semibold">Camera: {cameraError}</p>
           ) : null}
