@@ -14,6 +14,7 @@ import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import GameButton from "./game-button";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
 
@@ -45,7 +46,7 @@ export default function Menu() {
 
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
-
+  const displayMode = getDisplayMode();
   const hasAppliedUrlFiltersRef = useRef(false);
 
   const updateMarkerVisibility = useCallback(
@@ -232,6 +233,7 @@ export default function Menu() {
     ]),
   );
 
+  const isPWA = getDisplayMode() !== "browser";
   const MemoizedArrowDownTrayIcon = memo(ArrowDownTrayIcon);
 
   return (
@@ -239,16 +241,18 @@ export default function Menu() {
       className="absolute right-0 top-0 m-0 flex flex-row gap-4"
       style={{ zIndex: menuOpen ? 200 : 90 }}
     >
-      <button
-        type="button"
-        name="Download PWA Tutorial"
-        className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
-        onClick={() => {
-          setIsPwaTutorialVisible(true);
-        }}
-      >
-        <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white" />
-      </button>
+      {!isPWA && (
+        <button
+          type="button"
+          name="Download PWA Tutorial"
+          className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
+          onClick={() => {
+            setIsPwaTutorialVisible(true);
+          }}
+        >
+          <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white" />
+        </button>
+      )}
       {!menuOpen && <GameButton />}
       <div
         className="h-full w-fit"
