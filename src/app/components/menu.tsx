@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef } from "react";
+import { lazy, memo, Suspense, useCallback, useEffect, useRef } from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -14,7 +14,8 @@ import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import GameButton from "./game-button";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { phoneIcon } from "~/lib/icons/phoneIcon";
+
+const ContributorsList = lazy(() => import("./ContributorsList"));
 
 export default function Menu() {
   const {
@@ -39,7 +40,6 @@ export default function Menu() {
     setIsPwaTutorialVisible,
     combinedFilters,
     setCombinedFilters,
-    setMobileCameraViewOpen,
     mobileCameraViewOpen,
   } = useUIStore();
 
@@ -427,52 +427,23 @@ export default function Menu() {
               </div>
 
               {contributorsOpen && (
-                <div className="flex w-full flex-col gap-2 pr-2 text-white">
-                  {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
-                    const namesToShow = group.names.filter((n) =>
-                      filteredContributors.includes(n),
-                    );
-                    if (namesToShow.length === 0) return null;
-                    return (
-                      <div
-                        key={`${group.category}-${group.roleKey}`}
-                        className="flex w-full flex-col gap-1"
-                      >
-                        <hr className="my-1 opacity-30" />
-                        <div className="text-base font-semibold">
-                          {group.title}
-                        </div>
-                        {namesToShow.map((contributor) => (
-                          <div
-                            key={`${group.category}-${group.roleKey}-${contributor}`}
-                            className="flex w-full flex-row items-center justify-between gap-2 pr-2"
-                          >
-                            <button
-                              type="button"
-                              className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
-                              onClick={() =>
-                                handleContributorCheckboxChange(contributor)
-                              }
-                            >
-                              <span className="truncate text-sm">
-                                {contributor}
-                              </span>
-                              <input
-                                type="checkbox"
-                                aria-label={contributor}
-                                className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
-                                checked={selectedContributors.includes(
-                                  contributor,
-                                )}
-                                readOnly
-                              />
-                            </button>
-                          </div>
-                        ))}
+                <Suspense
+                  fallback={
+                    <div className="flex w-full items-center justify-center py-4 text-white">
+                      <div className="animate-pulse">
+                        Loading contributors...
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                  }
+                >
+                  <ContributorsList
+                    filteredContributors={filteredContributors}
+                    selectedContributors={selectedContributors}
+                    handleContributorCheckboxChange={
+                      handleContributorCheckboxChange
+                    }
+                  />
+                </Suspense>
               )}
             </div>
           </div>

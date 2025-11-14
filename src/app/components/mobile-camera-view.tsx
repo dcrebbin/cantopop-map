@@ -6,7 +6,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LOCATIONS, type LocationItem } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
-import { useSafeAreaInsets } from "../hooks/useSafeAreaInsets";
 
 const DEG2RAD = Math.PI / 180;
 const RAD2DEG = 180 / Math.PI;
@@ -108,7 +107,6 @@ export default function MobileCameraView() {
   >("unknown");
   const [requiresOrientationPermission, setRequiresOrientationPermission] =
     useState(false);
-  const safeArea = useSafeAreaInsets();
 
   const isActive = mobileCameraViewOpen;
 
@@ -387,12 +385,7 @@ export default function MobileCameraView() {
       ) : null}
 
       {showOverlayMessage ? (
-        <div
-          className="pointer-events-auto absolute left-0 right-0 z-[120] m-4 rounded-2xl bg-black/70 p-4 text-sm text-white backdrop-blur"
-          style={{
-            bottom: `${safeArea.bottom}px`,
-          }}
-        >
+        <div className="pointer-events-auto absolute left-0 right-0 z-[120] m-4 rounded-2xl bg-black/70 p-4 text-sm text-white backdrop-blur">
           {cameraError ? (
             <p className="mb-2 font-semibold">Camera: {cameraError}</p>
           ) : null}
