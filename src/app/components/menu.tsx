@@ -179,13 +179,11 @@ export default function Menu() {
     updateMarkerVisibility,
   ]);
 
-  // Keep URL in sync with current filters
   useEffect(() => {
     if (!hasAppliedUrlFiltersRef.current) return;
     syncFiltersToUrl(selectedArtists, selectedContributors);
   }, [selectedArtists, selectedContributors, syncFiltersToUrl]);
 
-  // Keep combinedFilters in sync with selected artists and contributors
   useEffect(() => {
     const nextCombined = [
       ...selectedArtists.map((name) => ({ type: "artist" as const, name })),
@@ -197,7 +195,6 @@ export default function Menu() {
     setCombinedFilters(nextCombined);
   }, [selectedArtists, selectedContributors, setCombinedFilters]);
 
-  // On load, read filters from URL and apply
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const artistsParam = params.get("artists");
@@ -225,7 +222,6 @@ export default function Menu() {
       }
     }
 
-    // Enable syncing after initial URL-derived state is applied
     hasAppliedUrlFiltersRef.current = true;
   }, [setSelectedArtists, setSelectedContributors]);
 
@@ -241,7 +237,7 @@ export default function Menu() {
   return (
     <div
       className="absolute right-0 top-0 m-0 flex flex-row gap-4"
-      style={{ zIndex: menuOpen ? 100 : 90 }}
+      style={{ zIndex: menuOpen ? 200 : 90 }}
     >
       <button
         type="button"
@@ -303,7 +299,7 @@ export default function Menu() {
             type="text"
             placeholder="Search"
             ref={searchRef}
-            className="z-[100] w-full rounded-md border-none p-2"
+            className="z-[200] w-full rounded-md border-none p-2"
             onChange={(e) => handleSearchChange(e.target.value)}
           />
 
