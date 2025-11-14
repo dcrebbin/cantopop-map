@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+/** biome-ignore-all lint/performance/noImgElement: <explanation> */
 /* eslint-disable no-alert */
 "use client";
 
@@ -296,8 +297,12 @@ export default function MobileCameraView() {
       const horizontalPercent =
         ((relativeBearing + FIELD_OF_VIEW_DEG / 2) / FIELD_OF_VIEW_DEG) * 100;
 
-      const distanceRatio = Math.min(distanceKm, 1);
-      const verticalPercent = 40 + distanceRatio * 40;
+      // Use a logarithmic scale for vertical positioning to give more variation
+      // Closer locations appear higher, farther locations appear lower
+      // Max distance considered is 10km for better distribution
+      const maxDistanceKm = 10;
+      const normalizedDistance = Math.min(distanceKm / maxDistanceKm, 1);
+      const verticalPercent = 20 + normalizedDistance * 60;
 
       return {
         location,
@@ -315,7 +320,7 @@ export default function MobileCameraView() {
   const sortedAnnotations = useMemo(() => {
     return [...annotations]
       .sort((a, b) => a.distanceKm - b.distanceKm)
-      .slice(0, 25);
+      .slice(0, 8);
   }, [annotations]);
 
   const showOverlayMessage =
@@ -335,7 +340,7 @@ export default function MobileCameraView() {
         autoPlay
       />
 
-      <div className="pointer-events-none absolute inset-0">
+      <div className="pointer-events-none absolute inset-0 h-full w-full">
         {sortedAnnotations.map((entry, index) => locationMarker(entry, index))}
       </div>
 
@@ -391,24 +396,6 @@ export default function MobileCameraView() {
           ) : null}
         </div>
       ) : null}
-
-      <div className="pointer-events-auto absolute bottom-6 left-1/2 z-[120] flex -translate-x-1/2 items-center gap-2 rounded-full bg-black/60 px-4 py-2 text-xs text-white">
-        <span className="font-semibold">
-          {position ? (
-            `Lat ${position.lat.toFixed(4)}, Lng ${position.lng.toFixed(4)}`
-          ) : (
-            <button type="button" onClick={() => getLocation()}>
-              Locate
-            </button>
-          )}
-        </span>
-        <span className="text-white/70">|</span>
-        <span>
-          {heading !== null
-            ? `Heading ${Math.round(heading)}°`
-            : "Align device"}
-        </span>
-      </div>
     </div>
   );
 
@@ -416,11 +403,12 @@ export default function MobileCameraView() {
     return (
       <div
         key={entry.location.id}
-        className="absolute flex h-28 w-48 -translate-x-1/2 flex-col items-center rounded-xl border border-white/40 bg-black/50 text-center text-white backdrop-blur-lg transition-transform duration-150"
+        className="absolute flex h-28 w-48 flex-col items-center rounded-xl border border-white/40 bg-black/50 text-center text-white backdrop-blur-lg"
         style={{
-          left: `${entry.horizontalPercent}%`,
+          left: `calc(${entry.horizontalPercent}% - 6rem)`,
           top: `${entry.verticalPercent}%`,
           zIndex: sortedAnnotations.length - index,
+          transition: "left 0.15s ease-out, top 0.15s ease-out",
         }}
       >
         <div className="relative z-[2] flex flex-col items-center gap-1">
