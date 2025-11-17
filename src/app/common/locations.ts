@@ -485,7 +485,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [22.3392477451512, 114.1702242800071],
     artists: ["張蔓姿 Gigi"],
-    address: "Shek Kip Mei Park",
+    address: "Shek Kip Mei Park [demolished]",
     name: "不眠遊戲 SLEEPLESS GAME",
     streetView: "https://maps.app.goo.gl/2xAZxAwLAEUB6hNU7",
     url: "https://youtu.be/Pv-v5502KxU?t=15",
@@ -1359,7 +1359,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [22.3382397656572, 114.17155355139583],
     artists: ["moon tang"],
-    address: "Shek Kip Mei Park",
+    address: "Shek Kip Mei Park [demolished]",
     name: "i hate u (en)",
     streetView: "https://maps.app.goo.gl/FHpCdhHoTprpERm48",
     url: "https://youtu.be/Fw4m0jQsoug?t=42",
