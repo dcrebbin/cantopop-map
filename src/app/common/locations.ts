@@ -127,6 +127,58 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [-33.84966146937291, 151.21281752279214],
+    artists: ["Kiri T"],
+    address: "Crown Street, Surry Hills, NSW",
+    name: "safe but sorry (en)",
+    url: "https://youtu.be/8fU2Jx04oUA",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1763400476194!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzZxZnJxZkE.!2m2!1d-33.84953779197946!2d151.2130477682994!3f64.66300174400925!4f-4.803913439562692!5f0.955600870055432",
+    streetView: "https://maps.app.goo.gl/MKD69pWtJF128ATv5",
+    image: "https://i.ytimg.com/vi/8fU2Jx04oUA/maxresdefault.jpg",
+    contributors: {
+      song: {
+        musicComposition: ["Kiri T"],
+        lyrics: ["Kiri T", "Isaac Chan"],
+        arrangement: ["Ian Ho", "Diana X. Lizhao"],
+        producer: ["Kiri T", "Yoroko Chan"],
+      },
+      musicVideo: {
+        productionTeam: ["Yan Ng", "Adrian Law", "Peter Lam"],
+        makeup: ["Tammy Au"],
+        hair: ["Jamie Lee"],
+        stylist: ["Eddy Chu"],
+        specialThanks: ["Gavin Chan"],
+      },
+    },
+  },
+  {
+    coordinates: [-33.8886249, 151.213359],
+    artists: ["Kiri T"],
+    address: "Crown Street, Surry Hills, NSW",
+    name: "倒後走不需要什麽理由 (Return Ticket) (zh)",
+    url: "https://youtu.be/KaHREKJ5x5I?t=3",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1763400266169!6m8!1m7!1sEm0P-3s5s0gKYtuyYLPHmA!2m2!1d-33.88862485202878!2d151.2133590407025!3f337.1995621167845!4f-0.1159312718486234!5f2.0949737198895018",
+    streetView: "https://maps.app.goo.gl/8Dw1NbAvPdS6MvSj6",
+    image: "https://i.ytimg.com/vi/KaHREKJ5x5I/maxresdefault.jpg",
+    contributors: {
+      song: {
+        musicComposition: ["Claudia Koh"],
+        lyrics: ["木童"],
+        arrangement: ["Justin Yau"],
+        producer: ["Justin Yau"],
+      },
+      musicVideo: {
+        productionTeam: ["Yan Ng", "Adrian Law", "Peter Lam"],
+        makeup: ["Tammy Au"],
+        hair: ["Jamie Lee"],
+        stylist: ["Eddy Chu"],
+        specialThanks: ["Gavin Chan"],
+      },
+    },
+  },
+  {
     coordinates: [23.014696, 120.2003661],
     artists: ["AGA 江海迦"],
     address: "7-ELEVEN 海安門市, Taiwan",
