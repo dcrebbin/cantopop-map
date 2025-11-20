@@ -483,6 +483,25 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
   },
   {
+    coordinates: [35.7075178, 139.820154],
+    artists: ["Nancy Kwai 歸綽嶢"],
+    address: "1 Chome-1-2 Oshiage, Sumida City",
+    name: "Broken?",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1763647167603!6m8!1m7!1sujIWvylCgO1no5eP9utfaA!2m2!1d35.70751784100989!2d139.8201540074747!3f308.9859060517006!4f-19.86282807795868!5f0.4003224593710227",
+    streetView: "https://maps.app.goo.gl/uBaicn7tcFQ3E3gD9",
+    url: "https://youtu.be/63vmUA5xy18?t=33",
+    image: "https://i.ytimg.com/vi/63vmUA5xy18/maxresdefault.jpg",
+    contributors: {
+      song: {
+        musicComposition: ["AGA"],
+        lyrics: ["甄敏延"],
+        arrangement: ["波多野裕介"],
+        producer: ["舒文@Zoo Music"],
+      },
+    },
+  },
+  {
     coordinates: [23.050205076668163, 113.20738266379263],
     artists: ["Kiri T"],
     address: "The Raw, Guangzhou",
