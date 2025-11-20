@@ -483,6 +483,36 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
   },
   {
+    coordinates: [22.2874297, 114.2111313],
+    artists: ["$alty Chick鹽焗雞"],
+    address: "PCCW Tower, Hong Kong",
+    name: "輪迴德己立街",
+    streetViewEmbed:
+      "https://www.google.com/maps/embed?pb=!4v1763678637134!6m8!1m7!1sU6RwbGPt0o_nLYVIZ7f48w!2m2!1d22.28742973015592!2d114.2111312608453!3f102.8208724571302!4f-3.973948358383737!5f1.2730364586212994",
+    streetView: "https://maps.app.goo.gl/rnUN1vu6WP89awyz9",
+    url: "https://youtu.be/X9P9kz8ZYDQ?t=160",
+    image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
+    contributors: {
+      song: {
+        musicCompositionLyricsVocals: ["$alty Chick"],
+        arrangementMixing: ["Dodo Museum @dodomuseum"],
+        producer: ["$alty Chick", "Dodo Museum"],
+      },
+      musicVideo: {
+        director: ["Jade Lam"],
+        starring: ["Belle Liu"],
+        screenwriterEditor: ["$alty Chick", "Jade Lam"],
+        cinematographer: ["Jade Lam"],
+        hairStylist: ["Adrian Fan"],
+        artConsultant: ["Lai Sze"],
+        stylingArt: ["Jade Lam"],
+        lightingEngineer: ["Alice Wan"],
+        lightingAssistant: ["Sally Leung"],
+        friendlyAssistance: ["Roman Kusaiko", "Muteki"],
+      },
+    },
+  },
+  {
     coordinates: [35.7075178, 139.820154],
     artists: ["Nancy Kwai 歸綽嶢"],
     address: "1 Chome-1-2 Oshiage, Sumida City",
@@ -718,7 +748,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     coordinates: [26.213946263905513, 127.68680782679441],
-    artists: ["Nancy Kwai"],
+    artists: ["Nancy Kwai 歸綽嶢"],
     address: "Naha, Japan",
     name: "You took my breath away",
     streetViewEmbed:
@@ -781,7 +811,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     coordinates: [25.0461231, 121.509388],
-    artists: ["Nancy Kwai"],
+    artists: ["Nancy Kwai 歸綽嶢"],
     address: "Taipei, Taiwan",
     name: "Will you answer me?",
     streetViewEmbed:
@@ -2530,11 +2560,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     coordinates: [25.053851659626282, 121.52030632579022],
-    artists: ["Nancy Kwai"],
+    artists: ["Nancy Kwai 歸綽嶢"],
     address: "Vacanza Accessory Cafe",
     streetView:
       "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
-    name: "歸綽嶢 Let go",
+    name: "Let go",
     url: "https://youtu.be/CbpX1RgSOl8?t=143",
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
