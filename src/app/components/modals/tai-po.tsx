@@ -20,8 +20,8 @@ export default function TaiPoModal() {
   if (taiPoModalHasSeen) return null;
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 text-white">
-      <div className="mx-4 flex h-fit w-[50rem] flex-col items-center justify-start rounded-lg bg-black p-4">
+    <div className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/50 text-white">
+      <div className="mx-4 flex h-[80vh] w-[50rem] flex-col items-center justify-start overflow-y-auto rounded-lg bg-black p-4 xl:h-fit">
         <div className="flex w-full flex-row items-start justify-between">
           <h1>Tai Po Fire Resources | 大埔消防資源</h1>
           <button
