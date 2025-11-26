@@ -20,6 +20,7 @@ import { useUIStore } from "./_state/ui.store";
 import PwaTutorial from "./components/pwa-tutorial";
 import MobileCameraView from "./components/mobile-camera-view";
 import TaiPoModal from "./components/modals/tai-po";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
@@ -27,7 +28,7 @@ mapboxgl.accessToken =
 export default function Home({ location }: { location: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
 
-  const { gameOpen } = useUIStore();
+  const { gameOpen, setTaiPoModalHasSeen } = useUIStore();
 
   const { map, setMap } = useMapStore();
 
@@ -80,11 +81,29 @@ export default function Home({ location }: { location: LocationItem }) {
     }
   }, [map, location]);
 
+  function TaiOWarning() {
+    return (
+      <div className="absolute top-0 z-[90] mx-4 mt-4 flex h-fit w-auto flex-col items-center justify-start rounded-lg bg-red-500 p-4 text-sm">
+        <button
+          type="button"
+          className="flex flex-row items-center justify-start gap-2 hover:drop-shadow-lg"
+          onClick={() => {
+            setTaiPoModalHasSeen(false);
+          }}
+        >
+          <ExclamationTriangleIcon className="h-4 w-4 text-white" />
+          <h1 className="font-bold text-white">Tai Po Fire Resources</h1>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
-      <div className="relative flex w-[100vw] overflow-hidden">
+      <div className="relative flex w-[100vw] justify-center overflow-hidden">
         <ToastContainer />
         <Appbar />
+        <TaiOWarning />
         <Menu />
         <MobileCameraView />
         <PwaTutorial />
