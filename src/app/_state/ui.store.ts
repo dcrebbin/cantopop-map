@@ -47,6 +47,8 @@ interface UIState {
   setCombinedFilters: (
     filters: { type: "artist" | "contributor"; name: string }[],
   ) => void;
+  taiPoModalHasSeen: boolean;
+  setTaiPoModalHasSeen: (hasSeen: boolean) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -98,4 +100,7 @@ export const useUIStore = create<UIState>((set) => ({
   setCombinedFilters: (
     filters: { type: "artist" | "contributor"; name: string }[],
   ) => set({ combinedFilters: filters }),
+  taiPoModalHasSeen: true,
+  setTaiPoModalHasSeen: (hasSeen: boolean) =>
+    set({ taiPoModalHasSeen: hasSeen }),
 }));

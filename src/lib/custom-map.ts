@@ -25,7 +25,6 @@ function createCustomMarker(
 
   const markerRoot = createRoot(markerElement);
   markerRoots.set(markerElement, markerRoot);
-
   const id = `${data.artists.join(", ")}-${data.name}`;
   markerRoot.render(
     createElement("img", {

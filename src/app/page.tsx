@@ -1,5 +1,5 @@
 "use client";
-
+import { ToastContainer, toast } from "react-toastify";
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -19,6 +19,7 @@ import StreetView from "./components/street-view";
 import { useUIStore } from "./_state/ui.store";
 import PwaTutorial from "./components/pwa-tutorial";
 import MobileCameraView from "./components/mobile-camera-view";
+import TaiPoModal from "./components/modals/tai-po";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
@@ -55,6 +56,7 @@ export default function Home({ location }: { location: LocationItem }) {
     if (location) {
       map.setCenter([location.lng, location.lat]);
       map.setZoom(15);
+      toast(`Zoomed to ${location.name}`);
     }
 
     const url = new URLSearchParams(window.location.search);
@@ -81,11 +83,13 @@ export default function Home({ location }: { location: LocationItem }) {
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
       <div className="relative flex w-[100vw] overflow-hidden">
+        <ToastContainer />
         <Appbar />
         <Menu />
         <MobileCameraView />
         <PwaTutorial />
         <LocationButton />
+        <TaiPoModal />
         <NewLocationModal />
         <Footer />
         {gameOpen && <StreetView />}
