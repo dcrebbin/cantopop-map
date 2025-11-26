@@ -72,7 +72,7 @@ export default function TaiPoModal() {
               <p>新界大埔廣福邨廣仁樓220-229室 賽馬會太和中心</p>
               <p className="flex flex-row items-center justify-start gap-2 font-bold">
                 <PhoneIcon className="h-4 w-4" /> 2654 6066
-                <a href="https://share.google/Eu6wXI0BxFvkrOh0D">
+                <a href="https://maps.app.goo.gl/9SvSwnm8fXqGhHEy7">
                   <MapPinIcon className="h-4 w-4 text-blue-500" />
                 </a>
               </p>
@@ -82,7 +82,7 @@ export default function TaiPoModal() {
               <p className="flex flex-row items-center justify-start gap-2 font-bold">
                 <PhoneIcon className="h-4 w-4" />
                 2638 9011
-                <a href="https://share.google/e5yVWTp3ooHZiHC5G">
+                <a href="https://maps.app.goo.gl/1Tx2WF4hvKuJcxTx7">
                   <MapPinIcon className="h-4 w-4 text-blue-500" />
                 </a>
               </p>
@@ -93,7 +93,7 @@ export default function TaiPoModal() {
               </p>
               <p className="flex flex-row items-center justify-start gap-2 font-bold">
                 <PhoneIcon className="h-4 w-4" /> 2651 6033
-                <a href="https://share.google/n9mCAllR7Cr6Qpwl8">
+                <a href="https://maps.app.goo.gl/UbepQR8jRNrW1Ky298">
                   <MapPinIcon className="h-4 w-4 text-blue-500" />
                 </a>
               </p>
@@ -102,7 +102,7 @@ export default function TaiPoModal() {
               <p>大埔寶湖道22號 廣福社區會堂</p>
               <p className="flex flex-row items-center justify-start gap-2 font-bold">
                 <PhoneIcon className="h-4 w-4" /> 2657 2948
-                <a href="https://share.google/oSmLAOVjIeOjLtBnV">
+                <a href="https://maps.app.goo.gl/iCb1LLx8qdrVdu6Z8">
                   <MapPinIcon className="h-4 w-4 text-blue-500" />
                 </a>
               </p>
@@ -111,7 +111,7 @@ export default function TaiPoModal() {
               <p>東昌街社區會堂</p>
               <p className="flex flex-row items-center justify-start gap-2 font-bold">
                 <PhoneIcon className="h-4 w-4" /> 2253 1637
-                <a href="https://share.google/cMUWIoeIQyzQchnxd">
+                <a href="https://maps.app.goo.gl/gfvzAbpVs1aYehPM6">
                   <MapPinIcon className="h-4 w-4 text-blue-500" />
                 </a>
               </p>
