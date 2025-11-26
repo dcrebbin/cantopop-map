@@ -83,7 +83,7 @@ export default function Home({ location }: { location: LocationItem }) {
 
   function TaiOWarning() {
     return (
-      <div className="absolute top-0 z-[90] mx-4 mt-4 flex h-fit w-auto flex-col items-center justify-start rounded-lg bg-red-500 p-4 text-sm">
+      <div className="absolute bottom-14 z-[90] mx-4 mt-4 flex h-fit w-auto flex-col items-center justify-start rounded-lg bg-red-500 p-4 text-sm">
         <button
           type="button"
           className="flex flex-row items-center justify-start gap-2 hover:drop-shadow-lg"
