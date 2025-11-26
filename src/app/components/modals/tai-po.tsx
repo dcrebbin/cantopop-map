@@ -40,7 +40,7 @@ export default function TaiPoModal() {
           resources to help the community.
         </p>
         <p className="text-sm">
-          一件令人痛心的火災事件發生在大埔。請查看以下資源，幫助社區度過難關。
+          一件令人痛心的火災事件發生在大埔。請查看以下資源，幫助社區共渡難關。
         </p>
         <hr className="my-1 w-full" />
         <div className="flex w-full flex-col items-center justify-start gap-2">
