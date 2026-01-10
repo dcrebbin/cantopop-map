@@ -25,15 +25,32 @@ export function generateMetadata({
   const location = nameToLocation[slug];
   if (!location) return {};
 
-  const title = `${location.name} by ${location.artists.join(", ")} - Music Video Location`;
-  const description = `${location.name} by ${location.artists.join(", ")} — filmed at ${location.address}. View Street View and watch the Music Video.`;
+  const artistNames = location.artists.join(", ");
+  const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
+  const description = `Discover the filming location for "${location.name}" by ${artistNames} at ${location.address}, Hong Kong. Watch the music video and explore the location on Street View with Cantopop Map.`;
   const images = location.image ? [location.image] : ["/images/og-image.png"];
 
   return {
     title,
     description,
+    keywords: [
+      location.name,
+      ...location.artists,
+      "cantopop map",
+      "粵語歌地圖",
+      "music video location",
+      "hong kong filming location",
+      location.address,
+      "cantopop",
+      "廣東歌",
+    ],
     alternates: {
       canonical: `/locations/${encodeURIComponent(params.slug)}`,
+      languages: {
+        en: `/locations/${encodeURIComponent(params.slug)}`,
+        "zh-HK": `/locations/${encodeURIComponent(params.slug)}`,
+        "x-default": `/locations/${encodeURIComponent(params.slug)}`,
+      },
     },
     openGraph: {
       title,
@@ -41,6 +58,8 @@ export function generateMetadata({
       images,
       type: "article",
       url: `/locations/${encodeURIComponent(params.slug)}`,
+      siteName: "Cantopop Map",
+      locale: "en_HK",
     },
     twitter: {
       card: "summary_large_image",
@@ -65,27 +84,72 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
 
   const time = location?.url.split("?t=")[1]?.split("&")[0];
 
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
+
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "MusicRecording",
-    name: location.name,
-    byArtist: location.artists.map((a) => ({ "@type": "MusicGroup", name: a })),
-    url: location.url,
-    image: location.image,
-    locationCreated: {
-      "@type": "Place",
-      name: location.address,
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: location.lat,
-        longitude: location.lng,
+    "@graph": [
+      {
+        "@type": "MusicRecording",
+        "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#song`,
+        name: location.name,
+        byArtist: location.artists.map((a) => ({
+          "@type": "MusicGroup",
+          name: a,
+        })),
+        url: location.url,
+        image: location.image,
+        locationCreated: {
+          "@type": "Place",
+          "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#place`,
+          name: location.address,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Hong Kong",
+            addressCountry: "HK",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: location.lat,
+            longitude: location.lng,
+          },
+        },
+        potentialAction: {
+          "@type": "WatchAction",
+          target: location.url,
+        },
       },
-    },
-    potentialAction: {
-      "@type": "WatchAction",
-      target: location.url,
-    },
-  } as const;
+      {
+        "@type": "VideoObject",
+        name: `${location.name} - Music Video`,
+        description: `Official music video for "${location.name}" by ${location.artists.join(", ")}, filmed at ${location.address}, Hong Kong.`,
+        thumbnailUrl: location.image,
+        embedUrl: videoId
+          ? `https://www.youtube.com/embed/${videoId}`
+          : undefined,
+        contentUrl: location.url,
+        uploadDate: new Date().toISOString().split("T")[0],
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Cantopop Map",
+            item: siteUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: location.name,
+            item: `${siteUrl}/locations/${encodeURIComponent(slug)}`,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <div className="relative h-screen w-screen">
