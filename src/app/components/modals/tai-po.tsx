@@ -4,18 +4,6 @@ import { useUIStore } from "~/app/_state/ui.store";
 
 export default function TaiPoModal() {
   const { taiPoModalHasSeen, setTaiPoModalHasSeen } = useUIStore();
-  function getHasSeenFromLocalStorage() {
-    const hasSeen = localStorage.getItem("taiPoModalHasSeen");
-    return hasSeen === "true";
-  }
-
-  useEffect(() => {
-    if (getHasSeenFromLocalStorage()) {
-      setTaiPoModalHasSeen(true);
-    } else {
-      setTaiPoModalHasSeen(false);
-    }
-  }, []);
 
   if (taiPoModalHasSeen) return null;
 
