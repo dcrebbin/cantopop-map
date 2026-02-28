@@ -2727,7 +2727,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/94nNwWUtJjZuaAfN7",
     name: "喵！(MEOW!)",
     url: "https://youtu.be/WJxQ9Xh19DI?t=87",
-    image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/maxresdefault.jpg",
+    image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/sddefault.jpg",
     contributors: {
       song: {
         allKeysSynthsAndProgrammingsBy: ["SiuTung"],
