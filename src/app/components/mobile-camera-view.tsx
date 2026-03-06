@@ -93,6 +93,16 @@ function getGeolocationErrorMessage(
 export default function MobileCameraView() {
   const { mobileCameraViewOpen } = useUIStore();
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  <iframe
+    width="1455"
+    height="818"
+    src="https://www.youtube.com/embed/wTtVY6MY7m0"
+    title="《CHILL CLUB 推介榜》第42周冠軍歌sica《開心果》🏆"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen
+  ></iframe>;
   const streamRef = useRef<MediaStream | null>(null);
   const locationWatchIdRef = useRef<number | null>(null);
   const [cameraError, setCameraError] = useState<string | null>(null);
@@ -482,7 +492,7 @@ export default function MobileCameraView() {
   if (!isActive) return null;
 
   return (
-    <div className="fixed inset-0 z-[1000] flex flex-col bg-black">
+    <div className="fixed inset-0 z-[100] flex flex-col bg-black">
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
