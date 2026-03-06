@@ -22,8 +22,7 @@ import MobileCameraView from "./components/mobile-camera-view";
 import TaiPoModal from "./components/modals/tai-po";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-mapboxgl.accessToken =
-  "pk.eyJ1IjoiZGNyZWJiaW4iLCJhIjoiY20xMjFtYnc0MHh4ZjJrb2h2NDR5MjF6YyJ9.LOAauCyTV_pfMAYd08pTmg";
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
 export default function Home({ location }: { location: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
