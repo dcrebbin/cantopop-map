@@ -12,27 +12,6 @@ const RAD2DEG = 180 / Math.PI;
 const EARTH_RADIUS_KM = 6371;
 const FIELD_OF_VIEW_DEG = 60;
 
-function createDefaultTestLocation(
-  overrides: Partial<LocationItem> = {},
-): LocationItem {
-  return {
-    id: "__test_location",
-    artists: ["Test Artist"],
-    address: "Testing Address",
-    name: "Testing Location",
-    url: "https://example.com",
-    image: "https://i.ytimg.com/vi/YPJljJJzKFo/maxresdefault.jpg",
-    lat: 0,
-    lng: 0,
-    streetView: null,
-    streetViewEmbed: null,
-    mapEmbed: null,
-    isCustom: true,
-    contributors: null,
-    ...overrides,
-  };
-}
-
 function toRadians(degrees: number) {
   return degrees * DEG2RAD;
 }
@@ -92,9 +71,30 @@ interface AnnotatedLocation {
   verticalPercent: number;
 }
 
+type PermissionStatus = "unknown" | "granted" | "denied";
+type OrientationPermissionStatus = PermissionStatus | "unsupported";
+
+function getGeolocationErrorMessage(
+  error: GeolocationPositionError,
+  base: string,
+) {
+  switch (error.code) {
+    case error.PERMISSION_DENIED:
+      return `${base} Please allow location access in browser settings.`;
+    case error.POSITION_UNAVAILABLE:
+      return `${base} Position unavailable. Try moving to an open area and ensure Location Services are enabled.`;
+    case error.TIMEOUT:
+      return `${base} Request timed out. Try again.`;
+    default:
+      return `${base} Please retry or check your permissions.`;
+  }
+}
+
 export default function MobileCameraView() {
   const { mobileCameraViewOpen } = useUIStore();
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const locationWatchIdRef = useRef<number | null>(null);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [locationError, setLocationError] = useState<string | null>(null);
   const [orientationError, setOrientationError] = useState<string | null>(null);
@@ -102,13 +102,36 @@ export default function MobileCameraView() {
     null,
   );
   const [heading, setHeading] = useState<number | null>(null);
-  const [orientationPermission, setOrientationPermission] = useState<
-    "unknown" | "granted" | "denied"
-  >("unknown");
+  const [cameraPermission, setCameraPermission] =
+    useState<PermissionStatus>("unknown");
+  const [locationPermission, setLocationPermission] =
+    useState<PermissionStatus>("unknown");
+  const [orientationPermission, setOrientationPermission] =
+    useState<OrientationPermissionStatus>("unknown");
   const [requiresOrientationPermission, setRequiresOrientationPermission] =
     useState(false);
+  const [setupInProgress, setSetupInProgress] = useState(false);
 
   const isActive = mobileCameraViewOpen;
+
+  const stopCameraStream = useCallback(() => {
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+    if (videoRef.current) {
+      videoRef.current.srcObject = null;
+    }
+  }, []);
+
+  const stopLocationWatch = useCallback(() => {
+    if (
+      locationWatchIdRef.current !== null &&
+      typeof navigator !== "undefined" &&
+      "geolocation" in navigator
+    ) {
+      navigator.geolocation.clearWatch(locationWatchIdRef.current);
+      locationWatchIdRef.current = null;
+    }
+  }, []);
 
   useEffect(() => {
     if (!isActive) return;
@@ -117,12 +140,24 @@ export default function MobileCameraView() {
     setOrientationError(null);
     setPosition(null);
     setHeading(null);
+    setCameraPermission("unknown");
+    setLocationPermission("unknown");
     setOrientationPermission("unknown");
+    setRequiresOrientationPermission(false);
+    setSetupInProgress(false);
   }, [isActive]);
+
+  useEffect(() => {
+    if (isActive) return;
+    stopCameraStream();
+    stopLocationWatch();
+  }, [isActive, stopCameraStream, stopLocationWatch]);
 
   useEffect(() => {
     if (!isActive) return;
     if (typeof DeviceOrientationEvent === "undefined") {
+      setRequiresOrientationPermission(false);
+      setOrientationPermission("unsupported");
       setOrientationError("Device orientation is not supported.");
       return;
     }
@@ -136,79 +171,156 @@ export default function MobileCameraView() {
     if (!needsPermission) setOrientationPermission("granted");
   }, [isActive]);
 
-  useEffect(() => {
-    if (!isActive) return;
-    let currentStream: MediaStream | null = null;
-
-    async function startCamera() {
-      if (
-        typeof navigator === "undefined" ||
-        !navigator.mediaDevices?.getUserMedia
-      ) {
-        setCameraError("Camera is not supported in this browser.");
-        return;
-      }
-      try {
-        currentStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            facingMode: { ideal: "environment" },
-            width: { ideal: 1280 },
-            height: { ideal: 720 },
-          },
-          audio: false,
-        });
-        if (videoRef.current) {
-          videoRef.current.srcObject = currentStream;
-          try {
-            await videoRef.current.play();
-          } catch {
-            setCameraError("Unable to start camera stream. Tap to retry.");
-          }
-        }
-      } catch (error) {
-        console.error("Camera error:", error);
-        setCameraError(
-          error instanceof Error
-            ? error.message
-            : "Unable to access the camera. Please allow camera access in settings.",
-        );
-      }
+  const ensureCameraAccess = useCallback(async () => {
+    if (
+      typeof navigator === "undefined" ||
+      !navigator.mediaDevices?.getUserMedia
+    ) {
+      setCameraPermission("denied");
+      setCameraError("Camera is not supported in this browser.");
+      return false;
     }
 
-    void startCamera();
+    if (streamRef.current) {
+      if (
+        videoRef.current &&
+        videoRef.current.srcObject !== streamRef.current
+      ) {
+        videoRef.current.srcObject = streamRef.current;
+      }
 
-    return () => {
-      currentStream?.getTracks().forEach((track) => track.stop());
-    };
-  }, [isActive]);
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch {
+          setCameraPermission("denied");
+          setCameraError("Unable to start camera stream. Tap to retry.");
+          return false;
+        }
+      }
 
-  const getLocation = useCallback(() => {
-    return navigator.geolocation.watchPosition(
+      setCameraPermission("granted");
+      setCameraError(null);
+      return true;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: { ideal: "environment" },
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+        },
+        audio: false,
+      });
+
+      streamRef.current = stream;
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        try {
+          await videoRef.current.play();
+        } catch {
+          setCameraPermission("denied");
+          setCameraError("Unable to start camera stream. Tap to retry.");
+          return false;
+        }
+      }
+
+      setCameraPermission("granted");
+      setCameraError(null);
+      return true;
+    } catch (error) {
+      console.error("Camera error:", error);
+      setCameraPermission("denied");
+      setCameraError(
+        error instanceof Error
+          ? error.message
+          : "Unable to access the camera. Please allow camera access in settings.",
+      );
+      return false;
+    }
+  }, []);
+
+  const requestInitialLocationAccess = useCallback(async () => {
+    if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
+      setLocationPermission("denied");
+      setLocationError(
+        "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
+      );
+      return false;
+    }
+
+    if (!window.isSecureContext) {
+      setLocationPermission("denied");
+      setLocationError(
+        "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
+      );
+      return false;
+    }
+
+    return new Promise<boolean>((resolve) => {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setPosition({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          });
+          setLocationPermission("granted");
+          setLocationError(null);
+          resolve(true);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          setLocationPermission("denied");
+          setLocationError(
+            getGeolocationErrorMessage(
+              error,
+              "Unable to determine your location.",
+            ),
+          );
+          resolve(false);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        },
+      );
+    });
+  }, []);
+
+  const startLocationWatch = useCallback(() => {
+    if (
+      typeof navigator === "undefined" ||
+      !("geolocation" in navigator) ||
+      !window.isSecureContext ||
+      locationWatchIdRef.current !== null
+    ) {
+      return;
+    }
+
+    locationWatchIdRef.current = navigator.geolocation.watchPosition(
       (pos) => {
         setPosition({
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
         });
+        setLocationPermission("granted");
         setLocationError(null);
       },
       (error) => {
         console.error("Geolocation error:", error);
-        const base = "Unable to determine your location.";
-        let message = base;
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            message = `${base} Please allow location access in browser settings.`;
-            break;
-          case error.POSITION_UNAVAILABLE:
-            message = `${base} Position unavailable. Try moving to an open area and ensure Location Services are enabled.`;
-            break;
-          case error.TIMEOUT:
-            message = `${base} Request timed out. Try again.`;
-            break;
-          default:
-            message = `${base} Please retry or check your permissions.`;
+        if (error.code === error.PERMISSION_DENIED) {
+          setLocationPermission("denied");
+          stopLocationWatch();
         }
-        setLocationError(message);
+        setLocationError(
+          getGeolocationErrorMessage(
+            error,
+            "Unable to determine your location.",
+          ),
+        );
       },
       {
         enableHighAccuracy: true,
@@ -216,30 +328,64 @@ export default function MobileCameraView() {
         maximumAge: 0,
       },
     );
+  }, [stopLocationWatch]);
+
+  const requestOrientationAccess = useCallback(async () => {
+    if (typeof DeviceOrientationEvent === "undefined") {
+      setRequiresOrientationPermission(false);
+      setOrientationPermission("unsupported");
+      setOrientationError("Device orientation is not supported.");
+      return true;
+    }
+
+    const requestPermission = (
+      DeviceOrientationEvent as unknown as {
+        requestPermission?: () => Promise<PermissionState>;
+      }
+    ).requestPermission;
+
+    if (typeof requestPermission !== "function") {
+      setOrientationPermission("granted");
+      setOrientationError(null);
+      return true;
+    }
+
+    try {
+      const result = await requestPermission();
+      if (result === "granted") {
+        setOrientationPermission("granted");
+        setOrientationError(null);
+        return true;
+      }
+
+      setOrientationPermission("denied");
+      setOrientationError(
+        "Orientation permission denied. Enable motion & orientation access in Settings > Safari > Motion & Orientation Access.",
+      );
+      return false;
+    } catch (error) {
+      console.error("Orientation permission error:", error);
+      setOrientationPermission("denied");
+      setOrientationError(
+        "Could not request orientation permission. Try again.",
+      );
+      return false;
+    }
   }, []);
 
   useEffect(() => {
-    if (!isActive) return;
-    if (!("geolocation" in navigator)) {
-      setLocationError(
-        "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
-      );
-      return;
-    }
-    if (!window.isSecureContext) {
-      setLocationError(
-        "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
-      );
-      return;
-    }
+    if (!isActive || cameraPermission !== "granted") return;
+    void ensureCameraAccess();
+  }, [cameraPermission, ensureCameraAccess, isActive]);
 
-    let watchId: number | null = null;
-    watchId = getLocation();
+  useEffect(() => {
+    if (!isActive || locationPermission !== "granted") return;
+    startLocationWatch();
 
     return () => {
-      if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+      stopLocationWatch();
     };
-  }, [isActive, getLocation]);
+  }, [isActive, locationPermission, startLocationWatch, stopLocationWatch]);
 
   useEffect(() => {
     if (!isActive || orientationPermission !== "granted") return;
@@ -324,15 +470,19 @@ export default function MobileCameraView() {
       .slice(0, 8);
   }, [annotations]);
 
+  const hasRequiredPermissions =
+    cameraPermission === "granted" &&
+    locationPermission === "granted" &&
+    (orientationPermission === "granted" ||
+      orientationPermission === "unsupported");
+  const needsPermissionGate = !hasRequiredPermissions;
   const showOverlayMessage =
     !!cameraError || !!locationError || !!orientationError;
-  const needsOrientationPrompt =
-    requiresOrientationPermission && orientationPermission !== "granted";
 
   if (!isActive) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col bg-black">
+    <div className="fixed inset-0 z-[1000] flex flex-col bg-black">
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
@@ -345,40 +495,44 @@ export default function MobileCameraView() {
         {sortedAnnotations.map((entry, index) => locationMarker(entry, index))}
       </div>
 
-      {needsOrientationPrompt ? (
+      {needsPermissionGate ? (
         <div className="absolute inset-0 z-[110] flex items-center justify-center bg-black/80 p-6 text-center text-white">
           <div className="flex max-w-sm flex-col items-center gap-4">
             <p className="text-lg font-semibold">
-              Enable device orientation to place locations around you.
+              Allow camera, location, and motion access to place locations
+              around you.
+            </p>
+            <p className="text-sm text-white/75">
+              Requesting these together is more reliable on iPhone and other
+              mobile browsers.
             </p>
             <button
               type="button"
+              disabled={setupInProgress}
               className="pointer-events-auto rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg"
               onClick={async () => {
-                try {
-                  const result = await (
-                    DeviceOrientationEvent as unknown as {
-                      requestPermission: () => Promise<PermissionState>;
-                    }
-                  ).requestPermission();
-                  if (result === "granted") {
-                    setOrientationPermission("granted");
-                    setOrientationError(null);
-                  } else {
-                    setOrientationPermission("denied");
-                    setOrientationError(
-                      "Orientation permission denied. Enable motion & orientation access in Settings > Safari > Motion & Orientation Access.",
-                    );
-                  }
-                } catch (error) {
-                  console.error("Orientation permission error:", error);
-                  setOrientationError(
-                    "Could not request orientation permission. Try again.",
-                  );
+                setSetupInProgress(true);
+                setCameraError(null);
+                setLocationError(null);
+                if (orientationPermission !== "unsupported") {
+                  setOrientationError(null);
                 }
+
+                await requestOrientationAccess();
+                await ensureCameraAccess();
+                await requestInitialLocationAccess();
+
+                setSetupInProgress(false);
               }}
             >
-              Enable Orientation
+              {setupInProgress
+                ? "Requesting Permissions..."
+                : cameraPermission === "denied" ||
+                    locationPermission === "denied" ||
+                    (requiresOrientationPermission &&
+                      orientationPermission === "denied")
+                  ? "Retry Permissions"
+                  : "Enable Camera View"}
             </button>
           </div>
         </div>

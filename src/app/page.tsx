@@ -81,29 +81,11 @@ export default function Home({ location }: { location: LocationItem }) {
     }
   }, [map, location]);
 
-  function TaiOWarning() {
-    return (
-      <div className="absolute bottom-10 left-0 z-[90] mx-4 mt-4 flex h-fit w-auto flex-col items-center justify-start rounded-lg bg-red-500 p-4 text-sm xl:bottom-14 xl:left-auto">
-        <button
-          type="button"
-          className="flex flex-row items-center justify-start gap-2 hover:drop-shadow-lg"
-          onClick={() => {
-            setTaiPoModalHasSeen(false);
-          }}
-        >
-          <ExclamationTriangleIcon className="h-4 w-4 text-white" />
-          <h1 className="font-bold text-white">Tai Po Fire Resources</h1>
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
       <div className="relative flex w-[100vw] justify-center overflow-hidden">
         <ToastContainer />
         <Appbar />
-        <TaiOWarning />
         <Menu />
         <MobileCameraView />
         <PwaTutorial />
