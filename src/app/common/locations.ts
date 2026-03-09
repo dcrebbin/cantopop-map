@@ -200,7 +200,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "今晚好想好想打俾你",
     url: "https://youtu.be/QTeoNGh2kBE?t=106",
     streetView: "https://maps.app.goo.gl/BowZh16zno2ydENa8",
-    image: "https://i.ytimg.com/vi/QTeoNGh2kBE/hq720.jpg",
+    image: "https://i.ytimg.com/vi/QTeoNGh2kBE/hqdefault.jpg",
   },
   {
     coordinates: [22.9884936, 120.2209808],
