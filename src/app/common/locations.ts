@@ -194,6 +194,15 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [51.5004784, -0.0820124],
+    artists: ["Salty Chick"],
+    address: "1 Morocco Street, London, UK",
+    name: "今晚好想好想打俾你",
+    url: "https://youtu.be/QTeoNGh2kBE?t=106",
+    streetView: "https://maps.app.goo.gl/BowZh16zno2ydENa8",
+    image: "https://i.ytimg.com/vi/QTeoNGh2kBE/hq720.jpg",
+  },
+  {
     coordinates: [22.9884936, 120.2209808],
     artists: ["Marf 邱彥筒"],
     address: "Tainan, Taiwan",
