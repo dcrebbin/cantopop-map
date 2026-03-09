@@ -195,7 +195,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     coordinates: [51.5004784, -0.0820124],
-    artists: ["Salty Chick"],
+    artists: ["$alty Chick鹽焗雞"],
     address: "1 Morocco Street, London, UK",
     name: "今晚好想好想打俾你",
     url: "https://youtu.be/QTeoNGh2kBE?t=106",
