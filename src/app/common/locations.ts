@@ -332,6 +332,33 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/fAc4ZSVYOJU/maxresdefault.jpg",
   },
   {
+    coordinates: [22.3014216693625, 114.1588212225141],
+    artists: ["J Jelly", "ANSONBEAN"],
+    address: "North Roof Garden, M+, Hong Kong",
+    name: "SEA OF US REMIX",
+    url: "https://www.youtube.com/watch?v=lfwAIduKSbE",
+    image: "https://i.ytimg.com/vi/lfwAIduKSbE/maxresdefault.jpg",
+    contributors: {
+      musicVideo: {
+        director: ["KKCTO"],
+        directorOfPhotography: [
+          "Quinton Wong",
+          "Ming Wong",
+          "Cage_0512",
+          "Destiny Chan",
+        ],
+        hair: ["Derek Li @Xenter"],
+        makeUp: ["Deep Choi", "Eva Chan"],
+        styling: ["Yoyo Kwan", "Manki Cheung"],
+      },
+      song: {
+        arranger: ["mikeygoincrazy"],
+        producedBy: ["DaiShin", "mikeygoincrazy", "Silverstrike", "Sp8de K"],
+        mixedAndMasteredBy: ["Sp8de K"],
+      },
+    },
+  },
+  {
     coordinates: [22.471754454186954, 114.02208959807898],
     artists: ["Gordon Flanders"],
     address: "Fung Lok Wai Fish Ponds (estimation)",
