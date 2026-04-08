@@ -38,10 +38,11 @@ export default function SelectedLocation() {
     mapStore.clearSelectedLocation();
   }
 
-  if (!uiStore.selectedLocation?.value) return null;
+  if (!uiStore.selectedLocation?.value || uiStore.mobileCameraViewOpen)
+    return null;
 
   return (
-    <div className="absolute bottom-0 left-0 z-[120] m-0 mb-[2rem] ml-4 flex max-w-[50vw] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 backdrop-blur-sm sm:max-w-none">
+    <div className="absolute bottom-0 left-0 z-[120] m-0 mb-[2rem] ml-4 flex max-w-[50vw] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 pr-6 backdrop-blur-sm sm:max-w-none">
       <div className="relative min-w-0">
         <h1 className="truncate text-sm font-bold text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-lg">
           {uiStore.selectedLocation?.artists.join(", ")}
@@ -53,7 +54,7 @@ export default function SelectedLocation() {
       <button
         type="button"
         onClick={clearSelectedLocation}
-        className="absolute right-0 top-0 p-1 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
+        className="absolute -right-1 top-0 p-1 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
       >
         <XMarkIcon className="h-5 w-5" />
       </button>
