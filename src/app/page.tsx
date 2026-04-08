@@ -69,6 +69,11 @@ export default function Home({ location }: { location: LocationItem }) {
           center: [location.lng, location.lat],
           zoom: 15,
         });
+        useUIStore.getState().setSelectedLocation({
+          value: location.name,
+          artists: location.artists,
+          streetViewEmbed: location.streetViewEmbed ?? "",
+        });
       }
 
       if (!map || !location) return;
