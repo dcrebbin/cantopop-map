@@ -66,7 +66,13 @@ function createCustomMarker(
           useMapStore.getState().setSelectedLocationId(data.id);
           useMapStore.getState().setLastPopup(popup);
           useMapStore.getState().setLastMarker(markerElement);
+          useUIStore.getState().setSelectedLocation({
+            value: data.name,
+            artists: data.artists,
+            streetViewEmbed: data.streetViewEmbed ?? "",
+          });
           const params = new URLSearchParams(window.location.search);
+
           params.set("title", songTitle);
           const query = params.toString();
           const newUrl = `${window.location.pathname}?${query}`;
@@ -110,7 +116,11 @@ export function addPlace(data: LocationItem, mapInstance?: mapboxgl.Map) {
   popup.setLngLat([data.lng, data.lat]);
 }
 
-function hidePopup(popup: mapboxgl.Popup, marker: HTMLDivElement, id: string) {
+export function hidePopup(
+  popup: mapboxgl.Popup,
+  marker: HTMLDivElement,
+  id: string,
+) {
   const root = popupRoots.get(popup);
   if (root) {
     root.unmount();
