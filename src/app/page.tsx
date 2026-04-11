@@ -27,6 +27,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
 export default function Home({ location }: { location: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
+  const hasOpenedInitialPopupRef = useRef(false);
 
   const { gameOpen, setTaiPoModalHasSeen } = useUIStore();
 
@@ -54,7 +55,33 @@ export default function Home({ location }: { location: LocationItem }) {
 
   useEffect(() => {
     if (!map) return;
+    let initialLocation: LocationItem | null = null;
+    let retryCount = 0;
+    let retryTimeoutId: number | null = null;
+
+    const tryOpenInitialPopup = (targetLocation: LocationItem) => {
+      if (hasOpenedInitialPopupRef.current) return;
+
+      const marker = useMapStore
+        .getState()
+        .allMarkers.find((item) => item.dataset.song === targetLocation.name);
+      const clickableMarkerImage = marker?.querySelector("img");
+
+      if (clickableMarkerImage instanceof HTMLElement) {
+        clickableMarkerImage.click();
+        hasOpenedInitialPopupRef.current = true;
+        return;
+      }
+
+      if (retryCount >= 10) return;
+      retryCount += 1;
+      retryTimeoutId = window.setTimeout(() => {
+        tryOpenInitialPopup(targetLocation);
+      }, 100);
+    };
+
     if (location) {
+      initialLocation = location;
       map.setCenter([location.lng, location.lat]);
       map.setZoom(15);
       toast(`Zoomed to ${location.name}`);
@@ -63,27 +90,30 @@ export default function Home({ location }: { location: LocationItem }) {
     const url = new URLSearchParams(window.location.search);
     const title = url.get("title");
     if (title) {
-      const location = nameToLocation[title];
-      if (location && map) {
+      const queryLocation = nameToLocation[title];
+      if (queryLocation && map) {
+        initialLocation = queryLocation;
         map?.flyTo({
-          center: [location.lng, location.lat],
+          center: [queryLocation.lng, queryLocation.lat],
           zoom: 15,
         });
         useUIStore.getState().setSelectedLocation({
-          value: location.name,
-          artists: location.artists,
-          streetViewEmbed: location.streetViewEmbed ?? "",
+          value: queryLocation.name,
+          artists: queryLocation.artists,
+          streetViewEmbed: queryLocation.streetViewEmbed ?? "",
         });
       }
-
-      if (!map || !location) return;
-
-      const locationData = new mapboxgl.LngLat(location.lng, location.lat);
-      map?.flyTo({
-        center: locationData,
-        zoom: 15,
-      });
     }
+
+    if (initialLocation) {
+      tryOpenInitialPopup(initialLocation);
+    }
+
+    return () => {
+      if (retryTimeoutId) {
+        clearTimeout(retryTimeoutId);
+      }
+    };
   }, [map, location]);
 
   return (

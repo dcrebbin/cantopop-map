@@ -16,7 +16,7 @@ const markerRoots = new WeakMap<HTMLDivElement, Root>();
 const popupRoots = new WeakMap<mapboxgl.Popup, Root>();
 const elementRoots = new WeakMap<HTMLElement, Root>();
 
-function showPopup(
+export function showPopup(
   currentLastPopup: mapboxgl.Popup | null,
   currentLastMarker: HTMLDivElement | null,
   id: string,
