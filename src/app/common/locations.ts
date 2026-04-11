@@ -2142,6 +2142,27 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "記憶棉 Pillow Talk",
     url: "https://www.youtube.com/watch?v=YZPFbnk_RS0",
     image: "https://i.ytimg.com/vi/YZPFbnk_RS0/hq720.jpg",
+    contributors: {
+      song: {
+        composer: ["徐浩"],
+        lyricist: ["林寶"],
+        arranger: ["徐浩", "黃兆銘"],
+        producer: ["徐浩"],
+      },
+      musicVideo: {
+        creative: ["Rony Kong", "Vivian Wong"],
+        director: ["Rony Kong"],
+        producer: ["Suki Wong"],
+        directorOfPhotography: ["Faith Ma @Sightless Vision"],
+        cameraAssistant: ["Sonj Ng", "Kelvin Chow"],
+        gaffer: ["Calvin Leung"],
+        bestBoy: ["Dave Wong", "Silvia Ng"],
+        artDirection: ["Point Studio"],
+        artAssistant: ["Athena Leung", "Kumi Tong"],
+        editor: ["Edwardo Chan", "Faith Ma", "Rony Kong"],
+        colourist: ["Faith Ma"],
+      },
+    },
   },
   {
     coordinates: [22.286483244707423, 114.22412123018327],
