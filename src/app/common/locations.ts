@@ -224,6 +224,33 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [22.3134892, 114.1863883],
+    artists: ["Sica"],
+    address: "42 Ko Shan Rd, Kowloon, Hong Kong",
+    name: "開心果",
+    url: "https://youtu.be/5n1pA3RSDTw?t=79",
+    streetView: "https://maps.app.goo.gl/bokGKeu9iTFXwpR67",
+    image: "https://i.ytimg.com/vi/5n1pA3RSDTw/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["陳可為"],
+        lyricist: ["鄭敏"],
+        arranger: ["蘇道哲"],
+        producer: ["蘇道哲"],
+      },
+      musicVideo: {
+        director: ["sica", "Heison Ng"],
+        producer: ["Heison Ng"],
+        directorOfPhotography: ["Felix Leong"],
+        productionManager: ["Anson Ng"],
+        stylist: ["Kammie"],
+        artDirector: ["Tsun"],
+        makeUp: ["Yucca Yu"],
+        hairStylist: ["Cedric Tsang"],
+      },
+    },
+  },
+  {
     coordinates: [22.2950284, 114.1678478],
     artists: ["Sica"],
     address: "Harbour City carpark, Tsim Sha Tsui, Hong Kong",
