@@ -11,12 +11,13 @@ input[type="checkbox"] {
   border: none;
 }
 
-.mapboxgl-popup-content{
-  width: fit-content!important;
+.mapboxgl-popup-content {
+  width: fit-content !important;
 }
 
-.mapboxgl-popup{
-  max-width: 100%!important;
+.mapboxgl-popup {
+  max-width: 100% !important;
+  z-index: 5000 !important;
 }
 
 .full-height {

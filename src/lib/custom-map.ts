@@ -16,6 +16,47 @@ const markerRoots = new WeakMap<HTMLDivElement, Root>();
 const popupRoots = new WeakMap<mapboxgl.Popup, Root>();
 const elementRoots = new WeakMap<HTMLElement, Root>();
 
+function showPopup(
+  currentLastPopup: mapboxgl.Popup | null,
+  currentLastMarker: HTMLDivElement | null,
+  id: string,
+  data: LocationItem,
+  targetMap: mapboxgl.Map,
+  markerElement: HTMLDivElement,
+  popup: mapboxgl.Popup,
+) {
+  const songTitle = constructTitle(data);
+
+  markerElement?.classList.add("z-[2000]");
+
+  if (currentLastPopup !== null && currentLastMarker !== null) {
+    hidePopup(currentLastPopup, currentLastMarker, id);
+  }
+  const { container, root } = createPopupContent(data);
+  posthog.capture("view_location", {
+    artists: data.artists.join(", "),
+    songTitle: data.name,
+  });
+  popup.setDOMContent(container);
+  popupRoots.set(popup, root);
+  popup.addTo(targetMap);
+  markerElement.classList.add("visible");
+  useMapStore.getState().setSelectedLocationId(data.id);
+  useMapStore.getState().setLastPopup(popup);
+  useMapStore.getState().setLastMarker(markerElement);
+  useUIStore.getState().setSelectedLocation({
+    value: data.name,
+    artists: data.artists,
+    streetViewEmbed: data.streetViewEmbed ?? "",
+  });
+  const params = new URLSearchParams(window.location.search);
+
+  params.set("title", songTitle);
+  const query = params.toString();
+  const newUrl = `${window.location.pathname}?${query}`;
+  window.history.pushState({}, "", newUrl);
+}
+
 function createCustomMarker(
   popup: mapboxgl.Popup,
   data: LocationItem,
@@ -39,8 +80,6 @@ function createCustomMarker(
         const { lastPopup: currentLastPopup, lastMarker: currentLastMarker } =
           useMapStore.getState();
 
-        const songTitle = constructTitle(data);
-
         if (contentIsVisible) {
           const params = new URLSearchParams(window.location.search);
           params.delete("title");
@@ -49,34 +88,18 @@ function createCustomMarker(
             ? `${window.location.pathname}?${query}`
             : window.location.pathname;
           window.history.pushState({}, "", newUrl);
+
           hidePopup(popup, markerElement, id);
         } else {
-          if (currentLastPopup !== null && currentLastMarker !== null) {
-            hidePopup(currentLastPopup, currentLastMarker, id);
-          }
-          const { container, root } = createPopupContent(data);
-          posthog.capture("view_location", {
-            artists: data.artists.join(", "),
-            songTitle: data.name,
-          });
-          popup.setDOMContent(container);
-          popupRoots.set(popup, root);
-          popup.addTo(targetMap);
-          markerElement.classList.add("visible");
-          useMapStore.getState().setSelectedLocationId(data.id);
-          useMapStore.getState().setLastPopup(popup);
-          useMapStore.getState().setLastMarker(markerElement);
-          useUIStore.getState().setSelectedLocation({
-            value: data.name,
-            artists: data.artists,
-            streetViewEmbed: data.streetViewEmbed ?? "",
-          });
-          const params = new URLSearchParams(window.location.search);
-
-          params.set("title", songTitle);
-          const query = params.toString();
-          const newUrl = `${window.location.pathname}?${query}`;
-          window.history.pushState({}, "", newUrl);
+          showPopup(
+            currentLastPopup,
+            currentLastMarker,
+            id,
+            data,
+            targetMap,
+            markerElement,
+            popup,
+          );
         }
       },
     }),
@@ -128,6 +151,7 @@ export function hidePopup(
   }
   popup.remove();
   marker.classList.remove("visible");
+  marker?.classList.remove("z-[2000]");
   useMapStore.getState().clearSelectedLocation();
 }
 
