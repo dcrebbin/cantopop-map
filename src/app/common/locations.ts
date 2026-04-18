@@ -1043,7 +1043,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.3345389, 114.1949485],
     artists: ["Sica"],
     address: "34 Yan Oi Street, San Po Kong",
-    name: "Broken?",
+    name: "深宵便利愛 (24/7 Convenient Love)",
     streetView: "https://maps.app.goo.gl/wF7YmkSxd2fQGAXj8",
     url: "https://youtu.be/9itm9bI_J9I?t=22",
     image: "https://i.ytimg.com/vi/9itm9bI_J9I/maxresdefault.jpg",
