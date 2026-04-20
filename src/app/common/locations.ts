@@ -2546,7 +2546,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "天氣之女 (Weathering with Me)",
     streetView: "https://maps.app.goo.gl/4ZgLTWo2sdhFKgiUA",
     url: "https://youtu.be/Q9yq9NXciR8?t=179",
-    image: "https://i.ytimg.com/vi/vqlzYiT5_aQ/maxresdefault.jpg",
+    image: "https://i.ytimg.com/vi/Q9yq9NXciR8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
