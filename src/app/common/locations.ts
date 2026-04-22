@@ -2638,7 +2638,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.2771817, 114.2299227],
     artists: ["moon tang"],
     address: "148 Shau Kei Wan Main St, Hong Kong",
-    name: "bad weather",
+    name: "bad weather (en)",
     streetView: "https://maps.app.goo.gl/Q9eSCVpmAiuoYjcZA",
     url: "https://youtu.be/tDjuJu-dk_4?t=200",
     image: "https://i.ytimg.com/vi/tDjuJu-dk_4/maxresdefault.jpg",
