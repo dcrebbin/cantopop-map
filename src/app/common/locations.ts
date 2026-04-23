@@ -2665,7 +2665,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [51.5106159, -0.1750644],
     artists: ["Yan Ting 周殷廷"],
-    address: "Hyde Park, London, UK",
+    address: "Kensington Gardens, London, UK",
     name: "今世情人 (Destined Lover)",
     streetView: "https://maps.app.goo.gl/22q2NrFRBVUJMZWc9",
     url: "https://youtu.be/s1Cf-BxwcyU?t=133",
