@@ -49,9 +49,9 @@ export default function Home({ location }: { location: LocationItem }) {
     });
 
     setMap(newMap);
-    LOCATIONS.forEach((location) => {
+    for (const location of LOCATIONS) {
       addPlace(location, newMap);
-    });
+    }
   };
 
   useEffect(() => {

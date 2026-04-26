@@ -135,7 +135,7 @@ export default function Menu() {
 
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
-      allMarkers.forEach((marker) => {
+      for (const marker of allMarkers) {
         const markerArtists = marker.dataset.artist?.split(", ") ?? [];
         const markerContributors =
           marker.dataset.contributors?.split(", ") ?? [];
@@ -154,7 +154,7 @@ export default function Menu() {
         const hasAnyFilter = hasArtistFilter || hasContributorFilter;
         const shouldShow = !hasAnyFilter || artistMatch || contributorMatch;
         marker.style.display = shouldShow ? "block" : "none";
-      });
+      }
     },
     [allMarkers],
   );
@@ -300,9 +300,9 @@ export default function Menu() {
 
   useEffect(() => {
     if (selectedArtists.length === 0 && selectedContributors.length === 0) {
-      allMarkers.forEach((marker) => {
+      for (const marker of allMarkers) {
         marker.style.display = "block";
-      });
+      }
     } else {
       updateMarkerVisibility(selectedArtists, selectedContributors);
     }
