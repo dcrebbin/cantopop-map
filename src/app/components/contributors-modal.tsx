@@ -222,7 +222,7 @@ export default function ContributorsModal() {
                     )}
                     {c.musicVideoRoles.length > 0 && (
                       <div className="text-sm">
-                        <span className="text-white/60">Music Video: </span>
+                        <span className="text-white/60">Credits: </span>
                         {c.musicVideoRoles.join(", ")}
                       </div>
                     )}
