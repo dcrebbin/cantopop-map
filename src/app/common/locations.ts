@@ -4956,7 +4956,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         focusPuller: ["@LING41234"],
         gaffer: ["@MAKDDULLLL"],
         drone: ["@LING41234"],
-        artTeam: ["@00.FUCHAI", "@SAI_MAN_1007"],
+        artTeam: ["FuChai", "@SAI_MAN_1007"],
         pocketWatchProps: ["@PINKY816"],
         editor: ["@RAYMONDCHVN", "@THEBASTARDSGRAM"],
         colourist: ["@ERICCYC_", "@IXAGON"],

@@ -127,6 +127,7 @@ export const nameToInstagramMap = {
   "Crystal Chan": "crystalc.n.l",
   Sandro: "sandroparis",
   Zara: "zara",
+  FuChai: "00.FUCHAI",
   JONO: "itsjonomusic",
   "Sandy Natsuly": "sandynatsuly",
   "Bowie Ong": "bowieong",
