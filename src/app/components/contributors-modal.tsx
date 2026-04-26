@@ -236,7 +236,7 @@ export default function ContributorsModal() {
         <div className="mt-2 text-center text-sm text-white/70">
           Any errors or missing credits? Please contact at{" "}
           <a
-            href="mailto:devon@langpal.com.hk&subject=Cantopop地圖 Error"
+            href="mailto:devon@langpal.com.hk?subject=Cantopop地圖"
             className="underline"
           >
             devon@langpal.com.hk
