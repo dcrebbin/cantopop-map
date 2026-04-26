@@ -126,10 +126,16 @@ export default function ContributorsModal() {
               <button
                 type="button"
                 onClick={async () => {
-                  await navigator.share({
-                    title: ``,
-                    url: document.URL,
-                  });
+                  if (navigator.share) {
+                    await navigator.share({
+                      title: `Checkout my Cantopop地圖 portfolio`,
+                      url: document.URL,
+                    });
+                  } else {
+                    alert(
+                      "Your browser does not support sharing. Please copy the link manually.",
+                    );
+                  }
                 }}
                 className="flex items-center gap-1 text-sm font-bold text-white/70 hover:underline"
               >
