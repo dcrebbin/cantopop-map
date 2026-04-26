@@ -105,7 +105,7 @@ export const useUIStore = create<UIState>((set) => ({
   taiPoModalHasSeen: true,
   setTaiPoModalHasSeen: (hasSeen: boolean) =>
     set({ taiPoModalHasSeen: hasSeen }),
-  selectedContributor: "Fai Chan",
+  selectedContributor: "",
   setSelectedContributor: (contributor: string | null) =>
     set({ selectedContributor: contributor }),
 }));
