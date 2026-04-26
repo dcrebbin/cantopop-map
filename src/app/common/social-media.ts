@@ -537,7 +537,7 @@ export const nameToInstagramMap = {
   "Sonia Tam": "soniatcy",
   "John David Dela Peri": "dabeedos",
   "Manmen Tam": "tamaamamamamen",
-  "The Bastards": "thebastardsgram",
+  "THE BASTARDS": "thebastardsgram",
   Oscar: "oscar_emboaba",
   "Oscar Lee": "oscarlee",
   "Victor Wong": "wvictorwt",

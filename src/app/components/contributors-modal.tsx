@@ -233,6 +233,15 @@ export default function ContributorsModal() {
             </ul>
           )}
         </div>
+        <div className="mt-2 text-center text-sm text-white/70">
+          Any errors or missing credits? Please contact at{" "}
+          <a
+            href="mailto:devon@langpal.com.hk&subject=Cantopop地圖 Error"
+            className="underline"
+          >
+            devon@langpal.com.hk
+          </a>
+        </div>
       </div>
     </div>
   );

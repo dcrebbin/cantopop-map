@@ -1842,7 +1842,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         btsVideographer: ["Jg"],
         titleDesigner: ["Manmen Tam"],
         projectAndManagement: ["Malik Zain Ali", "Nicholas Cheung"],
-        specialThanks: ["The Bastards"],
+        specialThanks: ["THE BASTARDS"],
       },
       song: {
         producer: ["Justin Yau"],
