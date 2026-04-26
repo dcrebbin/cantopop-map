@@ -4976,7 +4976,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artistManagement: ["@TOYWIINDY"],
         supportingArtist: ["🐜"],
         hmuArtist: ["@HEISANHUNG"],
-        stylist: ["@NATALIETANG", "@CHERIEDEER"],
+        stylist: ["@NATALIETANG", "Cherie Kong"],
       },
     },
   },

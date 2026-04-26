@@ -235,8 +235,10 @@ export default function Menu() {
       }
 
       const contributorsSet = new Set<string>();
-      for (const contributor of CONTRIBUTORS_LOWER) {
-        if (contributor.includes(q)) contributorsSet.add(contributor);
+      for (let i = 0; i < CONTRIBUTORS.length; i++) {
+        if (CONTRIBUTORS_LOWER[i]!.includes(q)) {
+          contributorsSet.add(CONTRIBUTORS[i]!);
+        }
       }
       for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
         if (group.title.includes(q)) {
