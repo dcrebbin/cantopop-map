@@ -86,6 +86,10 @@ export default function ContributorsModal() {
     window.history.replaceState({}, "", url.toString());
   }
 
+  function removeTimeFromYoutubeUrl(url: string) {
+    return url.split("?")[0];
+  }
+
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 text-white"
@@ -223,11 +227,18 @@ export default function ContributorsModal() {
                       </div>
                     )}
                   </div>
-                  <img
-                    src={c.location.image}
-                    alt={c.location.name}
-                    className="h-20 w-auto"
-                  />
+                  <a
+                    href={removeTimeFromYoutubeUrl(c.location.url)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                  >
+                    <img
+                      src={c.location.image}
+                      alt={c.location.name}
+                      className="h-20 w-auto"
+                    />
+                  </a>
                 </li>
               ))}
             </ul>
