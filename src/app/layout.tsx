@@ -104,7 +104,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body>
+      <body className="bg-black">
         <PostHogProvider>{children}</PostHogProvider>
       </body>
     </html>

@@ -78,6 +78,18 @@ export default function ContributorsModal() {
     return summary;
   }, [contributions]);
 
+  const totalCredits = useMemo(
+    () =>
+      contributions.reduce(
+        (total, contribution) =>
+          total +
+          contribution.songRoles.length +
+          contribution.musicVideoRoles.length,
+        0,
+      ),
+    [contributions],
+  );
+
   if (!selectedContributor) return null;
 
   function removeContributorModalUrl() {
@@ -148,8 +160,8 @@ export default function ContributorsModal() {
               </button>
             </div>
             <p className="text-sm text-white/70">
-              {contributions.length}{" "}
-              {contributions.length === 1 ? "credit" : "credits"} across{" "}
+              {totalCredits} {totalCredits === 1 ? "credit" : "credits"}{" "}
+              across {contributions.length}{" "}
               {contributions.length === 1 ? "song" : "songs"}
             </p>
           </div>
