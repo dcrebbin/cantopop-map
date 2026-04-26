@@ -49,7 +49,7 @@ export const nameToInstagramMap = {
   "Leo Yuen": "leooo.foto",
   "Tammy Au": "tammyau_makeup",
   "Samson Huang": "SAMSONHUANG",
-  LauOnIn: "LAUONIN",
+  LauOnIn: "lauonin",
   "Wing Chan": "wing_chan_",
   "Terron Chan": "tungchantigar",
   "Jason Kwan": "jason_kwan_6878",
