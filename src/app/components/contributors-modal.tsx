@@ -6,7 +6,10 @@ import {
   humanizeRoleKey,
   type LocationItem,
 } from "../common/locations";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { nameToInstagramMap } from "../common/social-media";
+import { instagramIcon } from "~/lib/icons/instagramIcon";
+import { SvgIcon } from "./map/PopupContent";
 
 type Category = "song" | "musicVideo";
 
@@ -100,6 +103,40 @@ export default function ContributorsModal() {
             <h1 className="font-serif text-2xl font-bold">
               {selectedContributor}
             </h1>
+            <div className="flex items-center gap-2">
+              {nameToInstagramMap[
+                selectedContributor as keyof typeof nameToInstagramMap
+              ] ? (
+                <a
+                  className="flex items-center gap-1 text-sm text-white/70 hover:underline"
+                  href={`https://www.instagram.com/${nameToInstagramMap[selectedContributor as keyof typeof nameToInstagramMap]}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  @
+                  {
+                    nameToInstagramMap[
+                      selectedContributor as keyof typeof nameToInstagramMap
+                    ]
+                  }
+                  <SvgIcon html={instagramIcon} className="size-6" />
+                </a>
+              ) : null}
+              {" | "}
+              <button
+                type="button"
+                onClick={async () => {
+                  await navigator.share({
+                    title: ``,
+                    url: document.URL,
+                  });
+                }}
+                className="flex items-center gap-1 text-sm font-bold text-white/70 hover:underline"
+              >
+                <span className="text-sm">Share</span>
+                <ShareIcon className="size-4" />
+              </button>
+            </div>
             <p className="text-sm text-white/70">
               {contributions.length}{" "}
               {contributions.length === 1 ? "credit" : "credits"} across{" "}
