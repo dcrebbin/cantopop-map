@@ -22,6 +22,7 @@ import MobileCameraView from "./components/mobile-camera-view";
 import TaiPoModal from "./components/modals/tai-po";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import SelectedLocation from "./components/selected-location";
+import ContributorsModal from "./components/contributors-modal";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
@@ -128,6 +129,7 @@ export default function Home({ location }: { location: LocationItem }) {
         <LocationButton />
         <TaiPoModal />
         <NewLocationModal />
+        <ContributorsModal />
         {gameOpen && <StreetView />}
 
         <div ref={handleMapContainerRef} className="map-container relative" />

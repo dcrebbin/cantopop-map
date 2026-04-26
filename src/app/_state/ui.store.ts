@@ -49,6 +49,8 @@ interface UIState {
   ) => void;
   taiPoModalHasSeen: boolean;
   setTaiPoModalHasSeen: (hasSeen: boolean) => void;
+  selectedContributor: string | null;
+  setSelectedContributor: (contributor: string | null) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -103,4 +105,7 @@ export const useUIStore = create<UIState>((set) => ({
   taiPoModalHasSeen: true,
   setTaiPoModalHasSeen: (hasSeen: boolean) =>
     set({ taiPoModalHasSeen: hasSeen }),
+  selectedContributor: "Fai Chan",
+  setSelectedContributor: (contributor: string | null) =>
+    set({ selectedContributor: contributor }),
 }));

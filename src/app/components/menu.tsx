@@ -21,7 +21,7 @@ import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import GameButton from "./game-button";
-import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { ArrowDownTrayIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
@@ -464,10 +464,11 @@ export default function Menu() {
                     }
                   }}
                   type="button"
-                  className="mx-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600"
+                  className="mx-2 flex items-center justify-between gap-1 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600"
                   key={`${filter.type}:${filter.name}`}
                 >
-                  {filter.name}
+                  <span>{filter.name}</span>
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
               ))}
             </div>

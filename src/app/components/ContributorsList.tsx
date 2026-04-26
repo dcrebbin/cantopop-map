@@ -1,5 +1,6 @@
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { CONTRIBUTOR_ROLE_GROUPS } from "../common/locations";
+import { useUIStore } from "../_state/ui.store";
 
 interface ContributorsListProps {
   filteredContributors: string[];
@@ -12,6 +13,8 @@ export default function ContributorsList({
   selectedContributors,
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
+  const { setSelectedContributor, setMenuOpen } = useUIStore();
+
   return (
     <div className="flex w-full flex-col gap-2 pr-2 text-white">
       {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
@@ -31,7 +34,15 @@ export default function ContributorsList({
                 key={`${group.category}-${group.roleKey}-${contributor}`}
                 className="flex w-full flex-row items-center justify-between gap-2 pr-2"
               >
-                <button type="button" className="text-sm">
+                <button
+                  type="button"
+                  className="text-sm"
+                  onClick={() => {
+                    handleContributorCheckboxChange(contributor);
+                    setSelectedContributor(contributor);
+                    setMenuOpen(false);
+                  }}
+                >
                   <UserCircleIcon className="h-6 w-6" />
                 </button>
                 <button
