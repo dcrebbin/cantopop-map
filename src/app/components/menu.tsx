@@ -122,12 +122,13 @@ export default function Menu() {
     combinedFilters,
     setCombinedFilters,
     mobileCameraViewOpen,
+    selectedContributor,
+    setSelectedContributor,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
-
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
       for (const marker of allMarkers) {
@@ -159,11 +160,20 @@ export default function Menu() {
       const params = new URLSearchParams(window.location.search);
       const title = params.get("title");
 
+      const shouldShowPortfolio =
+        Boolean(selectedContributor) || contributors.length === 1;
+      if (shouldShowPortfolio) {
+        params.set("view-portfolio", "true");
+      } else {
+        params.delete("view-portfolio");
+      }
+
       if (artists.length > 0) {
         params.set("artists", artists.join(","));
       } else {
         params.delete("artists");
       }
+
       if (contributors.length > 0) {
         params.set("contributors", contributors.join(","));
       } else {
@@ -180,7 +190,7 @@ export default function Menu() {
         : window.location.pathname;
       window.history.replaceState({}, "", newUrl);
     },
-    [],
+    [selectedContributor],
   );
 
   function handleArtistCheckboxChange(artist: string) {
@@ -327,6 +337,8 @@ export default function Menu() {
     const params = new URLSearchParams(window.location.search);
     const artistsParam = params.get("artists");
     const contributorsParam = params.get("contributors");
+    const viewPortfolioParam = params.get("view-portfolio");
+    let nextContributors: string[] = [];
 
     if (artistsParam) {
       const nextArtists = artistsParam
@@ -340,7 +352,7 @@ export default function Menu() {
     }
 
     if (contributorsParam) {
-      const nextContributors = contributorsParam
+      nextContributors = contributorsParam
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean)
@@ -350,8 +362,12 @@ export default function Menu() {
       }
     }
 
+    if (viewPortfolioParam && nextContributors.length === 1) {
+      setSelectedContributor(nextContributors[0] ?? null);
+    }
+
     hasAppliedUrlFiltersRef.current = true;
-  }, [setSelectedArtists, setSelectedContributors]);
+  }, [setSelectedArtists, setSelectedContributors, setSelectedContributor]);
 
   const artistsToShow = Array.from(
     new Set([

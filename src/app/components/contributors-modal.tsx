@@ -77,10 +77,19 @@ export default function ContributorsModal() {
 
   if (!selectedContributor) return null;
 
+  function removeContributorModalUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("view-portfolio");
+    window.history.replaceState({}, "", url.toString());
+  }
+
   return (
     <div
       className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 text-white"
-      onClick={() => setSelectedContributor(null)}
+      onClick={() => {
+        setSelectedContributor(null);
+        removeContributorModalUrl();
+      }}
     >
       <div
         className="z-10 mx-2 mt-5 flex max-h-[80vh] w-full max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[15%] p-4 drop-shadow-md backdrop-blur-lg"
@@ -101,7 +110,10 @@ export default function ContributorsModal() {
             type="button"
             aria-label="Close"
             className="rounded-full p-1 hover:bg-white/10"
-            onClick={() => setSelectedContributor(null)}
+            onClick={() => {
+              setSelectedContributor(null);
+              removeContributorModalUrl();
+            }}
           >
             <XMarkIcon className="h-6 w-6" />
           </button>

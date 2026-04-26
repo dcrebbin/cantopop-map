@@ -15,6 +15,12 @@ export default function ContributorsList({
 }: ContributorsListProps) {
   const { setSelectedContributor, setMenuOpen } = useUIStore();
 
+  function updateContributorModalUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.set("view-portfolio", "true");
+    window.history.replaceState({}, "", url.toString());
+  }
+
   return (
     <div className="flex w-full flex-col gap-2 pr-2 text-white">
       {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
@@ -38,6 +44,7 @@ export default function ContributorsList({
                   type="button"
                   className="text-sm"
                   onClick={() => {
+                    updateContributorModalUrl();
                     handleContributorCheckboxChange(contributor);
                     setSelectedContributor(contributor);
                     setMenuOpen(false);
