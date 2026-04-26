@@ -23,3 +23,69 @@ input[type="checkbox"] {
 .full-height {
   height: 100dvh;
 }
+
+.cherry-blossom-petal {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: var(--size);
+  height: calc(var(--size) * 0.72);
+  border-radius: 70% 30% 70% 30%;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.95) 0 12%,
+      transparent 13%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255, 225, 234, 0.92),
+      rgba(255, 139, 181, 0.76)
+    );
+  opacity: var(--opacity);
+  filter: drop-shadow(0 0 8px rgba(255, 182, 205, 0.35));
+  animation: cherry-blossom-fall var(--duration) linear var(--delay) infinite;
+}
+
+.cherry-blossom-petal::after {
+  position: absolute;
+  right: 12%;
+  bottom: 8%;
+  width: 34%;
+  height: 24%;
+  border-radius: 9999px;
+  background: rgba(255, 116, 167, 0.28);
+  content: "";
+}
+
+@keyframes cherry-blossom-fall {
+  0% {
+    transform: translate3d(0, -14vh, 0) rotate(var(--rotate));
+  }
+
+  25% {
+    transform: translate3d(var(--drift-quarter), 20vh, 0)
+      rotate(calc(var(--rotate) + 90deg));
+  }
+
+  50% {
+    transform: translate3d(var(--drift-half), 50vh, 0)
+      rotate(calc(var(--rotate) + 180deg));
+  }
+
+  75% {
+    transform: translate3d(var(--drift-three-quarter), 80vh, 0)
+      rotate(calc(var(--rotate) + 270deg));
+  }
+
+  100% {
+    transform: translate3d(var(--drift-full), 114vh, 0)
+      rotate(calc(var(--rotate) + 360deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cherry-blossom-field {
+    display: none;
+  }
+}

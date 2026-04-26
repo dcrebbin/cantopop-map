@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
 import { LOCATIONS, humanizeRoleKey } from "../common/locations";
 
@@ -12,10 +13,185 @@ interface ContributorStats {
   musicVideoCredits: number;
 }
 
+const BLOSSOMS = [
+  {
+    x: "4%",
+    size: "15px",
+    delay: "-1s",
+    duration: "15s",
+    drift: "18vw",
+    rotate: "12deg",
+    opacity: 0.72,
+  },
+  {
+    x: "11%",
+    size: "11px",
+    delay: "-7s",
+    duration: "19s",
+    drift: "24vw",
+    rotate: "84deg",
+    opacity: 0.55,
+  },
+  {
+    x: "18%",
+    size: "18px",
+    delay: "-12s",
+    duration: "17s",
+    drift: "15vw",
+    rotate: "132deg",
+    opacity: 0.78,
+  },
+  {
+    x: "24%",
+    size: "10px",
+    delay: "-3s",
+    duration: "21s",
+    drift: "30vw",
+    rotate: "48deg",
+    opacity: 0.5,
+  },
+  {
+    x: "32%",
+    size: "14px",
+    delay: "-9s",
+    duration: "16s",
+    drift: "20vw",
+    rotate: "210deg",
+    opacity: 0.68,
+  },
+  {
+    x: "39%",
+    size: "20px",
+    delay: "-15s",
+    duration: "23s",
+    drift: "27vw",
+    rotate: "164deg",
+    opacity: 0.6,
+  },
+  {
+    x: "46%",
+    size: "12px",
+    delay: "-4s",
+    duration: "18s",
+    drift: "16vw",
+    rotate: "296deg",
+    opacity: 0.62,
+  },
+  {
+    x: "53%",
+    size: "16px",
+    delay: "-11s",
+    duration: "20s",
+    drift: "23vw",
+    rotate: "24deg",
+    opacity: 0.74,
+  },
+  {
+    x: "61%",
+    size: "9px",
+    delay: "-6s",
+    duration: "14s",
+    drift: "14vw",
+    rotate: "252deg",
+    opacity: 0.5,
+  },
+  {
+    x: "68%",
+    size: "17px",
+    delay: "-14s",
+    duration: "22s",
+    drift: "19vw",
+    rotate: "112deg",
+    opacity: 0.7,
+  },
+  {
+    x: "75%",
+    size: "13px",
+    delay: "-2s",
+    duration: "17s",
+    drift: "25vw",
+    rotate: "72deg",
+    opacity: 0.58,
+  },
+  {
+    x: "82%",
+    size: "19px",
+    delay: "-10s",
+    duration: "24s",
+    drift: "17vw",
+    rotate: "188deg",
+    opacity: 0.66,
+  },
+  {
+    x: "89%",
+    size: "12px",
+    delay: "-5s",
+    duration: "16s",
+    drift: "12vw",
+    rotate: "320deg",
+    opacity: 0.6,
+  },
+  {
+    x: "96%",
+    size: "15px",
+    delay: "-13s",
+    duration: "21s",
+    drift: "22vw",
+    rotate: "142deg",
+    opacity: 0.52,
+  },
+] as const;
+
 type ContributorBuckets = {
   song?: Record<string, string[]>;
   musicVideo?: Record<string, string[]>;
 } | null;
+
+type BlossomStyle = CSSProperties & {
+  "--x": string;
+  "--size": string;
+  "--delay": string;
+  "--duration": string;
+  "--drift-quarter": string;
+  "--drift-half": string;
+  "--drift-three-quarter": string;
+  "--drift-full": string;
+  "--rotate": string;
+  "--opacity": number;
+};
+
+function scaleVw(value: string, scale: number) {
+  return `${Number.parseFloat(value) * scale}vw`;
+}
+
+function FallingCherryBlossoms() {
+  return (
+    <div className="cherry-blossom-field pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      {BLOSSOMS.map((blossom, index) => {
+        const style: BlossomStyle = {
+          "--x": blossom.x,
+          "--size": blossom.size,
+          "--delay": blossom.delay,
+          "--duration": blossom.duration,
+          "--drift-quarter": scaleVw(blossom.drift, 0.25),
+          "--drift-half": scaleVw(blossom.drift, -0.15),
+          "--drift-three-quarter": scaleVw(blossom.drift, 0.35),
+          "--drift-full": blossom.drift,
+          "--rotate": blossom.rotate,
+          "--opacity": blossom.opacity,
+        };
+
+        return (
+          <span
+            key={`${blossom.x}-${index}`}
+            className="cherry-blossom-petal"
+            style={style}
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 function getContributors(
   location: (typeof LOCATIONS)[number],
@@ -150,8 +326,9 @@ function LeaderboardPage() {
   }, [artistFilter, categoryFilter, query, roleFilter]);
 
   return (
-    <div className="flex max-h-screen w-screen flex-col items-center justify-center">
-      <main className="my-4 flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col gap-5 rounded-lg bg-black/70 p-4 text-white backdrop-blur-lg sm:p-6">
+    <div className="relative flex max-h-screen w-screen flex-col items-center justify-center overflow-hidden">
+      <FallingCherryBlossoms />
+      <main className="relative z-10 my-4 flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col gap-5 rounded-lg bg-black/70 p-4 text-white backdrop-blur-lg sm:p-6">
         <div className="z-1">
           <h1 className="font-serif text-3xl font-bold">
             Cantopop地圖 Leaderboard
