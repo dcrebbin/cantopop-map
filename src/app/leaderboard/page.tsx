@@ -328,7 +328,7 @@ function LeaderboardPage() {
   return (
     <div className="relative flex max-h-screen w-screen flex-col items-center justify-center overflow-hidden">
       <FallingCherryBlossoms />
-      <main className="relative z-10 my-4 flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col gap-5 rounded-lg bg-black/70 p-4 text-white backdrop-blur-lg sm:p-6">
+      <main className="relative z-10 my-4 flex max-h-[calc(100vh-2rem)] w-[95%] max-w-5xl flex-col gap-5 rounded-lg bg-black/70 p-4 text-white backdrop-blur-lg sm:p-6 lg:w-full">
         <div className="z-1">
           <h1 className="font-serif text-3xl font-bold">
             Cantopop地圖 Leaderboard
@@ -378,10 +378,10 @@ function LeaderboardPage() {
           </select>
         </section>
 
-        <section className="z-1 overflow-y-auto rounded-lg border border-white/20 bg-black/20">
-          <div className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/20 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/80">
+        <section className="z-1 min-w-0 overflow-y-auto rounded-lg border border-white/20 bg-black/20">
+          <div className="grid grid-cols-[36px_minmax(0,1fr)_44px_44px_36px] gap-1 border-b border-white/20 px-2 py-2 text-xs font-semibold uppercase tracking-wide text-white/80 sm:grid-cols-[64px_minmax(0,1fr)_110px_110px_110px] sm:gap-2 sm:px-3">
             <span>#</span>
-            <span>Contributor</span>
+            <span className="min-w-0">Name</span>
             <span className="text-right">Total</span>
             <span className="text-right">Song</span>
             <span className="text-right">MV</span>
@@ -395,10 +395,10 @@ function LeaderboardPage() {
               filteredRows.map((row, index) => (
                 <li
                   key={row.name}
-                  className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/10 px-3 py-2 text-sm last:border-b-0"
+                  className="grid grid-cols-[36px_minmax(0,1fr)_44px_44px_36px] gap-1 border-b border-white/10 px-2 py-2 text-xs last:border-b-0 sm:grid-cols-[64px_minmax(0,1fr)_110px_110px_110px] sm:gap-2 sm:px-3 sm:text-sm"
                 >
                   <span className="text-white/70">{index + 1}</span>
-                  <span className="truncate">{row.name}</span>
+                  <span className="min-w-0 truncate">{row.name}</span>
                   <span className="text-right font-semibold">
                     {row.totalCredits}
                   </span>
