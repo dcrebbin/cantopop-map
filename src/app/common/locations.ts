@@ -4325,10 +4325,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/SmlOWWRJZcc/maxresdefault.jpg",
     contributors: {
       song: {
-        composer: ["moon tang", "nic tsui"],
+        composer: ["moon tang", "Nic Tsui"],
         lyricist: ["Leung Ka Yan"],
-        arranger: ["Perry Lau", "nic tsui"],
-        producer: ["moon tang", "nic tsui"],
+        arranger: ["Perry Lau", "Nic Tsui"],
+        producer: ["moon tang", "Nic Tsui"],
         vocalTuning: ["Isaac Chan"],
         mixing: ["Shiro Kou"],
         mastering: ["Matt Sim"],
