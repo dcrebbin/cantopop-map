@@ -150,91 +150,95 @@ function LeaderboardPage() {
   }, [artistFilter, categoryFilter, query, roleFilter]);
 
   return (
-    <main className="mx-auto flex max-h-screen w-full max-w-5xl flex-col gap-5 bg-black p-4 text-white sm:p-6">
-      <div>
-        <h1 className="font-serif text-3xl font-bold">
-          Cantopop地圖 Leaderboard
-        </h1>
-      </div>
-
-      <section className="grid grid-cols-1 gap-3 rounded-lg border border-white/20 bg-black/20 p-3 sm:grid-cols-2 lg:grid-cols-4">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search contributor"
-          className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 placeholder:text-white/50 focus:ring-2"
-        />
-        <select
-          value={artistFilter}
-          onChange={(e) => setArtistFilter(e.target.value)}
-          className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
-        >
-          <option value="all">All artists</option>
-          {filterOptions.artists.map((artist) => (
-            <option key={artist} value={artist}>
-              {artist}
-            </option>
-          ))}
-        </select>
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value as CategoryFilter)}
-          className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
-        >
-          <option value="all">All categories</option>
-          <option value="song">Song credits only</option>
-          <option value="musicVideo">Music video credits only</option>
-        </select>
-        <select
-          value={roleFilter}
-          onChange={(e) => setRoleFilter(e.target.value)}
-          className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
-        >
-          <option value="all">All roles</option>
-          {filterOptions.roles.map((role) => (
-            <option key={role} value={role}>
-              {role}
-            </option>
-          ))}
-        </select>
-      </section>
-
-      <section className="overflow-y-auto rounded-lg border border-white/20 bg-black/20">
-        <div className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/20 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/80">
-          <span>#</span>
-          <span>Contributor</span>
-          <span className="text-right">Total</span>
-          <span className="text-right">Song</span>
-          <span className="text-right">MV</span>
+    <div className="flex max-h-screen w-screen flex-col items-center justify-center">
+      <main className="my-4 flex max-h-[calc(100vh-2rem)] w-full max-w-5xl flex-col gap-5 rounded-lg bg-black/70 p-4 text-white backdrop-blur-lg sm:p-6">
+        <div className="z-1">
+          <h1 className="font-serif text-3xl font-bold">
+            Cantopop地圖 Leaderboard
+          </h1>
         </div>
-        <ul>
-          {filteredRows.length === 0 ? (
-            <li className="px-3 py-4 text-sm text-white/70">
-              No contributors match these filters.
-            </li>
-          ) : (
-            filteredRows.map((row, index) => (
-              <li
-                key={row.name}
-                className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/10 px-3 py-2 text-sm last:border-b-0"
-              >
-                <span className="text-white/70">{index + 1}</span>
-                <span className="truncate">{row.name}</span>
-                <span className="text-right font-semibold">
-                  {row.totalCredits}
-                </span>
-                <span className="text-right text-white/80">
-                  {row.songCredits}
-                </span>
-                <span className="text-right text-white/80">
-                  {row.musicVideoCredits}
-                </span>
+        <section className="z-1 grid grid-cols-1 gap-3 rounded-lg border border-white/20 bg-black/20 p-3 sm:grid-cols-2 lg:grid-cols-4">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search contributor"
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 placeholder:text-white/50 focus:ring-2"
+          />
+          <select
+            value={artistFilter}
+            onChange={(e) => setArtistFilter(e.target.value)}
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+          >
+            <option value="all">All artists</option>
+            {filterOptions.artists.map((artist) => (
+              <option key={artist} value={artist}>
+                {artist}
+              </option>
+            ))}
+          </select>
+          <select
+            value={categoryFilter}
+            onChange={(e) =>
+              setCategoryFilter(e.target.value as CategoryFilter)
+            }
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+          >
+            <option value="all">All categories</option>
+            <option value="song">Song credits only</option>
+            <option value="musicVideo">Music video credits only</option>
+          </select>
+          <select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+          >
+            <option value="all">All roles</option>
+            {filterOptions.roles.map((role) => (
+              <option key={role} value={role}>
+                {role}
+              </option>
+            ))}
+          </select>
+        </section>
+
+        <section className="z-1 overflow-y-auto rounded-lg border border-white/20 bg-black/20">
+          <div className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/20 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-white/80">
+            <span>#</span>
+            <span>Contributor</span>
+            <span className="text-right">Total</span>
+            <span className="text-right">Song</span>
+            <span className="text-right">MV</span>
+          </div>
+          <ul>
+            {filteredRows.length === 0 ? (
+              <li className="px-3 py-4 text-sm text-white/70">
+                No contributors match these filters.
               </li>
-            ))
-          )}
-        </ul>
-      </section>
-    </main>
+            ) : (
+              filteredRows.map((row, index) => (
+                <li
+                  key={row.name}
+                  className="grid grid-cols-[64px_1fr_110px_110px_110px] gap-2 border-b border-white/10 px-3 py-2 text-sm last:border-b-0"
+                >
+                  <span className="text-white/70">{index + 1}</span>
+                  <span className="truncate">{row.name}</span>
+                  <span className="text-right font-semibold">
+                    {row.totalCredits}
+                  </span>
+                  <span className="text-right text-white/80">
+                    {row.songCredits}
+                  </span>
+                  <span className="text-right text-white/80">
+                    {row.musicVideoCredits}
+                  </span>
+                </li>
+              ))
+            )}
+          </ul>
+        </section>
+      </main>
+      <div className="fixed left-0 top-0 z-[-2] h-screen w-screen bg-[url('/images/hk.jpg')] bg-cover bg-center blur-sm"></div>
+    </div>
   );
 }
 
