@@ -1,4 +1,12 @@
-import { lazy, memo, Suspense, useCallback, useEffect, useRef } from "react";
+import {
+  lazy,
+  memo,
+  startTransition,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -17,6 +25,82 @@ import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
+
+const ARTISTS_LOWER = ARTISTS.map((a) => a.toLowerCase());
+const SONGS_LOWER = SONGS.map((s) => ({
+  name: s.name.toLowerCase(),
+  artists: s.artists.map((a) => a.toLowerCase()),
+}));
+const CONTRIBUTORS_LOWER = CONTRIBUTORS.map((c) => c.toLowerCase());
+const CONTRIBUTOR_ROLE_GROUPS_LOWER = CONTRIBUTOR_ROLE_GROUPS.map((g) => ({
+  title: g.title.toLowerCase(),
+  names: g.names,
+}));
+
+// Walks every code path of the search loops with throwaway queries so V8 has
+// already JIT-compiled and cached the hot loops by the time the user types
+// their first character. The result is intentionally discarded.
+function warmSearchIndex() {
+  const probes = ["a", "z", "音", "the"];
+  for (const q of probes) {
+    let acc = 0;
+    for (let i = 0; i < ARTISTS_LOWER.length; i++) {
+      if (ARTISTS_LOWER[i]!.includes(q)) acc++;
+    }
+    for (let i = 0; i < SONGS_LOWER.length; i++) {
+      const lower = SONGS_LOWER[i]!;
+      if (lower.name.includes(q)) {
+        acc++;
+        continue;
+      }
+      for (let j = 0; j < lower.artists.length; j++) {
+        if (lower.artists[j]!.includes(q)) {
+          acc++;
+          break;
+        }
+      }
+    }
+    for (let i = 0; i < CONTRIBUTORS_LOWER.length; i++) {
+      if (CONTRIBUTORS_LOWER[i]!.includes(q)) acc++;
+    }
+    for (let i = 0; i < CONTRIBUTOR_ROLE_GROUPS_LOWER.length; i++) {
+      if (CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.title.includes(q)) acc++;
+    }
+    if (acc < 0) console.log(acc);
+  }
+}
+
+let searchWarmed = false;
+function scheduleSearchWarmup() {
+  if (searchWarmed) return;
+  if (typeof window === "undefined") return;
+  searchWarmed = true;
+
+  const run = () => {
+    try {
+      warmSearchIndex();
+    } catch {
+      // ignore; this is best-effort
+    }
+  };
+
+  const ric = (
+    window as unknown as {
+      requestIdleCallback?: (
+        cb: () => void,
+        opts?: { timeout: number },
+      ) => number;
+    }
+  ).requestIdleCallback;
+
+  if (typeof ric === "function") {
+    ric(run, { timeout: 2000 });
+  } else {
+    setTimeout(run, 200);
+  }
+}
+
+scheduleSearchWarmup();
 
 export default function Menu() {
   const {
@@ -122,32 +206,81 @@ export default function Menu() {
     updateMarkerVisibility(selectedArtists, newSelectedContributors);
   }
 
-  function handleSearchChange(search: string) {
-    const q = search.toLowerCase();
-    const artists = ARTISTS.filter((artist) =>
-      artist.toLowerCase().includes(q),
-    );
-    const songs = SONGS.filter(
-      (song) =>
-        song.name.toLowerCase().includes(q) ||
-        song.artists.some((artist) => artist.toLowerCase().includes(q)),
-    );
-    const roleMatchedContributors = new Set<string>();
-    CONTRIBUTOR_ROLE_GROUPS.forEach((group) => {
-      if (group.title.toLowerCase().includes(q)) {
-        group.names.forEach((n) => roleMatchedContributors.add(n));
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const runSearch = useCallback(
+    (search: string) => {
+      const q = search.toLowerCase();
+
+      if (q.length === 0) {
+        startTransition(() => {
+          setFilteredArtists(ARTISTS);
+          setFilteredSongs(SONGS);
+          setFilteredContributors(CONTRIBUTORS);
+        });
+        return;
       }
-    });
-    const contributorsByName = CONTRIBUTORS.filter((c) =>
-      c.toLowerCase().includes(q),
-    );
-    const contributors = Array.from(
-      new Set<string>([...contributorsByName, ...roleMatchedContributors]),
-    );
-    setFilteredArtists(artists);
-    setFilteredSongs(songs);
-    setFilteredContributors(contributors);
-  }
+
+      const artists: string[] = [];
+      for (let i = 0; i < ARTISTS.length; i++) {
+        if (ARTISTS_LOWER[i]!.includes(q)) artists.push(ARTISTS[i]!);
+      }
+
+      const songs: { name: string; artists: string[] }[] = [];
+      for (let i = 0; i < SONGS.length; i++) {
+        const lower = SONGS_LOWER[i]!;
+        if (lower.name.includes(q)) {
+          songs.push(SONGS[i]!);
+          continue;
+        }
+        for (let j = 0; j < lower.artists.length; j++) {
+          if (lower.artists[j]!.includes(q)) {
+            songs.push(SONGS[i]!);
+            break;
+          }
+        }
+      }
+
+      const contributorsSet = new Set<string>();
+      for (let i = 0; i < CONTRIBUTORS.length; i++) {
+        if (CONTRIBUTORS_LOWER[i]!.includes(q))
+          contributorsSet.add(CONTRIBUTORS[i]!);
+      }
+      for (let i = 0; i < CONTRIBUTOR_ROLE_GROUPS_LOWER.length; i++) {
+        if (CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.title.includes(q)) {
+          const names = CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.names;
+          for (let j = 0; j < names.length; j++) contributorsSet.add(names[j]!);
+        }
+      }
+
+      const contributors = Array.from(contributorsSet);
+
+      startTransition(() => {
+        setFilteredArtists(artists);
+        setFilteredSongs(songs);
+        setFilteredContributors(contributors);
+      });
+    },
+    [setFilteredArtists, setFilteredSongs, setFilteredContributors],
+  );
+
+  const handleSearchChange = useCallback(
+    (search: string) => {
+      if (searchDebounceRef.current) {
+        clearTimeout(searchDebounceRef.current);
+      }
+      searchDebounceRef.current = setTimeout(() => {
+        runSearch(search);
+      }, 80);
+    },
+    [runSearch],
+  );
+
+  useEffect(() => {
+    return () => {
+      if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+    };
+  }, []);
 
   function handleSongSelection(song: { name: string; artists: string[] }) {
     const title = constructTitle(song);

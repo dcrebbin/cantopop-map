@@ -1,3 +1,4 @@
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { CONTRIBUTOR_ROLE_GROUPS } from "../common/locations";
 
 interface ContributorsListProps {
@@ -30,6 +31,9 @@ export default function ContributorsList({
                 key={`${group.category}-${group.roleKey}-${contributor}`}
                 className="flex w-full flex-row items-center justify-between gap-2 pr-2"
               >
+                <button type="button" className="text-sm">
+                  <UserCircleIcon className="h-6 w-6" />
+                </button>
                 <button
                   type="button"
                   className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
