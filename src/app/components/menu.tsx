@@ -160,8 +160,7 @@ export default function Menu() {
       const params = new URLSearchParams(window.location.search);
       const title = params.get("title");
 
-      const shouldShowPortfolio =
-        Boolean(selectedContributor) || contributors.length === 1;
+      const shouldShowPortfolio = Boolean(selectedContributor);
       if (shouldShowPortfolio) {
         params.set("view-portfolio", "true");
       } else {
@@ -450,7 +449,7 @@ export default function Menu() {
             onChange={(e) => handleSearchChange(e.target.value)}
           />
 
-          <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto pb-20 lg:h-[60vh]">
+          <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto overflow-x-hidden pb-20 lg:h-[60vh]">
             <h3 className="text-white">Selected Filters</h3>
             {combinedFilters.length === 0 && (
               <p className="my-1 text-center text-white">No selected filters</p>
