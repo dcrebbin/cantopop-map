@@ -37,34 +37,30 @@ const CONTRIBUTOR_ROLE_GROUPS_LOWER = CONTRIBUTOR_ROLE_GROUPS.map((g) => ({
   names: g.names,
 }));
 
-// Walks every code path of the search loops with throwaway queries so V8 has
-// already JIT-compiled and cached the hot loops by the time the user types
-// their first character. The result is intentionally discarded.
 function warmSearchIndex() {
   const probes = ["a", "z", "音", "the"];
   for (const q of probes) {
     let acc = 0;
-    for (let i = 0; i < ARTISTS_LOWER.length; i++) {
-      if (ARTISTS_LOWER[i]!.includes(q)) acc++;
+    for (const artist of ARTISTS_LOWER) {
+      if (artist.includes(q)) acc++;
     }
-    for (let i = 0; i < SONGS_LOWER.length; i++) {
-      const lower = SONGS_LOWER[i]!;
+    for (const lower of SONGS_LOWER) {
       if (lower.name.includes(q)) {
         acc++;
         continue;
       }
-      for (let j = 0; j < lower.artists.length; j++) {
-        if (lower.artists[j]!.includes(q)) {
+      for (const artist of lower.artists) {
+        if (artist.includes(q)) {
           acc++;
           break;
         }
       }
     }
-    for (let i = 0; i < CONTRIBUTORS_LOWER.length; i++) {
-      if (CONTRIBUTORS_LOWER[i]!.includes(q)) acc++;
+    for (const contributor of CONTRIBUTORS_LOWER) {
+      if (contributor.includes(q)) acc++;
     }
-    for (let i = 0; i < CONTRIBUTOR_ROLE_GROUPS_LOWER.length; i++) {
-      if (CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.title.includes(q)) acc++;
+    for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
+      if (group.title.includes(q)) acc++;
     }
     if (acc < 0) console.log(acc);
   }
@@ -130,7 +126,6 @@ export default function Menu() {
 
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
-  const displayMode = getDisplayMode();
   const hasAppliedUrlFiltersRef = useRef(false);
 
   const updateMarkerVisibility = useCallback(
@@ -162,7 +157,6 @@ export default function Menu() {
   const syncFiltersToUrl = useCallback(
     (artists: string[], contributors: string[]) => {
       const params = new URLSearchParams(window.location.search);
-      // Preserve the title parameter if it exists
       const title = params.get("title");
 
       if (artists.length > 0) {
@@ -176,7 +170,6 @@ export default function Menu() {
         params.delete("contributors");
       }
 
-      // Restore the title parameter if it existed
       if (title) {
         params.set("title", title);
       }
@@ -233,8 +226,8 @@ export default function Menu() {
           songs.push(SONGS[i]!);
           continue;
         }
-        for (let j = 0; j < lower.artists.length; j++) {
-          if (lower.artists[j]!.includes(q)) {
+        for (const artist of lower.artists) {
+          if (artist.includes(q)) {
             songs.push(SONGS[i]!);
             break;
           }
@@ -242,14 +235,13 @@ export default function Menu() {
       }
 
       const contributorsSet = new Set<string>();
-      for (let i = 0; i < CONTRIBUTORS.length; i++) {
-        if (CONTRIBUTORS_LOWER[i]!.includes(q))
-          contributorsSet.add(CONTRIBUTORS[i]!);
+      for (const contributor of CONTRIBUTORS_LOWER) {
+        if (contributor.includes(q)) contributorsSet.add(contributor);
       }
-      for (let i = 0; i < CONTRIBUTOR_ROLE_GROUPS_LOWER.length; i++) {
-        if (CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.title.includes(q)) {
-          const names = CONTRIBUTOR_ROLE_GROUPS_LOWER[i]!.names;
-          for (let j = 0; j < names.length; j++) contributorsSet.add(names[j]!);
+      for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
+        if (group.title.includes(q)) {
+          const names = group.names;
+          for (const name of names) contributorsSet.add(name);
         }
       }
 

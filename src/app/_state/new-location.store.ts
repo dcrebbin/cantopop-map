@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { LocationItem } from "../common/locations";
+import { type LocationItem } from "../common/locations";
 
 interface NewLocationState {
   songTitle: string;
