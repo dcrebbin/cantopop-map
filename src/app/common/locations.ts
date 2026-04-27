@@ -174,8 +174,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/kfQzHcVrQp0/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Kiri T", "Enoch Cheng"],
-        lyrics: ["鍾說"],
+        composer: ["Kiri T", "Enoch Cheng"],
+        lyricist: ["鍾說"],
         arranger: ["Enoch Cheng"],
         producer: ["Enoch Cheng"],
       },
@@ -200,8 +200,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/8fU2Jx04oUA/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Kiri T"],
-        lyrics: ["Kiri T", "Isaac Chan"],
+        composer: ["Kiri T"],
+        lyricist: ["Kiri T", "Isaac Chan"],
         arranger: ["Ian Ho", "Diana X. Lizhao"],
         producer: ["Kiri T", "Yoroko Chan"],
       },
@@ -226,8 +226,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/KaHREKJ5x5I/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Claudia Koh"],
-        lyrics: ["木童"],
+        composer: ["Claudia Koh"],
+        lyricist: ["木童"],
         arranger: ["Justin Yau"],
         producer: ["Justin Yau"],
       },
@@ -394,8 +394,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/OcK8sMt92DQ/hq720.jpg",
     contributors: {
       song: {
-        composition: ["唐紹崴 $$uperCandy", "Dena 張粹方", "Jovany Javier"],
-        lyrics: ["蘇雅琳"],
+        composer: ["唐紹崴 $$uperCandy", "Dena 張粹方", "Jovany Javier"],
+        lyricist: ["蘇雅琳"],
         arranger: ["Mike Orange"],
         producer: ["Mike Orange"],
       },
@@ -463,7 +463,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         music: ["JONO", "Sandy Natsuly", "T-Ma", "王保為Bowie Ong"],
-        lyrics: ["陳詠謙"],
+        lyricist: ["陳詠謙"],
         arranger: ["JONO", "王保為Bowie Ong"],
         producer: ["T-Ma"],
       },
@@ -497,8 +497,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         musicBy: ["Maia 慶孫", "Matt Chow", "Jonathan Chan", "musicbyAP"],
-        lyricsBy: ["陳蕾"],
-        rapLyricsBy: ["marife", "T-Ma"],
+        lyricistBy: ["陳蕾"],
+        raplyricistBy: ["marife", "T-Ma"],
         arrangedBy: ["musicbyAP", "Jonathan Chan"],
         productionCompany: ["T-Ma"],
       },
@@ -808,8 +808,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         vocals: ["范卓賢", "丘藍"],
-        composition: ["Jacky Fcy", "范卓賢", "丘藍"],
-        lyrics: ["JL", "李冠傑"],
+        composer: ["Jacky Fcy", "范卓賢", "丘藍"],
+        lyricist: ["JL", "李冠傑"],
         arranger: ["戴晉揚"],
         producer: ["戴晉揚"],
       },
@@ -853,8 +853,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/KoPPm5nWE5M/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["張蔓姿"],
-        lyrics: ["張蔓姿"],
+        composer: ["張蔓姿"],
+        lyricist: ["張蔓姿"],
         arranger: ["李端嫻"],
         producer: ["李端嫻"],
       },
@@ -888,8 +888,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/j0tEF_EBSnM/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["張蔓姿"],
-        lyrics: ["周耀輝", "張蔓姿"],
+        composer: ["張蔓姿"],
+        lyricist: ["周耀輝", "張蔓姿"],
         arranger: ["Nic Tsui", "李一丁"],
         producer: ["李一丁"],
       },
@@ -926,8 +926,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/lb3r6RdbWOI/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["張蔓姿", "Young Hysan"],
-        lyrics: ["張蔓姿", "Young Hysan"],
+        composer: ["張蔓姿", "Young Hysan"],
+        lyricist: ["張蔓姿", "Young Hysan"],
         arranger: ["鄧東成East City", "李一丁"],
         producer: ["李一丁"],
       },
@@ -1005,8 +1005,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/iCEVCy4yhtg/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Constance Chan", "陳易行"],
-        lyrics: ["黃偉文"],
+        composer: ["Constance Chan", "陳易行"],
+        lyricist: ["黃偉文"],
         arranger: ["陳易行"],
         producer: ["陳易行"],
         drumsAndGuitars: ["Daniel Toh"],
@@ -1084,7 +1084,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
-        compositionLyricsVocals: ["$alty Chick"],
+        composerlyricistVocals: ["$alty Chick"],
         arrangerMixing: ["Dodo Museum"],
         producer: ["$alty Chick", "Dodo Museum"],
       },
@@ -1114,8 +1114,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/63vmUA5xy18/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["AGA"],
-        lyrics: ["甄敏延"],
+        composer: ["AGA"],
+        lyricist: ["甄敏延"],
         arranger: ["波多野裕介"],
         producer: ["舒文@Zoo Music"],
       },
@@ -1315,8 +1315,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/gXsmyDwkUno/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Tyson Yoshi", "Teddy Fan", "MadBoii"],
-        lyrics: ["程浚彥"],
+        composer: ["Tyson Yoshi", "Teddy Fan", "MadBoii"],
+        lyricist: ["程浚彥"],
         arranger: ["Teddy Fan", "W.Lin", "Sean Ling"],
         producer: ["Tyson Yoshi", "Teddy Fan", "MadBoii", "W.Lin", "Sean Ling"],
       },
@@ -1520,8 +1520,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["GooChan", "Jaime Cheung"],
-        lyrics: ["甄敏延"],
+        composer: ["GooChan", "Jaime Cheung"],
+        lyricist: ["甄敏延"],
         arranger: ["GooChan", "周錫漢"],
         producer: ["周錫漢"],
       },
@@ -1554,8 +1554,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/nV7tGxhARCw/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["張蔓姿"],
-        lyrics: ["張蔓姿"],
+        composer: ["張蔓姿"],
+        lyricist: ["張蔓姿"],
         arranger: ["葉澍暉"],
         producer: ["李一丁"],
       },
@@ -1595,8 +1595,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/mt56HEafeWU/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["湯令山", "葉崇恩"],
-        lyrics: ["黃偉文"],
+        composer: ["湯令山", "葉崇恩"],
+        lyricist: ["黃偉文"],
         arranger: [
           "湯令山",
           "葉崇恩",
@@ -1633,8 +1633,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/MWDaME5LyG4/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["陳思翰"],
-        lyrics: ["小克"],
+        composer: ["陳思翰"],
+        lyricist: ["小克"],
         arranger: ["Seatravel"],
         producer: ["陳考威"],
       },
@@ -1655,8 +1655,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["馮允謙"],
-        lyrics: ["亞木"],
+        composer: ["馮允謙"],
+        lyricist: ["亞木"],
         arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
@@ -1729,8 +1729,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ar: ["Malik Zain Ali", "Nicholas Cheung"],
       },
       song: {
-        composition: ["湯令山", "范梓謙"],
-        lyrics: ["黃偉文"],
+        composer: ["湯令山", "范梓謙"],
+        lyricist: ["黃偉文"],
         arranger: ["湯令山", "范梓謙", "邱正仁", "Gabriel De Leon", "鄭子樂"],
         producer: ["湯令山", "鄭子樂"],
       },
@@ -1789,8 +1789,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         colorist: ["調光師", "邱程勇 CY Chiu"],
       },
       song: {
-        composition: ["MC 張天賦", "GooChan"],
-        lyrics: ["林寶"],
+        composer: ["MC 張天賦", "GooChan"],
+        lyricist: ["林寶"],
         arranger: ["Ariel Lai"],
         producer: ["周錫漢"],
       },
@@ -1942,8 +1942,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ar: ["Victor Tse"],
       },
       song: {
-        composition: ["徐繼宗"],
-        lyrics: ["Oscar"],
+        composer: ["徐繼宗"],
+        lyricist: ["Oscar"],
         arranger: ["周錫漢", "黃兆銘"],
         producer: ["周錫漢"],
       },
@@ -1961,8 +1961,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/6LEx2Z_CoEU/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
-        lyrics: ["黃偉文"],
+        composer: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
+        lyricist: ["黃偉文"],
         arranger: ["黃兆銘"],
         producer: ["陳考威"],
       },
@@ -2026,7 +2026,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["J Jelly"],
-        lyrics: ["J Jelly"],
+        lyricist: ["J Jelly"],
         arrange: ["mikeygoincrazy"],
         producer: ["mikeygoincrazy", "DaiShin"],
       },
@@ -2075,8 +2075,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/DyP40kjim9U/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["徐偉賢"],
-        lyrics: ["林若寧"],
+        composer: ["徐偉賢"],
+        lyricist: ["林若寧"],
         arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
@@ -2115,8 +2115,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["吳林峰"],
-        lyrics: ["小克"],
+        composer: ["吳林峰"],
+        lyricist: ["小克"],
         arranger: ["Justin Yau"],
         producer: ["王雙駿"],
       },
@@ -2207,8 +2207,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         titleDesigner: ["Ball Chau"],
       },
       song: {
-        composition: ["李拾壹"],
-        lyrics: ["Oscar"],
+        composer: ["李拾壹"],
+        lyricist: ["Oscar"],
         arranger: ["李拾壹", "賴映彤"],
         producer: ["賴映彤", "陳健安"],
       },
@@ -2252,8 +2252,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         dit: ["Hardy Yan"],
       },
       song: {
-        composition: ["馮允謙"],
-        lyrics: ["黃偉文"],
+        composer: ["馮允謙"],
+        lyricist: ["黃偉文"],
         arranger: ["Dick Wong"],
         producer: ["周錫漢"],
       },
@@ -2299,8 +2299,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         songTitleDesigner: ["Cynthia Choy"],
       },
       song: {
-        composition: ["Yungie"],
-        lyrics: ["黃偉文"],
+        composer: ["Yungie"],
+        lyricist: ["黃偉文"],
         arranger: ["Nic Tsui", "黃兆銘"],
         producer: ["徐浩"],
       },
@@ -2318,8 +2318,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/L17tD_aPypM/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["徐偉賢"],
-        lyrics: ["周耀輝"],
+        composer: ["徐偉賢"],
+        lyricist: ["周耀輝"],
         arranger: ["Goro Wong"],
         producer: ["Goro Wong"],
       },
@@ -2408,8 +2408,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         producer: ["Moon Tang", "Gordon Flanders"],
-        composition: ["Gordon Flanders"],
-        lyrics: ["小克"],
+        composer: ["Gordon Flanders"],
+        lyricist: ["小克"],
         arranger: ["Gordon Flanders"],
         mixingAndMastering: ["Matt Sim"],
       },
@@ -2436,8 +2436,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Gordon Flanders"],
-        lyrics: ["小克"],
+        composer: ["Gordon Flanders"],
+        lyricist: ["小克"],
         arranger: ["Justin Yau"],
         producer: ["Gordon Flanders", "Justin Yau"],
       },
@@ -2467,8 +2467,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["moon tang"],
-        lyrics: ["moon tang"],
+        composer: ["moon tang"],
+        lyricist: ["moon tang"],
         producer: ["moon tang", "Daniel Toh"],
         arranger: ["Daniel Toh"],
         mixing: ["Joshua Evan Lee"],
@@ -2484,7 +2484,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         imageDirector: ["Inggrad Shek"],
         stylingAssistant: ["Moon Fong"],
         hairStylist: ["Ricky Lau"],
-        hairAssistant: ["Lau Yuen San"],
+        hairStylistAssistant: ["Lau Yuen San"],
         makeUp: ["Evelyn Ho"],
         wigDesigner: ["Aki Yip"],
         artDirector: ["Chan Brun"],
@@ -2588,8 +2588,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Kwokin"],
         producer: ["Jason Kwan", "Jake Ng"],
         creativeDirector: ["Kwokin"],
-        composition: ["Tonick"],
-        lyrics: ["Sica", "Cheng Man"],
+        composer: ["Tonick"],
+        lyricist: ["Sica", "Cheng Man"],
         arranger: ["Randy Chow", "Tonynot"],
         mixing: ["Jay Tse"],
         mastering: ["Matthew Sim"],
@@ -3089,8 +3089,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         skateboardShootingSupport: ["Khris", "Yin Chai"],
       },
       song: {
-        composition: ["Zpecial", "賴映彤"],
-        lyrics: ["Oscar"],
+        composer: ["Zpecial", "賴映彤"],
+        lyricist: ["Oscar"],
         arranger: ["Zpecial", "賴映彤"],
         producer: ["賴映彤"],
       },
@@ -3107,7 +3107,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["蘇珮卿 Paige Su"],
-        lyrics: ["Oscar"],
+        lyricist: ["Oscar"],
         arranger: ["Perry Lau"],
         producer: ["Perry Lau"],
       },
@@ -3129,7 +3129,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Sabrina Cheung", "張蔓莎", "Derek Dali"],
-        lyrics: ["鍾說"],
+        lyricist: ["鍾說"],
         arranger: ["Seatravl"],
         producer: ["陳考威"],
         allProgrammingBy: ["Seatravl"],
@@ -3158,8 +3158,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/2J_0nahRxBk/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["馮穎琪"],
-        lyrics: ["黃偉文"],
+        composer: ["馮穎琪"],
+        lyricist: ["黃偉文"],
         arranger: ["謝國維"],
         producer: ["謝國維"],
       },
@@ -3252,9 +3252,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/ESmaELNy8GE/hq720.jpg",
     contributors: {
       song: {
-        composition: ["馮允謙", "陳考威", "JNYBeatz"],
-        lyrics: ["黃偉文"],
-        rapLyrics: ["Young Hysan"],
+        composer: ["馮允謙", "陳考威", "JNYBeatz"],
+        lyricist: ["黃偉文"],
+        raplyricist: ["Young Hysan"],
         arranger: ["Derrick Sepnio", "Fergus Chow", "黃兆銘"],
         producer: ["陳考威"],
       },
@@ -3443,9 +3443,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/zFkEhVendy9rkL9Q9",
     contributors: {
       song: {
-        composition: ["Chris Wahle", "Ryan Lawrie", "Emily Middlemas"],
-        lyrics: ["陳詠謙"],
-        rapLyrics: ["Ariel"],
+        composer: ["Chris Wahle", "Ryan Lawrie", "Emily Middlemas"],
+        lyricist: ["陳詠謙"],
+        raplyricist: ["Ariel"],
         arranger: ["Chris Wahle"],
         producer: ["Mike Orange"],
       },
@@ -3522,9 +3522,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/hqdefault.jpg",
     contributors: {
       song: {
-        composition: ["Constance Chan", "Eason YH Chan", "Ernest Choi"],
-        lyrics: ["黃偉文"],
-        englishLyrics: ["Constance Chan"],
+        composer: ["Constance Chan", "Eason YH Chan", "Ernest Choi"],
+        lyricist: ["黃偉文"],
+        englishlyricist: ["Constance Chan"],
         arranger: ["Eason YH Chan", "Ernest Choi"],
         producer: ["Ernest Choi"],
       },
@@ -3616,8 +3616,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/rEl7UUuFjvU/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["馮允謙"],
-        lyrics: ["周耀輝"],
+        composer: ["馮允謙"],
+        lyricist: ["周耀輝"],
         arranger: ["葉澍暉"],
         producer: ["周錫漢"],
       },
@@ -3664,8 +3664,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
     contributors: {
       song: {
-        composition: ["Gordon Flanders"],
-        lyrics: ["陳詠謙"],
+        composer: ["Gordon Flanders"],
+        lyricist: ["陳詠謙"],
         arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
@@ -3754,8 +3754,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/-qaHO6iEui4/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["陳蕾"],
-        lyrics: ["陳蕾"],
+        composer: ["陳蕾"],
+        lyricist: ["陳蕾"],
         arranger: ["崔展鴻"],
         producer: ["崔展鴻"],
       },
@@ -3817,8 +3817,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["雷深如 J.Arie"],
-        lyrics: ["陳詠謙"],
+        composer: ["雷深如 J.Arie"],
+        lyricist: ["陳詠謙"],
         arranger: ["Kiri T"],
         producer: ["Kiri T"],
       },
@@ -3839,7 +3839,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         titleDesign: ["Peter Lam"],
         makeup: ["Tammy Au"],
         hairStylist: ["Jamie Lee"],
-        hairAssistant: ["Issac Lo"],
+        hairStylistAssistant: ["Issac Lo"],
         stylist: ["Eddy Chu"],
       },
     },
@@ -3856,9 +3856,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763074901615!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3hnOEREdlFF!2m2!1d22.37467975749352!2d114.2854848066381!3f284.30202923111244!4f-41.89311802971748!5f1.673426761858031",
     contributors: {
       song: {
-        composition: ["Gareth Tong"],
-        lyrics: ["黃偉文"],
-        rapLyrics: ["Gareth Tong", "marife"],
+        composer: ["Gareth Tong"],
+        lyricist: ["黃偉文"],
+        raplyricist: ["Gareth Tong", "marife"],
         arranger: ["Gareth Tong"],
         producer: ["Gareth Tong", "謝國維"],
       },
@@ -4021,8 +4021,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         leadVocal: ["黃淑蔓"],
-        composition: ["崔展鴻"],
-        lyrics: ["梁栢堅"],
+        composer: ["崔展鴻"],
+        lyricist: ["梁栢堅"],
         arranger: ["崔展鴻"],
         producer: ["戴偉", "崔展鴻"],
         chorus: ["陳詠瑜"],
@@ -4044,8 +4044,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/jgrOIm2QRCQ/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["張子晴"],
-        lyrics: ["鍾說"],
+        composer: ["張子晴"],
+        lyricist: ["鍾說"],
         arranger: ["葉澍暉"],
         producer: ["周錫漢"],
       },
@@ -4079,8 +4079,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/_K4QAcB1mtE/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["唐善行", "馮允謙"],
-        lyrics: ["蕭慶峰"],
+        composer: ["唐善行", "馮允謙"],
+        lyricist: ["蕭慶峰"],
         arranger: ["周錫漢", "黃兆銘"],
         producer: ["周錫漢"],
       },
@@ -4108,8 +4108,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/VjZODcFM_MY/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["周錫漢"],
-        lyrics: ["甄敏延"],
+        composer: ["周錫漢"],
+        lyricist: ["甄敏延"],
         arranger: ["Kiri T", "LOKA", "黃兆銘"],
         producer: ["周錫漢", "Kiri T"],
       },
@@ -4263,8 +4263,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composedBy: ["Whizz"],
-        lyricsWrittenBy: ["鄭敏"],
-        englishLyricsBy: ["Whizz"],
+        lyricistWrittenBy: ["鄭敏"],
+        englishlyricistBy: ["Whizz"],
         productionCompany: ["Whizz", "Goro Wong"],
         arrangedBy: ["Whizz"],
         synthesizerProgrammedBy: ["Moo@Whizz"],
@@ -4419,7 +4419,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraCrew: ["Audrey Lee", "李潔映"],
         makeupArtist: ["Tammy Au"],
         hairStylist: ["Jamie Lee", "HOLA.HAIR.PET"],
-        hairAssistant: ["Issac Lo", "HOLA.HAIR.PET"],
+        hairStylistAssistant: ["Issac Lo", "HOLA.HAIR.PET"],
         titleDesign: ["Peter Lam", "林卓軒"],
       },
       song: {
@@ -4451,7 +4451,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         crew: ["Erin Yan", "Peter Lam"],
         hairStylist: ["Jamie Lee"],
         makeup: ["Tammy Au"],
-        hairAssistant: ["Issac Lo"],
+        hairStylistAssistant: ["Issac Lo"],
         titleDesign: ["Hailee Chan"],
       },
     },
@@ -4490,8 +4490,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/JTsi1Bc8zuk/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Cloud", "Andrea Hosking", "T-Ma"],
-        lyrics: ["小克"],
+        composer: ["Cloud", "Andrea Hosking", "T-Ma"],
+        lyricist: ["小克"],
         arranger: ["T-Ma"],
         producer: ["T-Ma"],
       },
@@ -4718,8 +4718,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/oVpmZoj9mOM/maxresdefault.jpg",
     contributors: {
       song: {
-        composition: ["Gordon Flanders"],
-        lyrics: ["Gordon Flanders"],
+        composer: ["Gordon Flanders"],
+        lyricist: ["Gordon Flanders"],
         producer: ["Gordon Flanders", "PLAYGROUND"],
         arranger: [
           "Gordon Flanders",
@@ -4849,7 +4849,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeup: ["San Chan"],
         makeupAssistant: ["Jenny Fung"],
         hairStylist: ["Lupus Chui"],
-        hairAssistant: ["Victoria Wong"],
+        hairStylistAssistant: ["Victoria Wong"],
         styling: ["Sabrina Cheung", "Emmy Tam"],
         wardrobe: [
           "Toteme",

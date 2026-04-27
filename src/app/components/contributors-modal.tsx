@@ -8,8 +8,7 @@ import {
 } from "../common/locations";
 import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { nameToInstagramMap } from "../common/social-media";
-import { instagramIcon } from "~/lib/icons/instagramIcon";
-import { SvgIcon } from "./map/PopupContent";
+import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
 type Category = "song" | "musicVideo";
 
@@ -102,6 +101,12 @@ export default function ContributorsModal() {
     return url.split("?")[0];
   }
 
+  const instagramUrl = nameToInstagramMap[
+    selectedContributor as keyof typeof nameToInstagramMap
+  ]
+    ? `https://www.instagram.com/${nameToInstagramMap[selectedContributor as keyof typeof nameToInstagramMap]}`
+    : null;
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999999] flex items-center justify-center bg-transparent text-white">
       <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[80vh] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
@@ -111,9 +116,7 @@ export default function ContributorsModal() {
               {selectedContributor}
             </h1>
             <div className="flex items-center gap-2">
-              {nameToInstagramMap[
-                selectedContributor as keyof typeof nameToInstagramMap
-              ] ? (
+              {instagramUrl ? (
                 <a
                   className="flex items-center gap-1 text-sm text-white/70 hover:underline"
                   href={`https://www.instagram.com/${nameToInstagramMap[selectedContributor as keyof typeof nameToInstagramMap]}`}
@@ -126,10 +129,10 @@ export default function ContributorsModal() {
                       selectedContributor as keyof typeof nameToInstagramMap
                     ]
                   }
-                  <SvgIcon html={instagramIcon} className="size-6" />
+                  <InstagramIcon className="size-6" />
                 </a>
               ) : null}
-              {" | "}
+              {instagramUrl ? " | " : null}
               <button
                 type="button"
                 onClick={async () => {
@@ -205,14 +208,8 @@ export default function ContributorsModal() {
                   className="flex flex-row justify-between gap-2 rounded-md border border-white/20 bg-white/5 p-3"
                 >
                   <div className="flex flex-col gap-2">
-                    <a
-                      href={c.location.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-base font-semibold hover:underline"
-                    >
-                      {c.location.name}
-                    </a>
+                    <h3 className="text-base xl:text-xl">{c.location.name}</h3>
+
                     <div className="text-xs text-white/70">
                       {c.location.artists.join(", ")}
                     </div>
@@ -225,7 +222,10 @@ export default function ContributorsModal() {
                     )}
                     {c.musicVideoRoles.length > 0 && (
                       <div className="text-sm">
-                        <span className="text-white/60">Credits: </span>
+                        <span className="text-white/60">
+                          {c.musicVideoRoles.length === 1 ? "Role" : "Roles"}{" "}
+                          :{" "}
+                        </span>
                         {c.musicVideoRoles.join(", ")}
                       </div>
                     )}
@@ -239,7 +239,8 @@ export default function ContributorsModal() {
                     <img
                       src={c.location.image}
                       alt={c.location.name}
-                      className="h-20 w-auto"
+                      className="aspect-video h-20 w-auto rounded object-contain"
+                      style={{ aspectRatio: "16/9" }}
                     />
                   </a>
                 </li>

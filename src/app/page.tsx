@@ -103,6 +103,14 @@ export default function Home({ location }: { location: LocationItem }) {
           streetViewEmbed: queryLocation.streetViewEmbed ?? "",
         });
       }
+      const viewCredits = url.get("view-credits");
+      if (viewCredits && initialLocation) {
+        useUIStore
+          .getState()
+          .setSelectedLocationCredits(
+            initialLocation as unknown as LocationItem,
+          );
+      }
     }
 
     if (initialLocation) {

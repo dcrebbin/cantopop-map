@@ -1,8 +1,12 @@
-import { UserCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ShareIcon,
+  UserCircleIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { humanizeRoleKey, type LocationItem } from "../common/locations";
 import { nameToInstagramMap } from "../common/social-media";
 import { useUIStore } from "../_state/ui.store";
-import { instagramIcon } from "~/lib/icons/instagramIcon";
+import { InstagramIcon } from "~/lib/icons/instagramIcon";
 import { SvgIcon } from "./map/PopupContent";
 
 export default function CreditsModal() {
@@ -14,16 +18,23 @@ export default function CreditsModal() {
 
   if (!selectedLocationCredits) return null;
 
+  function removeCreditsModalUrl() {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("view-credits");
+    window.history.replaceState({}, "", url.toString());
+  }
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[99999] flex items-center justify-center bg-transparent text-white">
       <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[60vh] min-h-[20rem] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
         <div className="z-30 flex items-start justify-between gap-2">
           <div className="w-full border-b border-white/70 pb-2">
             <h1 className="font-serif text-2xl font-bold">
-              {selectedLocationCredits?.artists.join(", ")}
-              {" - "}
               {selectedLocationCredits?.name}
             </h1>
+            <h2 className="text-xl text-white/70">
+              {selectedLocationCredits?.artists.join(", ")}
+            </h2>
           </div>
           <button
             type="button"
@@ -31,6 +42,7 @@ export default function CreditsModal() {
             className="rounded-full p-1 hover:bg-white/10"
             onClick={() => {
               setSelectedLocationCredits(null as unknown as LocationItem);
+              removeCreditsModalUrl();
             }}
           >
             <XMarkIcon className="h-6 w-6" />
@@ -38,7 +50,7 @@ export default function CreditsModal() {
         </div>
         <div className="z-30 flex w-full flex-col items-start justify-start overflow-y-auto overflow-x-hidden font-bold">
           <h3>Song</h3>
-          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
               selectedLocationCredits?.contributors?.song ?? {},
             ).map(([key, value]) => (
@@ -46,7 +58,7 @@ export default function CreditsModal() {
                 className="flex min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 break-words">
+                <p className="min-w-0 break-words text-base xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
                 <div className="min-w-0 max-w-full text-left text-xs font-normal">
@@ -54,7 +66,7 @@ export default function CreditsModal() {
                     return (
                       <span
                         key={name}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words"
+                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-xl xl:text-sm"
                       >
                         {name}
                         <button
@@ -66,7 +78,7 @@ export default function CreditsModal() {
                             );
                           }}
                         >
-                          <UserCircleIcon className="h-5 w-5" />
+                          <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
                         </button>
                         {nameToInstagramMap[
                           name as keyof typeof nameToInstagramMap
@@ -76,10 +88,7 @@ export default function CreditsModal() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            <SvgIcon
-                              html={instagramIcon}
-                              className="mb-2 h-4 w-auto"
-                            />
+                            <InstagramIcon className="h-8 w-auto xl:h-5 xl:w-auto" />
                           </a>
                         ) : null}
                       </span>
@@ -91,7 +100,7 @@ export default function CreditsModal() {
           </div>
           <hr className="my-1 w-full text-black" />
           <h3 className="text-md">Music Video</h3>
-          <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
               selectedLocationCredits?.contributors?.musicVideo ?? {},
             ).map(([key, value]) => (
@@ -99,15 +108,15 @@ export default function CreditsModal() {
                 className="flex w-full min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 break-words">
+                <p className="min-w-0 break-words text-base xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
-                <div className="min-w-0 max-w-full text-left text-xs font-normal">
+                <div className="min-w-0 max-w-full text-left font-normal xl:text-xs">
                   {value.map((name) => {
                     return (
                       <span
                         key={name}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words"
+                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-xl xl:text-sm"
                       >
                         {name}
                         <button
@@ -119,7 +128,7 @@ export default function CreditsModal() {
                             );
                           }}
                         >
-                          <UserCircleIcon className="h-5 w-5" />
+                          <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
                         </button>
                         {nameToInstagramMap[
                           name as keyof typeof nameToInstagramMap
@@ -129,10 +138,7 @@ export default function CreditsModal() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            <SvgIcon
-                              html={instagramIcon}
-                              className="mb-2 h-4 w-auto"
-                            />
+                            <InstagramIcon className="h-5 w-auto" />
                           </a>
                         ) : null}
                       </span>
@@ -142,6 +148,24 @@ export default function CreditsModal() {
               </div>
             ))}
           </div>
+          <button
+            className="pointer-events-auto absolute bottom-0 right-0 m-4 cursor-pointer"
+            type="button"
+            onClick={async () => {
+              if (navigator.share) {
+                await navigator.share({
+                  title: ``,
+                  url: document.URL,
+                });
+              } else {
+                alert(
+                  "Your browser does not support sharing. Please copy the link manually.",
+                );
+              }
+            }}
+          >
+            <ShareIcon className="h-4 w-4 xl:h-6 xl:w-6" />
+          </button>
         </div>
       </div>
     </div>

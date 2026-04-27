@@ -21,13 +21,23 @@ import { useMapStore } from "~/app/_state/map.store";
 export function SvgIcon({
   html,
   className,
+  size,
 }: {
   html: string;
   className?: string;
+  size?: number;
 }) {
   return (
     // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-    <span className={className} dangerouslySetInnerHTML={{ __html: html }} />
+    <span
+      className={className}
+      style={{
+        fontSize: size ? `${size}px` : undefined,
+        width: size ? `${size}px` : undefined,
+        height: size ? `${size}px` : undefined,
+      }}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
@@ -91,10 +101,10 @@ export function PopupContent({
       <h3 className="my-1 text-base">Contributors</h3>
       <hr className="my-1 w-full text-black" />
       <h3>Song</h3>
-      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
+      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
         {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
           <div
-            className="min-w-0 flex flex-col items-start justify-start"
+            className="flex min-w-0 flex-col items-start justify-start"
             key={key}
           >
             <p className="min-w-0 break-words">
@@ -147,11 +157,11 @@ export function PopupContent({
       </div>
       <hr className="my-1 w-full text-black" />
       <h3 className="text-md">Music Video</h3>
-      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
+      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
         {Object.entries(data.contributors?.musicVideo ?? {}).map(
           ([key, value]) => (
             <div
-              className="min-w-0 flex w-full flex-col items-start justify-start"
+              className="flex w-full min-w-0 flex-col items-start justify-start"
               key={key}
             >
               <p className="min-w-0 break-words">
@@ -234,7 +244,6 @@ export function PopupContent({
           </button>
         </>
       )}
-      {isExpanded && contributorSection}
       {actionButtons}
       <button
         className={`absolute left-0 top-0`}
@@ -273,6 +282,9 @@ export function PopupContent({
           type="button"
           onClick={() => {
             setSelectedLocationCredits(data);
+            const url = new URL(window.location.href);
+            url.searchParams.set("view-credits", "true");
+            window.history.replaceState({}, "", url.toString());
             posthog.capture("toggle_contributor_section", {
               artists: data.artists.join(", "),
               songTitle: data.name,
