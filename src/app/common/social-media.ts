@@ -330,7 +330,7 @@ export const nameToInstagramMap = {
   "Warner Music Hong Kong": "warnermusichk",
   "$alty Chick": "saltychick852",
   "Dodo Museum": "dodomuseum",
-  "Jade Lam": "jadelamm",
+  "Jade Lam": "jade_lamb_",
   "Belle Liu": "belle.liuu",
   "Adrian Fan": "adrianfante",
   "Lai Sze": "laiszekuiken",

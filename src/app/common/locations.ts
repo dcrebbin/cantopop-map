@@ -174,9 +174,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/kfQzHcVrQp0/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Kiri T", "Enoch Cheng"],
+        composition: ["Kiri T", "Enoch Cheng"],
         lyrics: ["鍾說"],
-        arrangement: ["Enoch Cheng"],
+        arranger: ["Enoch Cheng"],
         producer: ["Enoch Cheng"],
       },
       musicVideo: {
@@ -200,9 +200,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/8fU2Jx04oUA/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Kiri T"],
+        composition: ["Kiri T"],
         lyrics: ["Kiri T", "Isaac Chan"],
-        arrangement: ["Ian Ho", "Diana X. Lizhao"],
+        arranger: ["Ian Ho", "Diana X. Lizhao"],
         producer: ["Kiri T", "Yoroko Chan"],
       },
       musicVideo: {
@@ -226,9 +226,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/KaHREKJ5x5I/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Claudia Koh"],
+        composition: ["Claudia Koh"],
         lyrics: ["木童"],
-        arrangement: ["Justin Yau"],
+        arranger: ["Justin Yau"],
         producer: ["Justin Yau"],
       },
       musicVideo: {
@@ -394,13 +394,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/OcK8sMt92DQ/hq720.jpg",
     contributors: {
       song: {
-        musicComposition: [
-          "唐紹崴 $$uperCandy",
-          "Dena 張粹方",
-          "Jovany Javier",
-        ],
+        composition: ["唐紹崴 $$uperCandy", "Dena 張粹方", "Jovany Javier"],
         lyrics: ["蘇雅琳"],
-        arrangement: ["Mike Orange"],
+        arranger: ["Mike Orange"],
         producer: ["Mike Orange"],
       },
       musicVideo: {
@@ -415,7 +411,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artAssistant: ["Connie Chow", "Adrian Leung", "Eyilee Chow"],
         productionManager: ["Nicolas Poon"],
         productionTeam: ["CK", "Hung 9", "Monkee Lee"],
-        "a&r": ["Herman To", "Karton Ma"],
+        ar: ["Herman To", "Karton Ma"],
         editor: ["Gloria Tang"],
         colorist: ["FMLIK"],
         artistManagement: [
@@ -430,7 +426,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylist: ["Cedric Cheung"],
         stylingAssistants: ["Joyce Yung", "Debbie Choi"],
         hairStylist: ["Taurus Lee", "Crystal Chan"],
-        makeUpArtist: ["Janice Wong & Kayan @powerclub_hk"],
+        makeUpArtist: ["Janice Wong & Kayan"],
         wardrobeSupport: ["Sandro", "Zara"],
       },
     },
@@ -468,7 +464,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       song: {
         music: ["JONO", "Sandy Natsuly", "T-Ma", "王保為Bowie Ong"],
         lyrics: ["陳詠謙"],
-        arrangement: ["JONO", "王保為Bowie Ong"],
+        arranger: ["JONO", "王保為Bowie Ong"],
         producer: ["T-Ma"],
       },
       musicVideo: {
@@ -478,7 +474,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stillPhotographer: ["Jihei"],
         graphicDesign: ["Jihei"],
         projectManagement: ["Tiffany Lin"],
-        hair: ["Wing Wong @The attic"],
+        hair: ["Wing Wong"],
         makeUp: ["Kineks Ho"],
         stylist: ["Matthew Chan"],
         creative: ["Jacky Suen"],
@@ -510,7 +506,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Kendra Koh"],
         producer: ["Hidi Lee"],
         editor: ["Kendra Koh"],
-        colorist: ["Eric Chan @ Ixagon"],
+        colorist: ["Eric Chan"],
         onlineEditor: ["Charson Lam"],
         stillPhotographer: ["Lily Chen"],
         designer: ["Kizz Lau"],
@@ -531,15 +527,15 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Susan Hung",
           "Avis Or",
         ],
-        danceConsultant: ["Yiu @ IDS"],
-        "a&r": ["Victor Tse"],
+        danceConsultant: ["Yiu"],
+        ar: ["Victor Tse"],
         copyright: ["(C)+(P) Music Nation Records Co Ltd"],
         directorOfPhotography: ["Samuel Chan"],
         focusPuller: ["Sunny Yip"],
         assistantDirector: ["Ching Li"],
         gaffer: ["Hu Hsuan Wei"],
         bestBoy: ["Lucas Hsu", "Chia Chang Lin", "Li Guan Yan"],
-        taiwanLocalProducer: ["Shin Yu Sou @ Interesting Yo.Ltd"],
+        taiwanLocalProducer: ["Shin Yu Sou"],
         locationManager: ["Li Chia Ming"],
         productionManager: ["Chi Kai Wang"],
         productionTeam: ["Frak Tang", "Jun Hui Lin"],
@@ -667,7 +663,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Cage_0512",
           "Destiny Chan",
         ],
-        hair: ["Derek Li @Xenter"],
+        hair: ["Derek Li"],
         makeUp: ["Deep Choi", "Eva Chan"],
         styling: ["Yoyo Kwan", "Manki Cheung"],
       },
@@ -728,21 +724,21 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         producer: ["李一丁"],
       },
       musicVideo: {
-        directors: ["Kelly Cheuk", "Kwokin"],
-        producers: ["Kelly Cheuk", "Kwokin"],
-        makeUpArtists: ["Chi Chi Li", "Tsz Yan"],
+        director: ["Kelly Cheuk", "Kwokin"],
+        producer: ["Kelly Cheuk", "Kwokin"],
+        makeupArtist: ["Chi Chi Li", "Tsz Yan"],
         titleDesign: ["Hailee Chan"],
         props: ["Superking"],
-        actors: ["Gigi Cheung", "Shadow Yueng", "Hanna Wong Puiying"],
-        stillPhotographers: ["禮行"],
-        hairStylists: ["Lupus_C_Hair"],
+        actor: ["Gigi Cheung", "Shadow Yueng", "Hanna Wong Puiying"],
+        stillPhotographer: ["禮行"],
+        hairStylist: ["Lupus_C_Hair"],
         directorOfPhotography: ["Silas Chow"],
-        stylists: ["Cherry Mui"],
+        stylist: ["Cherry Mui"],
         gaffers: ["Li Hok Fun"],
-        focusPullers: ["Kaka Chu"],
-        electricians: ["Jana Pang"],
+        focusPuller: ["Kaka Chu"],
+        electrician: ["Jana Pang"],
         editors: ["Jasper Chan"],
-        colorists: ["Wing Chan"],
+        colorist: ["Wing Chan"],
         assistantProducer: ["Kwan Yui Hang", "Jess"],
         assistantDirector: ["Anson Chow", "Jasper Chan"],
         artDirector: ["Maisy Ho"],
@@ -804,7 +800,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         vocals: ["范卓賢", "丘藍"],
         composition: ["Jacky Fcy", "范卓賢", "丘藍"],
         lyrics: ["JL", "李冠傑"],
-        arrangement: ["戴晉揚"],
+        arranger: ["戴晉揚"],
         producer: ["戴晉揚"],
       },
       musicVideo: {
@@ -819,7 +815,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         assistantCamera: ["Alvin Li", "Mack Leung"],
         cameraEquipments: ["Chanjstudio"],
         gaffer: ["Miao Kwan Shing", "Miu"],
-        electricians: ["Jamie Chen", "Shum Hei Yuet Melody"],
+        electrician: ["Jamie Chen", "Shum Hei Yuet Melody"],
         artDirector: ["Lau Sin Yi"],
         artAssistants: ["Cyrus112", "Chan Wing Nam", "Huang Tsz Yau"],
         vfxCamera: ["Ryan Chanj", "King Wong", "Apple", "Mack Leung"],
@@ -847,9 +843,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/KoPPm5nWE5M/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["張蔓姿"],
+        composition: ["張蔓姿"],
         lyrics: ["張蔓姿"],
-        arrangement: ["李端嫻"],
+        arranger: ["李端嫻"],
         producer: ["李端嫻"],
       },
       musicVideo: {
@@ -882,9 +878,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/j0tEF_EBSnM/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["張蔓姿"],
+        composition: ["張蔓姿"],
         lyrics: ["周耀輝", "張蔓姿"],
-        arrangement: ["Nic Tsui", "李一丁"],
+        arranger: ["Nic Tsui", "李一丁"],
         producer: ["李一丁"],
       },
       musicVideo: {
@@ -920,9 +916,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/lb3r6RdbWOI/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["張蔓姿", "Young Hysan"],
+        composition: ["張蔓姿", "Young Hysan"],
         lyrics: ["張蔓姿", "Young Hysan"],
-        arrangement: ["鄧東成East City", "李一丁"],
+        arranger: ["鄧東成East City", "李一丁"],
         producer: ["李一丁"],
       },
       musicVideo: {
@@ -941,7 +937,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         styling: ["Ryan Leung"],
         wardrobeSponsor: ["Fendi", "MSGM", "Ambush"],
         makeup: ["Chi Chi Li"],
-        hair: ["ZIVYEUNGHAIR"],
+        hair: ["Ziv Yueng"],
         specialThanks: ["Uncle Store", "富利來大廈業主立案法團", "偉港物業"],
       },
     },
@@ -999,9 +995,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/iCEVCy4yhtg/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Constance Chan", "陳易行"],
+        composition: ["Constance Chan", "陳易行"],
         lyrics: ["黃偉文"],
-        arrangement: ["陳易行"],
+        arranger: ["陳易行"],
         producer: ["陳易行"],
         drumsAndGuitars: ["Daniel Toh"],
         bass: ["Hin Leung"],
@@ -1023,7 +1019,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ],
         productionHouseProducer: ["Such Films", "Himberly Chan", "Evanna Wong"],
         editor: ["The 11th"],
-        colorist: ["Eric Chan @ixagon"],
+        colorist: ["Eric Chan"],
         vfxArtist: ["Yippy Yip", "Timothy Wong"],
         cgArtist: ["Nicolas Chan"],
         sfxDesign: ["Oskar Justesen"],
@@ -1051,9 +1047,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairStylistConstanceChan: ["Keith Wo"],
         makeUpArtistConstanceChan: ["Heisan Hung"],
         stylistConstanceChan: ["Hilary Tsui"],
-        makeupArtistSideCast: ["Tifa Tai"],
-        hairstylistSideCast: ["Jeremy Leung"],
-        stylistSideCast: ["Cherie Kong", "Sam Law"],
+        makeupArtistideCast: ["Tifa Tai"],
+        hairStylistideCast: ["Jeremy Leung"],
+        stylistideCast: ["Cherie Kong", "Sam Law"],
         stylingAssistant: ["Clayton Mang"],
         songTitleDesigner: ["Kizz Lau"],
         labelRepresentatives: [
@@ -1078,8 +1074,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
-        musicCompositionLyricsVocals: ["$alty Chick"],
-        arrangementMixing: ["Dodo Museum @dodomuseum"],
+        compositionLyricsVocals: ["$alty Chick"],
+        arrangerMixing: ["Dodo Museum"],
         producer: ["$alty Chick", "Dodo Museum"],
       },
       musicVideo: {
@@ -1108,9 +1104,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/63vmUA5xy18/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["AGA"],
+        composition: ["AGA"],
         lyrics: ["甄敏延"],
-        arrangement: ["波多野裕介"],
+        arranger: ["波多野裕介"],
         producer: ["舒文@Zoo Music"],
       },
     },
@@ -1152,8 +1148,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artAssistantSetDressing: ["Maisy Ho"],
         artAssistantLightingSupport: ["Lee Man Wai"],
         artAssistantIntern: ["Ber Hui", "Toby Hui"],
-        makeupArtistSicaAndFans: ["Choco Wu Yi Ting"],
-        hairStylistSicaAndFans: ["Nicki Ting"],
+        makeupArtisticaAndFans: ["Choco Wu Yi Ting"],
+        hairStylisticaAndFans: ["Nicki Ting"],
         hairAndMakeupCreativeDirectorTongAndShin: ["Gloomy Kwok"],
         hairStylistTongAndShin: ["Gloomy Kwok"],
         productionManager: ["Jessie Yeung"],
@@ -1201,11 +1197,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         bestBoy: ["Ming Ting"],
         artDirectorAndStylist: ["Maisy Ho"],
         artAndStylingAssistant: ["Lai Suet Yi"],
-        makeupArtistSica: ["Choco Wu Yi Ting"],
-        hairStylistSica: [
-          "Nicki Ting @ LEONARDO3 MUSEUM HAIR CORNER K11",
-          "Jacko Ko",
-        ],
+        makeupArtistica: ["Choco Wu Yi Ting"],
+        hairStylistica: ["Nicki Ting", "Jacko Ko"],
         makeupAndHairStylistCast: ["Gloomy Kwok"],
         castingDirector: ["Arme Lam"],
         productionManager: ["Wong Wai Chit Wesley"],
@@ -1276,7 +1269,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraAssistant: ["Larry Man"],
         dit: ["Fung"],
         artTeam: ["Sabrina", "MeatDing", "Alice"],
-        directorsAssistant: ["Sabrina", "MeatDing", "Alice", "Fung"],
+        directorAssistant: ["Sabrina", "MeatDing", "Alice", "Fung"],
         bestBoy: ["Mao Hui Gui Ming"],
         productionManager: ["Peter Poon"],
         productionAssistant: [
@@ -1289,7 +1282,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ],
         makeup: ["Tammy Au"],
         offlineEditor: ["J Au Yeung"],
-        hair: ["Carman Ngai @ HOLA il colpo Hair & Pets"],
+        hair: ["Carman Ngai"],
         onlineEditor: ["Mok"],
         colorist: ["Tam Chi Yin"],
         stillPhotographer: ["Adrian Law"],
@@ -1312,9 +1305,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/gXsmyDwkUno/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Tyson Yoshi", "Teddy Fan", "MadBoii"],
+        composition: ["Tyson Yoshi", "Teddy Fan", "MadBoii"],
         lyrics: ["程浚彥"],
-        arrangement: ["Teddy Fan", "W.Lin", "Sean Ling"],
+        arranger: ["Teddy Fan", "W.Lin", "Sean Ling"],
         producer: ["Tyson Yoshi", "Teddy Fan", "MadBoii", "W.Lin", "Sean Ling"],
       },
       musicVideo: {
@@ -1327,7 +1320,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         graphicAndTitleDesign: ["Poon Reali Am"],
         autoWrapFilm: ["My Concept"],
         pictureCarConsultant: ["Antiquesport Hk Ltd"],
-        hairJimTseMyös: ["Jim Tse @ Myös"],
+        hairJimTseMyös: ["Jim Tse"],
         makeUpCarmenC: ["Carmen C"],
         hairMilkChan: ["Milk Chan"],
         makeUpMattLi: ["Matt Li"],
@@ -1409,22 +1402,22 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         mixer: ["Jay Tse"],
       },
       musicVideo: {
-        directors: ["Terry To"],
-        producers: ["Kelly Lui"],
-        makeUpArtists: ["Chi Chi Li"],
+        director: ["Terry To"],
+        producer: ["Kelly Lui"],
+        makeupArtist: ["Chi Chi Li"],
         titleDesign: ["lauonin"],
         props: ["Gin Chan", "Michelle Yuen", "Venus Chan"],
-        actors: ["Gigi Cheung", "Shadow Yueng"],
-        stillPhotographers: ["Sunny Liu", "Shadow Yueng"],
-        hairStylists: ["Ziu Yueng", "MYCS.Hair"],
+        actor: ["Gigi Cheung", "Shadow Yueng"],
+        stillPhotographer: ["Sunny Liu", "Shadow Yueng"],
+        hairStylist: ["Ziu Yueng", "MYCS.Hair"],
         directorOfPhotography: ["Deshawn Leung"],
-        stylists: ["Gigi Cheung", "Samantha Lai"],
+        stylist: ["Gigi Cheung", "Samantha Lai"],
         productionTeam: ["Lewis Wong", "Kwok Ho Hin", "Pui Yu"],
         gaffers: ["Fung Ho Ning"],
-        focusPullers: ["Sonj Ng"],
-        electricians: ["Ng Tsz Wai", "Cheung hing Yueng"],
+        focusPuller: ["Sonj Ng"],
+        electrician: ["Ng Tsz Wai", "Cheung hing Yueng"],
         editors: ["Terry To"],
-        colorists: [],
+        colorist: [],
       },
     },
   },
@@ -1486,16 +1479,16 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
 
       musicVideo: {
-        directors: ["Halftalk"],
-        producers: ["Anson Ng", "Alvin Chu"],
-        makeUpArtists: ["Chi Chi Li"],
-        actors: ["Edwin Tay", "Gigi Cheung"],
-        stillPhotographers: ["Cow10"],
-        hairStylists: ["ZIVYEUNGHAIR"],
+        director: ["Halftalk"],
+        producer: ["Anson Ng", "Alvin Chu"],
+        makeupArtist: ["Chi Chi Li"],
+        actor: ["Edwin Tay", "Gigi Cheung"],
+        stillPhotographer: ["Cow10"],
+        hairStylist: ["Ziv Yueng"],
         directorOfPhotography: ["Dun Lamb"],
         gaffers: ["Malo Ma"],
         editors: ["Edwardo Chan"],
-        colorists: ["Eric Chan"],
+        colorist: ["Eric Chan"],
         artDirector: ["Kaeja", "Effy Leung"],
         assistantCamera: ["Jim Chow"],
         bestBoy: ["Hero Pun"],
@@ -1517,9 +1510,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["GooChan", "Jaime Cheung"],
+        composition: ["GooChan", "Jaime Cheung"],
         lyrics: ["甄敏延"],
-        arrangement: ["GooChan", "周錫漢"],
+        arranger: ["GooChan", "周錫漢"],
         producer: ["周錫漢"],
       },
       musicVideo: {
@@ -1551,9 +1544,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/nV7tGxhARCw/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["張蔓姿"],
+        composition: ["張蔓姿"],
         lyrics: ["張蔓姿"],
-        arrangement: ["葉澍暉"],
+        arranger: ["葉澍暉"],
         producer: ["李一丁"],
       },
       musicVideo: {
@@ -1592,9 +1585,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/mt56HEafeWU/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["湯令山", "葉崇恩"],
+        composition: ["湯令山", "葉崇恩"],
         lyrics: ["黃偉文"],
-        arrangement: [
+        arranger: [
           "湯令山",
           "葉崇恩",
           "李一丁",
@@ -1631,9 +1624,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/MWDaME5LyG4/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["陳思翰"],
+        composition: ["陳思翰"],
         lyrics: ["小克"],
-        arrangement: ["Seatravel"],
+        arranger: ["Seatravel"],
         producer: ["陳考威"],
       },
       musicVideo: {
@@ -1653,9 +1646,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["馮允謙"],
+        composition: ["馮允謙"],
         lyrics: ["亞木"],
-        arrangement: ["蘇道哲"],
+        arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
 
@@ -1666,7 +1659,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         colourGradingCompany: ["Timeline Studio"],
         colourist: ["Pipisu"],
         postProductionPmColour: ["Sean Lin"],
-        vfxAndRetoucher: ["Chiman Lau @ Mori Workshop Ltd"],
+        vfxAndRetoucher: ["Chiman Lau"],
         coverArtAndTitleDesign: ["Isaac Shek"],
         productionAndLocationManager: ["Terri Li"],
         focusPuller: ["Sokin"],
@@ -1724,18 +1717,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeup: ["Kidd Sun"],
         makeupAssistant: ["Kay Luk"],
         hair: ["Ian Tsoi"],
-        "a&R": ["Malik Zain Ali", "Nicholas Cheung"],
+        ar: ["Malik Zain Ali", "Nicholas Cheung"],
       },
       song: {
-        musicComposition: ["湯令山", "范梓謙"],
+        composition: ["湯令山", "范梓謙"],
         lyrics: ["黃偉文"],
-        arrangement: [
-          "湯令山",
-          "范梓謙",
-          "邱正仁",
-          "Gabriel De Leon",
-          "鄭子樂",
-        ],
+        arranger: ["湯令山", "范梓謙", "邱正仁", "Gabriel De Leon", "鄭子樂"],
         producer: ["湯令山", "鄭子樂"],
       },
     },
@@ -1793,9 +1780,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         colorist: ["調光師", "邱程勇 CY Chiu"],
       },
       song: {
-        musicComposition: ["MC 張天賦", "GooChan"],
+        composition: ["MC 張天賦", "GooChan"],
         lyrics: ["林寶"],
-        arrangement: ["Ariel Lai"],
+        arranger: ["Ariel Lai"],
         producer: ["周錫漢"],
       },
     },
@@ -1814,13 +1801,13 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       musicVideo: {
         creativeAndDirector: ["Cherie Kong"],
         musicProducer: ["Justin Yau"],
-        lyricists: ["小克"],
+        lyricist: ["小克"],
         composer: ["謝芊彤"],
         arranger: ["Justin Yau"],
         stereoMixingMastering: ["單為明"],
         immersiveMixing: ["Matt Sim"],
         immersiveMastering: ["Alex Psaroudakis"],
-        "a&r": ["Malik Zain Ali", "Nicholas Cheung"],
+        ar: ["Malik Zain Ali", "Nicholas Cheung"],
         assistantDirector: ["Agnes Kahei"],
         producer: ["Ariel Au"],
         production: ["The Besties"],
@@ -1846,7 +1833,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       song: {
         producer: ["Justin Yau"],
-        lyricists: ["小克"],
+        lyricist: ["小克"],
         composer: ["謝芊彤"],
         arranger: ["Justin Yau"],
         stereoMixingMastering: ["單為明"],
@@ -1931,7 +1918,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionTeam: ["Suen Mk", "Simon Tso"],
         productionVehicles: ["Team Lion Logistics"],
         editor: ["Y"],
-        colourist: ["Eric Chan @ The Ukiyo Studio"],
+        colourist: ["Eric Chan"],
         retoucher: ["Mok"],
         coverArtDesigner: ["Victor Wong"],
         titleDesigner: ["Oscar Lee"],
@@ -1943,12 +1930,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Susan Hung",
           "Avis Or",
         ],
-        "a&r": ["Victor Tse"],
+        ar: ["Victor Tse"],
       },
       song: {
-        musicComposition: ["徐繼宗"],
+        composition: ["徐繼宗"],
         lyrics: ["Oscar"],
-        arrangement: ["周錫漢", "黃兆銘"],
+        arranger: ["周錫漢", "黃兆銘"],
         producer: ["周錫漢"],
       },
     },
@@ -1965,9 +1952,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/6LEx2Z_CoEU/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
+        composition: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
         lyrics: ["黃偉文"],
-        arrangement: ["黃兆銘"],
+        arranger: ["黃兆銘"],
         producer: ["陳考威"],
       },
       musicVideo: {
@@ -1983,7 +1970,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Susan Hung",
           "Avis Or",
         ],
-        aAndR: ["Victor Tse"],
+        ar: ["Victor Tse"],
         choreographer: ["King Yu"],
         dancer: [
           "Tong",
@@ -2079,9 +2066,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/DyP40kjim9U/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["徐偉賢"],
+        composition: ["徐偉賢"],
         lyrics: ["林若寧"],
-        arrangement: ["蘇道哲"],
+        arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
       musicVideo: {
@@ -2119,9 +2106,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["吳林峰"],
+        composition: ["吳林峰"],
         lyrics: ["小克"],
-        arrangement: ["Justin Yau"],
+        arranger: ["Justin Yau"],
         producer: ["王雙駿"],
       },
       musicVideo: {
@@ -2211,9 +2198,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         titleDesigner: ["Ball Chau"],
       },
       song: {
-        musicComposition: ["李拾壹"],
+        composition: ["李拾壹"],
         lyrics: ["Oscar"],
-        arrangement: ["李拾壹", "賴映彤"],
+        arranger: ["李拾壹", "賴映彤"],
         producer: ["賴映彤", "陳健安"],
       },
     },
@@ -2256,9 +2243,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         dit: ["Hardy Yan"],
       },
       song: {
-        musicComposition: ["馮允謙"],
+        composition: ["馮允謙"],
         lyrics: ["黃偉文"],
-        arrangement: ["Dick Wong"],
+        arranger: ["Dick Wong"],
         producer: ["周錫漢"],
       },
     },
@@ -2303,9 +2290,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         songTitleDesigner: ["Cynthia Choy"],
       },
       song: {
-        musicComposition: ["Yungie"],
+        composition: ["Yungie"],
         lyrics: ["黃偉文"],
-        arrangement: ["Nic Tsui", "黃兆銘"],
+        arranger: ["Nic Tsui", "黃兆銘"],
         producer: ["徐浩"],
       },
     },
@@ -2322,9 +2309,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/L17tD_aPypM/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["徐偉賢"],
+        composition: ["徐偉賢"],
         lyrics: ["周耀輝"],
-        arrangement: ["Goro Wong"],
+        arranger: ["Goro Wong"],
         producer: ["Goro Wong"],
       },
       musicVideo: {
@@ -2412,9 +2399,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         producer: ["Moon Tang", "Gordon Flanders"],
-        musicComposition: ["Gordon Flanders"],
+        composition: ["Gordon Flanders"],
         lyrics: ["小克"],
-        arrangement: ["Gordon Flanders"],
+        arranger: ["Gordon Flanders"],
         mixingAndMastering: ["Matt Sim"],
       },
       musicVideo: {
@@ -2440,9 +2427,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Gordon Flanders"],
+        composition: ["Gordon Flanders"],
         lyrics: ["小克"],
-        arrangement: ["Justin Yau"],
+        arranger: ["Justin Yau"],
         producer: ["Gordon Flanders", "Justin Yau"],
       },
       musicVideo: {
@@ -2471,7 +2458,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["moon tang"],
+        composition: ["moon tang"],
         lyrics: ["moon tang"],
         producer: ["moon tang", "Daniel Toh"],
         arranger: ["Daniel Toh"],
@@ -2486,12 +2473,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         gaffer: ["Tai Tsz Hin"],
         electrician: ["Michael Tsang"],
         imageDirector: ["Inggrad Shek"],
-        stylingAssistant: ["Moon Fong @ Crush Association"],
+        stylingAssistant: ["Moon Fong"],
         hair: ["Ricky Lau"],
         hairAssistant: ["Lau Yuen San"],
         makeUp: ["Evelyn Ho"],
         wigDesigner: ["Aki Yip"],
-        artDirector: ["Chan Brun @ The Arts Club by RG"],
+        artDirector: ["Chan Brun"],
         propsGraphic: ["Sarene Chan"],
         choreographer: ["Charlize Lai"],
         editor: ["Kendra Koh"],
@@ -2597,7 +2584,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         arranger: ["Randy Chow", "Tonynot"],
         mixing: ["Jay Tse"],
         mastering: ["Matthew Sim"],
-        aAndR: ["Herman To"],
+        ar: ["Herman To"],
         artistManagement: ["Karen Li", "Katie Fung", "Joce Chan"],
         label: ["Music Nation Records Co. Ltd."],
         assistantDirector: ["Anson Chow", "Arme Lam"],
@@ -2609,8 +2596,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artAssistants: ["Lai Suet Yi", "Lee Man Wai"],
         stylist: ["Wan Jansco", "@ Theclothesurgeon"],
         stylingAssistant: ["Rainy Ma", "Amen Sae-lee"],
-        makeupArtistSica: ["Choco Wu Yi Ting"],
-        hairStylistSica: ["Nicki Ting", "@leonardo3 Museum Hair Corner"],
+        makeupArtistica: ["Choco Wu Yi Ting"],
+        hairStylistica: ["Nicki Ting", "@leonardo3 Museum Hair Corner"],
         makeupAndHairDirectorCast: ["Gloomy Kwok"],
         hairDirectorCast: ["Vikki Chung"],
         hairStylistCast: ["Leon Chan"],
@@ -2766,7 +2753,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionAssistant: ["Bryan Loo"],
         artDirector: ["Blue Hau"],
         makeUpArtist: ["Choco Wu Yi Ting"],
-        hairStylist: ["Nicki Ting @ Leonardo3 Museum Hair Corner K11"],
+        hairStylist: ["Nicki Ting"],
         styling: ["Kammie Cheung"],
         stylingAssistant: ["Vivian"],
       },
@@ -2796,11 +2783,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         focusPuller: ["Zachary Ip"],
         secondAssistantCamera: ["Gary Chan"],
         gaffer: ["Louis Leung"],
-        electricians: ["Leung Wing Hang", "Ha Kam Chun"],
+        electrician: ["Leung Wing Hang", "Ha Kam Chun"],
         productionManager: ["Anson Ng"],
         productionAssistant: ["Lau Ho Chun"],
         editor: ["Amy Dang"],
-        vfxPaintStudio: ["Muthuramalingam @TFocus Visual Effects Studio"],
+        vfxPaintStudio: ["Muthuramalingam"],
         vfxPaintArtists: ["Arunagiri", "Balaji"],
         vfxRotoArtists: ["Vasanth", "Ajith", "Praveen"],
         vfxStatueShotStudio: ["TK Studios"],
@@ -3024,7 +3011,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         creative: ["Rony Kong", "Vivian Wong"],
         director: ["Rony Kong"],
         producer: ["Suki Wong"],
-        directorOfPhotography: ["Faith Ma @Sightless Vision"],
+        directorOfPhotography: ["Faith Ma"],
         cameraAssistant: ["Sonj Ng", "Kelvin Chow"],
         gaffer: ["Calvin Leung"],
         bestBoy: ["Dave Wong", "Silvia Ng"],
@@ -3035,12 +3022,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stillPhotographer: ["Sunny Liu"],
         typographyDesign: ["Peter Lam"],
         stylist: ["Kyle Tang", "Buut"],
-        hairStylist: [
-          "Cliff Chan @Hair Corner K11 Musea",
-          "Franco @Hair Corner K11 Musea",
-          "Joyce Wong",
-        ],
-        makeupArtist: ["Circle Chong @AnnieG.Chan Makeup", "Joyce Wong"],
+        hairStylist: ["Cliff Chan", "Franco", "Joyce Wong"],
+        makeupArtist: ["Circle Chong", "Joyce Wong"],
         productionAssistant: ["Yellow Wong", "Wade Luk"],
       },
     },
@@ -3094,9 +3077,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         skateboardShootingSupport: ["Khris", "Yin Chai"],
       },
       song: {
-        musicComposition: ["Zpecial", "賴映彤"],
+        composition: ["Zpecial", "賴映彤"],
         lyrics: ["Oscar"],
-        arrangement: ["Zpecial", "賴映彤"],
+        arranger: ["Zpecial", "賴映彤"],
         producer: ["賴映彤"],
       },
     },
@@ -3113,7 +3096,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       song: {
         composer: ["蘇珮卿 Paige Su"],
         lyrics: ["Oscar"],
-        arrangement: ["Perry Lau"],
+        arranger: ["Perry Lau"],
         producer: ["Perry Lau"],
       },
       musicVideo: {
@@ -3135,7 +3118,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       song: {
         composer: ["Sabrina Cheung", "張蔓莎", "Derek Dali"],
         lyrics: ["鍾說"],
-        arrangement: ["Seatravl"],
+        arranger: ["Seatravl"],
         producer: ["陳考威"],
         allProgrammingBy: ["Seatravl"],
         backingVocal: ["朱琳"],
@@ -3163,9 +3146,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/2J_0nahRxBk/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["馮穎琪"],
+        composition: ["馮穎琪"],
         lyrics: ["黃偉文"],
-        arrangement: ["謝國維"],
+        arranger: ["謝國維"],
         producer: ["謝國維"],
       },
       musicVideo: {
@@ -3175,8 +3158,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         retoucher: ["Lavi Wong", "Denis Sze", "Ah Mok"],
         productionAssistant: ["Lee Man Chung", "Kiano"],
         cast: ["Wally Li", "Jam Shing Kwan", "Joey Cheung"],
-        makeUp: ["Bubu @ Anjo Makeup"],
-        hairStylistWill: ["Oscar Ngan @ii Alchemy"],
+        makeUp: ["Bubu"],
+        hairStylistWill: ["Oscar Ngan"],
         producer: ["Welby Chung"],
         director: ["Maggie Leung"],
         creative: ["Maggie Leung", "Coba Cheng"],
@@ -3184,7 +3167,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionManager: ["Kelvin Hui"],
         cinematographer: ["Kelvin Kan", "Sam Chan", "Kelvin Lau", "Cooper Yam"],
         gaffer: ["Kelvin Law", "Terence Chan"],
-        artAssistant: ["Jacs Yim @backstairriors", "Sum Tik @backstairriors"],
+        artAssistant: ["Jacs Yim", "Sum Tik"],
       },
     },
   },
@@ -3244,7 +3227,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Kobi Chan",
           "Avis Or",
         ],
-        aAndR: ["Victor Tse"],
+        ar: ["Victor Tse"],
       },
     },
   },
@@ -3257,15 +3240,15 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/ESmaELNy8GE/hq720.jpg",
     contributors: {
       song: {
-        musicComposition: ["馮允謙", "陳考威", "JNYBeatz"],
+        composition: ["馮允謙", "陳考威", "JNYBeatz"],
         lyrics: ["黃偉文"],
         rapLyrics: ["Young Hysan"],
-        arrangement: ["Derrick Sepnio", "Fergus Chow", "黃兆銘"],
+        arranger: ["Derrick Sepnio", "Fergus Chow", "黃兆銘"],
         producer: ["陳考威"],
       },
       musicVideo: {
         editor: ["Y"],
-        colourist: ["Eric Chan @ The Ukiyo Studio"],
+        colourist: ["Eric Chan"],
         vfxAndRetoucher: ["Mok"],
         photographyAssistant: ["Larry Man"],
         titleDesigner: ["Peter Lam"],
@@ -3282,10 +3265,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artDirector: ["Victor Wong"],
         assistantArtDirector: ["Eric Chan"],
         artTeam: ["Athena Leung", "Don Mai", "Chan Hiu"],
-        stylist: ["Chan Brun @ The Arts Club by RG"],
+        stylist: ["Chan Brun"],
         stylingAssistant: ["Annebell Chan"],
         makeupArtist: ["Tammy Au"],
-        hairStylst: ["Sing Tam @ Artifylab", "Jamie Lee", "Issac Lo"],
+        hairStylst: ["Sing Tam", "Issac Lo"],
         productionManager: ["Terri Li"],
         productionAssistants: ["Tao", "Simon Tso"],
       },
@@ -3353,21 +3336,21 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一口一 zh",
     contributors: {
       song: {
-        producers: ["Daniel Toh"],
+        producer: ["Daniel Toh"],
         composers: ["Chintung Tse", "moon tang", "Daniel Toh"],
-        lyricists: ["moon tang"],
-        arrangers: ["Daniel Toh"],
+        lyricist: ["moon tang"],
+        arranger: ["Daniel Toh"],
         mastering: ["Jay Tse"],
         mixers: ["Jay Tse"],
       },
       musicVideo: {
-        directors: ["Malik Zain Ali"],
-        producers: ["Malik Zain Ali", "moon tang"],
+        director: ["Malik Zain Ali"],
+        producer: ["Malik Zain Ali", "moon tang"],
         directorOfPhotographys: ["Malik Zain Ali"],
-        stylists: ["Cherie Kong"],
+        stylist: ["Cherie Kong"],
         productionAssistants: ["Thomae Brenners", "Elsie C"],
         editors: ["kidney"],
-        colorists: ["kidney"],
+        colorist: ["kidney"],
       },
     },
     streetViewEmbed:
@@ -3448,14 +3431,14 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/zFkEhVendy9rkL9Q9",
     contributors: {
       song: {
-        musicComposition: ["Chris Wahle", "Ryan Lawrie", "Emily Middlemas"],
+        composition: ["Chris Wahle", "Ryan Lawrie", "Emily Middlemas"],
         lyrics: ["陳詠謙"],
         rapLyrics: ["Ariel"],
-        arrangement: ["Chris Wahle"],
+        arranger: ["Chris Wahle"],
         producer: ["Mike Orange"],
       },
       musicVideo: {
-        producedBy: ["Son Mom & Dad @sonmom_dad"],
+        producedBy: ["Son Mom & Dad"],
         director: ["Liyo Wu"],
         producer: ["Chloe Lam"],
         assistantDirector: ["Hosiu", "Kathy Cheuk"],
@@ -3463,7 +3446,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionAssistant: ["Kaiyeah Wong", "Alvin Chu", "Cat", "Baba Tak"],
         directorOfPhotography: ["Gary Hui"],
         focusPuller: ["Damon Chan"],
-        ac: ["Kelvin Chow @mynameiskelvin"],
+        ac: ["Kelvin Chow"],
         gaffer: ["Malo Ma"],
         lightingAssistant: ["Wong Kai Yeung", "Jim Chow", "Coco Lam"],
         artDirector: ["Gary Tam"],
@@ -3479,33 +3462,22 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Lika Leung",
           "Sheeta Ho",
         ],
-        offlineEditing: ["Y @edmond__y"],
+        offlineEditing: ["Y"],
         colourist: ["Eric Chan"],
         vfx: ["Kidney", "Acid Fong", "Henry Chu"],
-        cgAnimation: ["Licca Inn & Lisa Inn @innsyx"],
+        cgAnimation: ["Licca Inn & Lisa Inn"],
         onlineEditing: ["Steven Cheung"],
         graphicDesign: ["Kenny Leung"],
         coverPhotographer: ["Hungmc"],
         photographerAssistant: ["Derek Chan", "Issac Chen", "Matt Hung"],
-        snapPhotographer: ["Jiu Ka Ho @15.kahooo"],
+        snapPhotographer: ["Jiu Ka Ho"],
         danceConsultant: ["Yiu at IDS"],
-        choreographer: ["Ali at Artlike Hong Kong @alijai @artlikehongkong"],
-        dancers: [
-          "Gabe @gabrielle_lau",
-          "Olivia @olivialaungalee",
-          "Yanki @cham.yanki",
-          "Monbiella @ching_monbiella_mon",
-          "Moon @moonmoonxd",
-          "Lemon @lemon_tke",
-        ],
-        onDayMakeUpArtist: ["San Chan @__chansan", "Cathy Zhang @zhangloo"],
-        hairStylist: [
-          "Kristy Cheng @kristywailing",
-          "Smile Lam @lamlings",
-          "Crystal Chan @crystal_c.n.l",
-        ],
-        imageDirector: ["Cedric Cheung @cedriccheung_"],
-        stylingAssistant: ["Joyce Yung @fairyjoyofoz"],
+        choreographer: ["Ali at Artlike Hong Kong"],
+        dancers: ["Gabe", "Olivia", "Yanki", "Monbiella", "Moon", "Lemon"],
+        onDayMakeUpArtist: ["San Chan", "Cathy Zhang"],
+        hairStylist: ["Kristy Cheng", "Smile Lam", "Crystal Chan"],
+        imageDirector: ["Cedric Cheung"],
+        stylingAssistant: ["Joyce Yung"],
         artistManagement: [
           "Jocelyn Wang",
           "Wing Tai",
@@ -3515,9 +3487,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Kobi Chan",
           "Avis Or",
         ],
-        lineProducer: ["Step Lau @step.lau"],
-        btsVideographer: ["Ratachock @ratachock"],
-        "a&r": ["Victor Tse @tsewai"],
+        lineProducer: ["Step Lau"],
+        btsVideographer: ["Ratachock"],
+        ar: ["Victor Tse"],
       },
     },
   },
@@ -3538,10 +3510,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/hqdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Constance Chan", "Eason YH Chan", "Ernest Choi"],
+        composition: ["Constance Chan", "Eason YH Chan", "Ernest Choi"],
         lyrics: ["黃偉文"],
         englishLyrics: ["Constance Chan"],
-        arrangement: ["Eason YH Chan", "Ernest Choi"],
+        arranger: ["Eason YH Chan", "Ernest Choi"],
         producer: ["Ernest Choi"],
       },
       musicVideo: {
@@ -3634,9 +3606,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
     contributors: {
       song: {
-        musicComposition: ["Gordon Flanders"],
+        composition: ["Gordon Flanders"],
         lyrics: ["陳詠謙"],
-        arrangement: ["蘇道哲"],
+        arranger: ["蘇道哲"],
         producer: ["蘇道哲"],
       },
       musicVideo: {
@@ -3675,8 +3647,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       song: {
         producer: ["PhD"],
         composers: ["moon tang", "Kiri T", "Peter Wallevik", "Daniel Davidsen"],
-        lyricists: ["moon tang", "Kiri T"],
-        arrangers: ["Peter Wallevik", "Daniel Davidsen"],
+        lyricist: ["moon tang", "Kiri T"],
+        arranger: ["Peter Wallevik", "Daniel Davidsen"],
         mixingMastering: ["Matt Sim"],
       },
       musicVideo: {
@@ -3691,7 +3663,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         gaffer: ["Sunny Yip"],
         bestBoy: ["Brian Choi", "肖智龍", "李曉嵩", "陽利玉"],
         choreographer: ["Yuen Yuen"],
-        actors: ["Thomae Brenners", "moon tang"],
+        actor: ["Thomae Brenners", "moon tang"],
         stylist: ["Cherie Kong"],
         makeUpArtist: ["Kidd Sun"],
         hairStylist: ["Ian Tsoi"],
@@ -3725,9 +3697,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/-qaHO6iEui4/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["陳蕾"],
+        composition: ["陳蕾"],
         lyrics: ["陳蕾"],
-        arrangement: ["崔展鴻"],
+        arranger: ["崔展鴻"],
         producer: ["崔展鴻"],
       },
       musicVideo: {
@@ -3739,7 +3711,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraAssistant: ["Lau Siu Chai Michael"],
         lightingAssistant: ["Keiichiro Shiga"],
         makeupPanther: ["Angel Mok"],
-        hairPanther: ["Ziv Yeung @ Myös"],
+        hairPanther: ["Ziv Yeung"],
         makeupCast: ["Dakuzaku (Tron)"],
         hairCast: ["Yuko Aoi"],
         stylist: ["Hubert Tsui"],
@@ -3788,9 +3760,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["雷深如 J.Arie"],
+        composition: ["雷深如 J.Arie"],
         lyrics: ["陳詠謙"],
-        arrangement: ["Kiri T"],
+        arranger: ["Kiri T"],
         producer: ["Kiri T"],
       },
       musicVideo: {
@@ -3827,10 +3799,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763074901615!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3hnOEREdlFF!2m2!1d22.37467975749352!2d114.2854848066381!3f284.30202923111244!4f-41.89311802971748!5f1.673426761858031",
     contributors: {
       song: {
-        musicComposition: ["Gareth Tong"],
+        composition: ["Gareth Tong"],
         lyrics: ["黃偉文"],
         rapLyrics: ["Gareth Tong", "marife"],
-        arrangement: ["Gareth Tong"],
+        arranger: ["Gareth Tong"],
         producer: ["Gareth Tong", "謝國維"],
       },
       musicVideo: {
@@ -3916,7 +3888,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artTeam: ["Sin Yi Hang", "Wong Lung Yi", "Jason Ng", "Cassiel Lam"],
         editor: ["Titus Chan"],
         postProduction: ["Titus Chan"],
-        actors: [
+        actor: [
           "Gavin Chan",
           "Lolo",
           "Justin Chan",
@@ -3992,9 +3964,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         leadVocal: ["黃淑蔓"],
-        musicComposition: ["崔展鴻"],
+        composition: ["崔展鴻"],
         lyrics: ["梁栢堅"],
-        arrangement: ["崔展鴻"],
+        arranger: ["崔展鴻"],
         producer: ["戴偉", "崔展鴻"],
         chorus: ["陳詠瑜"],
         drums: ["黃偉勳"],
@@ -4015,9 +3987,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/jgrOIm2QRCQ/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["張子晴"],
+        composition: ["張子晴"],
         lyrics: ["鍾說"],
-        arrangement: ["葉澍暉"],
+        arranger: ["葉澍暉"],
         producer: ["周錫漢"],
       },
       musicVideo: {
@@ -4029,12 +4001,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         secondAssistantCamera: ["Chang Che Ming"],
         equipmentRental: ["鏡吉影業 Fortune Lens"],
         makeupArtist: ["Choco Wu Yi Ting"],
-        hairStylist: ["Nicki Ting @ Hair Corner K11 Muses"],
+        hairStylist: ["Nicki Ting"],
         editor: ["Edwardo Chan"],
         graphicsDesigner: ["Kaeja"],
         calligraphy: ["Dun Lamb"],
         stills: ["Chan Yi Chun"],
-        "a&r": ["Herman To"],
+        ar: ["Herman To"],
         artistManagement: ["Karen Li", "Katie Fung", "Cathy Leung"],
         label: ["Music Nation Records Company Limited"],
       },
@@ -4050,15 +4022,15 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/_K4QAcB1mtE/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["唐善行", "馮允謙"],
+        composition: ["唐善行", "馮允謙"],
         lyrics: ["蕭慶峰"],
-        arrangement: ["周錫漢", "黃兆銘"],
+        arranger: ["周錫漢", "黃兆銘"],
         producer: ["周錫漢"],
       },
       musicVideo: {
         editor: ["Edmond Yuen"],
         vfx: ["Edwin Chow", "Polar Light", "Ah Mok"],
-        makeUp: ["Bubu @ Anjo Makeup"],
+        makeUp: ["Bubu"],
         makingOf: ["Eric Cheung", "King Lau"],
         directorAndDirectorOfPhotography: ["Welby Chung"],
         creative: ["Welby Chung", "Sara Zee", "Wayne Han"],
@@ -4078,9 +4050,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/VjZODcFM_MY/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["周錫漢"],
+        composition: ["周錫漢"],
         lyrics: ["甄敏延"],
-        arrangement: ["Kiri T", "LOKA", "黃兆銘"],
+        arranger: ["Kiri T", "LOKA", "黃兆銘"],
         producer: ["周錫漢", "Kiri T"],
       },
       musicVideo: {
@@ -4089,7 +4061,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraAssistant: ["Jimmy"],
         light: ["Stone"],
         makeup: ["Tammy Au"],
-        hair: ["Issac Lo @ Hola Il Colpo Hair & Pets"],
+        hair: ["Issac Lo"],
         stylist: ["Eddy Chu"],
         titleDesign: ["Hailee Chan"],
         editor: ["Adrian Law"],
@@ -4111,7 +4083,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         guitarBy: ["Jason Kui"],
         bassBy: ["陳兆基"],
         backingVocalBy: ["Jacky Fcy 范卓賢"],
-        stringsArrangementBy: ["Yikin Lo"],
+        stringsarrangerBy: ["Yikin Lo"],
         stringsBy: ["International Master Philharmonic Orchestra"],
         mixingAndMasteringBy: ["徐浩"],
       },
@@ -4123,8 +4095,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         songCoverDesign: ["HN"],
         artDirector: ["Prudie Leung"],
         artAssistant: ["Yee Shan", "Cyrus Chan"],
-        makeupArtist: ["Janice Wong @powderclub_hk", "Hulda Tsai"],
-        hairStylist: ["Idolsleung @chic private i salon", "Hulda Tsai"],
+        makeupArtist: ["Janice Wong", "Hulda Tsai"],
+        hairStylist: ["Idolsleung", "Hulda Tsai"],
         stylist: ["Pipa Creative"],
         producer: ["Stephanie Go"],
         director: ["Jane Leung"],
@@ -4460,9 +4432,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/JTsi1Bc8zuk/maxresdefault.jpg",
     contributors: {
       song: {
-        musicComposition: ["Cloud", "Andrea Hosking", "T-Ma"],
+        composition: ["Cloud", "Andrea Hosking", "T-Ma"],
         lyrics: ["小克"],
-        arrangement: ["T-Ma"],
+        arranger: ["T-Ma"],
         producer: ["T-Ma"],
       },
       musicVideo: {
@@ -4570,7 +4542,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         photoAssistant: ["Monica"],
         coverArtAndGraphicDesigner: ["Louis Yeung"],
         imageDirector: ["Daniel Cheung"],
-        stylists: ["Alyssa Lai", "Natalie Lin"],
+        stylist: ["Alyssa Lai", "Natalie Lin"],
         hairStylingTeam: [
           "Vic Lai",
           "Taurus Lee",
@@ -4589,7 +4561,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ],
         danceConsultant: ["Yiu"],
         choreographers: ["Carlos Mendoza", "Windy Hurricane"],
-        "a&r": ["Victor Tse"],
+        ar: ["Victor Tse"],
         artistManagement: [
           "Jocelyn Wang",
           "Wing Tai",
@@ -5006,7 +4978,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/N_bghNhUpkA/maxresdefault.jpg",
     contributors: {
       musicVideo: {
-        actors: ["Cloud Wan"],
+        actor: ["Cloud Wan"],
         director: ["J.him Lee"],
         producer: ["Nova Sy"],
         directorOfPhotography: ["DF"],
