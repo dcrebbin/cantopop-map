@@ -1,6 +1,14 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 import { CONTRIBUTOR_ROLE_GROUPS } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
+
+const CONTRIBUTOR_CATEGORIES = [
+  { key: "song", title: "Song" },
+  { key: "musicVideo", title: "Music Video" },
+] as const;
+
+type ContributorCategoryKey = (typeof CONTRIBUTOR_CATEGORIES)[number]["key"];
 
 interface ContributorsListProps {
   filteredContributors: string[];
@@ -14,6 +22,12 @@ export default function ContributorsList({
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
   const { setSelectedContributor, setMenuOpen } = useUIStore();
+  const [openCategories, setOpenCategories] = useState<
+    Record<ContributorCategoryKey, boolean>
+  >({
+    song: true,
+    musicVideo: true,
+  });
 
   function updateContributorModalUrl() {
     const url = new URL(window.location.href);
@@ -21,53 +35,90 @@ export default function ContributorsList({
     window.history.replaceState({}, "", url.toString());
   }
 
+  function toggleCategory(category: ContributorCategoryKey) {
+    setOpenCategories((current) => ({
+      ...current,
+      [category]: !current[category],
+    }));
+  }
+
   return (
     <div className="flex w-full flex-col gap-2 pr-2 text-white">
-      {CONTRIBUTOR_ROLE_GROUPS.map((group) => {
-        const namesToShow = group.names.filter((n) =>
-          filteredContributors.includes(n),
+      {CONTRIBUTOR_CATEGORIES.map((category) => {
+        const groupsToShow = CONTRIBUTOR_ROLE_GROUPS.map((group) => ({
+          ...group,
+          namesToShow: group.names.filter((n) =>
+            filteredContributors.includes(n),
+          ),
+        })).filter(
+          (group) =>
+            group.category === category.key && group.namesToShow.length > 0,
         );
-        if (namesToShow.length === 0) return null;
+        if (groupsToShow.length === 0) return null;
+
         return (
           <div
-            key={`${group.category}-${group.roleKey}`}
-            className="flex w-full flex-col gap-1"
+            key={category.key}
+            className="flex w-full flex-col gap-2 rounded-md p-2"
           >
-            <hr className="my-1 opacity-30" />
-            <div className="text-base font-semibold">{group.title}</div>
-            {namesToShow.map((contributor) => (
-              <div
-                key={`${group.category}-${group.roleKey}-${contributor}`}
-                className="flex w-full flex-row items-center justify-between gap-2 pr-2"
-              >
-                <button
-                  type="button"
-                  className="text-sm"
-                  onClick={() => {
-                    updateContributorModalUrl();
-                    handleContributorCheckboxChange(contributor);
-                    setSelectedContributor(contributor);
-                    setMenuOpen(false);
-                  }}
+            <button
+              type="button"
+              className="flex w-full items-center justify-between gap-2 text-left text-base font-semibold"
+              aria-expanded={openCategories[category.key]}
+              onClick={() => toggleCategory(category.key)}
+            >
+              <span>{category.title}</span>
+              <ChevronDownIcon
+                className={`h-5 w-5 transition-transform ${
+                  openCategories[category.key] ? "" : "rotate-180"
+                }`}
+              />
+            </button>
+            {openCategories[category.key] &&
+              groupsToShow.map((group) => (
+                <div
+                  key={`${group.category}-${group.roleKey}`}
+                  className="flex w-full flex-col gap-1"
                 >
-                  <UserCircleIcon className="h-6 w-6" />
-                </button>
-                <button
-                  type="button"
-                  className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
-                  onClick={() => handleContributorCheckboxChange(contributor)}
-                >
-                  <span className="truncate text-sm">{contributor}</span>
-                  <input
-                    type="checkbox"
-                    aria-label={contributor}
-                    className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
-                    checked={selectedContributors.includes(contributor)}
-                    readOnly
-                  />
-                </button>
-              </div>
-            ))}
+                  <hr className="my-1 opacity-30" />
+                  <div className="text-sm font-semibold">{group.title}</div>
+                  {group.namesToShow.map((contributor) => (
+                    <div
+                      key={`${group.category}-${group.roleKey}-${contributor}`}
+                      className="flex w-full flex-row items-center justify-between gap-2 pr-2"
+                    >
+                      <button
+                        type="button"
+                        className="text-sm"
+                        onClick={() => {
+                          updateContributorModalUrl();
+                          handleContributorCheckboxChange(contributor);
+                          setSelectedContributor(contributor);
+                          setMenuOpen(false);
+                        }}
+                      >
+                        <UserCircleIcon className="h-6 w-6" />
+                      </button>
+                      <button
+                        type="button"
+                        className="flex w-full cursor-pointer items-center justify-between gap-2 text-left hover:underline"
+                        onClick={() =>
+                          handleContributorCheckboxChange(contributor)
+                        }
+                      >
+                        <span className="truncate text-sm">{contributor}</span>
+                        <input
+                          type="checkbox"
+                          aria-label={contributor}
+                          className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                          checked={selectedContributors.includes(contributor)}
+                          readOnly
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ))}
           </div>
         );
       })}

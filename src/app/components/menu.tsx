@@ -33,6 +33,7 @@ const SONGS_LOWER = SONGS.map((s) => ({
 }));
 const CONTRIBUTORS_LOWER = CONTRIBUTORS.map((c) => c.toLowerCase());
 const CONTRIBUTOR_ROLE_GROUPS_LOWER = CONTRIBUTOR_ROLE_GROUPS.map((g) => ({
+  categoryTitle: g.category === "musicVideo" ? "music video" : "song",
   title: g.title.toLowerCase(),
   names: g.names,
 }));
@@ -60,7 +61,7 @@ function warmSearchIndex() {
       if (contributor.includes(q)) acc++;
     }
     for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
-      if (group.title.includes(q)) acc++;
+      if (group.title.includes(q) || group.categoryTitle.includes(q)) acc++;
     }
     if (acc < 0) console.log(acc);
   }
@@ -250,7 +251,7 @@ export default function Menu() {
         }
       }
       for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
-        if (group.title.includes(q)) {
+        if (group.title.includes(q) || group.categoryTitle.includes(q)) {
           const names = group.names;
           for (const name of names) contributorsSet.add(name);
         }
