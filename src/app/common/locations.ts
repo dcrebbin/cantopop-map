@@ -3602,7 +3602,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [22.3219462, 114.1907626],
     artists: ["Jay Fung"],
-    address: "Coffeelin",
+    address: "192 Kowloon City Rd, To Kwa Wan",
     name: "Break Me Down",
     streetView: "https://maps.app.goo.gl/ennsBcXmVg6AfJRG7",
     url: "https://youtu.be/rEl7UUuFjvU?t=210",
