@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { ARTISTS, SONGS, CONTRIBUTORS } from "../common/locations";
+import {
+  ARTISTS,
+  SONGS,
+  CONTRIBUTORS,
+  LocationItem,
+} from "../common/locations";
 
 interface UIState {
   menuOpen: boolean;
@@ -51,6 +56,8 @@ interface UIState {
   setTaiPoModalHasSeen: (hasSeen: boolean) => void;
   selectedContributor: string | null;
   setSelectedContributor: (contributor: string | null) => void;
+  selectedLocationCredits: LocationItem | null;
+  setSelectedLocationCredits: (location: LocationItem) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -108,4 +115,7 @@ export const useUIStore = create<UIState>((set) => ({
   selectedContributor: "",
   setSelectedContributor: (contributor: string | null) =>
     set({ selectedContributor: contributor }),
+  selectedLocationCredits: null as LocationItem | null,
+  setSelectedLocationCredits: (location: LocationItem) =>
+    set({ selectedLocationCredits: location }),
 }));

@@ -13,6 +13,10 @@ import { plusIcon } from "~/lib/icons/plusIcon";
 import { minusIcon } from "~/lib/icons/minusIcon";
 import { nameToInstagramMap } from "~/app/common/social-media";
 import posthog from "posthog-js";
+import { useUIStore } from "~/app/_state/ui.store";
+import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { hidePopup } from "~/lib/custom-map";
+import { useMapStore } from "~/app/_state/map.store";
 
 export function SvgIcon({
   html,
@@ -37,6 +41,10 @@ export function PopupContent({
   onEdit?: () => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { setSelectedLocationCredits } = useUIStore();
+  const mapStore = useMapStore();
+  const uiStore = useUIStore();
 
   const actionButtons = (
     <div className="flex items-center justify-center gap-2">
@@ -79,17 +87,20 @@ export function PopupContent({
     </div>
   );
   const contributorSection = (
-    <div className="flex w-full flex-col items-start justify-start overflow-y-auto font-bold">
+    <div className="flex w-full flex-col items-start justify-start overflow-y-auto overflow-x-hidden font-bold">
       <h3 className="my-1 text-base">Contributors</h3>
       <hr className="my-1 w-full text-black" />
       <h3>Song</h3>
-      <div className="grid w-full grid-cols-2 gap-2">
+      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
         {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
-          <div className="flex flex-col items-start justify-start" key={key}>
-            <p>
+          <div
+            className="min-w-0 flex flex-col items-start justify-start"
+            key={key}
+          >
+            <p className="min-w-0 break-words">
               {humanizeRoleKey(key)} <br></br>
             </p>
-            <div className="flex flex-col gap-1 text-left text-xs font-normal">
+            <div className="min-w-0 max-w-full text-left text-xs font-normal">
               {Array.isArray(value)
                 ? value.map((name) => {
                     if (
@@ -102,7 +113,7 @@ export function PopupContent({
                           key={name}
                           href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
                           target="_blank"
-                          className="text-blue-500 underline"
+                          className="break-words text-blue-500 underline"
                           rel="noreferrer"
                         >
                           {name}
@@ -115,7 +126,7 @@ export function PopupContent({
                           key={name}
                           href={`https://www.instagram.com/${name.split("@")[1]}`}
                           target="_blank"
-                          className="text-blue-500 underline"
+                          className="break-words text-blue-500 underline"
                           rel="noreferrer"
                         >
                           {name}
@@ -123,7 +134,11 @@ export function PopupContent({
                       );
                     }
 
-                    return <span key={name}>{name}</span>;
+                    return (
+                      <span className="break-words" key={name}>
+                        {name}
+                      </span>
+                    );
                   })
                 : null}
             </div>
@@ -132,17 +147,17 @@ export function PopupContent({
       </div>
       <hr className="my-1 w-full text-black" />
       <h3 className="text-md">Music Video</h3>
-      <div className="grid w-full grid-cols-2 gap-2">
+      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))] gap-2">
         {Object.entries(data.contributors?.musicVideo ?? {}).map(
           ([key, value]) => (
             <div
-              className="flex w-full flex-col items-start justify-start"
+              className="min-w-0 flex w-full flex-col items-start justify-start"
               key={key}
             >
-              <p>
+              <p className="min-w-0 break-words">
                 {humanizeRoleKey(key)} <br></br>
               </p>
-              <div className="flex flex-col gap-1 text-left text-xs font-normal">
+              <div className="min-w-0 max-w-full text-left text-xs font-normal">
                 {value.map((name) => {
                   if (
                     nameToInstagramMap[name as keyof typeof nameToInstagramMap]
@@ -152,7 +167,7 @@ export function PopupContent({
                         key={name}
                         href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
                         target="_blank"
-                        className="text-blue-500 underline"
+                        className="break-words text-blue-500 underline"
                         rel="noreferrer"
                       >
                         {name}
@@ -165,14 +180,18 @@ export function PopupContent({
                         key={name}
                         href={`https://www.instagram.com/${name.split("@")[1]}`}
                         target="_blank"
-                        className="text-blue-500 underline"
+                        className="break-words text-blue-500 underline"
                         rel="noreferrer"
                       >
                         {name}
                       </a>
                     );
                   }
-                  return <span key={name}>{name}</span>;
+                  return (
+                    <span className="break-words" key={name}>
+                      {name}
+                    </span>
+                  );
                 })}
               </div>
             </div>
@@ -217,22 +236,50 @@ export function PopupContent({
       )}
       {isExpanded && contributorSection}
       {actionButtons}
+      <button
+        className={`absolute left-0 top-0`}
+        type="button"
+        onClick={() => {
+          const { lastPopup, lastMarker } = useMapStore.getState();
+          if (lastPopup && lastMarker) {
+            uiStore.setSelectedLocation({
+              value: "",
+              artists: [],
+              streetViewEmbed: "",
+            });
+            const params = new URLSearchParams(window.location.search);
+            params.delete("title");
+            const query = params.toString();
+            const newUrl = query
+              ? `${window.location.pathname}?${query}`
+              : window.location.pathname;
+            window.history.replaceState({}, "", newUrl);
+            if (mapStore.lastPopup && mapStore.lastMarker) {
+              hidePopup(
+                mapStore.lastPopup,
+                mapStore.lastMarker,
+                mapStore.selectedLocationId ?? "",
+              );
+            }
+            mapStore.clearSelectedLocation();
+          }
+        }}
+      >
+        <XMarkIcon className="h-4 w-4" />
+      </button>
       {data.contributors && (
         <button
           className={`absolute right-0 top-0`}
           type="button"
           onClick={() => {
-            setIsExpanded(!isExpanded);
+            setSelectedLocationCredits(data);
             posthog.capture("toggle_contributor_section", {
               artists: data.artists.join(", "),
               songTitle: data.name,
             });
           }}
         >
-          <SvgIcon
-            html={isExpanded ? minusIcon : plusIcon}
-            className={`h-6 w-6`}
-          />
+          <ArrowUpRightIcon className="h-3.5 w-3.5" />
         </button>
       )}
     </div>

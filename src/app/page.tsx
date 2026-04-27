@@ -10,7 +10,6 @@ import {
 } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
 import Appbar from "./components/appbar";
-import Footer from "./components/footer";
 import LocationButton from "./components/location-button";
 import Menu from "./components/menu";
 import NewLocationModal from "./components/new-location-modal";
@@ -20,9 +19,9 @@ import { useUIStore } from "./_state/ui.store";
 import PwaTutorial from "./components/pwa-tutorial";
 import MobileCameraView from "./components/mobile-camera-view";
 import TaiPoModal from "./components/modals/tai-po";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import SelectedLocation from "./components/selected-location";
 import ContributorsModal from "./components/contributors-modal";
+import CreditsModal from "./components/credits-modal";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
@@ -130,6 +129,7 @@ export default function Home({ location }: { location: LocationItem }) {
         <TaiPoModal />
         <NewLocationModal />
         <ContributorsModal />
+        <CreditsModal />
         {gameOpen && <StreetView />}
 
         <div ref={handleMapContainerRef} className="map-container relative" />

@@ -42,12 +42,12 @@ export default function SelectedLocation() {
     return null;
 
   return (
-    <div className="absolute bottom-0 left-0 z-[120] m-0 mb-[2rem] ml-4 flex max-w-[50vw] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 pr-6 backdrop-blur-sm sm:max-w-none">
+    <div className="absolute bottom-0 left-0 z-[250] m-0 mb-[2rem] ml-4 flex max-w-[50vw] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 pr-6 backdrop-blur-sm sm:max-w-none">
       <div className="relative min-w-0">
-        <h1 className="truncate text-sm font-bold text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-lg">
+        <h1 className="truncate text-sm font-bold text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-lg xl:text-xl">
           {uiStore.selectedLocation?.artists.join(", ")}
         </h1>
-        <h2 className="truncate text-xs text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-sm">
+        <h2 className="truncate text-xs text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-sm xl:text-base">
           {uiStore.selectedLocation?.value}
         </h2>
       </div>
@@ -56,7 +56,7 @@ export default function SelectedLocation() {
         onClick={clearSelectedLocation}
         className="absolute -right-1 top-0 p-1 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
       >
-        <XMarkIcon className="h-5 w-5" />
+        <XMarkIcon className="h-4 w-4 xl:h-6 xl:w-6" />
       </button>
     </div>
   );

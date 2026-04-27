@@ -103,17 +103,8 @@ export default function ContributorsModal() {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-[9999999] flex items-center justify-center bg-black/40 text-white"
-      onClick={() => {
-        setSelectedContributor(null);
-        removeContributorModalUrl();
-      }}
-    >
-      <div
-        className="z-10 mx-2 mt-5 flex max-h-[80vh] w-full max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[15%] p-4 drop-shadow-md backdrop-blur-lg"
-        onClick={(e) => e.stopPropagation()}
-      >
+    <div className="pointer-events-none fixed inset-0 z-[9999999] flex items-center justify-center bg-transparent text-white">
+      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[80vh] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
         <div className="flex items-start justify-between gap-2">
           <div>
             <h1 className="font-serif text-2xl font-bold">
