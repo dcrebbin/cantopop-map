@@ -104,7 +104,7 @@ export default function ContributorsModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/40 text-white"
+      className="fixed inset-0 z-[9999999] flex items-center justify-center bg-black/40 text-white"
       onClick={() => {
         setSelectedContributor(null);
         removeContributorModalUrl();
@@ -160,8 +160,8 @@ export default function ContributorsModal() {
               </button>
             </div>
             <p className="text-sm text-white/70">
-              {totalCredits} {totalCredits === 1 ? "credit" : "credits"}{" "}
-              across {contributions.length}{" "}
+              {totalCredits} {totalCredits === 1 ? "credit" : "credits"} across{" "}
+              {contributions.length}{" "}
               {contributions.length === 1 ? "song" : "songs"}
             </p>
           </div>
