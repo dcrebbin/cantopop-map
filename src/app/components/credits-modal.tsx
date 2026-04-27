@@ -7,7 +7,6 @@ import { humanizeRoleKey, type LocationItem } from "../common/locations";
 import { nameToInstagramMap } from "../common/social-media";
 import { useUIStore } from "../_state/ui.store";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
-import { SvgIcon } from "./map/PopupContent";
 
 export default function CreditsModal() {
   const {
@@ -26,13 +25,13 @@ export default function CreditsModal() {
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[99999] flex items-center justify-center bg-transparent text-white">
-      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[60vh] min-h-[20rem] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
+      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[76vh] min-h-[20rem] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/50 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:max-h-[65vh] xl:w-full">
         <div className="z-30 flex items-start justify-between gap-2">
           <div className="w-full border-b border-white/70 pb-2">
-            <h1 className="font-serif text-2xl font-bold">
+            <h1 className="font-serif text-2xl font-bold drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">
               {selectedLocationCredits?.name}
             </h1>
-            <h2 className="text-xl text-white/70">
+            <h2 className="text-xl text-white/70 drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">
               {selectedLocationCredits?.artists.join(", ")}
             </h2>
           </div>
@@ -45,11 +44,11 @@ export default function CreditsModal() {
               removeCreditsModalUrl();
             }}
           >
-            <XMarkIcon className="h-6 w-6" />
+            <XMarkIcon className="h-9 w-9 drop-shadow-[0_0_4px_rgba(0,0,0,1)] xl:h-6 xl:w-6" />
           </button>
         </div>
-        <div className="z-30 flex w-full flex-col items-start justify-start overflow-y-auto overflow-x-hidden font-bold">
-          <h3>Song</h3>
+        <div className="z-30 flex w-full flex-col items-center justify-start overflow-y-auto overflow-x-hidden font-bold">
+          <h3 className="text-center">Song</h3>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
               selectedLocationCredits?.contributors?.song ?? {},
@@ -66,7 +65,7 @@ export default function CreditsModal() {
                     return (
                       <span
                         key={name}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-xl xl:text-sm"
+                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
                       >
                         {name}
                         <button
@@ -99,7 +98,7 @@ export default function CreditsModal() {
             ))}
           </div>
           <hr className="my-1 w-full text-black" />
-          <h3 className="text-md">Music Video</h3>
+          <h3 className="text-md text-center">Music Video</h3>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
               selectedLocationCredits?.contributors?.musicVideo ?? {},
@@ -116,7 +115,7 @@ export default function CreditsModal() {
                     return (
                       <span
                         key={name}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-xl xl:text-sm"
+                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
                       >
                         {name}
                         <button
@@ -138,7 +137,7 @@ export default function CreditsModal() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            <InstagramIcon className="h-5 w-auto" />
+                            <InstagramIcon className="h-8 w-auto xl:h-5 xl:w-auto" />
                           </a>
                         ) : null}
                       </span>
@@ -164,7 +163,7 @@ export default function CreditsModal() {
               }
             }}
           >
-            <ShareIcon className="h-4 w-4 xl:h-6 xl:w-6" />
+            <ShareIcon className="h-9 w-9 drop-shadow-[0_0_4px_rgba(0,0,0,1)] xl:h-6 xl:w-6" />
           </button>
         </div>
       </div>
