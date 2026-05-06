@@ -3,7 +3,9 @@ import { useMemo } from "react";
 import { useUIStore } from "../_state/ui.store";
 import {
   LOCATIONS,
+  getContributorDisplayName,
   humanizeRoleKey,
+  type ContributorCredit,
   type LocationItem,
 } from "../common/locations";
 import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -19,16 +21,34 @@ interface Contribution {
 }
 
 function getRolesForPerson(
-  bucket: Record<string, string[]> | undefined,
-  name: string,
+  bucket: Record<string, ContributorCredit[]> | undefined,
+  contributorDisplayName: string,
 ): string[] {
   if (!bucket) return [];
   const roles: string[] = [];
   for (const roleKey of Object.keys(bucket)) {
     const people = bucket[roleKey] ?? [];
-    if (people.includes(name)) roles.push(humanizeRoleKey(roleKey));
+    if (
+      people.some(
+        (person) =>
+          getContributorDisplayName(person) === contributorDisplayName,
+      )
+    ) {
+      roles.push(humanizeRoleKey(roleKey));
+    }
   }
   return roles;
+}
+
+function getInstagramHandle(contributorDisplayName: string): string | null {
+  const handleMatch = /\(@([^()]+)\)$/.exec(contributorDisplayName);
+  if (handleMatch?.[1]) return handleMatch[1];
+
+  return (
+    nameToInstagramMap[
+      contributorDisplayName as keyof typeof nameToInstagramMap
+    ] ?? null
+  );
 }
 
 export default function ContributorsModal() {
@@ -41,8 +61,8 @@ export default function ContributorsModal() {
       const contributors = (
         location as unknown as {
           contributors?: {
-            song?: Record<string, string[]>;
-            musicVideo?: Record<string, string[]>;
+            song?: Record<string, ContributorCredit[]>;
+            musicVideo?: Record<string, ContributorCredit[]>;
           } | null;
         }
       ).contributors;
@@ -101,10 +121,9 @@ export default function ContributorsModal() {
     return url.split("?")[0];
   }
 
-  const instagramUrl = nameToInstagramMap[
-    selectedContributor as keyof typeof nameToInstagramMap
-  ]
-    ? `https://www.instagram.com/${nameToInstagramMap[selectedContributor as keyof typeof nameToInstagramMap]}`
+  const instagramHandle = getInstagramHandle(selectedContributor);
+  const instagramUrl = instagramHandle
+    ? `https://www.instagram.com/${instagramHandle}`
     : null;
 
   return (
@@ -119,16 +138,11 @@ export default function ContributorsModal() {
               {instagramUrl ? (
                 <a
                   className="flex items-center gap-1 text-sm text-white/70 hover:underline"
-                  href={`https://www.instagram.com/${nameToInstagramMap[selectedContributor as keyof typeof nameToInstagramMap]}`}
+                  href={instagramUrl}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  @
-                  {
-                    nameToInstagramMap[
-                      selectedContributor as keyof typeof nameToInstagramMap
-                    ]
-                  }
+                  @{instagramHandle}
                   <InstagramIcon className="size-6" />
                 </a>
               ) : null}

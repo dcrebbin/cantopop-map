@@ -2,7 +2,12 @@
 
 import type { CSSProperties } from "react";
 import { useMemo, useState } from "react";
-import { LOCATIONS, humanizeRoleKey } from "../common/locations";
+import {
+  LOCATIONS,
+  getContributorDisplayName,
+  humanizeRoleKey,
+  type ContributorCredit,
+} from "../common/locations";
 
 type CategoryFilter = "all" | "song" | "musicVideo";
 
@@ -143,8 +148,8 @@ const BLOSSOMS = [
 ] as const;
 
 type ContributorBuckets = {
-  song?: Record<string, string[]>;
-  musicVideo?: Record<string, string[]>;
+  song?: Record<string, ContributorCredit[]>;
+  musicVideo?: Record<string, ContributorCredit[]>;
 } | null;
 
 type BlossomStyle = CSSProperties & {
@@ -267,7 +272,7 @@ function createRows({
     };
 
     const applyBucket = (
-      bucket: Record<string, string[]> | undefined,
+      bucket: Record<string, ContributorCredit[]> | undefined,
       target: "songCredits" | "musicVideoCredits",
     ) => {
       if (!bucket) return;
@@ -276,8 +281,9 @@ function createRows({
         if (roleFilter !== "all" && role !== roleFilter) continue;
 
         for (const person of bucket[roleKey] ?? []) {
-          if (!person || person.trim().length === 0) continue;
-          const entry = upsert(person);
+          const displayName = getContributorDisplayName(person).trim();
+          if (displayName.length === 0) continue;
+          const entry = upsert(displayName);
           entry[target] += 1;
         }
       }

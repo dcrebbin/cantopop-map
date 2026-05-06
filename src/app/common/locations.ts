@@ -3,8 +3,20 @@ import { z } from "zod";
 // Zod schema for raw items as written in the data file
 const ContributorsSchema = z
   .object({
-    song: z.record(z.array(z.string())).optional(),
-    musicVideo: z.record(z.array(z.string())).optional(),
+    song: z
+      .record(
+        z.array(
+          z.string().or(z.object({ name: z.string(), instagram: z.string() })),
+        ),
+      )
+      .optional(),
+    musicVideo: z
+      .record(
+        z.array(
+          z.string().or(z.object({ name: z.string(), instagram: z.string() })),
+        ),
+      )
+      .optional(),
   })
   .optional();
 
@@ -12,7 +24,7 @@ const RawLocationSchema = z.object({
   coordinates: z.tuple([z.number(), z.number()]), // [lat, lng] as authored
   artists: z.array(z.string()),
   address: z.string(),
-  name: z.string(),
+  name: z.string().or(z.object({ name: z.string(), instagram: z.string() })),
   url: z.string().url(),
   image: z.string().url(),
   streetView: z.string().url().optional(),
@@ -25,12 +37,13 @@ const RawLocationSchema = z.object({
 // Normalized item with guaranteed lng/lat ordering, and a stable id
 export const LocationItemSchema = RawLocationSchema.transform((raw) => {
   const [lat, lng] = raw.coordinates;
-  const id = `${raw.artists.join(", ")}-${raw.name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
+  const name = typeof raw.name === "string" ? raw.name : raw.name.name;
+  const id = `${raw.artists.join(", ")}-${name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
   return {
     id,
     artists: raw.artists,
     address: raw.address,
-    name: raw.name,
+    name,
     url: raw.url,
     image: raw.image,
     lat,
@@ -46,6 +59,26 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
 type RawLocationSchema = z.infer<typeof RawLocationSchema>;
 
 export type LocationItem = z.infer<typeof LocationItemSchema>;
+export type ContributorCredit = string | { name: string; instagram: string };
+
+export function getContributorName(contributor: ContributorCredit): string {
+  return typeof contributor === "string" ? contributor : contributor.name;
+}
+
+export function getContributorInstagram(
+  contributor: ContributorCredit,
+): string | null {
+  if (typeof contributor !== "string") return contributor.instagram;
+  const [, handle] = contributor.split("@");
+  return handle ?? null;
+}
+
+export function getContributorDisplayName(
+  contributor: ContributorCredit,
+): string {
+  if (typeof contributor === "string") return contributor;
+  return `${contributor.name} (@${contributor.instagram})`;
+}
 
 const RAW_LOCATIONS: RawLocationSchema[] = [
   {
@@ -84,7 +117,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeUpArtist: ["Tammy Au"],
         stillPhotographer: ["Mo Yu Wan Yee"],
         editor: ["Liknifena"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         titleDesigner: ["Hailee Chan"],
       },
     },
@@ -120,7 +153,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         props: ["快樂蘋果箱"],
         productionAssistant: ["陳芷淇", "余靖軒"],
         clapperLoader: ["陳德富"],
-        colorist: ["陳彥彰"],
+        colourist: ["陳彥彰"],
         stills: ["劉遠東"],
         cast: ["甄浩賢", "黃根鳴", "鍾澄"],
         hairStylist: ["嘿奧湊", "陳偉賢"],
@@ -158,7 +191,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylist: ["SoSoJess"],
         directorOfPhotography: ["Donald Fong"],
         editor: ["Heiward Mak", "Tsoi Yun Chak"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
       },
     },
   },
@@ -317,7 +350,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         animationDirector: ["Wyatt Lau"],
         animator: ["Wyatt Lau"],
         onlineEditor: ["Bowie Leung"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         photographer: ["禮行"],
         graphicDesign: ["NY Chan"],
         creativeDirector: ["Kwokin", "Wyatt Lau"],
@@ -379,7 +412,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stillPhotographer: ["Mario Chui", "Joey Young", "Kwan"],
         bts: ["Nicholas Ko", "Kwan"],
         editor: ["Hanley Chu"],
-        colorist: ["Hanley Chu"],
+        colourist: ["Hanley Chu"],
         choreographer: ["Leon"],
       },
     },
@@ -413,7 +446,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionTeam: ["CK", "Hung 9", "Monkee Lee"],
         ar: ["Herman To", "Karton Ma"],
         editor: ["Gloria Tang"],
-        colorist: ["FMLIK"],
+        colourist: ["FMLIK"],
         artistManagement: [
           "Karen Li",
           "Wing Tai",
@@ -480,7 +513,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         creative: ["Jacky Suen"],
         directorOfPhotography: ["David Fok"],
         editor: ["Yulam"],
-        colorist: ["Leo Li"],
+        colourist: ["Leo Li"],
       },
     },
   },
@@ -506,7 +539,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Kendra Koh"],
         producer: ["Hidi Lee"],
         editor: ["Kendra Koh"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         onlineEditor: ["Charson Lam"],
         stillPhotographer: ["Lily Chen"],
         designer: ["Kizz Lau"],
@@ -582,7 +615,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         assistantArtDesigner: ["Brian Che"],
         makeUpArtist: ["Silvia"],
         editor: ["Ming Leong", "Dash Lao"],
-        colorist: ["陳泓丞"],
+        colourist: ["陳泓丞"],
         specialEffectsCoordinator: ["曾品倫"],
         screenwriter: ["Ming Leong", "Dash Lao"],
       },
@@ -613,7 +646,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         editor: ["謝芊蕾"],
         coloring: ["謝芊蕾"],
         props: ["雷同二友"],
-        titleDesign: ["謝芊彤"],
+        titleDesigner: ["謝芊彤"],
       },
     },
   },
@@ -737,7 +770,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Kelly Cheuk", "Kwokin"],
         producer: ["Kelly Cheuk", "Kwokin"],
         makeupArtist: ["Chi Chi Li", "Tsz Yan"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         props: ["Superking"],
         actor: ["Gigi Cheung", "Shadow Yueng", "Hanna Wong Puiying"],
         stillPhotographer: ["禮行"],
@@ -748,7 +781,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         focusPuller: ["Kaka Chu"],
         electrician: ["Jana Pang"],
         editor: ["Jasper Chan"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         assistantProducer: ["Kwan Yui Hang", "Jess"],
         assistantDirector: ["Anson Chow", "Jasper Chan"],
         artDirector: ["Maisy Ho"],
@@ -788,7 +821,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         gaffer: ["Yang"],
         lightingAssistant: ["Joshua Chen", "Nana Chang"],
         editor: ["Kendra Koh"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         makeup: ["Chi Chi Li", "Kimiwakb"],
         hairStylist: ["Chi Chi Li", "Kimiwakb"],
         artAndWardrobe: ["Gigi Cheung"],
@@ -819,7 +852,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         firstAssistantDirector: ["Holam Wong"],
         secondAssistantDirector: ["Cheuk Chun Kit"],
         editor: ["Pizza"],
-        colorist: ["Pizza"],
+        colourist: ["Pizza"],
         directorOfPhotography: ["Ryan Chanj"],
         focusPuller: ["Cheung Tin Yau"],
         assistantCamera: ["Alvin Li", "Mack Leung"],
@@ -864,7 +897,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         secondAssistantCamera: ["游皇修 You Huang Hsiu"],
         cameraAssistant: ["林敏華 Lin Min-Hua", "林曼萱 Min Shiuan Lin"],
         editor: ["HALFTALK"],
-        colorist: ["HALFTALK"],
+        colourist: ["HALFTALK"],
         artDirector: ["HALFTALK"],
         artAssistant: ["Peter Lam"],
         lightingEngineer: ["陳陽 Yang"],
@@ -908,7 +941,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeup: ["李杏婷"],
         hairStylist: ["楊庭崑"],
         editor: ["許婉如"],
-        colorist: ["陳彥華"],
+        colourist: ["陳彥華"],
         typographer: ["林卓軒"],
         animator: ["羅晞俊"],
       },
@@ -942,7 +975,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         props: ["Kaeja"],
         offlineEdit: ["Au Yeung"],
         onlineEdit: ["The 11th"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         graphicDesign: ["Kaeja"],
         styling: ["Ryan Leung"],
         wardrobeSponsor: ["Fendi", "MSGM", "Ambush"],
@@ -1029,7 +1062,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         ],
         productionHouseProducer: ["Such Films", "Himberly Chan", "Evanna Wong"],
         editor: ["The 11th"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         vfxArtist: ["Yippy Yip", "Timothy Wong"],
         cgArtist: ["Nicolas Chan"],
         sfxDesign: ["Oskar Justesen"],
@@ -1169,7 +1202,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         postProductionProducer: ["Arme Lam"],
         editor: ["Shing"],
         assistantToEditor: ["Jasper Chan", "Kc Cheung"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         onlineEditor: ["Bowie Leung"],
         filmStillAndBtsPhotographer: ["Lai Hang", "Travis"],
         btsPhotographer: ["Catsiu"],
@@ -1217,9 +1250,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         postProductionProducer: ["Arme Lam"],
         editor: ["Shing"],
         assistantToEditor: ["Anson Chow", "Jasper Chan"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         filmStillAndBtsPhotographer: ["Agnes Hang"],
-        titleDesign: ["Cat Lee"],
+        titleDesigner: ["Cat Lee"],
         creativeDirector: ["Kwokin"],
         shootingVenue: ["日日"],
         foodProps: ["Ezra"],
@@ -1252,7 +1285,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylist: ["雷同二友"],
         directorOfPhotography: ["雷同二友"],
         lighting: ["謝芊蕾"],
-        titleDesign: ["謝芊蕾"],
+        titleDesigner: ["謝芊蕾"],
         choreographer: ["Sumwing"],
       },
     },
@@ -1294,11 +1327,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         offlineEditor: ["J Au Yeung"],
         hairStylist: ["Carman Ngai"],
         onlineEditor: ["Mok"],
-        colorist: ["Tam Chi Yin"],
+        colourist: ["Tam Chi Yin"],
         stillPhotographer: ["Adrian Law"],
         stylist: ["Eddy Chu"],
         cg: ["Weslyn Ho"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         specialThanks: ["Gavin Chan"],
       },
     },
@@ -1325,9 +1358,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         bts: ["Samwill Yau"],
         photographer: ["Sunny Liu"],
         editor: ["Jo"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         online: ["Bobby Wong"],
-        graphicAndTitleDesign: ["Poon Reali Am"],
+        graphicAndtitleDesigner: ["Poon Reali Am"],
         autoWrapFilm: ["My Concept"],
         pictureCarConsultant: ["Antiquesport Hk Ltd"],
         hairJimTseMyös: ["Jim Tse"],
@@ -1415,7 +1448,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Terry To"],
         producer: ["Kelly Lui"],
         makeupArtist: ["Chi Chi Li"],
-        titleDesign: ["lauonin"],
+        titleDesigner: ["lauonin"],
         props: ["Gin Chan", "Michelle Yuen", "Venus Chan"],
         actor: ["Gigi Cheung", "Shadow Yueng"],
         stillPhotographer: ["Sunny Liu", "Shadow Yueng"],
@@ -1427,7 +1460,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         focusPuller: ["Sonj Ng"],
         electrician: ["Ng Tsz Wai", "Cheung hing Yueng"],
         editor: ["Terry To"],
-        colorist: [],
+        colourist: [],
       },
     },
   },
@@ -1498,7 +1531,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         directorOfPhotography: ["Dun Lamb"],
         gaffers: ["Malo Ma"],
         editor: ["Edwardo Chan"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         artDirector: ["Kaeja", "Effy Leung"],
         assistantCamera: ["Jim Chow"],
         bestBoy: ["Hero Pun"],
@@ -1534,8 +1567,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylist: ["Jennie Wong"],
         stylingAssistant: ["Giselle Chau", "Samantha Lai"],
         editor: ["Titus Chan"],
-        colorist: ["Titus Chan"],
-        titleDesign: ["lauonin"],
+        colourist: ["Titus Chan"],
+        titleDesigner: ["lauonin"],
         stillPhotographer: ["Peter Lam"],
         bts: ["Peter Lam"],
         filmPhotographer: ["Isa Ng"],
@@ -1576,7 +1609,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairStylistAssistant: ["Nicko Liu"],
         stylist: ["Gigi Cheung"],
         editor: ["Ardnek"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         vfxAndRetouch: ["Mok"],
         stillPhotographer: ["Samwill Yau"],
         coverArtAndGraphicDesigner: ["Peter Lam"],
@@ -1613,7 +1646,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cast: ["MARALAA", "NIIMA", "SUMKA", "EBO", "OYU"],
         cinematography: ["KHURELBAATAR"],
         lighting: ["BYMBAA"],
-        colorist: ["BAATAR"],
+        colourist: ["BAATAR"],
         makeupAndStyling: ["NO78STUDIO"],
         assistant: ["MORON", "METHOD LKHAGVAA", "WHITE G"],
         projectManagementAndArtistManagement: ["張軒培", "馬力"],
@@ -1669,7 +1702,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         colourist: ["Pipisu"],
         postProductionPmColour: ["Sean Lin"],
         vfxAndRetoucher: ["Chiman Lau"],
-        coverArtAndTitleDesign: ["Isaac Shek"],
+        coverArtAndtitleDesigner: ["Isaac Shek"],
         productionAndLocationManager: ["Terri Li"],
         focusPuller: ["Sokin"],
         gaffer: ["Jerry Tai"],
@@ -1767,7 +1800,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairStylist: ["髮型師", "Cliff"],
         makeupArtist: ["化妝師", "Tammy Au"],
         stylist: ["造型師", "Sum Sum"],
-        titleDesign: ["字體設計", "林卓軒 Peter Lam"],
+        titleDesigner: ["字體設計", "林卓軒 Peter Lam"],
         gaffer: ["燈光師", "余志炘 Yu Jr Chi"],
         bestBoyElectric: ["燈光大助", "吳振榮 Wu Cheng Jung"],
         electrician: ["燈光助理", "林宸緯 Lin Chen Wei", "陳達鋒 Chen Da Feng"],
@@ -1786,7 +1819,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         propsDriver: ["道具車司機", "林緯鈞 Wayne Lin"],
         lightingEquipment: ["燈光器材", "真寶企業有限公司 ZBTS Co,Ltd"],
         editor: ["剪接師", "林佳穎 Lin Chia Ying"],
-        colorist: ["調光師", "邱程勇 CY Chiu"],
+        colourist: ["調光師", "邱程勇 CY Chiu"],
       },
       song: {
         composer: ["MC 張天賦", "GooChan"],
@@ -1827,7 +1860,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artTeam: ["Sonia Tam"],
         offlineEditor: ["Fai Chan"],
         onlineEditor: ["Yippy Yip"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         photographer: ["John David Dela Peri"],
         btsVideographer: ["Jg"],
         titleDesigner: ["Manmen Tam"],
@@ -1882,7 +1915,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairAndMakeupAssistant: ["李淨元"],
         stylist: ["謝利哈哈"],
         editor: ["何帛儒"],
-        colorist: ["何帛儒"],
+        colourist: ["何帛儒"],
         vfxCompositor: ["吳律緯", "何帛儒"],
         standardCharacters: ["張嘉敏"],
         lightSphereAnimationDesign: ["孟可研"],
@@ -1909,7 +1942,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         gaffer: ["Jerry Tai"],
         gripAndElectrician: ["Pan"],
         artDirector: ["Victor Wong"],
-        setDesigner: ["Eric Chan"],
+        setDesigner: [{ name: "Eric Chan", instagram: "eric_chan_cw" }],
         setDesignTeam: ["Don Mai", "Jack Lo", "Hirari"],
         stylist: ["June Wan"],
         stylingAssistant: ["Lamb Cheng"],
@@ -1921,7 +1954,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionTeam: ["Suen Mk", "Simon Tso"],
         productionVehicles: ["Team Lion Logistics"],
         editor: ["Y"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         retoucher: ["Mok"],
         coverArtDesigner: ["Victor Wong"],
         titleDesigner: ["Oscar Lee"],
@@ -2093,7 +2126,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stillPhotography: ["Mo Kai"],
         coverArt: ["Billy Elvis"],
         editor: ["Matthew Ip"],
-        colorist: ["Wing Chan", "Jaco Wong"],
+        colourist: ["Wing Chan", "Jaco Wong"],
       },
     },
   },
@@ -2116,7 +2149,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       musicVideo: {
         editor: ["J.him Lee", "Mario Hui"],
-        colorist: ["Mario Hui"],
+        colourist: ["Mario Hui"],
         retoucher: ["Mok"],
         stylist: ["Matthew Chan"],
         makeupArtist: ["Kineks Ho"],
@@ -2194,7 +2227,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupArtistHairStylistDancer: ["Hilary Ho"],
         stylistDancer: ["JPG"],
         editor: ["Y"],
-        colorist: ["Kinglun Yeung"],
+        colourist: ["Kinglun Yeung"],
         retoucher: ["Mok"],
         animator: ["Fivedollars"],
         stillPhotographer: ["飛機", "Jonathanlausc"],
@@ -2222,7 +2255,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         creative: ["Sheng Wong"],
         director: ["Sheng Wong"],
         editor: ["Y"],
-        colorist: ["FMLIK"],
+        colourist: ["FMLIK"],
         onlineEditor: ["Mok"],
         soundDesigner: ["Hirsk"],
         stillPhotographer: ["CK"],
@@ -2286,7 +2319,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupArtistAssistant: ["Agnes Yeung"],
         hairStylistAssistant: ["Wing Wong", "Nikoo Chan"],
         editor: ["Y"],
-        colorist: ["FMLIK"],
+        colourist: ["FMLIK"],
         retoucher: ["Mok"],
         soundDesigner: ["Hirsk"],
         stillPhotographer: ["Cow10"],
@@ -2374,7 +2407,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupAndHairAssistant: ["Ziu"],
         stylist: ["Chanel"],
         soundDesigner: ["Jen-Chun Chao"],
-        colorist: ["Cy Chiu"],
+        colourist: ["Cy Chiu"],
         vfx: ["Lin Gobao"],
         stills: ["Malik Zain Ali"],
         titleDesigner: ["Hailee Chan"],
@@ -2416,7 +2449,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         costumeAssistant: ["Marina Otsu"],
         makeup: ["Kotoe Saito"],
         designer: ["Sarene Chan"],
-        colorist: ["Sota Ito"],
+        colourist: ["Sota Ito"],
         bts: ["Malik Zain Ali"],
       },
     },
@@ -2483,13 +2516,13 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeUp: ["Evelyn Ho"],
         wigDesigner: ["Aki Yip"],
         artDirector: ["Chan Brun"],
-        propsGraphic: ["Sarene Chan"],
+        propsgraphicDesigner: ["Sarene Chan"],
         choreographer: ["Charlize Lai"],
         editor: ["Kendra Koh"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         online: ["Mok"],
         illustration: ["Miss Bean"],
-        titleDesign: ["Heidihaha"],
+        titleDesigner: ["Heidihaha"],
         stillPhotographer: ["Miss Bean"],
         photographyAssistant: ["Larry Man"],
         productionAssistant: ["Lam Ka Lok", "Aaron Ma"],
@@ -2550,12 +2583,12 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         creative: ["Sica"],
         editingDirector: ["Sica", "Rara Tung", "King Ho"],
         editor: ["Sica", "Rara Tung", "King Ho", "Keith Cheung"],
-        colorist: ["Rara Tung"],
-        graphic: ["Sica"],
+        colourist: ["Rara Tung"],
+        graphicDesigner: ["Sica"],
         artDirector: ["Why Is Budget Limited"],
-        assistantArtDirector: ["Eric Chan"],
+        assistantArtDirector: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         artTeam: ["Bryan Loo", "Ball Chau", "Don Mai"],
-        "photographer Assistant": ["Ex Chan"],
+        photographyAssistant: ["Ex Chan"],
         makeUpArtist: ["Choco Wu Yi Ting"],
         hairStylist: ["Nicki Ting", "Hair Corner K11"],
         stylist: ["Darren Tsang"],
@@ -2578,16 +2611,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         arranger: ["周錫漢", "TonYnoT"],
         producer: ["周錫漢"],
       },
-
       musicVideo: {
         director: ["Kwokin"],
         producer: ["Jason Kwan", "Jake Ng"],
         creativeDirector: ["Kwokin"],
-        composer: ["Tonick"],
-        lyricist: ["Sica", "Cheng Man"],
-        arranger: ["Randy Chow", "Tonynot"],
-        mixing: ["Jay Tse"],
-        mastering: ["Matthew Sim"],
         ar: ["Herman To"],
         artistManagement: ["Karen Li", "Katie Fung", "Joce Chan"],
         label: ["Music Nation Records Co. Ltd."],
@@ -2616,7 +2643,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         rehearsalSupport: ["Lui Cheuk Hei", "Halie Wu"],
         postProductionSupervisor: ["Arme Lam"],
         editor: ["Kwokin", "Anson Chow"],
-        colorist: ["Pete Ma"],
+        colourist: ["Pete Ma"],
         vfxDesigner: ["John Chan"],
         soundDesigner: ["Anson Chow"],
         titleDesigner: ["Rara Tung"],
@@ -2651,7 +2678,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         dop: ["Chiu"],
         productionCoordinator: ["Chun"],
         artDirector: ["Melody"],
-        colorist: ["Chiu"],
+        colourist: ["Chiu"],
         subtitleWriter: ["Chun"],
       },
     },
@@ -2681,7 +2708,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         "1stAssistantCamera": ["Damon Chan"],
         retoucher: ["Mok"],
         photographer: ["Matthew Ho"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         stylist: ["Natalie Lin"],
         creativeTeam: ["Kit Jai", "Benny"],
         cast: [
@@ -2800,7 +2827,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         vfxStatueShotStudio: ["TK Studios"],
         vfxStatueShotProducer: ["Johan Barrios"],
         vfxStatueShotAiArtist: ["Salvatore Lo Cascio"],
-        colorist: ["Alex O’Brien"],
+        colourist: ["Alex O’Brien"],
         juniorColorist: ["Fraser Twitchett"],
         executiveColorProducer: ["Jack Howard"],
         colorProducer: ["Felix Schütze"],
@@ -2847,7 +2874,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         production: ["Roy"],
         stillPhotographer: ["Kabo"],
         editor: ["J.him Lee"],
-        colorist: ["Mario Hui"],
+        colourist: ["Mario Hui"],
         online: ["Mok"],
         projectManager: ["Teffia Tung"],
         hairStylist: ["Zanki Ng@ Bhc"],
@@ -2890,7 +2917,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         colourist: ["Pete Ma"],
         stillPhotographer: ["Chong Man Chung Kevin", "Arleks Alex Cheng"],
         photographyAssistant: ["Arleks Alex Cheng"],
-        titleDesign: ["Peter Lam"],
+        titleDesigner: ["Peter Lam"],
         hairStylist: [
           "Haysses Ip@Private I Salon",
           "Match Tong@Private I Salon",
@@ -2930,7 +2957,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupArtist: ["Circle Chong"],
         wardrobeOnEddy: ["Beams", "@i.t"],
         projectCoordination: ["Lui"],
-        titleDesign: ["lauonin"],
+        titleDesigner: ["lauonin"],
       },
     },
   },
@@ -2995,7 +3022,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Titus Chan", "Wallace Tang"],
         cinematographer: ["Titus Chan"],
         editor: ["Titus Chan"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         photographer: ["Annie Fung"],
       },
     },
@@ -3160,7 +3187,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       musicVideo: {
         editor: ["Edmond Yuen"],
-        colorist: ["Edmond Yuen"],
+        colourist: ["Edmond Yuen"],
         dit: ["Edmond Yuen"],
         retoucher: ["Lavi Wong", "Denis Sze", "Ah Mok"],
         productionAssistant: ["Lee Man Chung", "Kiano"],
@@ -3213,9 +3240,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         animator: ["Heidimensions"],
         retoucher: ["Mok"],
         editor: ["Kendra Koh"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         stillPhotographer: ["Karlson Tsang"],
-        titleDesign: ["Llam", "Llamm"],
+        titleDesigner: ["Llam", "Llamm"],
         firstAssistantCamera: ["Kelvin Lam"],
         secondAssistantCamera: ["Jimmy Sheung"],
         makeUp: ["Cathy Zhang"],
@@ -3255,7 +3282,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       musicVideo: {
         editor: ["Y"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         vfxAndRetoucher: ["Mok"],
         photographyAssistant: ["Larry Man"],
         titleDesigner: ["Peter Lam"],
@@ -3270,7 +3297,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         bestBoy: ["Ki"],
         equipmentRental: ["Key Fill Kick"],
         artDirector: ["Victor Wong"],
-        assistantArtDirector: ["Eric Chan"],
+        assistantArtDirector: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         artTeam: ["Athena Leung", "Don Mai", "Chan Hiu"],
         stylist: ["Chan Brun"],
         stylingAssistant: ["Annebell Chan"],
@@ -3357,7 +3384,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylist: ["Cherie Kong"],
         productionAssistant: ["Thomae Brenners", "Elsie C"],
         editor: ["kidney"],
-        colorist: ["kidney"],
+        colourist: ["kidney"],
       },
     },
     streetViewEmbed:
@@ -3409,7 +3436,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artDirector: ["Ip Siu"],
         artTeam: ["Kelly Cheung", "Red Tao", "Hiroka Mak"],
         editor: ["Kendra Koh"],
-        colourist: ["Eric Chan"],
+        colourist: ["colourist Chan"],
         stillPhotographer: ["Malik Zain Ali", "Jiu Ka Ho"],
         titleDesigner: ["Hailee Chan"],
         directedBy: ["Kendra Koh"],
@@ -3470,7 +3497,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Sheeta Ho",
         ],
         offlineEditing: ["Y"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         vfx: ["Kidney", "Acid Fong", "Henry Chu"],
         cgAnimation: ["Licca Inn & Lisa Inn"],
         onlineEditing: ["Steven Cheung"],
@@ -3581,9 +3608,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         lightingEquipmentProvidedBy: ["Yao Film-Rental"],
         cameraEquipmentProvidedBy: ["MDVISION"],
         btsPhotography: ["Rawyee"],
-        colorist: ["Côme Grannec"],
+        colourist: ["Côme Grannec"],
         vfxAndCompositing: ["Liping Jiang"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         creativeBy: ["Softwave"],
         productionCompany: ["Super Corp."],
       },
@@ -3633,7 +3660,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionAssitant: ["Chimi Chung"],
         productionTeam: ["Monkee Lee", "Hoyin", "Horris Tai", "Ghost"],
         editor: ["Gloria Tang"],
-        colorist: ["Fmlik @Ixagon"],
+        colourist: ["Fmlik @Ixagon"],
         vfx: ["Weslyn Ho"],
         aiArtist: ["Weslyn Ho", "Anthony Tong"],
         retoucher: ["Gloria Tang"],
@@ -3669,7 +3696,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeUpArtist: ["Kineks Ho"],
         hairStylist: ["Ryoji Imaizumi"],
         editor: ["Heiward Mak"],
-        colorist: ["Mario Hui"],
+        colourist: ["Mario Hui"],
         coverArtAndStillPhotographyBehindTheSceneDigitalImagingTechnician: [
           "Mario Hui",
         ],
@@ -3726,7 +3753,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         offlineEditor: ["FuChai", "THE BASTARDS"],
         onlineEditor: ["Fai Chan", "THE BASTARDS"],
         animatorTitleDesigner: ["Manmen Tam"],
-        colorist: ["Eric Chan", "IXAGON"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }, "IXAGON"],
         photographerCoverDesigner: ["Austin Cheng", "Janthought"],
         artistProjectManager: ["Malik Zain Ali", "Nicholas Cheung"],
       },
@@ -3769,9 +3796,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairCast: ["Yuko Aoi"],
         stylist: ["Hubert Tsui"],
         videoEditor: ["Elaine Lam"],
-        colorist: ["Sota Ito"],
+        colourist: ["Sota Ito"],
         stillPhotographer: ["Elaine Lam"],
-        titleDesign: ["Peter Lam"],
+        titleDesigner: ["Peter Lam"],
       },
     },
   },
@@ -3832,7 +3859,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         coloring: ["Fmlik"],
         online: ["Mok"],
         stillPhotography: ["Donald Chan"],
-        titleDesign: ["Peter Lam"],
+        titleDesigner: ["Peter Lam"],
         makeup: ["Tammy Au"],
         hairStylist: ["Jamie Lee"],
         hairStylistAssistant: ["Issac Lo"],
@@ -3958,7 +3985,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         stylingAssistant: ["Stephanie Choy"],
         wardrobe: ["ITHK", "Farfetch"],
         stillPhotographer: ["Mag Lam"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         hairStylist: ["Toyo Ho"],
         makeup: ["ChiLi Fong"],
       },
@@ -3992,7 +4019,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         gAndE: ["Kyle Thor"],
         editor: ["Adrian Law"],
         colourist: ["Titus Chan"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
       },
     },
   },
@@ -4117,9 +4144,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeup: ["Tammy Au"],
         hairStylist: ["Issac Lo"],
         stylist: ["Eddy Chu"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
         editor: ["Adrian Law"],
-        colorist: ["John Razalo"],
+        colourist: ["John Razalo"],
       },
     },
   },
@@ -4145,7 +4172,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         assistantDirector: ["Arthur Cheuk", "Kevin Li", "Li Chi Fung"],
         stillPhotographer: ["Koon"],
         editor: ["Liknifena"],
-        colorist: ["Wing Chan"],
+        colourist: ["Wing Chan"],
         songCoverDesign: ["HN"],
         artDirector: ["Prudie Leung"],
         artAssistant: ["Yee Shan", "Cyrus Chan"],
@@ -4231,9 +4258,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionManager: ["Terri Li"],
         productionTeam: ["Dont.add.light"],
         editor: ["Kitty Yeung"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         stillPhotographer: ["Lokman Tang"],
-        titleDesign: ["Peter Lam"],
+        titleDesigner: ["Peter Lam"],
         director: ["Kitty Yeung"],
         producer: ["The Work"],
         assistantDirector: ["Christine Wong"],
@@ -4347,7 +4374,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraAssistant: ["Kui"],
         gaffer: ["Cho"],
         artDirector: ["Victor Wong"],
-        assistantArtDirector: ["Anson Liu", "Eric Chan"],
+        assistantArtDirector: [
+          "Anson Liu",
+          { name: "Eric Chan", instagram: "ericcyc_" },
+        ],
         artTeam: ["Ball Chau", "Zac Chan", "Simon Tso"],
         stylist: ["Inggrad Shek"],
         stylingAssistant: ["Vanessa Cheung"],
@@ -4355,7 +4385,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         locationManager: ["Terri Li"],
         productionManager: ["Yip Sir"],
         editor: ["Edwardo Chan"],
-        colorist: ["fmlik"],
+        colourist: ["fmlik"],
         onlineEditor: ["Moku"],
         animator: ["Sylwia Zawita"],
         stillPhotographer: ["Miss Bean"],
@@ -4389,7 +4419,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         productionAssistant: ["Michael Lung"],
         instrumentSetUp: ["Bryan Leung"],
         stillPhotographer: ["Leo Yuen"],
-        titleDesign: ["Crystal Lau"],
+        titleDesigner: ["Crystal Lau"],
         makeUp: ["Samuel Wong"],
         hairStyling: ["Haysses Ip", "Match Tong"],
         wardrobe: ["i.t", "izzue", "FIVE CM", "COVERNUT"],
@@ -4416,7 +4446,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupArtist: ["Tammy Au"],
         hairStylist: ["Jamie Lee", "HOLA.HAIR.PET"],
         hairStylistAssistant: ["Issac Lo", "HOLA.HAIR.PET"],
-        titleDesign: ["Peter Lam", "林卓軒"],
+        titleDesigner: ["Peter Lam", "林卓軒"],
       },
       song: {
         composer: ["Kiri T", "Gavin Chan"],
@@ -4448,7 +4478,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         hairStylist: ["Jamie Lee"],
         makeup: ["Tammy Au"],
         hairStylistAssistant: ["Issac Lo"],
-        titleDesign: ["Hailee Chan"],
+        titleDesigner: ["Hailee Chan"],
       },
     },
   },
@@ -4493,7 +4523,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       musicVideo: {
         editor: ["J.Him Lee"],
-        colorist: ["Mario Hui"],
+        colourist: ["Mario Hui"],
         online: ["Mok"],
         makeup: ["Kineks Ho", "Shiko Sin"],
         hairStylist: ["Wing Wong", "Shiko Sin"],
@@ -4537,10 +4567,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         secondAc: ["Sonj Ng", "Nelson Kalok"],
         gaffer: ["Faith Ma"],
         electrician: ["Kayio Cheng", "Dave Wong", "新蒲崗見燈愁"],
-        songTitleDesign: ["WOOTWOOT"],
+        songtitleDesigner: ["WOOTWOOT"],
         graphicDesigner: ["Sharine Chan"],
         editor: ["WOOTWOOT", "Toby"],
-        colorist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         photographer: ["Mario Chui", "Bill Wong"],
         artDirector: ["Pinky Tsang"],
         artTeam: [
@@ -4590,7 +4620,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Xylia Chan",
         ],
         editor: ["Edwardo Chan"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         vfxAndRetouch: ["Leung", "Lam Shan"],
         stillPhotographer: ["Kim"],
         photoAssistant: ["Monica"],
@@ -4690,7 +4720,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         makeupArtistHairStylingForCast: ["Kiki Liu"],
         offlineEditor: ["The11th", "THE BASTARDS"],
         onlineEditor: ["Yippy Yip", "THE BASTARDS"],
-        colorist: ["Eric Chan", "IXAGON"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }, "IXAGON"],
         coverAndStillPhotographer: ["Cow", "Oniros Offical"],
         coverAndGraphicDesign: ["Herman Wan", "THE BASTARDS"],
         artistManagement: [
@@ -4839,7 +4869,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         titleDesigner: ["Llamm"],
         editor: ["Rony Kong", "Season Chan", "Samuel Chan"],
         onlineEditor: ["Lam Shan"],
-        colourist: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         stillPhotographer: ["Karlson Tsang", "Kaho Jiu"],
         photographerAssistant: ["Adelie Man"],
         makeup: ["San Chan"],
@@ -4899,7 +4929,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artTeam: ["@sheepmike", "@jiiiiiiiiimmy", "@edwardochan"],
         editor: ["@kendrakohyr"],
         online: ["The 11th"],
-        colourist: ["ericcyc_"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         dit: ["@hardy_yan"],
         stillPhotographer: ["@karlsontsang"],
       },
@@ -4931,8 +4961,8 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artDirector: ["KaeJa"],
         artAssistant: ["Mike Yeung"],
         editor: ["Edwardo Chan"],
-        colorist: ["Eric Chan"],
-        stillPhotographer: ["Eric Chan"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
+        stillPhotographer: [{ name: "Eric Chan", instagram: "ericcyc_" }],
         makeup: ["Yannis Yip"],
         hairStylist: ["Jamie Lee", "Issac Lo"],
         styling: ["Effy Leung"],
@@ -4965,7 +4995,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artTeam: ["FuChai", "@SAI_MAN_1007"],
         pocketWatchProps: ["@PINKY816"],
         editor: ["@RAYMONDCHVN", "@THEBASTARDSGRAM"],
-        colourist: ["@ERICCYC_", "@IXAGON"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }, "@IXAGON"],
         vfxSupervisor: [
           "@K1D.HY",
           "@FEELS__LTD",
@@ -5048,7 +5078,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         equipmentSupport: ["Haowei Video Studio"],
         editor: ["J.him Lee"],
         assistantEditor: ["Jojo Shek"],
-        colorist: ["Mario Hui"],
+        colourist: ["Mario Hui"],
         online: ["Mok"],
         voiceOverMixing: ["Sara Fung"],
         projectManagement: ["Tiffany Lin"],
@@ -5086,7 +5116,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         cameraAssistant: ["Asgard Wong"],
         locationProducer: ["Maya Quelvennec"],
         artDirector: ["eastwindgoodart"],
-        colorist: ["Asgard Wong"],
+        colourist: ["Asgard Wong"],
         makeupArtist: ["Jenny Shih"],
         hairStylist: ["Kolen But"],
         stylist: ["sorsor"],
@@ -5154,20 +5184,21 @@ export function extractContributorNamesFromLocation(
   const names = new Set<string>();
   const c = location as unknown as {
     contributors?: {
-      song?: Record<string, string[]>;
-      musicVideo?: Record<string, string[]>;
+      song?: Record<string, ContributorCredit[]>;
+      musicVideo?: Record<string, ContributorCredit[]>;
     } | null;
   };
   const contributors = c.contributors;
   if (!contributors) return [];
   const buckets = [contributors.song, contributors.musicVideo].filter(
     Boolean,
-  ) as Array<Record<string, string[]>>;
+  ) as Array<Record<string, ContributorCredit[]>>;
   for (const bucket of buckets) {
     for (const role of Object.keys(bucket)) {
       const roleNames = bucket[role] ?? [];
       for (const person of roleNames) {
-        if (person && person.trim().length > 0) names.add(person);
+        const displayName = getContributorDisplayName(person).trim();
+        if (displayName.length > 0) names.add(displayName);
       }
     }
   }
@@ -5217,7 +5248,7 @@ export const CONTRIBUTOR_ROLE_GROUPS: ContributorRoleGroup[] = (() => {
   const add = (
     category: ContributorCategory,
     roleKey: string,
-    people: string[],
+    people: ContributorCredit[],
   ) => {
     const key = `${category}:${roleKey}`;
     let entry = groups.get(key);
@@ -5233,7 +5264,8 @@ export const CONTRIBUTOR_ROLE_GROUPS: ContributorRoleGroup[] = (() => {
     }
     const ensured = entry;
     people.forEach((p) => {
-      if (p && p.trim().length > 0) ensured.names.add(p);
+      const displayName = getContributorDisplayName(p).trim();
+      if (displayName.length > 0) ensured.names.add(displayName);
     });
   };
 
@@ -5241,8 +5273,8 @@ export const CONTRIBUTOR_ROLE_GROUPS: ContributorRoleGroup[] = (() => {
     const c = (
       location as unknown as {
         contributors?: {
-          song?: Record<string, string[]>;
-          musicVideo?: Record<string, string[]>;
+          song?: Record<string, ContributorCredit[]>;
+          musicVideo?: Record<string, ContributorCredit[]>;
         } | null;
       }
     ).contributors;

@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
-import { humanizeRoleKey, type LocationItem } from "~/app/common/locations";
+import {
+  getContributorInstagram,
+  getContributorName,
+  humanizeRoleKey,
+  type ContributorCredit,
+  type LocationItem,
+} from "~/app/common/locations";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
@@ -55,6 +61,33 @@ export function PopupContent({
   const { setSelectedLocationCredits } = useUIStore();
   const mapStore = useMapStore();
   const uiStore = useUIStore();
+
+  function renderContributor(contributor: ContributorCredit) {
+    const name = getContributorName(contributor);
+    const instagram =
+      getContributorInstagram(contributor) ??
+      nameToInstagramMap[name as keyof typeof nameToInstagramMap];
+
+    if (instagram) {
+      return (
+        <a
+          key={`${name}-${instagram}`}
+          href={`https://www.instagram.com/${instagram}`}
+          target="_blank"
+          className="break-words text-blue-500 underline"
+          rel="noreferrer"
+        >
+          {name}
+        </a>
+      );
+    }
+
+    return (
+      <span className="break-words" key={name}>
+        {name}
+      </span>
+    );
+  }
 
   const actionButtons = (
     <div className="flex items-center justify-center gap-2">
@@ -111,46 +144,7 @@ export function PopupContent({
               {humanizeRoleKey(key)} <br></br>
             </p>
             <div className="min-w-0 max-w-full text-left text-xs font-normal">
-              {Array.isArray(value)
-                ? value.map((name) => {
-                    if (
-                      nameToInstagramMap[
-                        name as keyof typeof nameToInstagramMap
-                      ]
-                    ) {
-                      return (
-                        <a
-                          key={name}
-                          href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
-                          target="_blank"
-                          className="break-words text-blue-500 underline"
-                          rel="noreferrer"
-                        >
-                          {name}
-                        </a>
-                      );
-                    }
-                    if (typeof name === "string" && name.includes("@")) {
-                      return (
-                        <a
-                          key={name}
-                          href={`https://www.instagram.com/${name.split("@")[1]}`}
-                          target="_blank"
-                          className="break-words text-blue-500 underline"
-                          rel="noreferrer"
-                        >
-                          {name}
-                        </a>
-                      );
-                    }
-
-                    return (
-                      <span className="break-words" key={name}>
-                        {name}
-                      </span>
-                    );
-                  })
-                : null}
+              {Array.isArray(value) ? value.map(renderContributor) : null}
             </div>
           </div>
         ))}
@@ -168,41 +162,7 @@ export function PopupContent({
                 {humanizeRoleKey(key)} <br></br>
               </p>
               <div className="min-w-0 max-w-full text-left text-xs font-normal">
-                {value.map((name) => {
-                  if (
-                    nameToInstagramMap[name as keyof typeof nameToInstagramMap]
-                  ) {
-                    return (
-                      <a
-                        key={name}
-                        href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
-                        target="_blank"
-                        className="break-words text-blue-500 underline"
-                        rel="noreferrer"
-                      >
-                        {name}
-                      </a>
-                    );
-                  }
-                  if (name.includes("@")) {
-                    return (
-                      <a
-                        key={name}
-                        href={`https://www.instagram.com/${name.split("@")[1]}`}
-                        target="_blank"
-                        className="break-words text-blue-500 underline"
-                        rel="noreferrer"
-                      >
-                        {name}
-                      </a>
-                    );
-                  }
-                  return (
-                    <span className="break-words" key={name}>
-                      {name}
-                    </span>
-                  );
-                })}
+                {value.map(renderContributor)}
               </div>
             </div>
           ),

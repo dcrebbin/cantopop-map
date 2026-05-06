@@ -1,7 +1,11 @@
 import {
   constructTitle,
+  getContributorDisplayName,
+  getContributorInstagram,
+  getContributorName,
   humanizeRoleKey,
   nameToLocation,
+  type ContributorCredit,
 } from "~/app/common/locations";
 import { nameToInstagramMap } from "~/app/common/social-media";
 import type { Metadata } from "next";
@@ -11,6 +15,15 @@ import { SvgIcon } from "~/app/components/map/PopupContent";
 import { arrowRightIcon } from "~/lib/icons/arrowRightIcon";
 import Script from "next/script";
 import CloseButton from "~/app/components/close-button";
+
+function getContributorInstagramUrl(contributor: ContributorCredit) {
+  const name = getContributorName(contributor);
+  const instagram =
+    getContributorInstagram(contributor) ??
+    nameToInstagramMap[name as keyof typeof nameToInstagramMap];
+
+  return instagram ? `https://www.instagram.com/${instagram}` : null;
+}
 
 export function generateStaticParams() {
   return Object.keys(nameToLocation).map((slug) => ({ slug }));
@@ -248,24 +261,26 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                         <div className="flex flex-col gap-1 text-left text-xs font-normal">
                           {Array.isArray(value)
                             ? value.map((name) => {
-                                if (
-                                  nameToInstagramMap[
-                                    name as keyof typeof nameToInstagramMap
-                                  ]
-                                ) {
+                                const displayName =
+                                  getContributorDisplayName(name);
+                                const instagramUrl =
+                                  getContributorInstagramUrl(name);
+                                if (instagramUrl) {
                                   return (
                                     <a
-                                      key={name}
-                                      href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                                      key={displayName}
+                                      href={instagramUrl}
                                       target="_blank"
                                       className="text-blue-500 underline"
                                       rel="noreferrer"
                                     >
-                                      {name}
+                                      {displayName}
                                     </a>
                                   );
                                 }
-                                return null;
+                                return (
+                                  <span key={displayName}>{displayName}</span>
+                                );
                               })
                             : null}
                         </div>
@@ -300,24 +315,23 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                         </p>
                         <div className="flex flex-col gap-1 text-left text-xs font-normal">
                           {value.map((name) => {
-                            if (
-                              nameToInstagramMap[
-                                name as keyof typeof nameToInstagramMap
-                              ]
-                            ) {
+                            const displayName = getContributorDisplayName(name);
+                            const instagramUrl =
+                              getContributorInstagramUrl(name);
+                            if (instagramUrl) {
                               return (
                                 <a
-                                  key={name}
-                                  href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                                  key={displayName}
+                                  href={instagramUrl}
                                   target="_blank"
                                   className="text-blue-500 underline"
                                   rel="noreferrer"
                                 >
-                                  {name}
+                                  {displayName}
                                 </a>
                               );
                             }
-                            return <span key={name}>{name}</span>;
+                            return <span key={displayName}>{displayName}</span>;
                           })}
                         </div>
                       </div>

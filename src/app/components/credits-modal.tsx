@@ -3,7 +3,14 @@ import {
   UserCircleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { humanizeRoleKey, type LocationItem } from "../common/locations";
+import {
+  getContributorDisplayName,
+  getContributorInstagram,
+  getContributorName,
+  humanizeRoleKey,
+  type ContributorCredit,
+  type LocationItem,
+} from "../common/locations";
 import { nameToInstagramMap } from "../common/social-media";
 import { useUIStore } from "../_state/ui.store";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
@@ -21,6 +28,14 @@ export default function CreditsModal() {
     const url = new URL(window.location.href);
     url.searchParams.delete("view-credits");
     window.history.replaceState({}, "", url.toString());
+  }
+
+  function getInstagram(contributor: ContributorCredit) {
+    const name = getContributorName(contributor);
+    return (
+      getContributorInstagram(contributor) ??
+      nameToInstagramMap[name as keyof typeof nameToInstagramMap]
+    );
   }
 
   return (
@@ -62,16 +77,18 @@ export default function CreditsModal() {
                 </p>
                 <div className="min-w-0 max-w-full text-left text-xs font-normal">
                   {value.map((name) => {
+                    const displayName = getContributorDisplayName(name);
+                    const instagram = getInstagram(name);
                     return (
                       <span
-                        key={name}
+                        key={displayName}
                         className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
                       >
-                        {name}
+                        {displayName}
                         <button
                           type="button"
                           onClick={() => {
-                            setSelectedContributor(name);
+                            setSelectedContributor(displayName);
                             setSelectedLocationCredits(
                               null as unknown as LocationItem,
                             );
@@ -79,11 +96,9 @@ export default function CreditsModal() {
                         >
                           <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
                         </button>
-                        {nameToInstagramMap[
-                          name as keyof typeof nameToInstagramMap
-                        ] ? (
+                        {instagram ? (
                           <a
-                            href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                            href={`https://www.instagram.com/${instagram}`}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -112,16 +127,18 @@ export default function CreditsModal() {
                 </p>
                 <div className="min-w-0 max-w-full text-left font-normal xl:text-xs">
                   {value.map((name) => {
+                    const displayName = getContributorDisplayName(name);
+                    const instagram = getInstagram(name);
                     return (
                       <span
-                        key={name}
+                        key={displayName}
                         className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
                       >
-                        {name}
+                        {displayName}
                         <button
                           type="button"
                           onClick={() => {
-                            setSelectedContributor(name);
+                            setSelectedContributor(displayName);
                             setSelectedLocationCredits(
                               null as unknown as LocationItem,
                             );
@@ -129,11 +146,9 @@ export default function CreditsModal() {
                         >
                           <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
                         </button>
-                        {nameToInstagramMap[
-                          name as keyof typeof nameToInstagramMap
-                        ] ? (
+                        {instagram ? (
                           <a
-                            href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
+                            href={`https://www.instagram.com/${instagram}`}
                             target="_blank"
                             rel="noreferrer"
                           >
