@@ -1,6 +1,9 @@
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
-import { CONTRIBUTOR_ROLE_GROUPS } from "../common/locations";
+import { useMemo, useState } from "react";
+import {
+  CONTRIBUTOR_ROLE_GROUPS,
+  type ContributorRoleGroup,
+} from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
 
 const CONTRIBUTOR_CATEGORIES = [
@@ -9,6 +12,9 @@ const CONTRIBUTOR_CATEGORIES = [
 ] as const;
 
 type ContributorCategoryKey = (typeof CONTRIBUTOR_CATEGORIES)[number]["key"];
+type ContributorRoleGroupWithMatches = ContributorRoleGroup & {
+  namesToShow: string[];
+};
 
 interface ContributorsListProps {
   filteredContributors: string[];
@@ -28,6 +34,28 @@ export default function ContributorsList({
     song: true,
     musicVideo: true,
   });
+  const groupsByCategory = useMemo(() => {
+    const filteredContributorsSet = new Set(filteredContributors);
+
+    return CONTRIBUTOR_CATEGORIES.reduce(
+      (acc, category) => {
+        acc[category.key] = CONTRIBUTOR_ROLE_GROUPS.map((group) => ({
+          ...group,
+          namesToShow: group.names.filter((name) =>
+            filteredContributorsSet.has(name),
+          ),
+        })).filter(
+          (group) =>
+            group.category === category.key && group.namesToShow.length > 0,
+        );
+        return acc;
+      },
+      { song: [], musicVideo: [] } as Record<
+        ContributorCategoryKey,
+        ContributorRoleGroupWithMatches[]
+      >,
+    );
+  }, [filteredContributors]);
 
   function updateContributorModalUrl() {
     const url = new URL(window.location.href);
@@ -45,15 +73,7 @@ export default function ContributorsList({
   return (
     <div className="flex w-full flex-col gap-2 pr-2 text-white">
       {CONTRIBUTOR_CATEGORIES.map((category) => {
-        const groupsToShow = CONTRIBUTOR_ROLE_GROUPS.map((group) => ({
-          ...group,
-          namesToShow: group.names.filter((n) =>
-            filteredContributors.includes(n),
-          ),
-        })).filter(
-          (group) =>
-            group.category === category.key && group.namesToShow.length > 0,
-        );
+        const groupsToShow = groupsByCategory[category.key];
         if (groupsToShow.length === 0) return null;
 
         return (

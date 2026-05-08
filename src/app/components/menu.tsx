@@ -5,7 +5,9 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
+  useState,
 } from "react";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
@@ -38,66 +40,30 @@ const CONTRIBUTOR_ROLE_GROUPS_LOWER = CONTRIBUTOR_ROLE_GROUPS.map((g) => ({
   names: g.names,
 }));
 
-function warmSearchIndex() {
-  const probes = ["a", "z", "音", "the"];
-  for (const q of probes) {
-    let acc = 0;
-    for (const artist of ARTISTS_LOWER) {
-      if (artist.includes(q)) acc++;
-    }
-    for (const lower of SONGS_LOWER) {
-      if (lower.name.includes(q)) {
-        acc++;
-        continue;
-      }
-      for (const artist of lower.artists) {
-        if (artist.includes(q)) {
-          acc++;
-          break;
-        }
-      }
-    }
-    for (const contributor of CONTRIBUTORS_LOWER) {
-      if (contributor.includes(q)) acc++;
-    }
-    for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
-      if (group.title.includes(q) || group.categoryTitle.includes(q)) acc++;
-    }
-    if (acc < 0) console.log(acc);
-  }
-}
+const SearchInput = memo(function SearchInput({
+  searchRef,
+  onSearchChange,
+}: {
+  searchRef: React.RefObject<HTMLInputElement> | null;
+  onSearchChange: (search: string) => void;
+}) {
+  const [value, setValue] = useState("");
 
-let searchWarmed = false;
-function scheduleSearchWarmup() {
-  if (searchWarmed) return;
-  if (typeof window === "undefined") return;
-  searchWarmed = true;
-
-  const run = () => {
-    try {
-      warmSearchIndex();
-    } catch {
-      // ignore; this is best-effort
-    }
-  };
-
-  const ric = (
-    window as unknown as {
-      requestIdleCallback?: (
-        cb: () => void,
-        opts?: { timeout: number },
-      ) => number;
-    }
-  ).requestIdleCallback;
-
-  if (typeof ric === "function") {
-    ric(run, { timeout: 2000 });
-  } else {
-    setTimeout(run, 200);
-  }
-}
-
-scheduleSearchWarmup();
+  return (
+    <input
+      type="text"
+      placeholder="Search"
+      ref={searchRef}
+      value={value}
+      className="z-[200] w-full rounded-md border-none p-2"
+      onChange={(e) => {
+        const nextValue = e.target.value;
+        setValue(nextValue);
+        onSearchChange(nextValue);
+      }}
+    />
+  );
+});
 
 export default function Menu() {
   const {
@@ -210,6 +176,7 @@ export default function Menu() {
   }
 
   const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchFrameRef = useRef<number | null>(null);
 
   const runSearch = useCallback(
     (search: string) => {
@@ -273,9 +240,18 @@ export default function Menu() {
       if (searchDebounceRef.current) {
         clearTimeout(searchDebounceRef.current);
       }
+      if (searchFrameRef.current !== null) {
+        cancelAnimationFrame(searchFrameRef.current);
+        searchFrameRef.current = null;
+      }
       searchDebounceRef.current = setTimeout(() => {
-        runSearch(search);
-      }, 80);
+        searchFrameRef.current = requestAnimationFrame(() => {
+          searchFrameRef.current = requestAnimationFrame(() => {
+            runSearch(search);
+            searchFrameRef.current = null;
+          });
+        });
+      }, 120);
     },
     [runSearch],
   );
@@ -283,6 +259,9 @@ export default function Menu() {
   useEffect(() => {
     return () => {
       if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
+      if (searchFrameRef.current !== null) {
+        cancelAnimationFrame(searchFrameRef.current);
+      }
     };
   }, []);
 
@@ -369,12 +348,30 @@ export default function Menu() {
     hasAppliedUrlFiltersRef.current = true;
   }, [setSelectedArtists, setSelectedContributors, setSelectedContributor]);
 
-  const artistsToShow = Array.from(
-    new Set([
-      ...filteredArtists,
-      ...filteredSongs.flatMap((song) => song.artists),
-    ]),
-  );
+  const { artistsToShow, songsByArtist } = useMemo(() => {
+    const nextArtistsToShow = new Set(filteredArtists);
+    const nextSongsByArtist = new Map<
+      string,
+      { name: string; artists: string[] }[]
+    >();
+
+    for (const song of filteredSongs) {
+      for (const artist of song.artists) {
+        nextArtistsToShow.add(artist);
+        const songs = nextSongsByArtist.get(artist);
+        if (songs) {
+          songs.push(song);
+        } else {
+          nextSongsByArtist.set(artist, [song]);
+        }
+      }
+    }
+
+    return {
+      artistsToShow: Array.from(nextArtistsToShow),
+      songsByArtist: nextSongsByArtist,
+    };
+  }, [filteredArtists, filteredSongs]);
 
   const isPWA = getDisplayMode() !== "browser";
   const MemoizedArrowDownTrayIcon = memo(ArrowDownTrayIcon);
@@ -442,12 +439,9 @@ export default function Menu() {
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
       >
         <div className="flex flex-col items-center justify-center gap-2">
-          <input
-            type="text"
-            placeholder="Search"
-            ref={searchRef}
-            className="z-[200] w-full rounded-md border-none p-2"
-            onChange={(e) => handleSearchChange(e.target.value)}
+          <SearchInput
+            searchRef={searchRef}
+            onSearchChange={handleSearchChange}
           />
 
           <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto overflow-x-hidden pb-20 lg:h-[60vh]">
@@ -496,9 +490,7 @@ export default function Menu() {
               {songsAndArtistsOpen && (
                 <div className="flex w-full flex-col gap-2">
                   {artistsToShow.map((artist: string) => {
-                    const songsForArtist = filteredSongs.filter((song) =>
-                      song.artists.includes(artist),
-                    );
+                    const songsForArtist = songsByArtist.get(artist) ?? [];
                     if (songsForArtist.length === 0) return null;
                     return (
                       <div

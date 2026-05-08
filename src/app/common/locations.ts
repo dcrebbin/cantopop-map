@@ -3849,7 +3849,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         director: ["Isaac Woo"],
         producer: ["Rachael Leung"],
         productionTeam: ["Neo Ng", "Fanshu", "Jims", "Jimmy"],
-        directorOfPhotography: ["Deshawnleung"],
+        directorOfPhotography: ["Deshawn Leung"],
         focusPuller: ["Kelvin Lam"],
         cameraAssistant: ["Jimmy Sheung"],
         lighting: ["Fung Ho Ning", "Li Man Kit"],
