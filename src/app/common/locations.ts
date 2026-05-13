@@ -1182,9 +1182,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    coordinates: [22.449938250508197, 114.04047543499551],
+    coordinates: [22.320346619719153, 114.1698994440217],
     artists: ["CONSTANCE 康堤"],
-    address: "Yuen Long",
+    address: "Hong Kong (estimated)",
     name: "要還 (something borrowed)",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
     image: "https://i.ytimg.com/vi/9INH_yd0Us4/maxresdefault.jpg",
