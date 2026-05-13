@@ -1182,11 +1182,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    coordinates: [22.4732288, 113.9943612],
+    coordinates: [22.449938250508197, 114.04047543499551],
     artists: ["CONSTANCE 康堤"],
-    address: "Lam Hang Shan, Lau Fau Shan",
+    address: "Yuen Long",
     name: "要還 (something borrowed)",
-    streetView: "https://maps.app.goo.gl/tD2QZ95Ng1uQ5SeY6",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
     image: "https://i.ytimg.com/vi/9INH_yd0Us4/maxresdefault.jpg",
     contributors: {
