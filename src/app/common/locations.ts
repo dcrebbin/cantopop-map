@@ -3642,13 +3642,13 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/22%C2%B017'10.2%22N+114%C2%B008'27.0%22E/@22.2861574,114.1407242,3a,75y,102.58h,78.05t/data=!3m7!1e1!3m5!1s-i8wnvyBBU0VwuItG00iVQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D11.949899332072064%26panoid%3D-i8wnvyBBU0VwuItG00iVQ%26yaw%3D102.575493856485!7i16384!8i8192!4m4!3m3!8m2!3d22.2861561!4d114.1408185?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
   },
   {
-    coordinates: [24.8644827, 121.8305201],
+    coordinates: [24.8640434, 121.8310126],
     artists: ["elka 鄭芷淇"],
     address: "Chaoyang Rd, Yilan County, Taiwan",
     name: "未firm",
     url: "https://youtu.be/BhrVHMDiw4I?t=20",
     image: "https://i.ytimg.com/vi/BhrVHMDiw4I/maxresdefault.jpg",
-    streetView: "https://maps.app.goo.gl/YJsvvX3cuXBgPPGX9",
+    streetView: "https://maps.app.goo.gl/SuHHFMq5Br7x86j97",
     contributors: {
       song: {
         composer: ["dessy 守一", "hirsk"],
