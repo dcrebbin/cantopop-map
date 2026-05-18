@@ -3674,7 +3674,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["黃淑蔓 Feanna Wong", "Young Hysan"],
     address: "88 Queen's Rd",
     name: "感情還原鍵 (Deja Vu)",
-    url: "https://youtu.be/E7R2d0IAB_w",
+    url: "https://youtu.be/E7R2d0IAB_w?t=62",
     image: "https://i.ytimg.com/vi/E7R2d0IAB_w/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/k1w7NUfFMPkvhEyF8",
     contributors: {
