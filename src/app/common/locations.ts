@@ -3644,7 +3644,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     coordinates: [22.3153246, 113.9520074],
     artists: ["林家謙 Terence Lam"],
-    address: "Second Street",
+    address: "Shun Lin Rd, Hong Kong",
     name: "有你聽我的故事 (All Ears)",
     url: "https://youtu.be/mw8bM7IPJto?t=6",
     image: "https://i.ytimg.com/vi/mw8bM7IPJto/maxresdefault.jpg",
