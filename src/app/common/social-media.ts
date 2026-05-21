@@ -358,7 +358,7 @@ export const nameToInstagramMap = {
   "Yu Chen": "kanissyu",
   "J Au Yeung": "j__auyeung",
   "Carman Ngai": "carcarmenngai",
-  Mok: "mokchunming_",
+  Mok: "cynthiamok",
   "Tam Chi Yin": "tamchiyin0303",
   "Weslyn Ho": "weslyn.n",
   "Tyson Yoshi": "tysonyoshi",

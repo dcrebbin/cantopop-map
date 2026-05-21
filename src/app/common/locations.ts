@@ -1303,8 +1303,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
-        composerlyricistVocals: ["$alty Chick"],
-        arrangerMixing: ["Dodo Museum"],
+        composer: ["$alty Chick"],
+        lyricist: ["$alty Chick"],
+        vocals: ["$alty Chick"],
+        arranger: ["Dodo Museum"],
+        mixing: ["Dodo Museum"],
         producer: ["$alty Chick", "Dodo Museum"],
       },
       musicVideo: {

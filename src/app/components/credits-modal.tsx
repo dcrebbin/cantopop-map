@@ -162,6 +162,15 @@ export default function CreditsModal() {
               </div>
             ))}
           </div>
+          <div className="mt-2 text-center text-sm text-white/70">
+            Any errors or missing credits? Please contact at{" "}
+            <a
+              href="mailto:devon@langpal.com.hk?subject=Cantopop地圖"
+              className="underline"
+            >
+              devon@langpal.com.hk
+            </a>
+          </div>
           <button
             className="pointer-events-auto absolute bottom-0 right-0 m-4 cursor-pointer"
             type="button"
