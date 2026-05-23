@@ -192,11 +192,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    coordinates: [22.2807638, 114.1757377],
+    coordinates: [22.2809457, 114.1750345],
     artists: ["AGA 江海迦"],
     address: "7-Eleven, Habour Centre, Wan Chai, Hong Kong",
     name: "DRUNK DIAL",
-    url: "https://youtu.be/cIU1LL_VmRk?t=219",
+    url: "https://youtu.be/cIU1LL_VmRk?t=218",
     streetView: "https://maps.app.goo.gl/kUNggTsm6aVGEyt1A",
     image: "https://i.ytimg.com/vi/cIU1LL_VmRk/maxresdefault.jpg",
     contributors: {
@@ -283,7 +283,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    coordinates: [22.2807638, 114.1757377],
+    coordinates: [22.4187041, 114.2308847],
     artists: ["AGA 江海迦"],
     address: "Shell, 21 Ma On Shan Promenade, Ma On Shan",
     name: "Gas Station Diner",
@@ -332,7 +332,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    coordinates: [22.2818019, 114.1470731],
+    coordinates: [22.2819044, 114.1518576],
     artists: ["AGA 江海迦"],
     address: "Brunch Club, 70 Peel Street, Central, Hong Kong",
     name: "理性與任性之間 (Between Sense and Nonsense)",
