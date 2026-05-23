@@ -4839,6 +4839,33 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [25.0560568, 121.539154],
+    artists: ["林家謙 Terence Lam"],
+    address: "64 Hejiang St, Taipei, Taiwan",
+    name: "拼命無恙 (In a Funk)",
+    url: "https://youtu.be/41AdjEHgi4g?t=212",
+    streetView: "https://maps.app.goo.gl/rQw416fdoPsMM8Fs7",
+    image: "https://i.ytimg.com/vi/41AdjEHgi4g/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["林家謙"],
+        lyricist: ["林夕"],
+        arranger: ["林家謙"],
+        producer: ["許創基", "林家謙"],
+      },
+
+      musicVideo: {
+        director: ["Sheng Wong", "Maggie Leung"],
+        producer: ["Carmen Cheng"],
+        directorOfPhotography: ["Felix Leong", "Sam Chan"],
+        editor: ["Sam Chan"],
+        colourist: ["Fmlik"],
+        cast: ["Ahnzhe", "Kiki Cheung", "Yutong", "Terence Lam"],
+        makeUp: ["Chung Chi Fu", "Wini Chen"],
+      },
+    },
+  },
+  {
     coordinates: [22.32295188154485, 114.12234336418386],
     artists: ["Zpecial"],
     address: "Stonecutters Bridge Viewing Point",
