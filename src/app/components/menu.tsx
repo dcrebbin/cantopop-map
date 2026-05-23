@@ -74,12 +74,6 @@ export default function Menu() {
     setSelectedArtists,
     selectedContributors,
     setSelectedContributors,
-    filteredArtists,
-    setFilteredArtists,
-    filteredSongs,
-    setFilteredSongs,
-    filteredContributors,
-    setFilteredContributors,
     setNewLocationModalOpen,
     songsAndArtistsOpen,
     setSongsAndArtistsOpen,
@@ -96,6 +90,12 @@ export default function Menu() {
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
+  const [hasActiveSearch, setHasActiveSearch] = useState(false);
+  const [searchResults, setSearchResults] = useState(() => ({
+    artists: ARTISTS,
+    songs: SONGS,
+    contributors: CONTRIBUTORS,
+  }));
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
       for (const marker of allMarkers) {
@@ -181,12 +181,16 @@ export default function Menu() {
   const runSearch = useCallback(
     (search: string) => {
       const q = search.toLowerCase();
+      const nextHasActiveSearch = q.trim().length > 0;
 
       if (q.length === 0) {
         startTransition(() => {
-          setFilteredArtists(ARTISTS);
-          setFilteredSongs(SONGS);
-          setFilteredContributors(CONTRIBUTORS);
+          setHasActiveSearch(nextHasActiveSearch);
+          setSearchResults({
+            artists: ARTISTS,
+            songs: SONGS,
+            contributors: CONTRIBUTORS,
+          });
         });
         return;
       }
@@ -227,12 +231,11 @@ export default function Menu() {
       const contributors = Array.from(contributorsSet);
 
       startTransition(() => {
-        setFilteredArtists(artists);
-        setFilteredSongs(songs);
-        setFilteredContributors(contributors);
+        setHasActiveSearch(nextHasActiveSearch);
+        setSearchResults({ artists, songs, contributors });
       });
     },
-    [setFilteredArtists, setFilteredSongs, setFilteredContributors],
+    [setSearchResults],
   );
 
   const handleSearchChange = useCallback(
@@ -349,13 +352,13 @@ export default function Menu() {
   }, [setSelectedArtists, setSelectedContributors, setSelectedContributor]);
 
   const { artistsToShow, songsByArtist } = useMemo(() => {
-    const nextArtistsToShow = new Set(filteredArtists);
+    const nextArtistsToShow = new Set(searchResults.artists);
     const nextSongsByArtist = new Map<
       string,
       { name: string; artists: string[] }[]
     >();
 
-    for (const song of filteredSongs) {
+    for (const song of searchResults.songs) {
       for (const artist of song.artists) {
         nextArtistsToShow.add(artist);
         const songs = nextSongsByArtist.get(artist);
@@ -371,7 +374,7 @@ export default function Menu() {
       artistsToShow: Array.from(nextArtistsToShow),
       songsByArtist: nextSongsByArtist,
     };
-  }, [filteredArtists, filteredSongs]);
+  }, [searchResults]);
 
   const isPWA = getDisplayMode() !== "browser";
   const MemoizedArrowDownTrayIcon = memo(ArrowDownTrayIcon);
@@ -573,11 +576,12 @@ export default function Menu() {
                   }
                 >
                   <ContributorsList
-                    filteredContributors={filteredContributors}
+                    filteredContributors={searchResults.contributors}
                     selectedContributors={selectedContributors}
                     handleContributorCheckboxChange={
                       handleContributorCheckboxChange
                     }
+                    hasActiveSearch={hasActiveSearch}
                   />
                 </Suspense>
               )}

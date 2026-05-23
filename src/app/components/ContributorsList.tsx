@@ -10,6 +10,7 @@ const CONTRIBUTOR_CATEGORIES = [
   { key: "song", title: "Song" },
   { key: "musicVideo", title: "Music Video" },
 ] as const;
+const MAX_SEARCH_CONTRIBUTORS_TO_RENDER = 150;
 
 type ContributorCategoryKey = (typeof CONTRIBUTOR_CATEGORIES)[number]["key"];
 type ContributorRoleGroupWithMatches = ContributorRoleGroup & {
@@ -20,12 +21,14 @@ interface ContributorsListProps {
   filteredContributors: string[];
   selectedContributors: string[];
   handleContributorCheckboxChange: (contributor: string) => void;
+  hasActiveSearch: boolean;
 }
 
 export default function ContributorsList({
   filteredContributors,
   selectedContributors,
   handleContributorCheckboxChange,
+  hasActiveSearch,
 }: ContributorsListProps) {
   const { setSelectedContributor, setMenuOpen } = useUIStore();
   const [openCategories, setOpenCategories] = useState<
@@ -35,7 +38,12 @@ export default function ContributorsList({
     musicVideo: true,
   });
   const groupsByCategory = useMemo(() => {
-    const filteredContributorsSet = new Set(filteredContributors);
+    const contributorsToRender =
+      hasActiveSearch &&
+      filteredContributors.length > MAX_SEARCH_CONTRIBUTORS_TO_RENDER
+        ? filteredContributors.slice(0, MAX_SEARCH_CONTRIBUTORS_TO_RENDER)
+        : filteredContributors;
+    const filteredContributorsSet = new Set(contributorsToRender);
 
     return CONTRIBUTOR_CATEGORIES.reduce(
       (acc, category) => {
@@ -55,7 +63,12 @@ export default function ContributorsList({
         ContributorRoleGroupWithMatches[]
       >,
     );
-  }, [filteredContributors]);
+  }, [filteredContributors, hasActiveSearch]);
+  const hiddenContributorCount =
+    hasActiveSearch &&
+    filteredContributors.length > MAX_SEARCH_CONTRIBUTORS_TO_RENDER
+      ? filteredContributors.length - MAX_SEARCH_CONTRIBUTORS_TO_RENDER
+      : 0;
 
   function updateContributorModalUrl() {
     const url = new URL(window.location.href);
@@ -72,6 +85,12 @@ export default function ContributorsList({
 
   return (
     <div className="flex w-full flex-col gap-2 pr-2 text-white">
+      {hiddenContributorCount > 0 && (
+        <p className="rounded-md bg-black/30 p-2 text-sm">
+          Showing the first {MAX_SEARCH_CONTRIBUTORS_TO_RENDER} contributors.
+          Keep typing to narrow {hiddenContributorCount} more matches.
+        </p>
+      )}
       {CONTRIBUTOR_CATEGORIES.map((category) => {
         const groupsToShow = groupsByCategory[category.key];
         if (groupsToShow.length === 0) return null;

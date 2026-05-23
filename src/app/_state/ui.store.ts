@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import {
   ARTISTS,
-  SONGS,
   CONTRIBUTORS,
-  LocationItem,
+  SONGS,
+  type LocationItem,
 } from "../common/locations";
 
 interface UIState {
