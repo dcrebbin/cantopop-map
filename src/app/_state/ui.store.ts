@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import {
+  ARTISTS,
   CONTRIBUTORS,
-  MAP_ARTISTS,
-  MAP_SONGS,
+  SONGS,
   type LocationItem,
 } from "../common/locations";
 
@@ -75,9 +75,9 @@ export const useUIStore = create<UIState>((set) => ({
   selectedSongs: [],
   setSelectedSongs: (songs: { name: string; artists: string[] }[]) =>
     set({ selectedSongs: songs }),
-  filteredArtists: MAP_ARTISTS,
+  filteredArtists: ARTISTS,
   setFilteredArtists: (artists: string[]) => set({ filteredArtists: artists }),
-  filteredSongs: MAP_SONGS,
+  filteredSongs: SONGS,
   setFilteredSongs: (songs: { name: string; artists: string[] }[]) =>
     set({ filteredSongs: songs }),
   filteredContributors: CONTRIBUTORS,

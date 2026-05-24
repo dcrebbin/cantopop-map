@@ -52,7 +52,11 @@ function getInstagramHandle(contributorDisplayName: string): string | null {
 }
 
 export default function ContributorsModal() {
-  const { selectedContributor, setSelectedContributor } = useUIStore();
+  const {
+    selectedContributor,
+    setSelectedContributor,
+    setSelectedLocationCredits,
+  } = useUIStore();
 
   const contributions = useMemo<Contribution[]>(() => {
     if (!selectedContributor) return [];
@@ -244,19 +248,30 @@ export default function ContributorsModal() {
                       </div>
                     )}
                   </div>
-                  <a
-                    href={removeTimeFromYoutubeUrl(c.location.url)}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
-                  >
-                    <img
-                      src={c.location.image}
-                      alt={c.location.name}
-                      className="aspect-video h-20 w-auto rounded object-contain"
-                      style={{ aspectRatio: "16/9" }}
-                    />
-                  </a>
+                  <div className="flex flex-col gap-2">
+                    <a
+                      href={removeTimeFromYoutubeUrl(c.location.url)}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
+                    >
+                      <img
+                        src={c.location.image}
+                        alt={c.location.name}
+                        className="aspect-video h-20 w-auto rounded object-contain"
+                        style={{ aspectRatio: "16/9" }}
+                      />
+                    </a>
+                    <button
+                      type="button"
+                      className="rounded-md border border-white/30 bg-white/10 px-2 py-1 text-sm hover:bg-white/20"
+                      onClick={() => {
+                        setSelectedLocationCredits(c.location);
+                      }}
+                    >
+                      Credits
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>

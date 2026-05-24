@@ -39,7 +39,7 @@ export default function CreditsModal() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[99999] flex items-center justify-center bg-transparent text-white">
+    <div className="pointer-events-none fixed inset-0 z-[99999999] flex items-center justify-center bg-transparent text-white">
       <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[76vh] min-h-[20rem] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/50 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:max-h-[65vh] xl:w-full">
         <div className="z-30 flex items-start justify-between gap-2">
           <div className="w-full border-b border-white/70 pb-2">

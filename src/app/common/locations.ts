@@ -6156,18 +6156,6 @@ export const SONGS = [
   ),
 ];
 
-export const MAP_ARTISTS = [
-  ...new Set(MAP_LOCATIONS.flatMap((location) => location.artists)),
-];
-
-export const MAP_SONGS = [
-  ...new Set(
-    MAP_LOCATIONS.map((location) => {
-      return { name: location.name, artists: location.artists };
-    }),
-  ),
-];
-
 export function extractContributorNamesFromLocation(
   location: LocationItem,
 ): string[] {

@@ -12,12 +12,12 @@ import {
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
+  ARTISTS,
   CONTRIBUTORS,
   CONTRIBUTOR_ROLE_GROUPS,
   constructTitle,
-  MAP_ARTISTS,
-  MAP_SONGS,
   nameToLocation,
+  SONGS,
 } from "../common/locations";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
@@ -28,8 +28,8 @@ import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
 
-const ARTISTS_LOWER = MAP_ARTISTS.map((a) => a.toLowerCase());
-const SONGS_LOWER = MAP_SONGS.map((s) => ({
+const ARTISTS_LOWER = ARTISTS.map((a) => a.toLowerCase());
+const SONGS_LOWER = SONGS.map((s) => ({
   name: s.name.toLowerCase(),
   artists: s.artists.map((a) => a.toLowerCase()),
 }));
@@ -85,6 +85,7 @@ export default function Menu() {
     mobileCameraViewOpen,
     selectedContributor,
     setSelectedContributor,
+    setSelectedLocationCredits,
   } = useUIStore();
 
   const { allMarkers, map } = useMapStore();
@@ -92,8 +93,8 @@ export default function Menu() {
   const hasAppliedUrlFiltersRef = useRef(false);
   const [hasActiveSearch, setHasActiveSearch] = useState(false);
   const [searchResults, setSearchResults] = useState(() => ({
-    artists: MAP_ARTISTS,
-    songs: MAP_SONGS,
+    artists: ARTISTS,
+    songs: SONGS,
     contributors: CONTRIBUTORS,
   }));
   const updateMarkerVisibility = useCallback(
@@ -187,8 +188,8 @@ export default function Menu() {
         startTransition(() => {
           setHasActiveSearch(nextHasActiveSearch);
           setSearchResults({
-            artists: MAP_ARTISTS,
-            songs: MAP_SONGS,
+            artists: ARTISTS,
+            songs: SONGS,
             contributors: CONTRIBUTORS,
           });
         });
@@ -196,20 +197,20 @@ export default function Menu() {
       }
 
       const artists: string[] = [];
-      for (let i = 0; i < MAP_ARTISTS.length; i++) {
-        if (ARTISTS_LOWER[i]!.includes(q)) artists.push(MAP_ARTISTS[i]!);
+      for (let i = 0; i < ARTISTS.length; i++) {
+        if (ARTISTS_LOWER[i]!.includes(q)) artists.push(ARTISTS[i]!);
       }
 
       const songs: { name: string; artists: string[] }[] = [];
-      for (let i = 0; i < MAP_SONGS.length; i++) {
+      for (let i = 0; i < SONGS.length; i++) {
         const lower = SONGS_LOWER[i]!;
         if (lower.name.includes(q)) {
-          songs.push(MAP_SONGS[i]!);
+          songs.push(SONGS[i]!);
           continue;
         }
         for (const artist of lower.artists) {
           if (artist.includes(q)) {
-            songs.push(MAP_SONGS[i]!);
+            songs.push(SONGS[i]!);
             break;
           }
         }
@@ -276,6 +277,10 @@ export default function Menu() {
     }
     const location = nameToLocation[title];
     if (location) {
+      if (location.hidden) {
+        setSelectedLocationCredits(location);
+        return;
+      }
       if (!map) return;
       map.flyTo({
         center: [location.lng, location.lat],
@@ -327,7 +332,7 @@ export default function Menu() {
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean)
-        .filter((a) => MAP_ARTISTS.includes(a));
+        .filter((a) => ARTISTS.includes(a));
       if (nextArtists.length > 0) {
         setSelectedArtists(nextArtists);
       }
