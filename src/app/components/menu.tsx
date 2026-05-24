@@ -277,7 +277,7 @@ export default function Menu() {
     }
     const location = nameToLocation[title];
     if (location) {
-      if (location.hidden) {
+      if (location.lat === null || location.lng === null) {
         setSelectedLocationCredits(location);
         return;
       }

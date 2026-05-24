@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "../_state/ui.store";
-import { ARTISTS, type LocationItem } from "../common/locations";
+import { ARTISTS, type MappableLocationItem } from "../common/locations";
 import { addPlace } from "~/lib/custom-map";
 import { useMapStore } from "../_state/map.store";
 import mapboxgl from "mapbox-gl";
@@ -50,7 +50,7 @@ export default function NewLocationModal() {
 
     const lat = parseFloat(locationCoordinates.split(",")[0] ?? "0") ?? 0;
     const lng = parseFloat(locationCoordinates.split(",")[1] ?? "0") ?? 0;
-    const newLocation: LocationItem = {
+    const newLocation: MappableLocationItem = {
       id: songTitle,
       mapEmbed: null,
       artists,
@@ -64,6 +64,7 @@ export default function NewLocationModal() {
       address,
       name: songTitle,
       streetView,
+      hidden: false,
     };
     const { map } = useMapStore.getState();
     addPlace(newLocation, map ?? undefined);

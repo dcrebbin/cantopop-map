@@ -36,9 +36,11 @@ export const useNewLocationStore = create<NewLocationState>((set) => ({
       songTitle: editLocation.name,
       artists: editLocation.artists,
       videoUrl: editLocation.url,
-      address: editLocation.address,
+      address: editLocation.address ?? "",
       locationCoordinates:
-        editLocation.lat.toString() + "," + editLocation.lng.toString(),
+        editLocation.lat !== null && editLocation.lng !== null
+          ? editLocation.lat.toString() + "," + editLocation.lng.toString()
+          : "",
       streetView: editLocation.streetView ?? "",
     }),
 }));

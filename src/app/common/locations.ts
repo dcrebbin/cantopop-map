@@ -20,30 +20,39 @@ const ContributorsSchema = z
   })
   .optional();
 
+const OptionalUrlSchema = z.preprocess(
+  (value) =>
+    typeof value === "string" && value.trim() === "" ? undefined : value,
+  z.string().url().optional(),
+);
+
 const RawLocationSchema = z.object({
-  hidden: z.boolean().optional(),
-  coordinates: z.tuple([z.number(), z.number()]), // [lat, lng] as authored
+  coordinates: z.tuple([z.number(), z.number()]).optional(), // [lat, lng] as authored
   artists: z.array(z.string()),
-  address: z.string(),
+  address: z.string().optional(),
   name: z.string().or(z.object({ name: z.string(), instagram: z.string() })),
   url: z.string().url(),
   image: z.string().url(),
-  streetView: z.string().url().optional(),
-  streetViewEmbed: z.string().url().optional(),
-  mapEmbed: z.string().url().optional(),
+  streetView: OptionalUrlSchema,
+  streetViewEmbed: OptionalUrlSchema,
+  mapEmbed: OptionalUrlSchema,
   isCustom: z.boolean().optional(),
   contributors: ContributorsSchema,
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
 export const LocationItemSchema = RawLocationSchema.transform((raw) => {
-  const [lat, lng] = raw.coordinates;
+  const [lat, lng] = raw.coordinates ?? [null, null];
   const name = typeof raw.name === "string" ? raw.name : raw.name.name;
-  const id = `${raw.artists.join(", ")}-${name}-${lat.toFixed(6)}-${lng.toFixed(6)}`;
+  const locationKey =
+    lat === null || lng === null
+      ? "no-coordinates"
+      : `${lat.toFixed(6)}-${lng.toFixed(6)}`;
+  const id = `${raw.artists.join(", ")}-${name}-${locationKey}`;
   return {
     id,
     artists: raw.artists,
-    address: raw.address,
+    address: raw.address ?? null,
     name,
     url: raw.url,
     image: raw.image,
@@ -53,7 +62,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     streetViewEmbed: raw.streetViewEmbed ?? null,
     mapEmbed: raw.mapEmbed ?? null,
     isCustom: raw.isCustom ?? false,
-    hidden: raw.hidden ?? false,
+    hidden: !raw.coordinates || !raw.address,
     contributors: raw.contributors ?? null,
   };
 });
@@ -61,6 +70,12 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
 type RawLocationSchema = z.infer<typeof RawLocationSchema>;
 
 export type LocationItem = z.infer<typeof LocationItemSchema>;
+export type MappableLocationItem = LocationItem & {
+  address: string;
+  lat: number;
+  lng: number;
+  hidden: false;
+};
 export type ContributorCredit = string | { name: string; instagram: string };
 
 export function getContributorName(contributor: ContributorCredit): string {
@@ -1688,10 +1703,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
-    hidden: true,
-    coordinates: [22.320346619719153, 114.1698994440217],
     artists: ["CONSTANCE 康堤"],
-    address: "Hong Kong (estimated)",
     name: "要還 (something borrowed)",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
     image: "https://i.ytimg.com/vi/9INH_yd0Us4/maxresdefault.jpg",
@@ -5991,6 +6003,50 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    artists: ["Gordon Flanders"],
+    name: "溝之口 沒有 藤井風 (Just you and me (and Fujii Kaze))",
+    url: "https://www.youtube.com/watch?v=InNy_2BZYxE",
+    image: "https://i.ytimg.com/vi/InNy_2BZYxE/maxresdefault.jpg",
+    streetView: "",
+    contributors: {
+      song: {
+        composer: ["Gordon Flanders", "PLAYGROUND"],
+        lyricist: ["黃偉文"],
+        arranger: ["PLAYGROUND", "Gordon Flanders"],
+        producer: ["Gordon Flanders", "PLAYGROUND"],
+      },
+
+      musicVideo: {
+        conceptBy: ["Gordon Flanders"],
+        director: ["Lauonin"],
+        directorOfPhotography: ["Dunlamb"],
+        focusPuller: ["Kelvin Lam"],
+        gaffer: ["Wong Ying Kit"],
+        electrician: ["To Kai Ching"],
+        cameraAssistant: [
+          "Chan Ho Yin",
+          "Chan Hei Wun Damon",
+          "Sheung Yat Chun",
+        ],
+        producer: ["Vivian Wong"],
+        productionManager: ["Anson Ng"],
+        artDirector: ["Victor Wong"],
+        assistantArtDirector: ["Miu Ying", "Keith Ho"],
+        artTeam: ["Don Mai", "Bryan Loo"],
+        makeupArtist: ["Elaine Lai", "Heisan Hung"],
+        hairStylist: ["Carman Ngai"],
+        stylist: ["Natalie Tang"],
+        offlineEditor: ["J Auyeung"],
+        onlineAndRetoucher: ["Mok"],
+        colorist: ["Pete Ma"],
+        designer: ["Lauonin"],
+        specialGuest: ["Playground", "Ball"],
+        productionAssistant: ["Lui Man", "Sky Lai", "Cecilia Lam"],
+        specialThanks: ["The New Studio", "觀塘新廠"],
+      },
+    },
+  },
+  {
     coordinates: [22.246050823338784, 114.14459785038378],
     artists: ["湯令山 Gareth T"],
     address: "Aberdeen Fishing Village",
@@ -6102,13 +6158,17 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
 ];
 
 export const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
-  return { [constructTitle(LocationItemSchema.parse(location))]: location };
+  return { [constructTitle(location)]: location };
 });
 
 export function constructTitle(
-  location: LocationItem | { name: string; artists: string[] },
+  location:
+    | LocationItem
+    | { name: RawLocationSchema["name"]; artists: string[] },
 ) {
-  const songTitle = location?.name.replace(/ /g, "-") ?? "";
+  const name =
+    typeof location.name === "string" ? location.name : location.name.name;
+  const songTitle = name.replace(/ /g, "-");
   const artists = location?.artists.join("-").replace(/ /g, "-") ?? "";
 
   return `${artists}-${songTitle}`;
@@ -6116,7 +6176,7 @@ export function constructTitle(
 
 export const nameToLocation = RAW_LOCATIONS.reduce(
   (acc, location) => {
-    const title = constructTitle(LocationItemSchema.parse(location));
+    const title = constructTitle(location);
     acc[title] = LocationItemSchema.parse(location);
     return acc;
   },
@@ -6128,8 +6188,8 @@ export const LOCATIONS: LocationItem[] = z
   .array(LocationItemSchema)
   .parse(RAW_LOCATIONS);
 
-export const MAP_LOCATIONS: LocationItem[] = LOCATIONS.filter(
-  (location) => !location.hidden,
+export const MAP_LOCATIONS: MappableLocationItem[] = LOCATIONS.filter(
+  (location): location is MappableLocationItem => location.address !== null,
 );
 
 export const ARTISTS = [

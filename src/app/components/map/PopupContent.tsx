@@ -6,7 +6,7 @@ import {
   getContributorName,
   humanizeRoleKey,
   type ContributorCredit,
-  type LocationItem,
+  type MappableLocationItem,
 } from "~/app/common/locations";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
@@ -52,7 +52,7 @@ export function PopupContent({
   onDelete,
   onEdit,
 }: {
-  data: LocationItem;
+  data: MappableLocationItem;
   onDelete?: () => void;
   onEdit?: () => void;
 }) {

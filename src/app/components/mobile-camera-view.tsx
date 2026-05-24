@@ -4,7 +4,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { LOCATIONS, type LocationItem } from "../common/locations";
+import { MAP_LOCATIONS, type LocationItem } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
 
 const DEG2RAD = Math.PI / 180;
@@ -423,7 +423,7 @@ export default function MobileCameraView() {
     if (!position || heading === null) {
       return [];
     }
-    const computed = LOCATIONS.map((location) => {
+    const computed = MAP_LOCATIONS.map((location) => {
       const distanceKm = haversineDistanceKm(
         position.lat,
         position.lng,

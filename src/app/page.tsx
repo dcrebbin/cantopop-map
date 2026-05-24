@@ -25,6 +25,17 @@ import CreditsModal from "./components/credits-modal";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
+function hasValidCoordinates(
+  location: LocationItem | null | undefined,
+): location is LocationItem & { lat: number; lng: number } {
+  return (
+    typeof location?.lat === "number" &&
+    Number.isFinite(location.lat) &&
+    typeof location.lng === "number" &&
+    Number.isFinite(location.lng)
+  );
+}
+
 export default function Home({ location }: { location: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const hasOpenedInitialPopupRef = useRef(false);
@@ -80,18 +91,20 @@ export default function Home({ location }: { location: LocationItem }) {
       }, 100);
     };
 
-    if (location) {
+    if (hasValidCoordinates(location)) {
       initialLocation = location;
       map.setCenter([location.lng, location.lat]);
       map.setZoom(15);
       toast(`Zoomed to ${location.name}`);
+    } else if (location) {
+      useUIStore.getState().setSelectedLocationCredits(location);
     }
 
     const url = new URLSearchParams(window.location.search);
     const title = url.get("title");
     if (title) {
       const queryLocation = nameToLocation[title];
-      if (queryLocation && map) {
+      if (queryLocation && map && hasValidCoordinates(queryLocation)) {
         initialLocation = queryLocation;
         map?.flyTo({
           center: [queryLocation.lng, queryLocation.lat],
@@ -102,6 +115,9 @@ export default function Home({ location }: { location: LocationItem }) {
           artists: queryLocation.artists,
           streetViewEmbed: queryLocation.streetViewEmbed ?? "",
         });
+      } else if (queryLocation) {
+        initialLocation = queryLocation;
+        useUIStore.getState().setSelectedLocationCredits(queryLocation);
       }
       const viewCredits = url.get("view-credits");
       if (viewCredits && initialLocation) {

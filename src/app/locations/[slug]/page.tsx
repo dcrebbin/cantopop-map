@@ -40,7 +40,10 @@ export function generateMetadata({
 
   const artistNames = location.artists.join(", ");
   const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
-  const description = `Discover the filming location for "${location.name}" by ${artistNames} at ${location.address}, Hong Kong. Watch the music video and explore the location on Street View with Cantopop Map.`;
+  const locationDescription = location.address
+    ? ` at ${location.address}, Hong Kong`
+    : "";
+  const description = `Discover the filming location for "${location.name}" by ${artistNames}${locationDescription}. Watch the music video and explore the credits with Cantopop Map.`;
   const images = location.image ? [location.image] : ["/images/og-image.png"];
 
   return {
@@ -53,7 +56,7 @@ export function generateMetadata({
       "粵語歌地圖",
       "music video location",
       "hong kong filming location",
-      location.address,
+      location.address ?? "",
       "cantopop",
       "廣東歌",
     ],
@@ -99,6 +102,24 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
 
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
+  const place =
+    location.address && location.lat !== null && location.lng !== null
+      ? {
+          "@type": "Place",
+          "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#place`,
+          name: location.address,
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Hong Kong",
+            addressCountry: "HK",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: location.lat,
+            longitude: location.lng,
+          },
+        }
+      : undefined;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -113,21 +134,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
         })),
         url: location.url,
         image: location.image,
-        locationCreated: {
-          "@type": "Place",
-          "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#place`,
-          name: location.address,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Hong Kong",
-            addressCountry: "HK",
-          },
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: location.lat,
-            longitude: location.lng,
-          },
-        },
+        locationCreated: place,
         potentialAction: {
           "@type": "WatchAction",
           target: location.url,
@@ -136,7 +143,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
       {
         "@type": "VideoObject",
         name: `${location.name} - Music Video`,
-        description: `Official music video for "${location.name}" by ${location.artists.join(", ")}, filmed at ${location.address}, Hong Kong.`,
+        description: `Official music video for "${location.name}" by ${location.artists.join(", ")}.`,
         thumbnailUrl: location.image,
         embedUrl: videoId
           ? `https://www.youtube.com/embed/${videoId}`
@@ -222,12 +229,14 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
               </div>
               <div className="flex w-full flex-col items-start justify-start">
                 <p className="text-xs font-bold">Address</p>
-                <p>{location?.address}</p>
+                <p>{location?.address ?? "Not available"}</p>
               </div>
               <div className="flex w-full flex-col items-start justify-start">
                 <p className="text-xs font-bold">Location</p>
                 <p>
-                  {location?.lat}, {location?.lng}
+                  {location?.lat !== null && location?.lng !== null
+                    ? `${location.lat}, ${location.lng}`
+                    : "Not available"}
                 </p>
               </div>
             </div>

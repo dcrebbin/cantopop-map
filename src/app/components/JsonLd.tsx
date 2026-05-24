@@ -1,4 +1,4 @@
-import { LOCATIONS } from "../common/locations";
+import { MAP_LOCATIONS } from "../common/locations";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
 
@@ -61,8 +61,8 @@ export function HomePageJsonLd() {
         name: "Cantopop Music Video Locations",
         description:
           "A curated list of Hong Kong locations featured in Cantonese pop music videos",
-        numberOfItems: LOCATIONS.length,
-        itemListElement: LOCATIONS.slice(0, 10).map((location, index) => ({
+        numberOfItems: MAP_LOCATIONS.length,
+        itemListElement: MAP_LOCATIONS.slice(0, 10).map((location, index) => ({
           "@type": "ListItem",
           position: index + 1,
           item: {

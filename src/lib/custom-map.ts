@@ -4,7 +4,7 @@ import { createElement } from "react";
 import {
   constructTitle,
   extractContributorNamesFromLocation,
-  type LocationItem,
+  type MappableLocationItem,
 } from "~/app/common/locations";
 import { useMapStore } from "~/app/_state/map.store";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
@@ -20,7 +20,7 @@ export function showPopup(
   currentLastPopup: mapboxgl.Popup | null,
   currentLastMarker: HTMLDivElement | null,
   id: string,
-  data: LocationItem,
+  data: MappableLocationItem,
   targetMap: mapboxgl.Map,
   markerElement: HTMLDivElement,
   popup: mapboxgl.Popup,
@@ -59,7 +59,7 @@ export function showPopup(
 
 function createCustomMarker(
   popup: mapboxgl.Popup,
-  data: LocationItem,
+  data: MappableLocationItem,
   mapInstance?: mapboxgl.Map,
 ) {
   const markerElement = document.createElement("div");
@@ -115,7 +115,10 @@ function createCustomMarker(
   return markerElement;
 }
 
-export function addPlace(data: LocationItem, mapInstance?: mapboxgl.Map) {
+export function addPlace(
+  data: MappableLocationItem,
+  mapInstance?: mapboxgl.Map,
+) {
   const popup = new mapboxgl.Popup({
     closeButton: false,
     closeOnClick: false,
@@ -142,7 +145,7 @@ export function addPlace(data: LocationItem, mapInstance?: mapboxgl.Map) {
 export function hidePopup(
   popup: mapboxgl.Popup,
   marker: HTMLDivElement,
-  id: string,
+  _id: string,
 ) {
   const root = popupRoots.get(popup);
   if (root) {
@@ -155,7 +158,7 @@ export function hidePopup(
   useMapStore.getState().clearSelectedLocation();
 }
 
-function createPopupContent(data: LocationItem) {
+function createPopupContent(data: MappableLocationItem) {
   const container = document.createElement("div");
   const root = createRoot(container);
   root.render(
@@ -169,12 +172,12 @@ function createPopupContent(data: LocationItem) {
   return { container, root };
 }
 
-function editPlace(data: LocationItem) {
+function editPlace(data: MappableLocationItem) {
   useNewLocationStore.getState().setEditLocation(data);
   useUIStore.getState().setNewLocationModalOpen(true);
 }
 
-function deletePlace(data: LocationItem) {
+function deletePlace(data: MappableLocationItem) {
   const marker = document.querySelector(`[data-song="${data.name}"]`);
   if (marker && marker instanceof HTMLDivElement) {
     const markerRoot = markerRoots.get(marker);
