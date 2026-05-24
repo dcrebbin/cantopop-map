@@ -160,6 +160,25 @@ export default function Menu() {
     [selectedContributor],
   );
 
+  const syncSelectedSongToUrl = useCallback(
+    (title: string, shouldShowCredits: boolean) => {
+      const params = new URLSearchParams(window.location.search);
+      params.set("title", title);
+      if (shouldShowCredits) {
+        params.set("view-credits", "true");
+      } else {
+        params.delete("view-credits");
+      }
+
+      const query = params.toString();
+      const newUrl = query
+        ? `${window.location.pathname}?${query}`
+        : window.location.pathname;
+      window.history.pushState({}, "", newUrl);
+    },
+    [],
+  );
+
   function handleArtistCheckboxChange(artist: string) {
     const newSelectedArtists = selectedArtists.includes(artist)
       ? selectedArtists.filter((a) => a !== artist)
@@ -278,9 +297,11 @@ export default function Menu() {
     const location = nameToLocation[title];
     if (location) {
       if (location.lat === null || location.lng === null) {
+        syncSelectedSongToUrl(title, true);
         setSelectedLocationCredits(location);
         return;
       }
+      syncSelectedSongToUrl(title, false);
       if (!map) return;
       map.flyTo({
         center: [location.lng, location.lat],
@@ -324,8 +345,8 @@ export default function Menu() {
     const params = new URLSearchParams(window.location.search);
     const artistsParam = params.get("artists");
     const contributorsParam = params.get("contributors");
+    const selectedContributorParam = params.get("selected-contributor");
     const viewPortfolioParam = params.get("view-portfolio");
-    let nextContributors: string[] = [];
 
     if (artistsParam) {
       const nextArtists = artistsParam
@@ -339,7 +360,7 @@ export default function Menu() {
     }
 
     if (contributorsParam) {
-      nextContributors = contributorsParam
+      const nextContributors = contributorsParam
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean)
@@ -349,8 +370,12 @@ export default function Menu() {
       }
     }
 
-    if (viewPortfolioParam && nextContributors.length === 1) {
-      setSelectedContributor(nextContributors[0] ?? null);
+    if (
+      viewPortfolioParam &&
+      selectedContributorParam &&
+      CONTRIBUTORS.includes(selectedContributorParam)
+    ) {
+      setSelectedContributor(selectedContributorParam);
     }
 
     hasAppliedUrlFiltersRef.current = true;

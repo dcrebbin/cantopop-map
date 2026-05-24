@@ -2,6 +2,7 @@
 import { useMemo } from "react";
 import { useUIStore } from "../_state/ui.store";
 import {
+  constructTitle,
   LOCATIONS,
   getContributorDisplayName,
   humanizeRoleKey,
@@ -118,11 +119,24 @@ export default function ContributorsModal() {
   function removeContributorModalUrl() {
     const url = new URL(window.location.href);
     url.searchParams.delete("view-portfolio");
+    url.searchParams.delete("selected-contributor");
     window.history.replaceState({}, "", url.toString());
   }
 
   function removeTimeFromYoutubeUrl(url: string) {
     return url.split("?")[0];
+  }
+
+  function showLocationCredits(location: LocationItem) {
+    setSelectedLocationCredits(location);
+    setSelectedContributor(null);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("view-portfolio");
+    url.searchParams.delete("selected-contributor");
+    url.searchParams.set("title", constructTitle(location));
+    url.searchParams.set("view-credits", "true");
+    window.history.replaceState({}, "", url.toString());
   }
 
   const instagramHandle = getInstagramHandle(selectedContributor);
@@ -266,7 +280,7 @@ export default function ContributorsModal() {
                       type="button"
                       className="rounded-md border border-white/30 bg-white/10 px-2 py-1 text-sm hover:bg-white/20"
                       onClick={() => {
-                        setSelectedLocationCredits(c.location);
+                        showLocationCredits(c.location);
                       }}
                     >
                       Credits

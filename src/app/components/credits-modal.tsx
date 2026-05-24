@@ -30,6 +30,18 @@ export default function CreditsModal() {
     window.history.replaceState({}, "", url.toString());
   }
 
+  function showContributorPortfolio(contributor: string) {
+    setSelectedContributor(contributor);
+    setSelectedLocationCredits(null as unknown as LocationItem);
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("title");
+    url.searchParams.delete("view-credits");
+    url.searchParams.set("selected-contributor", contributor);
+    url.searchParams.set("view-portfolio", "true");
+    window.history.replaceState({}, "", url.toString());
+  }
+
   function getInstagram(contributor: ContributorCredit) {
     const name = getContributorName(contributor);
     return (
@@ -88,10 +100,7 @@ export default function CreditsModal() {
                         <button
                           type="button"
                           onClick={() => {
-                            setSelectedContributor(displayName);
-                            setSelectedLocationCredits(
-                              null as unknown as LocationItem,
-                            );
+                            showContributorPortfolio(displayName);
                           }}
                         >
                           <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
@@ -138,10 +147,7 @@ export default function CreditsModal() {
                         <button
                           type="button"
                           onClick={() => {
-                            setSelectedContributor(displayName);
-                            setSelectedLocationCredits(
-                              null as unknown as LocationItem,
-                            );
+                            showContributorPortfolio(displayName);
                           }}
                         >
                           <UserCircleIcon className="h-8 w-8 xl:h-5 xl:w-5" />
@@ -162,6 +168,8 @@ export default function CreditsModal() {
               </div>
             ))}
           </div>
+        </div>
+        <div className="flex flex-col items-center justify-center">
           <div className="mt-2 text-center text-sm text-white/70">
             Any errors or missing credits? Please contact at{" "}
             <a
@@ -172,7 +180,7 @@ export default function CreditsModal() {
             </a>
           </div>
           <button
-            className="pointer-events-auto absolute bottom-0 right-0 m-4 cursor-pointer"
+            className="pointer-events-auto absolute bottom-0 right-8 m-4 cursor-pointer"
             type="button"
             onClick={async () => {
               if (navigator.share) {

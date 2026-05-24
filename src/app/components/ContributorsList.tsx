@@ -70,8 +70,11 @@ export default function ContributorsList({
       ? filteredContributors.length - MAX_SEARCH_CONTRIBUTORS_TO_RENDER
       : 0;
 
-  function updateContributorModalUrl() {
+  function updateContributorModalUrl(contributor: string) {
     const url = new URL(window.location.href);
+    url.searchParams.delete("title");
+    url.searchParams.delete("view-credits");
+    url.searchParams.set("selected-contributor", contributor);
     url.searchParams.set("view-portfolio", "true");
     window.history.replaceState({}, "", url.toString());
   }
@@ -130,8 +133,7 @@ export default function ContributorsList({
                         type="button"
                         className="text-sm"
                         onClick={() => {
-                          updateContributorModalUrl();
-                          handleContributorCheckboxChange(contributor);
+                          updateContributorModalUrl(contributor);
                           setSelectedContributor(contributor);
                           setMenuOpen(false);
                         }}
