@@ -6003,6 +6003,29 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [22.2773966, 114.1512966],
+    artists: ["Teddy Fan"],
+    address: "Hong Kong Zoological and Botanical Gardens",
+    name: "告別式",
+    url: "https://youtu.be/oqL5LMAHi2I",
+    image: "https://i.ytimg.com/vi/oqL5LMAHi2I/maxresdefault.jpg",
+    streetView: "https://maps.app.goo.gl/w5U3VoE6GgSxk94R8",
+    contributors: {
+      song: {
+        composer: ["Teddy Fan"],
+        lyricist: ["Oscar"],
+        arranger: ["Teddy Fan", "Dick Wong", "Hermes Shum", "李一丁"],
+        producer: ["李一丁", "Teddy Fan"],
+      },
+      musicVideo: {
+        director: ["Poon Realiam"],
+        videographer: ["Sunny Liu"],
+        makeup: ["Sarah"],
+        hairstylist: ["Jim@MYOS"],
+      },
+    },
+  },
+  {
     artists: ["Gordon Flanders", "MC 張天賦"],
     name: "可以不可以 (Ring or Fling)",
     url: "https://www.youtube.com/watch?v=kG9XL4HVmtI",
