@@ -53,6 +53,7 @@ export const LocationItemSchema = RawLocationSchema.transform((raw) => {
     streetViewEmbed: raw.streetViewEmbed ?? null,
     mapEmbed: raw.mapEmbed ?? null,
     isCustom: raw.isCustom ?? false,
+    hidden: raw.hidden ?? false,
     contributors: raw.contributors ?? null,
   };
 });
@@ -6127,6 +6128,10 @@ export const LOCATIONS: LocationItem[] = z
   .array(LocationItemSchema)
   .parse(RAW_LOCATIONS);
 
+export const MAP_LOCATIONS: LocationItem[] = LOCATIONS.filter(
+  (location) => !location.hidden,
+);
+
 export const ARTISTS = [
   ...new Set(LOCATIONS.flatMap((location) => location.artists)),
   "COLLAR",
@@ -6146,6 +6151,18 @@ export const ARTISTS = [
 export const SONGS = [
   ...new Set(
     LOCATIONS.map((location) => {
+      return { name: location.name, artists: location.artists };
+    }),
+  ),
+];
+
+export const MAP_ARTISTS = [
+  ...new Set(MAP_LOCATIONS.flatMap((location) => location.artists)),
+];
+
+export const MAP_SONGS = [
+  ...new Set(
+    MAP_LOCATIONS.map((location) => {
       return { name: location.name, artists: location.artists };
     }),
   ),

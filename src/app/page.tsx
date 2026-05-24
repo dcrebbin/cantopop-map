@@ -5,7 +5,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import {
   type LocationItem,
-  LOCATIONS,
+  MAP_LOCATIONS,
   nameToLocation,
 } from "./common/locations";
 import { useMapStore } from "./_state/map.store";
@@ -48,7 +48,7 @@ export default function Home({ location }: { location: LocationItem }) {
     });
 
     setMap(newMap);
-    for (const location of LOCATIONS) {
+    for (const location of MAP_LOCATIONS) {
       addPlace(location, newMap);
     }
   };
