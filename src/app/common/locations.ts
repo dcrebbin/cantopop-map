@@ -1161,12 +1161,102 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/556XUWybQYw/maxresdefault.jpg",
   },
   {
+    coordinates: [22.2797101, 114.1609824],
+    artists: ["Byejack"],
+    address: "8 Garden Road, Hong Kong",
+    name: "和暖的風",
+    streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
+    url: "https://youtu.be/IJ2IS-BvveM?t=40",
+    image: "https://i.ytimg.com/vi/IJ2IS-BvveM/hqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Byejack"],
+        lyricist: ["Byejack"],
+        producer: ["Byejack"],
+        arranger: ["Y. Siu @y.siuiuiuiu"],
+      },
+      musicVideo: {
+        cast: [
+          { name: "Byejack", instagram: "byejackk" },
+          { name: "Nancy Kwai", instagram: "nancykwai" },
+          { name: "L Uuii", instagram: "l_uuii" },
+          { name: "Chu Chunggg", instagram: "chu_chunggg" },
+        ],
+        director: [{ name: "Boris Wong", instagram: "boris1027_" }],
+        dop: [{ name: "Gary Chan", instagram: "ch.9gary" }],
+        focusPuller: [{ name: "Wong Chiu Cham Roy", instagram: "roywong95" }],
+        cameraAssistant: [
+          { name: "Wong Chung Ming Victor", instagram: "mr.victorwong" },
+        ],
+        pa: [{ name: "Wai Ka Yi Candice", instagram: "marz_waiwai" }],
+        editor: ["Samuel Chan", "Byejack"],
+        colourist: [{ name: "Fmilk", instagram: "fmlik_" }],
+        makeup: [{ name: "Kidd Sun", instagram: "kiddsph" }],
+        projectAndArtistManager: [
+          "Nicholas Cheung",
+          "Justin Chan",
+          "Malik Zain Ali",
+        ],
+      },
+    },
+  },
+  {
+    coordinates: [22.298405, 114.254327],
+    artists: ["Byejack", "Winka 陳泳伽"],
+    address: "Cross Bay Link, Tseung Kwan O, Hong Kong",
+    name: "康城的日出",
+    streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
+    url: "https://youtu.be/Wzgvoy0_clc?t=128",
+    image: "https://i.ytimg.com/vi/Wzgvoy0_clc/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Byejack"],
+        lyricist: ["Byejack"],
+        arranger: ["Y. Siu", "Byejack"],
+        producer: ["Byejack"],
+      },
+
+      musicVideo: {
+        director: ["Boris Wong"],
+        assistantDirector: ["Stanley Tse"],
+        producer: ["Kidd Sun"],
+        dop: ["Boris Wong"],
+        camB: ["Gary Leung"],
+        makeupAndHair: ["Kidd Sun"],
+        stylist: ["Byejack"],
+        wardrobe: ["HOKA"],
+        editor: ["Boris Wong", "Byejack"],
+        colourist: ["Eric Chan"],
+        stillPhotography: ["Jonas Wong"],
+      },
+    },
+  },
+  {
+    coordinates: [35.658327, 139.6960706],
+    artists: ["Byejack"],
+    address: "Shibuya, Tokyo, Japan",
+    name: "Feels like back in 2018",
+    streetView: "https://maps.app.goo.gl/KaDNacH5k7PBRehP8",
+    url: "https://youtu.be/_Q7dfkek1zY?t=174",
+    image: "https://i.ytimg.com/vi/_Q7dfkek1zY/maxresdefault.jpg",
+    contributors: {
+      song: {
+        guitar: ["Byejack", "Lewsz"],
+        producer: ["Byejack", "Dytheprince"],
+      },
+      musicVideo: {
+        director: ["Byejack"],
+        dop: ["Boris Wong", "湯令山 Gareth T", "Kidd Sunn"],
+      },
+    },
+  },
+  {
     coordinates: [22.2842694, 114.1489723],
     artists: ["晚安莉莉 Goodnight Lillie"],
     address: "50 Square Street, Hong Kong",
     name: "當我們不再說晚安 (No More GN)",
     streetView: "https://maps.app.goo.gl/oYsjgqQbWQ26WzBH7",
-    url: "https://www.youtube.com/watch?v=FkvpFMQaby4",
+    url: "https://youtu.be/FkvpFMQaby4?t=207",
     image: "https://i.ytimg.com/vi/FkvpFMQaby4/maxresdefault.jpg",
     contributors: {
       song: {
@@ -6216,7 +6306,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       musicVideo: {
         conceptBy: ["Gordon Flanders"],
         director: ["Lauonin"],
-        directorOfPhotography: ["Dunlamb"],
+        directorOfPhotography: ["Dun Lamb"],
         focusPuller: ["Kelvin Lam"],
         gaffer: ["Wong Ying Kit"],
         electrician: ["To Kai Ching"],
