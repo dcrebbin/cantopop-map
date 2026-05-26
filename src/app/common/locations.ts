@@ -1832,6 +1832,31 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [22.3507037, 114.1096699],
+    artists: ["Anna hisbuR"],
+    address: "14 Cheung Tat Road, Tsing Yi, Hong Kong",
+    name: "please forget about me (en)",
+    streetView: "https://maps.app.goo.gl/DFTY5s3Gp3Kh1z569",
+    url: "https://youtu.be/T4S9tSDH2U0?t=42",
+    image: "https://i.ytimg.com/vi/T4S9tSDH2U0/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Anna hisbbuR"],
+        lyricist: ["Anna hisbbuR"],
+        arranger: ["Anna hisbbuR"],
+        producer: ["Anna hisbbuR"],
+      },
+      musicVideo: {
+        directorEditor: ["Anna hisbbuR"],
+        dop: ["Karma Cheng"],
+        producer: ["Karma Cheng"],
+        colorist: ["Karma Cheng"],
+        gaffer: ["Israel Chan"],
+        bestGirl: ["Ying"],
+      },
+    },
+  },
+  {
     artists: ["CONSTANCE 康堤"],
     name: "要還 (something borrowed)",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
