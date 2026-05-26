@@ -1833,7 +1833,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     coordinates: [22.3507037, 114.1096699],
-    artists: ["Anna hisbuR"],
+    artists: ["Anna hisbbuR"],
     address: "14 Cheung Tat Road, Tsing Yi, Hong Kong",
     name: "please forget about me (en)",
     streetView: "https://maps.app.goo.gl/DFTY5s3Gp3Kh1z569",
