@@ -2375,6 +2375,34 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [28.4923768, -80.5871591],
+    artists: ["moon tang"],
+    address: "The Moon",
+    name: "月亮代表我 (Dark side of the moon)",
+    streetView:
+      "https://www.google.com/maps/space/moon/@2.106113,-15.6824958,15167225m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D",
+    url: "https://youtu.be/OFCMUwqw8Qo?t=76",
+    image: "https://i.ytimg.com/vi/OFCMUwqw8Qo/maxresdefault.jpg",
+    contributors: {
+      song: {
+        composer: [
+          "moon tang",
+          "Nic Tsui",
+          "musicbyAP",
+          "Eason YH Chan",
+          "Daniel Toh",
+        ],
+        lyricist: ["Wyman Wong"],
+        arranger: ["Nic Tsui", "Justin Yau"],
+        producer: ["moon tang", "Nic Tsui"],
+      },
+      musicVideo: {
+        director: ["kidney", "Zain Malik Ali"],
+        vfx: ["kidney", "Zain Malik Ali"],
+      },
+    },
+  },
+  {
     coordinates: [22.325305480711116, 114.16367494918416],
     artists: ["張蔓姿 Gigi"],
     address: "Tai Kok Tsui",
