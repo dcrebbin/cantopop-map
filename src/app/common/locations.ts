@@ -4115,7 +4115,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         artDirector: ["Victor Wong"],
         assistantArtDirector: ["Don Mai"],
         artTeam: ["Cherie Fung", "Miu Ying", "Athena Leung"],
-        productionManager: ["Miaow Ng", "Nicholas Poon"],
+        productionManager: ["Miaow Ng", "Nicolas Poon"],
         productionTeam: [
           "Ck",
           "Howard Chan",
