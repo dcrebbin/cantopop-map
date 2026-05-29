@@ -4315,7 +4315,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.3035472, 114.1686838],
     artists: ["kayan9896"],
     name: "Not Too Close",
-    address: "Wonderlous Cafe (now HARU), 3 Kwun Chung Street, Jordan",
+    address: "Wonderlous Cafe (now HARA), 3 Kwun Chung Street, Jordan",
     streetView: "https://maps.app.goo.gl/8nb4hay27cFerh8t8",
     url: "https://youtu.be/bMsHolN4O5I?t=5",
     image: "https://i.ytimg.com/vi/bMsHolN4O5I/maxresdefault.jpg",
