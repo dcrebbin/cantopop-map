@@ -4312,6 +4312,15 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/HwlYipX78Qo/maxresdefault.jpg",
   },
   {
+    coordinates: [22.2281296, 114.2562488],
+    artists: ["BEYOND"],
+    address: "Headless Rock Pillars, Shek O, Hong Kong Island",
+    name: "海闊天空",
+    streetView: "https://maps.app.goo.gl/EMNbmQjQdsf79ZFv8",
+    url: "https://youtu.be/qu_FSptjRic?t=129",
+    image: "https://i.ytimg.com/vi/qu_FSptjRic/hqdefault.jpg",
+  },
+  {
     coordinates: [22.2824124, 114.1540831],
     artists: ["ANSONBEAN", "kayan9896", "AKIKO"],
     address: "3/F, The Steps, H Code, 45 Pottinger St, Central",
