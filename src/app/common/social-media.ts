@@ -206,7 +206,7 @@ export const nameToInstagramMap = {
   "Carmen Ngai": "carcarmenngai",
   "Mavis Lau": "mavis.good.luck",
   "Fai Chan": "dinothedinosaurrrrr",
-  "Ariel Au": "arielauzation",
+  "Ariel Au": "asyiii",
   Jimmy: "jimmyoyang",
   Sai: "saihon",
   Skywalk: "sky._.walkk",
