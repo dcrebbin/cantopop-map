@@ -124,10 +124,7 @@ export const useUIStore = create<UIState>((set) => ({
   setSelectedLocationCredits: (location: LocationItem) =>
     set({ selectedLocationCredits: location }),
   applyUrlFiltersFromParams: (filters) => {
-    const update: Pick<
-      UIState,
-      "selectedArtists" | "selectedContributors" | "selectedContributor"
-    > = {};
+    const update: Partial<UIState> = {};
 
     if (filters.artists && filters.artists.length > 0) {
       update.selectedArtists = filters.artists;
