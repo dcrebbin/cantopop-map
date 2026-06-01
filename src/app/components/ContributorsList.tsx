@@ -12,6 +12,15 @@ const CONTRIBUTOR_CATEGORIES = [
 ] as const;
 const MAX_SEARCH_CONTRIBUTORS_TO_RENDER = 150;
 
+function updateContributorModalUrl(contributor: string) {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("title");
+  url.searchParams.delete("view-credits");
+  url.searchParams.set("selected-contributor", contributor);
+  url.searchParams.set("view-portfolio", "true");
+  window.history.replaceState({}, "", url.toString());
+}
+
 type ContributorCategoryKey = (typeof CONTRIBUTOR_CATEGORIES)[number]["key"];
 type ContributorRoleGroupWithMatches = ContributorRoleGroup & {
   namesToShow: string[];
@@ -44,15 +53,19 @@ export default function ContributorsList({
 
     return CONTRIBUTOR_CATEGORIES.reduce(
       (acc, category) => {
-        acc[category.key] = CONTRIBUTOR_ROLE_GROUPS.map((group) => ({
-          ...group,
-          namesToShow: group.names.filter((name) =>
+        acc[category.key] = CONTRIBUTOR_ROLE_GROUPS.reduce<
+          ContributorRoleGroupWithMatches[]
+        >((groups, group) => {
+          if (group.category !== category.key) return groups;
+
+          const namesToShow = group.names.filter((name) =>
             filteredContributorsSet.has(name),
-          ),
-        })).filter(
-          (group) =>
-            group.category === category.key && group.namesToShow.length > 0,
-        );
+          );
+          if (namesToShow.length === 0) return groups;
+
+          groups.push({ ...group, namesToShow });
+          return groups;
+        }, []);
         return acc;
       },
       { song: [], musicVideo: [] } as Record<
@@ -65,15 +78,6 @@ export default function ContributorsList({
     filteredContributors.length > MAX_SEARCH_CONTRIBUTORS_TO_RENDER
       ? filteredContributors.length - MAX_SEARCH_CONTRIBUTORS_TO_RENDER
       : 0;
-
-  function updateContributorModalUrl(contributor: string) {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("title");
-    url.searchParams.delete("view-credits");
-    url.searchParams.set("selected-contributor", contributor);
-    url.searchParams.set("view-portfolio", "true");
-    window.history.replaceState({}, "", url.toString());
-  }
 
   function toggleCategory(category: ContributorCategoryKey) {
     setOpenCategories((current) => ({
@@ -134,7 +138,7 @@ export default function ContributorsList({
                           setMenuOpen(false);
                         }}
                       >
-                        <UserCircleIcon className="h-6 w-6" />
+                        <UserCircleIcon className="size-6" />
                       </button>
                       <button
                         type="button"
@@ -147,7 +151,7 @@ export default function ContributorsList({
                         <input
                           type="checkbox"
                           aria-label={contributor}
-                          className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                          className="size-4 cursor-pointer rounded-full border-none p-2"
                           checked={selectedContributors.includes(contributor)}
                           readOnly
                         />

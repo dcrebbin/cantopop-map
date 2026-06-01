@@ -7,6 +7,20 @@ import { addPlace } from "~/lib/custom-map";
 import { useMapStore } from "../_state/map.store";
 import mapboxgl from "mapbox-gl";
 
+function retrieveVideoIdFromUrl(url: string) {
+  if (url.includes("v=")) {
+    const videoId = url?.split("v=")[1]?.split("&")[0];
+    return videoId;
+  }
+
+  if (url.includes("youtu.be")) {
+    const videoId = url?.split("youtu.be/")[1]?.split("?")[0];
+    return videoId;
+  }
+
+  return null;
+}
+
 export default function NewLocationModal() {
   const { newLocationModalOpen, setNewLocationModalOpen } = useUIStore();
   const {
@@ -27,20 +41,6 @@ export default function NewLocationModal() {
   const [artistToAdd, setArtistToAdd] = useState<string>("");
 
   if (!newLocationModalOpen) return null;
-
-  function retrieveVideoIdFromUrl(url: string) {
-    if (url.includes("v=")) {
-      const videoId = url?.split("v=")[1]?.split("&")[0];
-      return videoId;
-    }
-
-    if (url.includes("youtu.be")) {
-      const videoId = url?.split("youtu.be/")[1]?.split("?")[0];
-      return videoId;
-    }
-
-    return null;
-  }
 
   function addLocationMarkerToMap() {
     if (!locationCoordinates || !songTitle || !artists || !videoUrl || !address)

@@ -22,8 +22,12 @@ import {
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
-import GameButton from "./game-button";
-import { ArrowDownTrayIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowDownIcon,
+  ArrowDownTrayIcon,
+  ChevronDownIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
@@ -419,10 +423,9 @@ export default function Menu() {
             setIsPwaTutorialVisible(true);
           }}
         >
-          <MemoizedArrowDownTrayIcon className="block h-9 w-9 text-white" />
+          <MemoizedArrowDownTrayIcon className="block size-9 text-white" />
         </button>
       )}
-      {!menuOpen && <GameButton />}
       <div
         className="h-full w-fit"
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
@@ -464,7 +467,7 @@ export default function Menu() {
         )}
       </div>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/80 p-2 drop-shadow-md backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem] lg:bg-neutral-900/95 lg:backdrop-blur-none`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/20 p-2 drop-shadow-md backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem] lg:bg-neutral-900/95 lg:backdrop-blur-none`}
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
       >
         <div className="flex flex-col items-center justify-center gap-2">
@@ -501,7 +504,7 @@ export default function Menu() {
                   key={`${filter.type}:${filter.name}`}
                 >
                   <span>{filter.name}</span>
-                  <XMarkIcon className="h-6 w-6" />
+                  <XMarkIcon className="size-6" />
                 </button>
               ))}
             </div>
@@ -513,7 +516,7 @@ export default function Menu() {
                   className={`text-white ${songsAndArtistsOpen ? "" : "rotate-180"}`}
                   onClick={() => setSongsAndArtistsOpen(!songsAndArtistsOpen)}
                 >
-                  <SvgIcon html={arrowIcon} className="size-6" />
+                  <ChevronDownIcon className="size-6" />
                 </button>
               </div>
               {songsAndArtistsOpen && (
@@ -536,7 +539,7 @@ export default function Menu() {
                             <input
                               type="checkbox"
                               aria-label={artist}
-                              className="h-4 w-4 cursor-pointer rounded-full border-none p-2"
+                              className="size-4 cursor-pointer rounded-full border-none p-2"
                               checked={selectedArtists.includes(artist)}
                               readOnly
                             />

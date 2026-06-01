@@ -15,6 +15,20 @@ import { nameToInstagramMap } from "../common/social-media";
 import { useUIStore } from "../_state/ui.store";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
+function removeCreditsModalUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("view-credits");
+  window.history.replaceState({}, "", url.toString());
+}
+
+function getInstagram(contributor: ContributorCredit) {
+  const name = getContributorName(contributor);
+  return (
+    getContributorInstagram(contributor) ??
+    nameToInstagramMap[name as keyof typeof nameToInstagramMap]
+  );
+}
+
 export default function CreditsModal() {
   const {
     selectedLocationCredits,
@@ -23,12 +37,6 @@ export default function CreditsModal() {
   } = useUIStore();
 
   if (!selectedLocationCredits) return null;
-
-  function removeCreditsModalUrl() {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("view-credits");
-    window.history.replaceState({}, "", url.toString());
-  }
 
   function showContributorPortfolio(contributor: string) {
     setSelectedContributor(contributor);
@@ -40,14 +48,6 @@ export default function CreditsModal() {
     url.searchParams.set("selected-contributor", contributor);
     url.searchParams.set("view-portfolio", "true");
     window.history.replaceState({}, "", url.toString());
-  }
-
-  function getInstagram(contributor: ContributorCredit) {
-    const name = getContributorName(contributor);
-    return (
-      getContributorInstagram(contributor) ??
-      nameToInstagramMap[name as keyof typeof nameToInstagramMap]
-    );
   }
 
   return (

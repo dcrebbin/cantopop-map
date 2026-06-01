@@ -18,7 +18,7 @@ export default function LocationButton() {
           setMobileCameraViewOpen(!mobileCameraViewOpen);
         }}
       >
-        <SvgIcon html={phoneIcon} className="h-6 w-6 text-white" />{" "}
+        <SvgIcon html={phoneIcon} className="size-6 text-white" />{" "}
       </button>
       {!mobileCameraViewOpen && (
         <button

@@ -24,6 +24,33 @@ import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { hidePopup } from "~/lib/custom-map";
 import { useMapStore } from "~/app/_state/map.store";
 
+function renderContributor(contributor: ContributorCredit) {
+  const name = getContributorName(contributor);
+  const instagram =
+    getContributorInstagram(contributor) ??
+    nameToInstagramMap[name as keyof typeof nameToInstagramMap];
+
+  if (instagram) {
+    return (
+      <a
+        key={`${name}-${instagram}`}
+        href={`https://www.instagram.com/${instagram}`}
+        target="_blank"
+        className="break-words text-blue-500 underline"
+        rel="noreferrer"
+      >
+        {name}
+      </a>
+    );
+  }
+
+  return (
+    <span className="break-words" key={name}>
+      {name}
+    </span>
+  );
+}
+
 export function SvgIcon({
   html,
   className,
@@ -33,16 +60,17 @@ export function SvgIcon({
   className?: string;
   size?: number;
 }) {
+  const src = `data:image/svg+xml,${encodeURIComponent(html.trim())}`;
+
   return (
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-    <span
+    // eslint-disable-next-line @next/next/no-img-element -- inline SVG markup from static icon strings
+    <img
+      src={src}
+      alt=""
+      aria-hidden
       className={className}
-      style={{
-        fontSize: size ? `${size}px` : undefined,
-        width: size ? `${size}px` : undefined,
-        height: size ? `${size}px` : undefined,
-      }}
-      dangerouslySetInnerHTML={{ __html: html }}
+      width={size}
+      height={size}
     />
   );
 }
@@ -62,33 +90,6 @@ export function PopupContent({
   const mapStore = useMapStore();
   const uiStore = useUIStore();
 
-  function renderContributor(contributor: ContributorCredit) {
-    const name = getContributorName(contributor);
-    const instagram =
-      getContributorInstagram(contributor) ??
-      nameToInstagramMap[name as keyof typeof nameToInstagramMap];
-
-    if (instagram) {
-      return (
-        <a
-          key={`${name}-${instagram}`}
-          href={`https://www.instagram.com/${instagram}`}
-          target="_blank"
-          className="break-words text-blue-500 underline"
-          rel="noreferrer"
-        >
-          {name}
-        </a>
-      );
-    }
-
-    return (
-      <span className="break-words" key={name}>
-        {name}
-      </span>
-    );
-  }
-
   const actionButtons = (
     <div className="flex items-center justify-center gap-2">
       <a href={data.url} target="_blank" rel="noreferrer">
@@ -104,7 +105,7 @@ export function PopupContent({
           })
         }
       >
-        <SvgIcon html={shareIcon} className="h-6 w-6" />
+        <SvgIcon html={shareIcon} className="size-6" />
       </button>
 
       {data.streetView && (
@@ -116,7 +117,7 @@ export function PopupContent({
           target="_blank"
           rel="noreferrer"
         >
-          <SvgIcon html={streetViewIcon} className="h-6 w-6" />
+          <SvgIcon html={streetViewIcon} className="size-6" />
         </a>
       )}
 
@@ -125,7 +126,7 @@ export function PopupContent({
         target="_blank"
         rel="noreferrer"
       >
-        <SvgIcon html={locationIcon} className="h-6 w-6" />
+        <SvgIcon html={locationIcon} className="size-6" />
       </a>
     </div>
   );
@@ -193,14 +194,14 @@ export function PopupContent({
             className="absolute right-0 top-0"
             onClick={onDelete}
           >
-            <SvgIcon html={closeIcon} className="h-6 w-6" />
+            <SvgIcon html={closeIcon} className="size-6" />
           </button>
           <button
             type="button"
             className="absolute left-0 top-0"
             onClick={onEdit}
           >
-            <SvgIcon html={editIcon} className="h-6 w-6" />
+            <SvgIcon html={editIcon} className="size-6" />
           </button>
         </>
       )}
@@ -234,7 +235,7 @@ export function PopupContent({
           }
         }}
       >
-        <XMarkIcon className="h-4 w-4" />
+        <XMarkIcon className="size-4" />
       </button>
       {data.contributors && (
         <button
@@ -251,7 +252,7 @@ export function PopupContent({
             });
           }}
         >
-          <ArrowUpRightIcon className="h-3.5 w-3.5" />
+          <ArrowUpRightIcon className="size-3.5" />
         </button>
       )}
     </div>

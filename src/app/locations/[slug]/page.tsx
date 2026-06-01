@@ -1,5 +1,4 @@
 import {
-  constructTitle,
   getContributorDisplayName,
   getContributorInstagram,
   getContributorName,
@@ -10,10 +9,7 @@ import {
 import { nameToInstagramMap } from "~/app/common/social-media";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Home from "~/app/page";
-import { SvgIcon } from "~/app/components/map/PopupContent";
-import { arrowRightIcon } from "~/lib/icons/arrowRightIcon";
-import Script from "next/script";
+import HomePage from "~/app/components/home-page";
 import CloseButton from "~/app/components/close-button";
 
 function getContributorInstagramUrl(contributor: ContributorCredit) {
@@ -352,7 +348,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <Home location={location} />
+      <HomePage location={location} />
     </div>
   );
 }

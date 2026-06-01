@@ -5,15 +5,24 @@ import { useUIStore } from "../_state/ui.store";
 import { SvgIcon } from "./map/PopupContent";
 import { closeIcon } from "~/lib/icons/closeIcon";
 
-export default function StreetView() {
-  const options = LOCATIONS.filter((location) => location.streetViewEmbed)
-    .map((location) => ({
+const STREET_VIEW_OPTIONS = (() => {
+  const options = [];
+  for (const location of LOCATIONS) {
+    if (!location.streetViewEmbed) continue;
+    options.push({
       value: location.name,
       label: location.name,
       artists: location.artists,
       streetViewEmbed: location.streetViewEmbed,
-    }))
-    .toSorted((a, b) => a.artists[0]?.localeCompare(b.artists[0] ?? "") ?? 0);
+    });
+  }
+  return options.toSorted(
+    (a, b) => a.artists[0]?.localeCompare(b.artists[0] ?? "") ?? 0,
+  );
+})();
+
+export default function StreetView() {
+  const options = STREET_VIEW_OPTIONS;
   const guessInputRef = useRef<HTMLSelectElement>(null);
   const {
     selectedLocation,
@@ -63,7 +72,7 @@ export default function StreetView() {
         <div className="flex w-full flex-row items-center justify-between">
           <h1>Cantopop地圖 Guesser</h1>
           <button type="button" onClick={() => setGameOpen(false)}>
-            <SvgIcon html={closeIcon} className="h-6 w-6 text-black" />
+            <SvgIcon html={closeIcon} className="size-6 text-black" />
           </button>
         </div>
         <iframe

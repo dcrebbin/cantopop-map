@@ -482,7 +482,7 @@ export default function MobileCameraView() {
   if (!isActive) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex flex-col bg-black">
+    <div className="fixed inset-0 z-[100] flex flex-col bg-gray-950">
       <video
         ref={videoRef}
         className="h-full w-full object-cover"

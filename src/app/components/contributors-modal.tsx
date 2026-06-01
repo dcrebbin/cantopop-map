@@ -13,6 +13,17 @@ import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { nameToInstagramMap } from "../common/social-media";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
+function removeContributorModalUrl() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete("view-portfolio");
+  url.searchParams.delete("selected-contributor");
+  window.history.replaceState({}, "", url.toString());
+}
+
+function removeTimeFromYoutubeUrl(url: string) {
+  return url.split("?")[0];
+}
+
 type Category = "song" | "musicVideo";
 
 interface Contribution {
@@ -116,17 +127,6 @@ export default function ContributorsModal() {
 
   if (!selectedContributor) return null;
 
-  function removeContributorModalUrl() {
-    const url = new URL(window.location.href);
-    url.searchParams.delete("view-portfolio");
-    url.searchParams.delete("selected-contributor");
-    window.history.replaceState({}, "", url.toString());
-  }
-
-  function removeTimeFromYoutubeUrl(url: string) {
-    return url.split("?")[0];
-  }
-
   function showLocationCredits(location: LocationItem) {
     setSelectedLocationCredits(location);
     setSelectedContributor(null);
@@ -200,7 +200,7 @@ export default function ContributorsModal() {
               removeContributorModalUrl();
             }}
           >
-            <XMarkIcon className="h-6 w-6" />
+            <XMarkIcon className="size-6" />
           </button>
         </div>
 
