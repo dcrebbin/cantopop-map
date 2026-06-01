@@ -37,4 +37,4 @@ const withPWA = withPWAInit({
   skipWaiting: true,
 });
 
-export default withPWA(baseConfig);
+export default withPWA(/** @type {any} */ (baseConfig));
