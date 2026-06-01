@@ -194,6 +194,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                   title="Street View"
                   className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
                   style={{ border: "0" }}
+                  sandbox="allow-scripts allow-popups allow-forms allow-presentation"
                 ></iframe>
               </div>
               <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
@@ -205,6 +206,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
                     title="Youtube Video"
                     className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
                     style={{ border: "0" }}
+                    sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-presentation allow-forms"
                   ></iframe>
                 ) : (
                   <div className="flex h-full w-full items-center justify-center rounded-lg bg-white/60 text-sm">

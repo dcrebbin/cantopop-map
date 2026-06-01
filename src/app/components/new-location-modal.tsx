@@ -127,10 +127,14 @@ export default function NewLocationModal() {
         <hr className="my-1 w-full" />
         <div className="flex w-full flex-col items-center justify-start gap-2">
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Song Title</p>
+            <label htmlFor="new-location-song-title" className="text-sm font-bold">
+              Song Title
+            </label>
             <input
+              id="new-location-song-title"
               type="text"
               placeholder="Song Title"
+              aria-label="Song title"
               className="w-full rounded-md bg-black/50 p-2 text-white"
               value={songTitle}
               onChange={(e) => setSongTitle(e.target.value)}
@@ -141,6 +145,7 @@ export default function NewLocationModal() {
             <div className="flex w-full flex-row items-center gap-2">
               <select
                 className="w-full rounded-md bg-black/50 p-2 text-white"
+                aria-label="Select artist to add"
                 value={artistToAdd}
                 onChange={(e) => setArtistToAdd(e.target.value)}
               >
@@ -183,31 +188,46 @@ export default function NewLocationModal() {
             )}
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Video URL (with timestamp)</p>
+            <label htmlFor="new-location-video-url" className="text-sm font-bold">
+              Video URL (with timestamp)
+            </label>
             <input
+              id="new-location-video-url"
               type="text"
               placeholder="https://youtu.be/BdNKxYgTAFU?t=222"
+              aria-label="Video URL with timestamp"
               className="w-full rounded-md bg-black/50 p-2 text-white"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Address</p>
+            <label htmlFor="new-location-address" className="text-sm font-bold">
+              Address
+            </label>
             <input
+              id="new-location-address"
               type="text"
               placeholder="Address (e.g. 123 Main St, Central, HK)"
+              aria-label="Address"
               className="w-full rounded-md bg-black/50 p-2 text-white"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Latitude & Longitude</p>
+            <label
+              htmlFor="new-location-coordinates"
+              className="text-sm font-bold"
+            >
+              Latitude & Longitude
+            </label>
             <div className="flex w-full flex-row items-start justify-start gap-2">
               <input
+                id="new-location-coordinates"
                 type="text"
                 placeholder="22.280535,114.157731"
+                aria-label="Latitude and longitude"
                 className="w-full rounded-md bg-black/50 p-2 text-white"
                 value={locationCoordinates}
                 onChange={(e) => setLocationCoordinates(e.target.value)}
@@ -215,10 +235,14 @@ export default function NewLocationModal() {
             </div>
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Street View (optional)</p>
+            <label htmlFor="new-location-street-view" className="text-sm font-bold">
+              Street View (optional)
+            </label>
             <input
+              id="new-location-street-view"
               type="text"
               placeholder="https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18"
+              aria-label="Street View URL"
               className="w-full rounded-md bg-black/50 p-2 text-white"
               value={streetView}
               onChange={(e) => setStreetView(e.target.value)}

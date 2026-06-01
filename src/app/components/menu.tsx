@@ -57,6 +57,7 @@ const SearchInput = memo(function SearchInput({
     <input
       type="text"
       placeholder="Search"
+      aria-label="Search songs, artists, and contributors"
       ref={searchRef}
       value={value}
       className="z-[200] w-full rounded-md border-none p-2"
@@ -280,11 +281,14 @@ export default function Menu() {
   );
 
   useEffect(() => {
+    const debounceRef = searchDebounceRef;
+    const frameRef = searchFrameRef;
+
     return () => {
-      if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current);
-      if (searchFrameRef.current !== null) {
-        cancelAnimationFrame(searchFrameRef.current);
-      }
+      const timeoutId = debounceRef.current;
+      const frameId = frameRef.current;
+      if (timeoutId) clearTimeout(timeoutId);
+      if (frameId !== null) cancelAnimationFrame(frameId);
     };
   }, []);
 
@@ -599,7 +603,7 @@ export default function Menu() {
                   fallback={
                     <div className="flex w-full items-center justify-center py-4 text-white">
                       <div className="animate-pulse">
-                        Loading contributors...
+                        Loading contributors…
                       </div>
                     </div>
                   }

@@ -1,5 +1,5 @@
-/** biome-ignore-all lint/correctness/useExhaustiveDependencies: <explanation> */
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+/** biome-ignore-all lint/correctness/useExhaustiveDependencies: mount-only game initialization */
+import { useCallback, useEffect, useRef } from "react";
 import { LOCATIONS } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
 import { SvgIcon } from "./map/PopupContent";
@@ -21,36 +21,22 @@ const STREET_VIEW_OPTIONS = (() => {
   );
 })();
 
+const STREET_VIEW_IFRAME_SANDBOX =
+  "allow-scripts allow-popups allow-forms allow-presentation";
+
 export default function StreetView() {
-  const options = STREET_VIEW_OPTIONS;
   const guessInputRef = useRef<HTMLSelectElement>(null);
   const {
     selectedLocation,
     setSelectedLocation,
     setGameOpen,
-    setGameScore,
-    setTotalLocations,
     totalLocations,
     gameScore,
   } = useUIStore();
 
-  function handleGuessLocation() {
-    const guess = guessInputRef.current?.value;
-    if (!guess) return;
-    setTotalLocations(totalLocations + 1);
-
-    if (guess === selectedLocation?.value) {
-      alert("Correct");
-      setGameScore(gameScore + 1);
-    } else {
-      alert("Incorrect");
-    }
-    determineNewLocation();
-  }
-
-  function determineNewLocation() {
-    const randomIndex = Math.floor(Math.random() * options.length);
-    const randomLocation = options[randomIndex];
+  const pickRandomLocation = useCallback(() => {
+    const randomIndex = Math.floor(Math.random() * STREET_VIEW_OPTIONS.length);
+    const randomLocation = STREET_VIEW_OPTIONS[randomIndex];
     if (randomLocation) {
       setSelectedLocation({
         value: randomLocation.value,
@@ -58,20 +44,44 @@ export default function StreetView() {
         streetViewEmbed: randomLocation.streetViewEmbed ?? "",
       });
     }
+  }, [setSelectedLocation]);
+
+  function handleGuessLocation() {
+    const guess = guessInputRef.current?.value;
+    if (!guess) return;
+
+    const store = useUIStore.getState();
+    useUIStore.setState({
+      totalLocations: store.totalLocations + 1,
+    });
+
+    if (guess === selectedLocation?.value) {
+      alert("Correct");
+      useUIStore.setState({
+        gameScore: store.gameScore + 1,
+      });
+    } else {
+      alert("Incorrect");
+    }
+    pickRandomLocation();
   }
 
   useEffect(() => {
-    if (options.length > 0) {
-      determineNewLocation();
+    if (STREET_VIEW_OPTIONS.length > 0) {
+      pickRandomLocation();
     }
-  }, []);
+  }, [pickRandomLocation]);
 
   return (
     <div className="fixed bottom-0 right-0 z-[90] flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="mx-4 mb-0 flex h-auto w-full flex-col items-center gap-4 rounded-lg bg-white p-4 lg:mb-28 lg:w-[55rem]">
         <div className="flex w-full flex-row items-center justify-between">
           <h1>Cantopop地圖 Guesser</h1>
-          <button type="button" onClick={() => setGameOpen(false)}>
+          <button
+            type="button"
+            aria-label="Close guesser game"
+            onClick={() => setGameOpen(false)}
+          >
             <SvgIcon html={closeIcon} className="size-6 text-black" />
           </button>
         </div>
@@ -85,12 +95,14 @@ export default function StreetView() {
           title="Street View"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
+          sandbox={STREET_VIEW_IFRAME_SANDBOX}
         ></iframe>
         <select
           ref={guessInputRef}
-          className="mx-4 w-full rounded-lg bg-black p-2 text-white"
+          aria-label="Guess the filming location"
+          className="mx-4 w-full rounded-lg bg-zinc-950 p-2 text-white"
         >
-          {options.map((option) => (
+          {STREET_VIEW_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
               {option.artists.join(", ")} - {option.label}
             </option>
@@ -99,7 +111,7 @@ export default function StreetView() {
         <button
           type="button"
           onClick={handleGuessLocation}
-          className="rounded-lg bg-black p-2 text-white"
+          className="rounded-lg bg-zinc-950 p-2 text-white"
         >
           Guess Location
         </button>

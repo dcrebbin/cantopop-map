@@ -24,6 +24,9 @@ import CreditsModal from "./credits-modal";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
 
+const MAP_CENTER = [114.16819296950341, 22.31382741410536] as const;
+const MAP_ZOOM = 10;
+
 function hasValidCoordinates(
   location: LocationItem | null | undefined,
 ): location is LocationItem & { lat: number; lng: number } {
@@ -43,9 +46,6 @@ export default function HomePage({ location }: { location?: LocationItem }) {
 
   const { map, setMap } = useMapStore();
 
-  const zoom = 10;
-  const center = [114.16819296950341, 22.31382741410536];
-
   const handleMapContainerRef = (node: HTMLDivElement | null) => {
     if (!node || map) return;
     mapContainer.current = node;
@@ -53,8 +53,8 @@ export default function HomePage({ location }: { location?: LocationItem }) {
     const newMap = new mapboxgl.Map({
       container: node,
       style: "mapbox://styles/mapbox/streets-v11",
-      center: center as mapboxgl.LngLatLike,
-      zoom: zoom,
+      center: MAP_CENTER as mapboxgl.LngLatLike,
+      zoom: MAP_ZOOM,
     });
 
     setMap(newMap);
@@ -155,13 +155,6 @@ export default function HomePage({ location }: { location?: LocationItem }) {
         {gameOpen && <StreetView />}
 
         <div ref={handleMapContainerRef} className="map-container relative" />
-        <style jsx>{`
-          .map-container {
-            height: 100dvh;
-            min-height: 100vh;
-            width: 100vw;
-          }
-        `}</style>
       </div>
     </div>
   );

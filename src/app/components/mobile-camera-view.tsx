@@ -486,6 +486,7 @@ export default function MobileCameraView() {
       <video
         ref={videoRef}
         className="h-full w-full object-cover"
+        aria-label="Camera preview"
         muted
         playsInline
         autoPlay

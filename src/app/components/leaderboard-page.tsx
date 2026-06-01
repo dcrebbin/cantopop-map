@@ -345,11 +345,13 @@ export default function LeaderboardPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search contributor"
+            aria-label="Search contributor"
             className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 placeholder:text-white/50 focus:ring-2"
           />
           <select
             value={artistFilter}
             onChange={(e) => setArtistFilter(e.target.value)}
+            aria-label="Filter by artist"
             className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
           >
             <option value="all">All artists</option>
@@ -364,6 +366,7 @@ export default function LeaderboardPage() {
             onChange={(e) =>
               setCategoryFilter(e.target.value as CategoryFilter)
             }
+            aria-label="Filter by credit category"
             className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
           >
             <option value="all">All categories</option>
@@ -373,6 +376,7 @@ export default function LeaderboardPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
+            aria-label="Filter by contributor role"
             className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
           >
             <option value="all">All roles</option>
