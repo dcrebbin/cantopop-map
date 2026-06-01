@@ -7229,20 +7229,22 @@ export const MAP_LOCATIONS: MappableLocationItem[] = LOCATIONS.filter(
 );
 
 export const ARTISTS = [
-  ...new Set(LOCATIONS.flatMap((location) => location.artists)),
-  "COLLAR",
-  "MIRROR",
-  "AGA 江海迦",
-  "Gin Lee 李幸倪",
-  "衛蘭 Janice Vidal",
-  "張蔓莎 Sabrina Cheung",
-  "Lewsz",
-  "BILLY CHOI",
-  "Claudia Koh",
-  "WINKA 陳泳伽",
-  "Jace Chan 陳凱詠",
-  "Other",
-];
+  ...new Set([
+    ...LOCATIONS.flatMap((location) => location.artists),
+    "COLLAR",
+    "MIRROR",
+    "AGA 江海迦",
+    "Gin Lee 李幸倪",
+    "衛蘭 Janice Vidal",
+    "張蔓莎 Sabrina Cheung",
+    "Lewsz",
+    "BILLY CHOI",
+    "Claudia Koh",
+    "WINKA 陳泳伽",
+    "Jace Chan 陳凱詠",
+    "Other",
+  ]),
+].toSorted((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
 
 export const SONGS = [
   ...new Set(

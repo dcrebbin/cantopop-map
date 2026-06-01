@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-// biome-ignore lint/performance/noImgElement: Images are dynamically loaded from location data
 /* eslint-disable no-alert */
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
+import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { MAP_LOCATIONS, type LocationItem } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
 
@@ -74,6 +73,67 @@ interface AnnotatedLocation {
 type PermissionStatus = "unknown" | "granted" | "denied";
 type OrientationPermissionStatus = PermissionStatus | "unsupported";
 
+type CameraViewState = {
+  cameraError: string | null;
+  locationError: string | null;
+  orientationError: string | null;
+  position: { lat: number; lng: number } | null;
+  heading: number | null;
+  cameraPermission: PermissionStatus;
+  locationPermission: PermissionStatus;
+  orientationPermission: OrientationPermissionStatus;
+  requiresOrientationPermission: boolean;
+  setupInProgress: boolean;
+};
+
+const initialCameraViewState: CameraViewState = {
+  cameraError: null,
+  locationError: null,
+  orientationError: null,
+  position: null,
+  heading: null,
+  cameraPermission: "unknown",
+  locationPermission: "unknown",
+  orientationPermission: "unknown",
+  requiresOrientationPermission: false,
+  setupInProgress: false,
+};
+
+type CameraViewAction =
+  | { type: "reset" }
+  | { type: "patch"; payload: Partial<CameraViewState> }
+  | { type: "orientation_unsupported" }
+  | { type: "orientation_capability_detected"; needsPermission: boolean };
+
+function cameraViewReducer(
+  state: CameraViewState,
+  action: CameraViewAction,
+): CameraViewState {
+  switch (action.type) {
+    case "reset":
+      return initialCameraViewState;
+    case "patch":
+      return { ...state, ...action.payload };
+    case "orientation_unsupported":
+      return {
+        ...state,
+        requiresOrientationPermission: false,
+        orientationPermission: "unsupported",
+        orientationError: "Device orientation is not supported.",
+      };
+    case "orientation_capability_detected":
+      return {
+        ...state,
+        requiresOrientationPermission: action.needsPermission,
+        orientationPermission: action.needsPermission
+          ? state.orientationPermission
+          : "granted",
+      };
+    default:
+      return state;
+  }
+}
+
 function getGeolocationErrorMessage(
   error: GeolocationPositionError,
   base: string,
@@ -95,22 +155,22 @@ export default function MobileCameraView() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const locationWatchIdRef = useRef<number | null>(null);
-  const [cameraError, setCameraError] = useState<string | null>(null);
-  const [locationError, setLocationError] = useState<string | null>(null);
-  const [orientationError, setOrientationError] = useState<string | null>(null);
-  const [position, setPosition] = useState<{ lat: number; lng: number } | null>(
-    null,
+  const [state, dispatch] = useReducer(
+    cameraViewReducer,
+    initialCameraViewState,
   );
-  const [heading, setHeading] = useState<number | null>(null);
-  const [cameraPermission, setCameraPermission] =
-    useState<PermissionStatus>("unknown");
-  const [locationPermission, setLocationPermission] =
-    useState<PermissionStatus>("unknown");
-  const [orientationPermission, setOrientationPermission] =
-    useState<OrientationPermissionStatus>("unknown");
-  const [requiresOrientationPermission, setRequiresOrientationPermission] =
-    useState(false);
-  const [setupInProgress, setSetupInProgress] = useState(false);
+  const {
+    cameraError,
+    locationError,
+    orientationError,
+    position,
+    heading,
+    cameraPermission,
+    locationPermission,
+    orientationPermission,
+    requiresOrientationPermission,
+    setupInProgress,
+  } = state;
 
   const isActive = mobileCameraViewOpen;
 
@@ -135,16 +195,7 @@ export default function MobileCameraView() {
 
   useEffect(() => {
     if (!isActive) return;
-    setCameraError(null);
-    setLocationError(null);
-    setOrientationError(null);
-    setPosition(null);
-    setHeading(null);
-    setCameraPermission("unknown");
-    setLocationPermission("unknown");
-    setOrientationPermission("unknown");
-    setRequiresOrientationPermission(false);
-    setSetupInProgress(false);
+    dispatch({ type: "reset" });
   }, [isActive]);
 
   useEffect(() => {
@@ -156,9 +207,7 @@ export default function MobileCameraView() {
   useEffect(() => {
     if (!isActive) return;
     if (typeof DeviceOrientationEvent === "undefined") {
-      setRequiresOrientationPermission(false);
-      setOrientationPermission("unsupported");
-      setOrientationError("Device orientation is not supported.");
+      dispatch({ type: "orientation_unsupported" });
       return;
     }
     const needsPermission =
@@ -167,8 +216,10 @@ export default function MobileCameraView() {
           requestPermission?: () => Promise<PermissionState>;
         }
       ).requestPermission === "function";
-    setRequiresOrientationPermission(needsPermission);
-    if (!needsPermission) setOrientationPermission("granted");
+    dispatch({
+      type: "orientation_capability_detected",
+      needsPermission,
+    });
   }, [isActive]);
 
   const ensureCameraAccess = useCallback(async () => {
@@ -176,8 +227,13 @@ export default function MobileCameraView() {
       typeof navigator === "undefined" ||
       !navigator.mediaDevices?.getUserMedia
     ) {
-      setCameraPermission("denied");
-      setCameraError("Camera is not supported in this browser.");
+      dispatch({
+        type: "patch",
+        payload: {
+          cameraPermission: "denied",
+          cameraError: "Camera is not supported in this browser.",
+        },
+      });
       return false;
     }
 
@@ -193,14 +249,21 @@ export default function MobileCameraView() {
         try {
           await videoRef.current.play();
         } catch {
-          setCameraPermission("denied");
-          setCameraError("Unable to start camera stream. Tap to retry.");
+          dispatch({
+            type: "patch",
+            payload: {
+              cameraPermission: "denied",
+              cameraError: "Unable to start camera stream. Tap to retry.",
+            },
+          });
           return false;
         }
       }
 
-      setCameraPermission("granted");
-      setCameraError(null);
+      dispatch({
+        type: "patch",
+        payload: { cameraPermission: "granted", cameraError: null },
+      });
       return true;
     }
 
@@ -221,64 +284,91 @@ export default function MobileCameraView() {
         try {
           await videoRef.current.play();
         } catch {
-          setCameraPermission("denied");
-          setCameraError("Unable to start camera stream. Tap to retry.");
+          dispatch({
+            type: "patch",
+            payload: {
+              cameraPermission: "denied",
+              cameraError: "Unable to start camera stream. Tap to retry.",
+            },
+          });
           return false;
         }
       }
 
-      setCameraPermission("granted");
-      setCameraError(null);
+      dispatch({
+        type: "patch",
+        payload: { cameraPermission: "granted", cameraError: null },
+      });
       return true;
     } catch (error) {
       console.error("Camera error:", error);
-      setCameraPermission("denied");
-      setCameraError(
-        error instanceof Error
-          ? error.message
-          : "Unable to access the camera. Please allow camera access in settings.",
-      );
+      dispatch({
+        type: "patch",
+        payload: {
+          cameraPermission: "denied",
+          cameraError:
+            error instanceof Error
+              ? error.message
+              : "Unable to access the camera. Please allow camera access in settings.",
+        },
+      });
       return false;
     }
   }, []);
 
   const requestInitialLocationAccess = useCallback(async () => {
     if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
-      setLocationPermission("denied");
-      setLocationError(
-        "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
-      );
+      dispatch({
+        type: "patch",
+        payload: {
+          locationPermission: "denied",
+          locationError:
+            "Geolocation is not supported. Try using Safari or Chrome over HTTPS.",
+        },
+      });
       return false;
     }
 
     if (!window.isSecureContext) {
-      setLocationPermission("denied");
-      setLocationError(
-        "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
-      );
+      dispatch({
+        type: "patch",
+        payload: {
+          locationPermission: "denied",
+          locationError:
+            "Geolocation requires HTTPS. On iOS, open this site over https in Safari and allow location.",
+        },
+      });
       return false;
     }
 
     return new Promise<boolean>((resolve) => {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          setPosition({
-            lat: pos.coords.latitude,
-            lng: pos.coords.longitude,
+          dispatch({
+            type: "patch",
+            payload: {
+              position: {
+                lat: pos.coords.latitude,
+                lng: pos.coords.longitude,
+              },
+              locationPermission: "granted",
+              locationError: null,
+            },
           });
-          setLocationPermission("granted");
-          setLocationError(null);
           resolve(true);
         },
         (error) => {
           console.error("Geolocation error:", error);
-          setLocationPermission("denied");
-          setLocationError(
-            getGeolocationErrorMessage(
-              error,
-              "Unable to determine your location.",
-            ),
-          );
+          dispatch({
+            type: "patch",
+            payload: {
+              locationPermission: "denied",
+              locationError: getGeolocationErrorMessage(
+                error,
+                "Unable to determine your location.",
+              ),
+            },
+          });
           resolve(false);
         },
         {
@@ -302,25 +392,36 @@ export default function MobileCameraView() {
 
     locationWatchIdRef.current = navigator.geolocation.watchPosition(
       (pos) => {
-        setPosition({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
+        dispatch({
+          type: "patch",
+          payload: {
+            position: {
+              lat: pos.coords.latitude,
+              lng: pos.coords.longitude,
+            },
+            locationPermission: "granted",
+            locationError: null,
+          },
         });
-        setLocationPermission("granted");
-        setLocationError(null);
       },
       (error) => {
         console.error("Geolocation error:", error);
         if (error.code === error.PERMISSION_DENIED) {
-          setLocationPermission("denied");
+          dispatch({
+            type: "patch",
+            payload: { locationPermission: "denied" },
+          });
           stopLocationWatch();
         }
-        setLocationError(
-          getGeolocationErrorMessage(
-            error,
-            "Unable to determine your location.",
-          ),
-        );
+        dispatch({
+          type: "patch",
+          payload: {
+            locationError: getGeolocationErrorMessage(
+              error,
+              "Unable to determine your location.",
+            ),
+          },
+        });
       },
       {
         enableHighAccuracy: true,
@@ -332,9 +433,7 @@ export default function MobileCameraView() {
 
   const requestOrientationAccess = useCallback(async () => {
     if (typeof DeviceOrientationEvent === "undefined") {
-      setRequiresOrientationPermission(false);
-      setOrientationPermission("unsupported");
-      setOrientationError("Device orientation is not supported.");
+      dispatch({ type: "orientation_unsupported" });
       return true;
     }
 
@@ -345,30 +444,47 @@ export default function MobileCameraView() {
     ).requestPermission;
 
     if (typeof requestPermission !== "function") {
-      setOrientationPermission("granted");
-      setOrientationError(null);
+      dispatch({
+        type: "patch",
+        payload: {
+          orientationPermission: "granted",
+          orientationError: null,
+        },
+      });
       return true;
     }
 
     try {
       const result = await requestPermission();
       if (result === "granted") {
-        setOrientationPermission("granted");
-        setOrientationError(null);
+        dispatch({
+          type: "patch",
+          payload: {
+            orientationPermission: "granted",
+            orientationError: null,
+          },
+        });
         return true;
       }
 
-      setOrientationPermission("denied");
-      setOrientationError(
-        "Orientation permission denied. Enable motion & orientation access in Settings > Safari > Motion & Orientation Access.",
-      );
+      dispatch({
+        type: "patch",
+        payload: {
+          orientationPermission: "denied",
+          orientationError:
+            "Orientation permission denied. Enable motion & orientation access in Settings > Safari > Motion & Orientation Access.",
+        },
+      });
       return false;
     } catch (error) {
       console.error("Orientation permission error:", error);
-      setOrientationPermission("denied");
-      setOrientationError(
-        "Could not request orientation permission. Try again.",
-      );
+      dispatch({
+        type: "patch",
+        payload: {
+          orientationPermission: "denied",
+          orientationError: "Could not request orientation permission. Try again.",
+        },
+      });
       return false;
     }
   }, []);
@@ -408,7 +524,7 @@ export default function MobileCameraView() {
         !Number.isNaN(calculatedHeading)
       ) {
         const normalized = (calculatedHeading + 360) % 360;
-        setHeading(normalized);
+        dispatch({ type: "patch", payload: { heading: normalized } });
       }
     };
 
@@ -423,7 +539,7 @@ export default function MobileCameraView() {
     if (!position || heading === null) {
       return [];
     }
-    const computed = MAP_LOCATIONS.map((location) => {
+    const computed = MAP_LOCATIONS.flatMap((location) => {
       const distanceKm = haversineDistanceKm(
         position.lat,
         position.lng,
@@ -439,27 +555,26 @@ export default function MobileCameraView() {
       const relativeBearing = shortestRotation(bearing, heading);
 
       const inField = Math.abs(relativeBearing) <= FIELD_OF_VIEW_DEG / 2;
-      if (!inField) return null;
+      if (!inField) return [];
 
       const horizontalPercent =
         ((relativeBearing + FIELD_OF_VIEW_DEG / 2) / FIELD_OF_VIEW_DEG) * 100;
 
-      // Use a logarithmic scale for vertical positioning to give more variation
-      // Closer locations appear higher, farther locations appear lower
-      // Max distance considered is 10km for better distribution
       const maxDistanceKm = 10;
       const normalizedDistance = Math.min(distanceKm / maxDistanceKm, 1);
       const verticalPercent = 20 + normalizedDistance * 60;
 
-      return {
-        location,
-        distanceKm,
-        bearing,
-        relativeBearing,
-        horizontalPercent: Math.min(Math.max(horizontalPercent, 0), 100),
-        verticalPercent,
-      };
-    }).filter(Boolean) as AnnotatedLocation[];
+      return [
+        {
+          location,
+          distanceKm,
+          bearing,
+          relativeBearing,
+          horizontalPercent: Math.min(Math.max(horizontalPercent, 0), 100),
+          verticalPercent,
+        },
+      ];
+    });
 
     return computed;
   }, [heading, position]);
@@ -512,18 +627,26 @@ export default function MobileCameraView() {
               disabled={setupInProgress}
               className="pointer-events-auto rounded-full bg-white px-6 py-3 text-sm font-semibold text-black shadow-lg"
               onClick={async () => {
-                setSetupInProgress(true);
-                setCameraError(null);
-                setLocationError(null);
-                if (orientationPermission !== "unsupported") {
-                  setOrientationError(null);
-                }
+                dispatch({
+                  type: "patch",
+                  payload: {
+                    setupInProgress: true,
+                    cameraError: null,
+                    locationError: null,
+                    ...(orientationPermission !== "unsupported"
+                      ? { orientationError: null }
+                      : {}),
+                  },
+                });
 
                 await requestOrientationAccess();
                 await ensureCameraAccess();
                 await requestInitialLocationAccess();
 
-                setSetupInProgress(false);
+                dispatch({
+                  type: "patch",
+                  payload: { setupInProgress: false },
+                });
               }}
             >
               {setupInProgress
@@ -559,7 +682,7 @@ export default function MobileCameraView() {
     return (
       <div
         key={entry.location.id}
-        className="absolute flex h-28 w-48 flex-col items-center rounded-xl border border-white/40 bg-black/50 text-center text-white backdrop-blur-lg"
+        className="absolute relative flex h-28 w-48 flex-col items-center overflow-hidden rounded-xl border border-white/40 bg-black/50 text-center text-white backdrop-blur-lg"
         style={{
           left: `calc(${entry.horizontalPercent}% - 6rem)`,
           top: `${entry.verticalPercent}%`,
@@ -580,10 +703,12 @@ export default function MobileCameraView() {
             {entry.location.artists.join(", ")}
           </span>
         </div>
-        <img
+        <Image
           src={entry.location.image}
           alt={entry.location.name}
-          className="absolute z-[0] h-full w-full rounded-xl object-cover brightness-[30%]"
+          fill
+          sizes="12rem"
+          className="absolute z-[0] rounded-xl object-cover brightness-[30%]"
         />
       </div>
     );

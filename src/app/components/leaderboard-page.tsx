@@ -252,9 +252,10 @@ function createRows({
   >();
 
   for (const location of LOCATIONS) {
-    const hasArtist =
-      artistFilter === "all" || location.artists.includes(artistFilter);
-    if (!hasArtist) continue;
+    if (artistFilter !== "all") {
+      const locationArtists = new Set(location.artists);
+      if (!locationArtists.has(artistFilter)) continue;
+    }
 
     const contributors = getContributors(location);
     if (!contributors) continue;

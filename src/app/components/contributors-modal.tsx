@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useMemo } from "react";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -269,9 +270,11 @@ export default function ContributorsModal() {
                       rel="noreferrer"
                       className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                     >
-                      <img
+                      <Image
                         src={c.location.image}
                         alt={c.location.name}
+                        width={160}
+                        height={90}
                         className="aspect-video h-20 w-auto rounded object-contain"
                         style={{ aspectRatio: "16/9" }}
                       />

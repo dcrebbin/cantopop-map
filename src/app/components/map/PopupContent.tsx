@@ -60,17 +60,12 @@ export function SvgIcon({
   className?: string;
   size?: number;
 }) {
-  const src = `data:image/svg+xml,${encodeURIComponent(html.trim())}`;
-
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- inline SVG markup from static icon strings
-    <img
-      src={src}
-      alt=""
+    <span
       aria-hidden
       className={className}
-      width={size}
-      height={size}
+      {...(size ? { style: { width: size, height: size } } : {})}
+      dangerouslySetInnerHTML={{ __html: html.trim() }}
     />
   );
 }

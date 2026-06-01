@@ -2,6 +2,15 @@ import "./src/env.js";
 import withPWAInit from "next-pwa";
 
 const baseConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**",
+      },
+    ],
+  },
   async rewrites() {
     return [
       {

@@ -58,6 +58,11 @@ interface UIState {
   setSelectedContributor: (contributor: string | null) => void;
   selectedLocationCredits: LocationItem | null;
   setSelectedLocationCredits: (location: LocationItem) => void;
+  applyUrlFiltersFromParams: (filters: {
+    artists?: string[];
+    contributors?: string[];
+    selectedContributor?: string;
+  }) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -118,4 +123,24 @@ export const useUIStore = create<UIState>((set) => ({
   selectedLocationCredits: null as LocationItem | null,
   setSelectedLocationCredits: (location: LocationItem) =>
     set({ selectedLocationCredits: location }),
+  applyUrlFiltersFromParams: (filters) => {
+    const update: Pick<
+      UIState,
+      "selectedArtists" | "selectedContributors" | "selectedContributor"
+    > = {};
+
+    if (filters.artists && filters.artists.length > 0) {
+      update.selectedArtists = filters.artists;
+    }
+    if (filters.contributors && filters.contributors.length > 0) {
+      update.selectedContributors = filters.contributors;
+    }
+    if (filters.selectedContributor) {
+      update.selectedContributor = filters.selectedContributor;
+    }
+
+    if (Object.keys(update).length > 0) {
+      set(update);
+    }
+  },
 }));
