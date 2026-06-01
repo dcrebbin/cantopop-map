@@ -82,6 +82,10 @@ export function HomePageJsonLd() {
   };
 
   return (
-    <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+    <script
+      type="application/ld+json"
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
   );
 }

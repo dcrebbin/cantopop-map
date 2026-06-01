@@ -174,9 +174,11 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
         id="location-modal"
       >
         <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-[60rem] xl:w-[80rem] 2xl:w-[90rem]">
-          <script type="application/ld+json" suppressHydrationWarning>
-            {JSON.stringify(jsonLd)}
-          </script>
+          <script
+            type="application/ld+json"
+            suppressHydrationWarning
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
           <div className="flex w-full flex-row items-center justify-between">
             <h1 className="text-xl font-bold">
               {location?.artists.join(", ")} - {location?.name} | Music Video

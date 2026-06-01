@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background-color: #e8eaed;
+}
+
 @font-face {
   font-family: "Cute";
   src: url("/fonts/cantopop.woff2") format("woff2");
@@ -28,6 +33,7 @@ input[type="checkbox"] {
   height: 100dvh;
   min-height: 100vh;
   width: 100vw;
+  background-color: #e8eaed;
 }
 
 .cherry-blossom-petal {

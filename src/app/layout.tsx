@@ -85,8 +85,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
-  viewportFit: "cover", // Enable safe area insets for Safari
+  themeColor: "#e8eaed",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -95,6 +95,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: "html,body{background-color:#e8eaed}",
+          }}
+        />
         <HomePageJsonLd />
         {process.env.NODE_ENV === "development" && (
           <Script
@@ -104,7 +109,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className="bg-gray-950">
+      <body>
         <PostHogProvider>{children}</PostHogProvider>
       </body>
     </html>

@@ -57,8 +57,8 @@
     "start_url": "/",
     "display": "standalone",
     "description": "Find the locations for your favourite cantopop music videos",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "background_color": "#e8eaed",
+    "theme_color": "#e8eaed",
     "screenshots": [
         {
             "src": "images/screenshot.png",
