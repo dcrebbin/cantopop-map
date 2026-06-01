@@ -21,14 +21,12 @@ interface ContributorsListProps {
   filteredContributors: string[];
   selectedContributors: string[];
   handleContributorCheckboxChange: (contributor: string) => void;
-  hasActiveSearch: boolean;
 }
 
 export default function ContributorsList({
   filteredContributors,
   selectedContributors,
   handleContributorCheckboxChange,
-  hasActiveSearch,
 }: ContributorsListProps) {
   const { setSelectedContributor, setMenuOpen } = useUIStore();
   const [openCategories, setOpenCategories] = useState<
@@ -39,7 +37,6 @@ export default function ContributorsList({
   });
   const groupsByCategory = useMemo(() => {
     const contributorsToRender =
-      hasActiveSearch &&
       filteredContributors.length > MAX_SEARCH_CONTRIBUTORS_TO_RENDER
         ? filteredContributors.slice(0, MAX_SEARCH_CONTRIBUTORS_TO_RENDER)
         : filteredContributors;
@@ -63,9 +60,8 @@ export default function ContributorsList({
         ContributorRoleGroupWithMatches[]
       >,
     );
-  }, [filteredContributors, hasActiveSearch]);
+  }, [filteredContributors]);
   const hiddenContributorCount =
-    hasActiveSearch &&
     filteredContributors.length > MAX_SEARCH_CONTRIBUTORS_TO_RENDER
       ? filteredContributors.length - MAX_SEARCH_CONTRIBUTORS_TO_RENDER
       : 0;

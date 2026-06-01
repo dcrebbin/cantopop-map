@@ -91,7 +91,6 @@ export default function Menu() {
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
-  const [hasActiveSearch, setHasActiveSearch] = useState(false);
   const [searchResults, setSearchResults] = useState(() => ({
     artists: ARTISTS,
     songs: SONGS,
@@ -201,11 +200,9 @@ export default function Menu() {
   const runSearch = useCallback(
     (search: string) => {
       const q = search.toLowerCase();
-      const nextHasActiveSearch = q.trim().length > 0;
 
       if (q.length === 0) {
         startTransition(() => {
-          setHasActiveSearch(nextHasActiveSearch);
           setSearchResults({
             artists: ARTISTS,
             songs: SONGS,
@@ -251,7 +248,6 @@ export default function Menu() {
       const contributors = Array.from(contributorsSet);
 
       startTransition(() => {
-        setHasActiveSearch(nextHasActiveSearch);
         setSearchResults({ artists, songs, contributors });
       });
     },
@@ -468,7 +464,7 @@ export default function Menu() {
         )}
       </div>
       <div
-        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/[15%] p-2 drop-shadow-md backdrop-blur-lg lg:max-h-[45rem] lg:w-[30rem]`}
+        className={`${menuOpen ? "block" : "hidden"} absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/80 p-2 drop-shadow-md backdrop-blur-md lg:max-h-[45rem] lg:w-[30rem] lg:bg-neutral-900/95 lg:backdrop-blur-none`}
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
       >
         <div className="flex flex-col items-center justify-center gap-2">
@@ -611,22 +607,11 @@ export default function Menu() {
                     handleContributorCheckboxChange={
                       handleContributorCheckboxChange
                     }
-                    hasActiveSearch={hasActiveSearch}
                   />
                 </Suspense>
               )}
             </div>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              setNewLocationModalOpen(true);
-              setMenuOpen(false);
-            }}
-            className="w-fit rounded-md bg-white p-2 text-black"
-          >
-            Add New Location
-          </button>
         </div>
       </div>
     </div>
