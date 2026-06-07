@@ -4444,7 +4444,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "就這樣嗎 (yue & jp)",
     streetView: "https://maps.app.goo.gl/kzuXFeXuMB9yweWTA",
     url: "https://youtu.be/1S_EQxhiONw?t=206",
-    image: "https://i.ytimg.com/vi/1S_EQxhiONw/maxresdefault.jpg",
+    image: "https://i.ytimg.com/vi/1S_EQxhiONw/hqdefault.jpg",
     contributors: {
       song: {
         composer: ["Kan Lo", "Rinka"],
