@@ -1,244 +1,117 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
-import {
-  getContributorInstagram,
-  getContributorName,
-  humanizeRoleKey,
-  type ContributorCredit,
-  type MappableLocationItem,
-} from "~/app/common/locations";
+import { type MappableLocationItem } from "~/app/common/locations";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
-import { closeIcon } from "~/lib/icons/closeIcon";
-import { editIcon } from "~/lib/icons/editIcon";
-import { useMemo, useState } from "react";
-import { plusIcon } from "~/lib/icons/plusIcon";
-import { minusIcon } from "~/lib/icons/minusIcon";
-import { nameToInstagramMap } from "~/app/common/social-media";
+import { useState } from "react";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
 import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { hidePopup } from "~/lib/custom-map";
 import { useMapStore } from "~/app/_state/map.store";
 
-type SvgPath = {
-  d: string;
-  fill?: string;
-  stroke?: string;
-  strokeLinecap?: "butt" | "round" | "square" | "inherit";
-  strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
-};
-
-function getPathFill(path: SVGPathElement) {
-  const fill = path.getAttribute("fill");
-  if (fill) return fill;
-
-  const styleFill = path
-    .getAttribute("style")
-    ?.match(/(?:^|;)\s*fill\s*:\s*([^;]+)/)?.[1]
-    ?.trim();
-  return styleFill;
+function buildDirectionsUrl(data: MappableLocationItem) {
+  return `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
 }
 
-function renderContributor(contributor: ContributorCredit) {
-  const name = getContributorName(contributor);
-  const instagram =
-    getContributorInstagram(contributor) ??
-    nameToInstagramMap[name as keyof typeof nameToInstagramMap];
+function buildStreetViewUrl(data: MappableLocationItem) {
+  return (
+    data.streetView ??
+    `https://www.google.com/maps/@${data.lat},${data.lng},18z`
+  );
+}
 
-  if (instagram) {
-    return (
-      <a
-        key={`${name}-${instagram}`}
-        href={`https://www.instagram.com/${instagram}`}
-        target="_blank"
-        className="wrap-break-word text-blue-500 underline"
-        rel="noreferrer"
-      >
-        {name}
-      </a>
-    );
+async function shareLocation(data: MappableLocationItem) {
+  const shareData = {
+    title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
+    url: document.URL,
+  };
+
+  if (navigator.share) {
+    await navigator.share(shareData);
+    return;
   }
 
-  return (
-    <span className="wrap-break-word" key={name}>
-      {name}
-    </span>
+  const params = new URLSearchParams({
+    text: shareData.title,
+    url: shareData.url,
+  });
+  window.open(
+    `https://twitter.com/intent/tweet?${params.toString()}`,
+    "_blank",
+    "noopener,noreferrer",
   );
 }
 
 export function SvgIcon({
   html,
   className,
-  size,
 }: {
   html: string;
   className?: string;
-  size?: number;
 }) {
-  const sanitizedIcon = useMemo(() => {
-    if (typeof DOMParser === "undefined") return null;
-
-    const parser = new DOMParser();
-    const document = parser.parseFromString(html.trim(), "image/svg+xml");
-    const svg = document.querySelector("svg");
-    if (!svg) return null;
-
-    const viewBox = svg.getAttribute("viewBox") ?? "0 0 24 24";
-    const fill = svg.getAttribute("fill") ?? undefined;
-    const stroke = svg.getAttribute("stroke") ?? undefined;
-    const paths = Array.from(svg.querySelectorAll("path")).flatMap((path) => {
-      const d = path.getAttribute("d");
-      if (!d) return [];
-
-      return [
-        {
-          d,
-          fill: getPathFill(path) ?? fill,
-          stroke: path.getAttribute("stroke") ?? stroke,
-          strokeLinecap:
-            (path.getAttribute("stroke-linecap") as SvgPath["strokeLinecap"]) ??
-            undefined,
-          strokeLinejoin:
-            (path.getAttribute(
-              "stroke-linejoin",
-            ) as SvgPath["strokeLinejoin"]) ?? undefined,
-        },
-      ];
-    });
-
-    return { fill, stroke, viewBox, paths };
-  }, [html]);
-
   return (
     <span
       aria-hidden
-      className={className}
-      {...(size ? { style: { width: size, height: size } } : {})}
-    >
-      {sanitizedIcon && (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill={sanitizedIcon.fill}
-          stroke={sanitizedIcon.stroke}
-          viewBox={sanitizedIcon.viewBox}
-        >
-          {sanitizedIcon.paths.map((path) => (
-            <path
-              key={path.d}
-              d={path.d}
-              fill={path.fill}
-              stroke={path.stroke}
-              strokeLinecap={path.strokeLinecap}
-              strokeLinejoin={path.strokeLinejoin}
-            />
-          ))}
-        </svg>
-      )}
-    </span>
+      className={`inline-flex shrink-0 items-center justify-center leading-none [&>svg]:h-full [&>svg]:w-full ${className ?? ""}`}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
   );
 }
 
 export function PopupContent({
   data,
-  onDelete,
-  onEdit,
+  onDelete: _onDelete,
+  onEdit: _onEdit,
 }: {
   data: MappableLocationItem;
   onDelete?: () => void;
   onEdit?: () => void;
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded] = useState(false);
 
   const { setSelectedLocationCredits } = useUIStore();
   const mapStore = useMapStore();
   const uiStore = useUIStore();
 
   const actionButtons = (
-    <div className="flex items-center justify-center gap-2">
-      <a href={data.url} target="_blank" rel="noreferrer">
-        <SvgIcon html={youtubeIcon} className="h-[28px] w-auto" />
+    <div className="mt-2 flex w-full items-center justify-center gap-2 text-black">
+      <a
+        href={data.url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open YouTube video"
+      >
+        <SvgIcon html={youtubeIcon} className="size-7" />
       </a>
-
       <button
         type="button"
         aria-label="Share location"
-        onClick={() =>
-          navigator.share({
-            title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
-            url: document.URL,
-          })
-        }
+        onClick={() => void shareLocation(data)}
       >
         <SvgIcon html={shareIcon} className="size-6" />
       </button>
-
-      {data.streetView && (
-        <a
-          href={
-            data.streetView ||
-            `https://www.google.com/maps/@${data.lat},${data.lng},18z`
-          }
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SvgIcon html={streetViewIcon} className="size-6" />
-        </a>
-      )}
-
       <a
-        href={`https://www.google.com/maps/dir//${data.lat},${data.lng}/`}
+        href={buildStreetViewUrl(data)}
         target="_blank"
         rel="noreferrer"
+        aria-label="Open Street View"
+      >
+        <SvgIcon html={streetViewIcon} className="size-6" />
+      </a>
+      <a
+        href={buildDirectionsUrl(data)}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Open directions"
       >
         <SvgIcon html={locationIcon} className="size-6" />
       </a>
     </div>
   );
-  const contributorSection = (
-    <div className="flex w-full flex-col items-start justify-start overflow-y-auto overflow-x-hidden font-bold">
-      <h3 className="my-1 text-base">Contributors</h3>
-      <hr className="my-1 w-full text-black" />
-      <h3>Song</h3>
-      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
-        {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
-          <div
-            className="flex min-w-0 flex-col items-start justify-start"
-            key={key}
-          >
-            <p className="min-w-0 wrap-break-word">
-              {humanizeRoleKey(key)} <br></br>
-            </p>
-            <div className="min-w-0 max-w-full text-left text-xs font-normal">
-              {Array.isArray(value) ? value.map(renderContributor) : null}
-            </div>
-          </div>
-        ))}
-      </div>
-      <hr className="my-1 w-full text-black" />
-      <h3 className="text-md">Music Video</h3>
-      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
-        {Object.entries(data.contributors?.musicVideo ?? {}).map(
-          ([key, value]) => (
-            <div
-              className="flex w-full min-w-0 flex-col items-start justify-start"
-              key={key}
-            >
-              <p className="min-w-0 wrap-break-word">
-                {humanizeRoleKey(key)} <br></br>
-              </p>
-              <div className="min-w-0 max-w-full text-left text-xs font-normal">
-                {value.map(renderContributor)}
-              </div>
-            </div>
-          ),
-        )}
-      </div>
-    </div>
-  );
+
   return (
     <div
       className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
@@ -255,29 +128,10 @@ export function PopupContent({
       </p>
       <p className="text-center text-xs">{data.name}</p>
       <p className="text-center text-xs">{data.address}</p>
-      {data?.isCustom && (
-        <>
-          <button
-            type="button"
-          aria-label="Delete custom location"
-            className="absolute right-0 top-0"
-            onClick={onDelete}
-          >
-            <SvgIcon html={closeIcon} className="size-6" />
-          </button>
-          <button
-            type="button"
-          aria-label="Edit custom location"
-            className="absolute left-0 top-0"
-            onClick={onEdit}
-          >
-            <SvgIcon html={editIcon} className="size-6" />
-          </button>
-        </>
-      )}
+
       {actionButtons}
       <button
-        className={`absolute left-0 top-0`}
+        className={`absolute top-0 left-0`}
         type="button"
         aria-label="Close location popup"
         onClick={() => {
@@ -310,7 +164,7 @@ export function PopupContent({
       </button>
       {data.contributors && (
         <button
-          className={`absolute right-0 top-0`}
+          className={`absolute top-0 right-0`}
           type="button"
           aria-label="Open location credits"
           onClick={() => {

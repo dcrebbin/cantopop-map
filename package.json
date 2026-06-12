@@ -11,7 +11,8 @@
     "dev:https": "NODE_ENV=development HOST=0.0.0.0 tsx scripts/dev-https.ts",
     "dev:host": "vite dev --host 0.0.0.0 --port 3000",
     "lint": "eslint . --ext .js,.cjs,.ts,.tsx",
-    "start": "node .output/server/index.mjs"
+    "start": "node .output/server/index.mjs",
+    "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

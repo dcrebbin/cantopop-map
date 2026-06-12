@@ -1,6 +1,6 @@
 "use client";
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useReducer, useEffect, useRef } from "react";
 import {
   CONTRIBUTOR_ROLE_GROUPS,
   type ContributorRoleGroup,
@@ -52,32 +52,92 @@ interface ContributorsListProps {
   handleContributorCheckboxChange: (contributor: string) => void;
 }
 
+type ContributorsListState = {
+  isMounted: boolean;
+  openCategories: Record<ContributorCategoryKey, boolean>;
+  scrollParent: HTMLElement | null;
+  scrollTop: number;
+  clientHeight: number;
+  offsetTop: number;
+};
+
+type ContributorsListAction =
+  | { type: "MOUNT" }
+  | { type: "TOGGLE_CATEGORY"; category: ContributorCategoryKey }
+  | {
+      type: "INIT_SCROLL";
+      scrollParent: HTMLElement;
+      scrollTop: number;
+      clientHeight: number;
+    }
+  | { type: "SCROLL"; scrollTop: number }
+  | { type: "RESIZE"; clientHeight: number }
+  | { type: "UPDATE_OFFSET"; offsetTop: number };
+
+const initialContributorsListState: ContributorsListState = {
+  isMounted: false,
+  openCategories: {
+    song: true,
+    musicVideo: true,
+  },
+  scrollParent: null,
+  scrollTop: 0,
+  clientHeight: 0,
+  offsetTop: 0,
+};
+
+function contributorsListReducer(
+  state: ContributorsListState,
+  action: ContributorsListAction,
+): ContributorsListState {
+  switch (action.type) {
+    case "MOUNT":
+      return { ...state, isMounted: true };
+    case "TOGGLE_CATEGORY":
+      return {
+        ...state,
+        openCategories: {
+          ...state.openCategories,
+          [action.category]: !state.openCategories[action.category],
+        },
+      };
+    case "INIT_SCROLL":
+      return {
+        ...state,
+        scrollParent: action.scrollParent,
+        scrollTop: action.scrollTop,
+        clientHeight: action.clientHeight,
+      };
+    case "SCROLL":
+      return { ...state, scrollTop: action.scrollTop };
+    case "RESIZE":
+      return { ...state, clientHeight: action.clientHeight };
+    case "UPDATE_OFFSET":
+      return { ...state, offsetTop: action.offsetTop };
+    default:
+      return state;
+  }
+}
+
 export default function ContributorsList({
   filteredContributors,
   selectedContributors,
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
   const { setSelectedContributor, setMenuOpen } = useUIStore();
-  const [isMounted, setIsMounted] = useState(false);
-  const [openCategories, setOpenCategories] = useState<
-    Record<ContributorCategoryKey, boolean>
-  >({
-    song: true,
-    musicVideo: true,
-  });
+  const [state, dispatch] = useReducer(
+    contributorsListReducer,
+    initialContributorsListState,
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const [scrollParent, setScrollParent] = useState<HTMLElement | null>(null);
-  const [scrollTop, setScrollTop] = useState(0);
-  const [clientHeight, setClientHeight] = useState(0);
-  const [offsetTop, setOffsetTop] = useState(0);
 
   useEffect(() => {
-    setIsMounted(true);
+    dispatch({ type: "MOUNT" });
   }, []);
 
   useEffect(() => {
-    if (!isMounted || !containerRef.current) return;
+    if (!state.isMounted || !containerRef.current) return;
 
     let parent = containerRef.current.parentElement;
     while (parent) {
@@ -89,17 +149,22 @@ export default function ContributorsList({
     }
 
     const target = parent ?? document.documentElement;
-    setScrollParent(target);
-
-    setScrollTop(target.scrollTop);
-    setClientHeight(target.clientHeight || window.innerHeight);
+    dispatch({
+      type: "INIT_SCROLL",
+      scrollParent: target,
+      scrollTop: target.scrollTop,
+      clientHeight: target.clientHeight || window.innerHeight,
+    });
 
     const handleScroll = () => {
-      setScrollTop(target.scrollTop);
+      dispatch({ type: "SCROLL", scrollTop: target.scrollTop });
     };
 
     const handleResize = () => {
-      setClientHeight(target.clientHeight || window.innerHeight);
+      dispatch({
+        type: "RESIZE",
+        clientHeight: target.clientHeight || window.innerHeight,
+      });
     };
 
     target.addEventListener("scroll", handleScroll, { passive: true });
@@ -109,7 +174,7 @@ export default function ContributorsList({
       target.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [isMounted]);
+  }, [state.isMounted]);
 
   const groupsByCategory = useMemo(() => {
     const filteredContributorsSet = new Set(filteredContributors);
@@ -139,10 +204,7 @@ export default function ContributorsList({
   }, [filteredContributors]);
 
   function toggleCategory(category: ContributorCategoryKey) {
-    setOpenCategories((current) => ({
-      ...current,
-      [category]: !current[category],
-    }));
+    dispatch({ type: "TOGGLE_CATEGORY", category });
   }
 
   const flatItems = useMemo(() => {
@@ -152,7 +214,7 @@ export default function ContributorsList({
       const groupsToShow = groupsByCategory[category.key];
       if (groupsToShow.length === 0) continue;
 
-      const isOpen = openCategories[category.key];
+      const isOpen = state.openCategories[category.key];
 
       items.push({
         type: "category",
@@ -183,34 +245,39 @@ export default function ContributorsList({
     }
 
     return items;
-  }, [groupsByCategory, openCategories]);
+  }, [groupsByCategory, state.openCategories]);
 
   useEffect(() => {
-    if (!isMounted || !containerRef.current || !scrollParent) return;
+    if (!state.isMounted || !containerRef.current || !state.scrollParent) return;
 
     const updateOffset = () => {
-      if (!containerRef.current || !scrollParent) return;
+      if (!containerRef.current || !state.scrollParent) return;
       const rect = containerRef.current.getBoundingClientRect();
-      const parentRect = scrollParent.getBoundingClientRect();
+      const parentRect = state.scrollParent.getBoundingClientRect();
       const parentTop =
-        scrollParent === document.documentElement ? 0 : parentRect.top;
-      setOffsetTop(rect.top - parentTop + scrollParent.scrollTop);
+        state.scrollParent === document.documentElement ? 0 : parentRect.top;
+      dispatch({
+        type: "UPDATE_OFFSET",
+        offsetTop: rect.top - parentTop + state.scrollParent.scrollTop,
+      });
     };
 
     updateOffset();
     window.addEventListener("resize", updateOffset);
-    scrollParent.addEventListener("scroll", updateOffset, { passive: true });
+    state.scrollParent.addEventListener("scroll", updateOffset, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("resize", updateOffset);
-      scrollParent.removeEventListener("scroll", updateOffset);
+      state.scrollParent?.removeEventListener("scroll", updateOffset);
     };
-  }, [isMounted, scrollParent, flatItems.length]);
+  }, [state.isMounted, state.scrollParent, flatItems.length]);
 
   const ITEM_HEIGHT = 36;
   const OVERSCAN = 15;
 
-  const relativeScrollTop = Math.max(0, scrollTop - offsetTop);
+  const relativeScrollTop = Math.max(0, state.scrollTop - state.offsetTop);
 
   const startIndex = Math.max(
     0,
@@ -218,7 +285,8 @@ export default function ContributorsList({
   );
   const endIndex = Math.min(
     flatItems.length - 1,
-    Math.ceil((relativeScrollTop + clientHeight) / ITEM_HEIGHT) + OVERSCAN,
+    Math.ceil((relativeScrollTop + state.clientHeight) / ITEM_HEIGHT) +
+      OVERSCAN,
   );
 
   const visibleItems = useMemo(() => {
@@ -230,7 +298,7 @@ export default function ContributorsList({
 
   const totalHeight = flatItems.length * ITEM_HEIGHT;
 
-  if (!isMounted) {
+  if (!state.isMounted) {
     return (
       <div className="flex w-full items-center justify-center py-4 text-white">
         <div className="animate-pulse">Loading contributors…</div>
