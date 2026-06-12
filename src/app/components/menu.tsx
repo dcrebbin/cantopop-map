@@ -597,7 +597,7 @@ export default function Menu() {
                 </div>
                 {songsAndArtistsOpen && (
                   <div className="flex w-full flex-col gap-2">
-                    {artistsToShow.map((artist: string) => {
+                    {artistsToShow.map((artist: any) => {
                       const songsForArtist = songsByArtist.get(artist) ?? [];
                       if (songsForArtist.length === 0) return null;
                       return (

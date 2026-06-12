@@ -77,7 +77,7 @@ export default function ContributorsList({
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!isMounted || !containerRef.current) return;
 
     let parent = containerRef.current.parentElement;
     while (parent) {
@@ -109,29 +109,7 @@ export default function ContributorsList({
       target.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!containerRef.current || !scrollParent) return;
-
-    const updateOffset = () => {
-      if (!containerRef.current || !scrollParent) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const parentRect = scrollParent.getBoundingClientRect();
-      const parentTop =
-        scrollParent === document.documentElement ? 0 : parentRect.top;
-      setOffsetTop(rect.top - parentTop + scrollParent.scrollTop);
-    };
-
-    updateOffset();
-    window.addEventListener("resize", updateOffset);
-    scrollParent.addEventListener("scroll", updateOffset, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", updateOffset);
-      scrollParent.removeEventListener("scroll", updateOffset);
-    };
-  }, [scrollParent]);
+  }, [isMounted]);
 
   const groupsByCategory = useMemo(() => {
     const filteredContributorsSet = new Set(filteredContributors);
@@ -206,6 +184,28 @@ export default function ContributorsList({
 
     return items;
   }, [groupsByCategory, openCategories]);
+
+  useEffect(() => {
+    if (!isMounted || !containerRef.current || !scrollParent) return;
+
+    const updateOffset = () => {
+      if (!containerRef.current || !scrollParent) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const parentRect = scrollParent.getBoundingClientRect();
+      const parentTop =
+        scrollParent === document.documentElement ? 0 : parentRect.top;
+      setOffsetTop(rect.top - parentTop + scrollParent.scrollTop);
+    };
+
+    updateOffset();
+    window.addEventListener("resize", updateOffset);
+    scrollParent.addEventListener("scroll", updateOffset, { passive: true });
+
+    return () => {
+      window.removeEventListener("resize", updateOffset);
+      scrollParent.removeEventListener("scroll", updateOffset);
+    };
+  }, [isMounted, scrollParent, flatItems.length]);
 
   const ITEM_HEIGHT = 36;
   const OVERSCAN = 15;
