@@ -10,6 +10,7 @@ import { nameToInstagramMap } from "~/app/common/social-media";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import DynamicHomePage from "~/app/components/dynamic-home-page";
 import CloseButton from "~/app/components/close-button";
+import { JsonLdScript } from "~/app/components/JsonLd";
 
 function getContributorInstagramUrl(contributor: ContributorCredit) {
   const name = getContributorName(contributor);
@@ -171,11 +172,7 @@ function LocationPage() {
         id="location-modal"
       >
         <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-240 xl:w-7xl 2xl:w-360">
-          <script
-            type="application/ld+json"
-            suppressHydrationWarning
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-          />
+          <JsonLdScript data={jsonLd} />
           <div className="flex w-full flex-row items-center justify-between">
             <h1 className="text-xl font-semibold">
               {location?.artists.join(", ")} - {location?.name} | Music Video

@@ -1,7 +1,7 @@
 # Cantopop Map - LLMs directory
 > A community-curated map of Cantonese pop music video locations.
 site: https://cantopopmap.hk
-generated_at: 2026-06-12T15:28:45.399Z
+generated_at: 2026-06-12T15:57:14.425Z
 
 ## Important pages
 https://cantopopmap.hk/

@@ -86,11 +86,6 @@ function RootLayout() {
     <html lang="en">
       <head>
         <HeadContent />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: "html,body{background-color:#e8eaed}",
-          }}
-        />
         <HomePageJsonLd />
       </head>
       <body>
