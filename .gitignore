@@ -18,12 +18,15 @@ db.sqlite
 /out/
 next-env.d.ts
 
+.output/*
+
 # production
 /build
 
 # misc
 .DS_Store
 *.pem
+.ssl/
 
 # debug
 npm-debug.log*
@@ -44,3 +47,5 @@ yarn-error.log*
 
 # idea files
 .idea
+# Snyk Security Extension - AI Rules (auto-generated)
+.cursor/rules/snyk_rules.mdc

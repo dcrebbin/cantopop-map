@@ -5,34 +5,33 @@
   "type": "module",
   "scripts": {
     "prebuild": "tsx scripts/generate-llms.ts",
-    "build": "next build",
-    "dev": "next dev",
-    "lint": "next lint",
-    "start": "next start"
+    "build": "vite build",
+    "dev": "vite dev",
+    "dev:grab": "npx @react-grab/cursor@latest && vite dev",
+    "dev:https": "NODE_ENV=development HOST=0.0.0.0 tsx scripts/dev-https.ts",
+    "dev:host": "vite dev --host 0.0.0.0 --port 3000",
+    "lint": "eslint . --ext .js,.cjs,.ts,.tsx",
+    "start": "node .output/server/index.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@t3-oss/env-nextjs": "^0.10.1",
-    "@tanstack/react-query": "^5.50.0",
-    "@trpc/client": "^11.0.0-rc.446",
-    "@trpc/react-query": "^11.0.0-rc.446",
-    "@trpc/server": "^11.0.0-rc.446",
-    "@types/next-pwa": "^5.6.9",
+    "@tanstack/react-router": "^1.170.15",
+    "@tanstack/react-start": "^1.168.25",
+    "@vitejs/plugin-react": "^6.0.2",
     "geist": "^1.3.0",
     "mapbox-gl": "^3.6.0",
-    "next": "^14.2.4",
-    "next-pwa": "^5.6.0",
+    "nitro": "3.0.260610-beta",
     "posthog-js": "^1.260.1",
-    "posthog-node": "^5.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "server-only": "^0.0.1",
-    "superjson": "^2.2.1",
+    "react-toastify": "^11.0.5",
     "tsx": "^4.20.5",
+    "vite": "^8.0.16",
     "zod": "^3.23.3",
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
     "@types/eslint": "^8.56.10",
     "@types/minimatch": "^5.1.2",
     "@types/node": "^20.14.10",
@@ -41,15 +40,14 @@
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.4",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "^3.4.3",
+    "react-doctor": "^0.5.1",
+    "tailwindcss": "^4.3.0",
     "typescript": "^5.5.3"
   },
   "ct3aMetadata": {
     "initVersion": "7.37.0"
-  },
-  "packageManager": "pnpm@9.7.0"
+  }
 }

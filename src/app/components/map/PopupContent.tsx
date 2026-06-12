@@ -1,29 +1,144 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use client";
 
-import { humanizeRoleKey, type LocationItem } from "~/app/common/locations";
+import {
+  getContributorInstagram,
+  getContributorName,
+  humanizeRoleKey,
+  type ContributorCredit,
+  type MappableLocationItem,
+} from "~/app/common/locations";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
 import { closeIcon } from "~/lib/icons/closeIcon";
 import { editIcon } from "~/lib/icons/editIcon";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { plusIcon } from "~/lib/icons/plusIcon";
 import { minusIcon } from "~/lib/icons/minusIcon";
 import { nameToInstagramMap } from "~/app/common/social-media";
 import posthog from "posthog-js";
+import { useUIStore } from "~/app/_state/ui.store";
+import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { hidePopup } from "~/lib/custom-map";
+import { useMapStore } from "~/app/_state/map.store";
+
+type SvgPath = {
+  d: string;
+  fill?: string;
+  stroke?: string;
+  strokeLinecap?: "butt" | "round" | "square" | "inherit";
+  strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
+};
+
+function getPathFill(path: SVGPathElement) {
+  const fill = path.getAttribute("fill");
+  if (fill) return fill;
+
+  const styleFill = path
+    .getAttribute("style")
+    ?.match(/(?:^|;)\s*fill\s*:\s*([^;]+)/)?.[1]
+    ?.trim();
+  return styleFill;
+}
+
+function renderContributor(contributor: ContributorCredit) {
+  const name = getContributorName(contributor);
+  const instagram =
+    getContributorInstagram(contributor) ??
+    nameToInstagramMap[name as keyof typeof nameToInstagramMap];
+
+  if (instagram) {
+    return (
+      <a
+        key={`${name}-${instagram}`}
+        href={`https://www.instagram.com/${instagram}`}
+        target="_blank"
+        className="wrap-break-word text-blue-500 underline"
+        rel="noreferrer"
+      >
+        {name}
+      </a>
+    );
+  }
+
+  return (
+    <span className="wrap-break-word" key={name}>
+      {name}
+    </span>
+  );
+}
 
 export function SvgIcon({
   html,
   className,
+  size,
 }: {
   html: string;
   className?: string;
+  size?: number;
 }) {
+  const sanitizedIcon = useMemo(() => {
+    if (typeof DOMParser === "undefined") return null;
+
+    const parser = new DOMParser();
+    const document = parser.parseFromString(html.trim(), "image/svg+xml");
+    const svg = document.querySelector("svg");
+    if (!svg) return null;
+
+    const viewBox = svg.getAttribute("viewBox") ?? "0 0 24 24";
+    const fill = svg.getAttribute("fill") ?? undefined;
+    const stroke = svg.getAttribute("stroke") ?? undefined;
+    const paths = Array.from(svg.querySelectorAll("path")).flatMap((path) => {
+      const d = path.getAttribute("d");
+      if (!d) return [];
+
+      return [
+        {
+          d,
+          fill: getPathFill(path) ?? fill,
+          stroke: path.getAttribute("stroke") ?? stroke,
+          strokeLinecap:
+            (path.getAttribute("stroke-linecap") as SvgPath["strokeLinecap"]) ??
+            undefined,
+          strokeLinejoin:
+            (path.getAttribute(
+              "stroke-linejoin",
+            ) as SvgPath["strokeLinejoin"]) ?? undefined,
+        },
+      ];
+    });
+
+    return { fill, stroke, viewBox, paths };
+  }, [html]);
+
   return (
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-    <span className={className} dangerouslySetInnerHTML={{ __html: html }} />
+    <span
+      aria-hidden
+      className={className}
+      {...(size ? { style: { width: size, height: size } } : {})}
+    >
+      {sanitizedIcon && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={sanitizedIcon.fill}
+          stroke={sanitizedIcon.stroke}
+          viewBox={sanitizedIcon.viewBox}
+        >
+          {sanitizedIcon.paths.map((path) => (
+            <path
+              key={path.d}
+              d={path.d}
+              fill={path.fill}
+              stroke={path.stroke}
+              strokeLinecap={path.strokeLinecap}
+              strokeLinejoin={path.strokeLinejoin}
+            />
+          ))}
+        </svg>
+      )}
+    </span>
   );
 }
 
@@ -32,11 +147,15 @@ export function PopupContent({
   onDelete,
   onEdit,
 }: {
-  data: LocationItem;
+  data: MappableLocationItem;
   onDelete?: () => void;
   onEdit?: () => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const { setSelectedLocationCredits } = useUIStore();
+  const mapStore = useMapStore();
+  const uiStore = useUIStore();
 
   const actionButtons = (
     <div className="flex items-center justify-center gap-2">
@@ -46,6 +165,7 @@ export function PopupContent({
 
       <button
         type="button"
+        aria-label="Share location"
         onClick={() =>
           navigator.share({
             title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
@@ -53,7 +173,7 @@ export function PopupContent({
           })
         }
       >
-        <SvgIcon html={shareIcon} className="h-6 w-6" />
+        <SvgIcon html={shareIcon} className="size-6" />
       </button>
 
       {data.streetView && (
@@ -65,7 +185,7 @@ export function PopupContent({
           target="_blank"
           rel="noreferrer"
         >
-          <SvgIcon html={streetViewIcon} className="h-6 w-6" />
+          <SvgIcon html={streetViewIcon} className="size-6" />
         </a>
       )}
 
@@ -74,106 +194,44 @@ export function PopupContent({
         target="_blank"
         rel="noreferrer"
       >
-        <SvgIcon html={locationIcon} className="h-6 w-6" />
+        <SvgIcon html={locationIcon} className="size-6" />
       </a>
     </div>
   );
   const contributorSection = (
-    <div className="flex w-full flex-col items-start justify-start overflow-y-auto font-bold">
+    <div className="flex w-full flex-col items-start justify-start overflow-y-auto overflow-x-hidden font-bold">
       <h3 className="my-1 text-base">Contributors</h3>
       <hr className="my-1 w-full text-black" />
       <h3>Song</h3>
-      <div className="grid w-full grid-cols-2 gap-2">
+      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
         {Object.entries(data.contributors?.song ?? {}).map(([key, value]) => (
-          <div className="flex flex-col items-start justify-start" key={key}>
-            <p>
+          <div
+            className="flex min-w-0 flex-col items-start justify-start"
+            key={key}
+          >
+            <p className="min-w-0 wrap-break-word">
               {humanizeRoleKey(key)} <br></br>
             </p>
-            <div className="flex flex-col gap-1 text-left text-xs font-normal">
-              {Array.isArray(value)
-                ? value.map((name) => {
-                    if (
-                      nameToInstagramMap[
-                        name as keyof typeof nameToInstagramMap
-                      ]
-                    ) {
-                      return (
-                        <a
-                          key={name}
-                          href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
-                          target="_blank"
-                          className="text-blue-500 underline"
-                          rel="noreferrer"
-                        >
-                          {name}
-                        </a>
-                      );
-                    }
-                    if (typeof name === "string" && name.includes("@")) {
-                      return (
-                        <a
-                          key={name}
-                          href={`https://www.instagram.com/${name.split("@")[1]}`}
-                          target="_blank"
-                          className="text-blue-500 underline"
-                          rel="noreferrer"
-                        >
-                          {name}
-                        </a>
-                      );
-                    }
-
-                    return <span key={name}>{name}</span>;
-                  })
-                : null}
+            <div className="min-w-0 max-w-full text-left text-xs font-normal">
+              {Array.isArray(value) ? value.map(renderContributor) : null}
             </div>
           </div>
         ))}
       </div>
       <hr className="my-1 w-full text-black" />
       <h3 className="text-md">Music Video</h3>
-      <div className="grid w-full grid-cols-2 gap-2">
+      <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
         {Object.entries(data.contributors?.musicVideo ?? {}).map(
           ([key, value]) => (
             <div
-              className="flex w-full flex-col items-start justify-start"
+              className="flex w-full min-w-0 flex-col items-start justify-start"
               key={key}
             >
-              <p>
+              <p className="min-w-0 wrap-break-word">
                 {humanizeRoleKey(key)} <br></br>
               </p>
-              <div className="flex flex-col gap-1 text-left text-xs font-normal">
-                {value.map((name) => {
-                  if (
-                    nameToInstagramMap[name as keyof typeof nameToInstagramMap]
-                  ) {
-                    return (
-                      <a
-                        key={name}
-                        href={`https://www.instagram.com/${nameToInstagramMap[name as keyof typeof nameToInstagramMap]}`}
-                        target="_blank"
-                        className="text-blue-500 underline"
-                        rel="noreferrer"
-                      >
-                        {name}
-                      </a>
-                    );
-                  }
-                  if (name.includes("@")) {
-                    return (
-                      <a
-                        key={name}
-                        href={`https://www.instagram.com/${name.split("@")[1]}`}
-                        target="_blank"
-                        className="text-blue-500 underline"
-                        rel="noreferrer"
-                      >
-                        {name}
-                      </a>
-                    );
-                  }
-                  return <span key={name}>{name}</span>;
-                })}
+              <div className="min-w-0 max-w-full text-left text-xs font-normal">
+                {value.map(renderContributor)}
               </div>
             </div>
           ),
@@ -201,38 +259,72 @@ export function PopupContent({
         <>
           <button
             type="button"
+          aria-label="Delete custom location"
             className="absolute right-0 top-0"
             onClick={onDelete}
           >
-            <SvgIcon html={closeIcon} className="h-6 w-6" />
+            <SvgIcon html={closeIcon} className="size-6" />
           </button>
           <button
             type="button"
+          aria-label="Edit custom location"
             className="absolute left-0 top-0"
             onClick={onEdit}
           >
-            <SvgIcon html={editIcon} className="h-6 w-6" />
+            <SvgIcon html={editIcon} className="size-6" />
           </button>
         </>
       )}
-      {isExpanded && contributorSection}
       {actionButtons}
+      <button
+        className={`absolute left-0 top-0`}
+        type="button"
+        aria-label="Close location popup"
+        onClick={() => {
+          const { lastPopup, lastMarker } = useMapStore.getState();
+          if (lastPopup && lastMarker) {
+            uiStore.setSelectedLocation({
+              value: "",
+              artists: [],
+              streetViewEmbed: "",
+            });
+            const params = new URLSearchParams(window.location.search);
+            params.delete("title");
+            const query = params.toString();
+            const newUrl = query
+              ? `${window.location.pathname}?${query}`
+              : window.location.pathname;
+            window.history.replaceState({}, "", newUrl);
+            if (mapStore.lastPopup && mapStore.lastMarker) {
+              hidePopup(
+                mapStore.lastPopup,
+                mapStore.lastMarker,
+                mapStore.selectedLocationId ?? "",
+              );
+            }
+            mapStore.clearSelectedLocation();
+          }
+        }}
+      >
+        <XMarkIcon className="size-4" />
+      </button>
       {data.contributors && (
         <button
           className={`absolute right-0 top-0`}
           type="button"
+          aria-label="Open location credits"
           onClick={() => {
-            setIsExpanded(!isExpanded);
+            setSelectedLocationCredits(data);
+            const url = new URL(window.location.href);
+            url.searchParams.set("view-credits", "true");
+            window.history.replaceState({}, "", url.toString());
             posthog.capture("toggle_contributor_section", {
               artists: data.artists.join(", "),
               songTitle: data.name,
             });
           }}
         >
-          <SvgIcon
-            html={isExpanded ? minusIcon : plusIcon}
-            className={`h-6 w-6`}
-          />
+          <ArrowUpRightIcon className="size-3.5" />
         </button>
       )}
     </div>

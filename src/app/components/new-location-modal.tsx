@@ -2,10 +2,24 @@
 import { useState } from "react";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "../_state/ui.store";
-import { ARTISTS, type LocationItem } from "../common/locations";
+import { ARTISTS, type MappableLocationItem } from "../common/locations";
 import { addPlace } from "~/lib/custom-map";
 import { useMapStore } from "../_state/map.store";
 import mapboxgl from "mapbox-gl";
+
+function retrieveVideoIdFromUrl(url: string) {
+  if (url.includes("v=")) {
+    const videoId = url?.split("v=")[1]?.split("&")[0];
+    return videoId;
+  }
+
+  if (url.includes("youtu.be")) {
+    const videoId = url?.split("youtu.be/")[1]?.split("?")[0];
+    return videoId;
+  }
+
+  return null;
+}
 
 export default function NewLocationModal() {
   const { newLocationModalOpen, setNewLocationModalOpen } = useUIStore();
@@ -28,20 +42,6 @@ export default function NewLocationModal() {
 
   if (!newLocationModalOpen) return null;
 
-  function retrieveVideoIdFromUrl(url: string) {
-    if (url.includes("v=")) {
-      const videoId = url?.split("v=")[1]?.split("&")[0];
-      return videoId;
-    }
-
-    if (url.includes("youtu.be")) {
-      const videoId = url?.split("youtu.be/")[1]?.split("?")[0];
-      return videoId;
-    }
-
-    return null;
-  }
-
   function addLocationMarkerToMap() {
     if (!locationCoordinates || !songTitle || !artists || !videoUrl || !address)
       return;
@@ -50,7 +50,7 @@ export default function NewLocationModal() {
 
     const lat = parseFloat(locationCoordinates.split(",")[0] ?? "0") ?? 0;
     const lng = parseFloat(locationCoordinates.split(",")[1] ?? "0") ?? 0;
-    const newLocation: LocationItem = {
+    const newLocation: MappableLocationItem = {
       id: songTitle,
       mapEmbed: null,
       artists,
@@ -64,6 +64,7 @@ export default function NewLocationModal() {
       address,
       name: songTitle,
       streetView,
+      hidden: false,
     };
     const { map } = useMapStore.getState();
     addPlace(newLocation, map ?? undefined);
@@ -115,8 +116,8 @@ export default function NewLocationModal() {
   const mailtoHref = `mailto:devon@langpal.com.hk?${mailtoParams.toString()}`;
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 text-white">
-      <div className="flex h-fit w-[30rem] flex-col items-center justify-start rounded-lg bg-black/50 p-4">
+    <div className="fixed inset-0 z-90 flex items-center justify-center bg-zinc-950/50 text-white">
+      <div className="flex h-fit w-120 flex-col items-center justify-start rounded-lg bg-zinc-950/50 p-4">
         <div className="flex w-full flex-row items-start justify-between">
           <h1>New Location</h1>
           <button type="button" onClick={() => setNewLocationModalOpen(false)}>
@@ -126,11 +127,15 @@ export default function NewLocationModal() {
         <hr className="my-1 w-full" />
         <div className="flex w-full flex-col items-center justify-start gap-2">
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Song Title</p>
+            <label htmlFor="new-location-song-title" className="text-sm font-bold">
+              Song Title
+            </label>
             <input
+              id="new-location-song-title"
               type="text"
               placeholder="Song Title"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              aria-label="Song title"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={songTitle}
               onChange={(e) => setSongTitle(e.target.value)}
             />
@@ -139,7 +144,8 @@ export default function NewLocationModal() {
             <p className="text-sm font-bold">Artist/s</p>
             <div className="flex w-full flex-row items-center gap-2">
               <select
-                className="w-full rounded-md bg-black/50 p-2 text-white"
+                className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
+                aria-label="Select artist to add"
                 value={artistToAdd}
                 onChange={(e) => setArtistToAdd(e.target.value)}
               >
@@ -182,43 +188,62 @@ export default function NewLocationModal() {
             )}
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Video URL (with timestamp)</p>
+            <label htmlFor="new-location-video-url" className="text-sm font-bold">
+              Video URL (with timestamp)
+            </label>
             <input
+              id="new-location-video-url"
               type="text"
               placeholder="https://youtu.be/BdNKxYgTAFU?t=222"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              aria-label="Video URL with timestamp"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Address</p>
+            <label htmlFor="new-location-address" className="text-sm font-bold">
+              Address
+            </label>
             <input
+              id="new-location-address"
               type="text"
               placeholder="Address (e.g. 123 Main St, Central, HK)"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              aria-label="Address"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Latitude & Longitude</p>
+            <label
+              htmlFor="new-location-coordinates"
+              className="text-sm font-bold"
+            >
+              Latitude & Longitude
+            </label>
             <div className="flex w-full flex-row items-start justify-start gap-2">
               <input
+                id="new-location-coordinates"
                 type="text"
                 placeholder="22.280535,114.157731"
-                className="w-full rounded-md bg-black/50 p-2 text-white"
+                aria-label="Latitude and longitude"
+                className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
                 value={locationCoordinates}
                 onChange={(e) => setLocationCoordinates(e.target.value)}
               />
             </div>
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <p className="text-sm font-bold">Street View (optional)</p>
+            <label htmlFor="new-location-street-view" className="text-sm font-bold">
+              Street View (optional)
+            </label>
             <input
+              id="new-location-street-view"
               type="text"
               placeholder="https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              aria-label="Street View URL"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={streetView}
               onChange={(e) => setStreetView(e.target.value)}
             />

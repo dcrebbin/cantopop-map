@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { ARTISTS, SONGS, CONTRIBUTORS } from "../common/locations";
+import {
+  ARTISTS,
+  CONTRIBUTORS,
+  SONGS,
+  type LocationItem,
+} from "../common/locations";
 
 interface UIState {
   menuOpen: boolean;
@@ -23,6 +28,8 @@ interface UIState {
   setSongsAndArtistsOpen: (open: boolean) => void;
   contributorsOpen: boolean;
   setContributorsOpen: (open: boolean) => void;
+  mobileCameraViewOpen: boolean;
+  setMobileCameraViewOpen: (open: boolean) => void;
   gameOpen: boolean;
   gameScore: number;
   totalLocations: number;
@@ -45,6 +52,17 @@ interface UIState {
   setCombinedFilters: (
     filters: { type: "artist" | "contributor"; name: string }[],
   ) => void;
+  taiPoModalHasSeen: boolean;
+  setTaiPoModalHasSeen: (hasSeen: boolean) => void;
+  selectedContributor: string | null;
+  setSelectedContributor: (contributor: string | null) => void;
+  selectedLocationCredits: LocationItem | null;
+  setSelectedLocationCredits: (location: LocationItem) => void;
+  applyUrlFiltersFromParams: (filters: {
+    artists?: string[];
+    contributors?: string[];
+    selectedContributor?: string;
+  }) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -52,6 +70,9 @@ export const useUIStore = create<UIState>((set) => ({
   setMenuOpen: (open: boolean) => set({ menuOpen: open }),
   searchRef: null,
   selectedArtists: [],
+  mobileCameraViewOpen: false,
+  setMobileCameraViewOpen: (open: boolean) =>
+    set({ mobileCameraViewOpen: open }),
   setSelectedArtists: (artists: string[]) => set({ selectedArtists: artists }),
   selectedContributors: [],
   setSelectedContributors: (contributors: string[]) =>
@@ -93,4 +114,30 @@ export const useUIStore = create<UIState>((set) => ({
   setCombinedFilters: (
     filters: { type: "artist" | "contributor"; name: string }[],
   ) => set({ combinedFilters: filters }),
+  taiPoModalHasSeen: true,
+  setTaiPoModalHasSeen: (hasSeen: boolean) =>
+    set({ taiPoModalHasSeen: hasSeen }),
+  selectedContributor: "",
+  setSelectedContributor: (contributor: string | null) =>
+    set({ selectedContributor: contributor }),
+  selectedLocationCredits: null as LocationItem | null,
+  setSelectedLocationCredits: (location: LocationItem) =>
+    set({ selectedLocationCredits: location }),
+  applyUrlFiltersFromParams: (filters) => {
+    const update: Partial<UIState> = {};
+
+    if (filters.artists && filters.artists.length > 0) {
+      update.selectedArtists = filters.artists;
+    }
+    if (filters.contributors && filters.contributors.length > 0) {
+      update.selectedContributors = filters.contributors;
+    }
+    if (filters.selectedContributor) {
+      update.selectedContributor = filters.selectedContributor;
+    }
+
+    if (Object.keys(update).length > 0) {
+      set(update);
+    }
+  },
 }));
