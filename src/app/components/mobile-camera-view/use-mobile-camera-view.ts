@@ -347,7 +347,8 @@ export function useMobileCameraView() {
         type: "patch",
         payload: {
           orientationPermission: "denied",
-          orientationError: "Could not request orientation permission. Try again.",
+          orientationError:
+            "Could not request orientation permission. Try again.",
         },
       });
       return false;
@@ -437,7 +438,17 @@ export function useMobileCameraView() {
 
       const maxDistanceKm = 10;
       const normalizedDistance = Math.min(distanceKm / maxDistanceKm, 1);
-      const verticalPercent = 20 + normalizedDistance * 60;
+      const locationSeed = Array.from(location.id).reduce(
+        (sum, character) => sum + character.charCodeAt(0),
+        0,
+      );
+      const verticalDeviation = (locationSeed % 45) - 22;
+
+      const distanceOffset = (normalizedDistance - 0.5) * 24;
+      const verticalPercent = Math.min(
+        Math.max(50 + distanceOffset + verticalDeviation, 20),
+        78,
+      );
 
       return [
         {
