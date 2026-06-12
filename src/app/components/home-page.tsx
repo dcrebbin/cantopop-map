@@ -146,13 +146,6 @@ export default function HomePage({ location }: { location?: LocationItem }) {
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
       <div className="relative flex w-[100vw] justify-center overflow-hidden">
-        {!mapboxAccessToken ? (
-          <div className="absolute inset-0 z-[200] flex items-center justify-center bg-[#e8eaed]/95 p-6 text-center text-sm text-black">
-            Map configuration is missing. Set{" "}
-            <code className="mx-1">NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN</code> in your
-            .env file.
-          </div>
-        ) : null}
         <ToastContainer />
         <Appbar />
         <Menu />

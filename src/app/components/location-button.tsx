@@ -10,15 +10,21 @@ export default function LocationButton() {
   const { setMobileCameraViewOpen, mobileCameraViewOpen } = useUIStore();
 
   return (
-    <div className="absolute bottom-0 right-0 z-[120] m-0 mb-4 flex flex-row items-center gap-4 p-8">
+    <div className="absolute right-0 bottom-0 z-[120] m-0 mb-4 flex flex-row items-center gap-4 p-8">
       <button
         type="button"
-        className="cursor-pointer transition-transform duration-300 hover:scale-110 md:hidden"
+        aria-label={
+          mobileCameraViewOpen ? "Close camera view" : "Open camera view"
+        }
+        className="flex cursor-pointer items-center justify-center transition-transform duration-300 hover:scale-110 md:hidden"
         onClick={() => {
           setMobileCameraViewOpen(!mobileCameraViewOpen);
         }}
       >
-        <SvgIcon html={phoneIcon} className="size-6 text-white" />{" "}
+        <SvgIcon
+          html={phoneIcon}
+          className="size-10 text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
+        />
       </button>
       {!mobileCameraViewOpen && (
         <button
@@ -102,7 +108,7 @@ export default function LocationButton() {
               },
             );
           }}
-          className="bottom-0 right-0 z-[90] flex cursor-pointer items-center justify-center hover:scale-110"
+          className="right-0 bottom-0 z-[90] flex cursor-pointer items-center justify-center hover:scale-110"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
