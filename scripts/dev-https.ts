@@ -1,14 +1,13 @@
 import fs from "node:fs";
-import https from "node:https";
 import path from "node:path";
 import process from "node:process";
-import next from "next";
+import { createServer, type ServerOptions } from "vite";
 
-type CertPaths = {
+interface CertPaths {
   key: string;
   cert: string;
   ca?: string;
-};
+}
 
 const DEFAULT_CERT_DIR = path.join(process.cwd(), ".ssl");
 const DEFAULT_CERT_PATHS: CertPaths = {
@@ -36,56 +35,32 @@ function ensureFileExists(filePath: string, label: string) {
   }
 }
 
-function readCertFiles(paths: CertPaths): https.ServerOptions {
+function readCertFiles(paths: CertPaths): ServerOptions["https"] {
   ensureFileExists(paths.key, "SSL key");
   ensureFileExists(paths.cert, "SSL certificate");
 
-  const options: https.ServerOptions = {
+  return {
     key: fs.readFileSync(paths.key),
     cert: fs.readFileSync(paths.cert),
+    ...(paths.ca ? { ca: fs.readFileSync(paths.ca) } : {}),
   };
-
-  if (paths.ca) {
-    ensureFileExists(paths.ca, "SSL CA bundle");
-    options.ca = fs.readFileSync(paths.ca);
-  }
-
-  return options;
 }
 
 async function main() {
-  const dev = process.env.NODE_ENV !== "production";
-  const hostname = process.env.HOST ?? "0.0.0.0";
+  const host = process.env.HOST ?? "0.0.0.0";
   const port = Number.parseInt(process.env.PORT ?? "3000", 10);
+  const https = readCertFiles(resolveCertPaths());
 
-  const certPaths = resolveCertPaths();
-  const httpsOptions = readCertFiles(certPaths);
-
-  const app = next({ dev, hostname, port });
-  const handle = app.getRequestHandler();
-  const handleUpgrade = app.getUpgradeHandler();
-
-  await app.prepare();
-
-  const server = https.createServer(httpsOptions, (req, res) => {
-    handle(req, res).catch((error) => {
-      console.error("Unhandled error while processing request:", error);
-      res.statusCode = 500;
-      res.end("Internal Server Error");
-    });
+  const server = await createServer({
+    server: {
+      host,
+      port,
+      https,
+    },
   });
 
-  server.on("upgrade", (req, socket, head) => {
-    handleUpgrade(req, socket, head).catch((error) => {
-      console.error("Unhandled error while upgrading connection:", error);
-      const reason = error instanceof Error ? error : new Error(String(error));
-      socket.destroy(reason);
-    });
-  });
-
-  server.listen(port, hostname, () => {
-    console.log(`> Ready on https://${hostname}:${port}`);
-  });
+  await server.listen();
+  server.printUrls();
 }
 
 main().catch((error) => {

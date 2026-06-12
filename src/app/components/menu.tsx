@@ -32,9 +32,9 @@ import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
 
-const ARTISTS_LOWER = ARTISTS.map((a) => a.toLowerCase());
+const ARTISTS_LOWER = ARTISTS.map((a: string) => a.toLowerCase());
 const ARTISTS_SET = new Set(ARTISTS);
-const SONGS_LOWER = SONGS.map((s) => ({
+const SONGS_LOWER = SONGS.map((s: { name: string; artists: string[] }) => ({
   name: s.name.toLowerCase(),
   artists: s.artists.map((a) => a.toLowerCase()),
 }));
@@ -77,7 +77,7 @@ const SearchInput = memo(function SearchInput({
       aria-label="Search songs, artists, and contributors"
       ref={searchRef}
       value={value}
-      className="z-[200] w-full rounded-md border-none p-2"
+      className="z-200 w-full rounded-md border-2 border-white p-2 text-white"
       onChange={(e) => {
         const nextValue = e.target.value;
         setValue(nextValue);
@@ -464,9 +464,10 @@ export default function Menu() {
     }
 
     return {
-      artistsToShow: Array.from(nextArtistsToShow).toSorted((a, b) =>
-        a.localeCompare(b, undefined, { sensitivity: "base" }),
+      artistsToShow: Array.from(nextArtistsToShow).sort((a, b) =>
+        String(a).localeCompare(String(b), undefined, { sensitivity: "base" }),
       ),
+
       songsByArtist: nextSongsByArtist,
     };
   }, [searchResults]);
@@ -476,13 +477,14 @@ export default function Menu() {
 
   return (
     <div
-      className="absolute right-0 top-0 m-0 flex flex-row gap-4"
+      className="absolute top-0 right-0 m-0 flex flex-row gap-4"
       style={{ zIndex: menuRendered ? 999999 : 90 }}
     >
       {!isPWA && (
         <button
           type="button"
           name="Download PWA Tutorial"
+          aria-label="Open PWA install tutorial"
           className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
           onClick={() => {
             setIsPwaTutorialVisible(true);
@@ -498,6 +500,7 @@ export default function Menu() {
         <button
           type="button"
           disabled={mobileCameraViewOpen}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
           className="relative z-20 mr-3 transition-transform duration-300 hover:scale-110"
           onClick={() => {
             setMenuOpen(!menuOpen);
@@ -528,14 +531,14 @@ export default function Menu() {
           </svg>
         </button>
         {combinedFilters.length > 0 && (
-          <div className="absolute right-0 top-0 z-30 mr-[0.9rem] mt-1 flex h-auto w-6 items-center justify-center rounded-full bg-blue-500 text-center text-white">
+          <div className="absolute top-0 right-0 z-30 mt-1 mr-[0.9rem] flex h-auto w-6 items-center justify-center rounded-full bg-blue-500 text-center text-white">
             {combinedFilters.length}
           </div>
         )}
       </div>
       {menuRendered && (
         <div
-          className={`absolute right-0 top-0 z-10 -mt-1 max-h-[100vh] w-[100vw] rounded-md border-[3px] border-white/70 bg-black/20 p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-[45rem] lg:w-[30rem] lg:bg-black/20 lg:backdrop-blur-none ${
+          className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-180 lg:w-120 lg:bg-black/20 ${
             menuAnimatedOpen
               ? "translate-x-0"
               : "pointer-events-none translate-x-full motion-reduce:translate-x-0"
@@ -549,7 +552,7 @@ export default function Menu() {
               onSearchChange={handleSearchChange}
             />
 
-            <div className="flex h-[83vh] w-full flex-col gap-2 overflow-y-auto overflow-x-hidden pb-20 lg:h-[60vh]">
+            <div className="flex h-[83vh] w-full flex-col gap-2 overflow-x-hidden overflow-y-auto pb-20 lg:h-[60vh]">
               <h3 className="text-white">Selected Filters</h3>
               {combinedFilters.length === 0 && (
                 <p className="my-1 text-center text-white">
@@ -588,6 +591,11 @@ export default function Menu() {
                   <h2 className="text-white">Artists & Songs</h2>
                   <button
                     type="button"
+                    aria-label={
+                      songsAndArtistsOpen
+                        ? "Collapse artists and songs"
+                        : "Expand artists and songs"
+                    }
                     className={`text-white ${songsAndArtistsOpen ? "" : "rotate-180"}`}
                     onClick={() => setSongsAndArtistsOpen(!songsAndArtistsOpen)}
                   >
@@ -596,7 +604,7 @@ export default function Menu() {
                 </div>
                 {songsAndArtistsOpen && (
                   <div className="flex w-full flex-col gap-2">
-                    {artistsToShow.map((artist: string) => {
+                    {artistsToShow.map((artist: any) => {
                       const songsForArtist = songsByArtist.get(artist) ?? [];
                       if (songsForArtist.length === 0) return null;
                       return (
@@ -620,7 +628,7 @@ export default function Menu() {
                               />
                             </button>
                           </div>
-                          <div className="mr-1 mt-1 flex flex-col gap-1 px-6">
+                          <div className="mt-1 mr-1 flex flex-col gap-1 px-6">
                             {songsForArtist.map((song) => (
                               <button
                                 key={`${artist}-${song.name}`}
@@ -662,6 +670,11 @@ export default function Menu() {
                   <h2 className="text-white">Contributors</h2>
                   <button
                     type="button"
+                    aria-label={
+                      contributorsOpen
+                        ? "Collapse contributors"
+                        : "Expand contributors"
+                    }
                     className={`text-white ${contributorsOpen ? "" : "rotate-180"}`}
                     onClick={() => setContributorsOpen(!contributorsOpen)}
                   >

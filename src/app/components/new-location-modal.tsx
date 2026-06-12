@@ -116,8 +116,8 @@ export default function NewLocationModal() {
   const mailtoHref = `mailto:devon@langpal.com.hk?${mailtoParams.toString()}`;
 
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/50 text-white">
-      <div className="flex h-fit w-[30rem] flex-col items-center justify-start rounded-lg bg-black/50 p-4">
+    <div className="fixed inset-0 z-90 flex items-center justify-center bg-zinc-950/50 text-white">
+      <div className="flex h-fit w-120 flex-col items-center justify-start rounded-lg bg-zinc-950/50 p-4">
         <div className="flex w-full flex-row items-start justify-between">
           <h1>New Location</h1>
           <button type="button" onClick={() => setNewLocationModalOpen(false)}>
@@ -135,7 +135,7 @@ export default function NewLocationModal() {
               type="text"
               placeholder="Song Title"
               aria-label="Song title"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={songTitle}
               onChange={(e) => setSongTitle(e.target.value)}
             />
@@ -144,7 +144,7 @@ export default function NewLocationModal() {
             <p className="text-sm font-bold">Artist/s</p>
             <div className="flex w-full flex-row items-center gap-2">
               <select
-                className="w-full rounded-md bg-black/50 p-2 text-white"
+                className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
                 aria-label="Select artist to add"
                 value={artistToAdd}
                 onChange={(e) => setArtistToAdd(e.target.value)}
@@ -196,7 +196,7 @@ export default function NewLocationModal() {
               type="text"
               placeholder="https://youtu.be/BdNKxYgTAFU?t=222"
               aria-label="Video URL with timestamp"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
             />
@@ -210,7 +210,7 @@ export default function NewLocationModal() {
               type="text"
               placeholder="Address (e.g. 123 Main St, Central, HK)"
               aria-label="Address"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
             />
@@ -228,7 +228,7 @@ export default function NewLocationModal() {
                 type="text"
                 placeholder="22.280535,114.157731"
                 aria-label="Latitude and longitude"
-                className="w-full rounded-md bg-black/50 p-2 text-white"
+                className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
                 value={locationCoordinates}
                 onChange={(e) => setLocationCoordinates(e.target.value)}
               />
@@ -243,7 +243,7 @@ export default function NewLocationModal() {
               type="text"
               placeholder="https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18"
               aria-label="Street View URL"
-              className="w-full rounded-md bg-black/50 p-2 text-white"
+              className="w-full rounded-md bg-zinc-950/50 p-2 text-white"
               value={streetView}
               onChange={(e) => setStreetView(e.target.value)}
             />

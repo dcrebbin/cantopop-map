@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+
+# Use Bun
+
+Always use Bun for package management and execution.
+Do not use npm, pnpm, yarn, or any other package manager.

@@ -1,6 +1,15 @@
 import { MAP_LOCATIONS } from "../common/locations";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
+const siteUrl =
+  import.meta.env.NEXT_PUBLIC_SITE_URL ?? import.meta.env.SITE_URL ?? "";
+
+export function JsonLdScript({ data }: { data: object }) {
+  return (
+    <script type="application/ld+json" suppressHydrationWarning>
+      {JSON.stringify(data)}
+    </script>
+  );
+}
 
 export function HomePageJsonLd() {
   const jsonLd = {
@@ -81,11 +90,5 @@ export function HomePageJsonLd() {
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      suppressHydrationWarning
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-    />
-  );
+  return <JsonLdScript data={jsonLd} />;
 }

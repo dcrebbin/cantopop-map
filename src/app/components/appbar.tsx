@@ -1,4 +1,3 @@
-import Image from "next/image";
 import posthog from "posthog-js";
 
 export default function Appbar() {
@@ -17,7 +16,7 @@ export default function Appbar() {
         className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:text-xl md:no-underline"
       >
         <span className="underline">savecantonese.org</span>
-        <Image
+        <img
           width={100}
           height={100}
           src="/images/savecanto.webp"

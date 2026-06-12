@@ -41,7 +41,7 @@ const RawLocationSchema = z.object({
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
-export const LocationItemSchema = RawLocationSchema.transform((raw) => {
+const LocationItemSchema = RawLocationSchema.transform((raw) => {
   const [lat, lng] = raw.coordinates ?? [null, null];
   const name = typeof raw.name === "string" ? raw.name : raw.name.name;
   const locationKey =
@@ -2024,17 +2024,17 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
-        composer: ["$alty Chick"],
-        lyricist: ["$alty Chick"],
-        vocals: ["$alty Chick"],
+        composer: ["$alty Chick鹽焗雞"],
+        lyricist: ["$alty Chick鹽焗雞"],
+        vocals: ["$alty Chick鹽焗雞"],
         arranger: ["Dodo Museum"],
         mixing: ["Dodo Museum"],
-        producer: ["$alty Chick", "Dodo Museum"],
+        producer: ["$alty Chick鹽焗雞", "Dodo Museum"],
       },
       musicVideo: {
         director: ["Jade Lam"],
         starring: ["Belle Liu"],
-        screenwriterEditor: ["$alty Chick", "Jade Lam"],
+        screenwriterEditor: ["$alty Chick鹽焗雞", "Jade Lam"],
         cinematographer: ["Jade Lam"],
         hairStylist: ["Adrian Fan"],
         artConsultant: ["Lai Sze"],
@@ -7607,7 +7607,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
 ];
 
-export const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
+const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
   return { [constructTitle(location)]: location };
 });
 

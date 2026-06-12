@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useMemo } from "react";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -22,7 +21,7 @@ function removeContributorModalUrl() {
 }
 
 function removeTimeFromYoutubeUrl(url: string) {
-  return url.split("?")[0];
+  return url.split("?")[0]!;
 }
 
 type Category = "song" | "musicVideo";
@@ -75,14 +74,7 @@ export default function ContributorsModal() {
     if (!selectedContributor) return [];
     const results: Contribution[] = [];
     for (const location of LOCATIONS) {
-      const contributors = (
-        location as unknown as {
-          contributors?: {
-            song?: Record<string, ContributorCredit[]>;
-            musicVideo?: Record<string, ContributorCredit[]>;
-          } | null;
-        }
-      ).contributors;
+      const { contributors } = location;
       if (!contributors) continue;
       const songRoles = getRolesForPerson(
         contributors.song,
@@ -146,8 +138,8 @@ export default function ContributorsModal() {
     : null;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999999] flex items-center justify-center bg-transparent text-white">
-      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[80vh] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
+    <div className="pointer-events-none fixed inset-0 z-9999999 flex items-center justify-center bg-transparent text-white">
+      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[80vh] w-[98%] max-w-200 flex-col overflow-y-auto rounded-md border-[3px] border-white/70 bg-black/25 p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:w-full">
         <div className="flex items-start justify-between gap-2">
           <div>
             <h1 className="font-serif text-2xl font-bold">
@@ -270,7 +262,7 @@ export default function ContributorsModal() {
                       rel="noreferrer"
                       className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                     >
-                      <Image
+                      <img
                         src={c.location.image}
                         alt={c.location.name}
                         width={160}

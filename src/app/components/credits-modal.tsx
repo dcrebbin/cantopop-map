@@ -74,7 +74,7 @@ export default function CreditsModal() {
             <XMarkIcon className="h-9 w-9 drop-shadow-[0_0_4px_rgba(0,0,0,1)] xl:h-6 xl:w-6" />
           </button>
         </div>
-        <div className="z-30 flex w-full flex-col items-center justify-start overflow-y-auto overflow-x-hidden font-bold">
+        <div className="z-30 flex w-full flex-col items-center justify-start overflow-x-hidden overflow-y-auto font-bold">
           <h3 className="text-center">Song</h3>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
@@ -84,17 +84,17 @@ export default function CreditsModal() {
                 className="flex min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 break-words text-base xl:text-sm">
+                <p className="min-w-0 text-base break-words xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
-                <div className="min-w-0 max-w-full text-left text-xs font-normal">
+                <div className="max-w-full min-w-0 text-left text-xs font-normal">
                   {value.map((name) => {
                     const displayName = getContributorDisplayName(name);
                     const instagram = getInstagram(name);
                     return (
                       <span
                         key={displayName}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
+                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base break-words xl:text-sm"
                       >
                         {displayName}
                         <button
@@ -121,7 +121,7 @@ export default function CreditsModal() {
               </div>
             ))}
           </div>
-          <hr className="my-1 w-full text-black" />
+          <hr className="my-1 w-full text-white" />
           <h3 className="text-md text-center">Music Video</h3>
           <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-[repeat(auto-fit,minmax(min(10rem,100%),1fr))]">
             {Object.entries(
@@ -131,17 +131,17 @@ export default function CreditsModal() {
                 className="flex w-full min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 break-words text-base xl:text-sm">
+                <p className="min-w-0 text-base break-words xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
-                <div className="min-w-0 max-w-full text-left font-normal xl:text-xs">
+                <div className="max-w-full min-w-0 text-left font-normal xl:text-xs">
                   {value.map((name) => {
                     const displayName = getContributorDisplayName(name);
                     const instagram = getInstagram(name);
                     return (
                       <span
                         key={displayName}
-                        className="flex min-w-0 max-w-full flex-wrap items-center gap-1 break-words text-base xl:text-sm"
+                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base break-words xl:text-sm"
                       >
                         {displayName}
                         <button
@@ -180,7 +180,7 @@ export default function CreditsModal() {
             </a>
           </div>
           <button
-            className="pointer-events-auto absolute bottom-0 right-8 m-4 cursor-pointer"
+            className="pointer-events-auto absolute right-8 bottom-0 m-4 cursor-pointer"
             type="button"
             onClick={async () => {
               if (navigator.share) {
