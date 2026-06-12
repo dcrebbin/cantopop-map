@@ -14,7 +14,7 @@ import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
 import { closeIcon } from "~/lib/icons/closeIcon";
 import { editIcon } from "~/lib/icons/editIcon";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { plusIcon } from "~/lib/icons/plusIcon";
 import { minusIcon } from "~/lib/icons/minusIcon";
 import { nameToInstagramMap } from "~/app/common/social-media";
@@ -23,6 +23,25 @@ import { useUIStore } from "~/app/_state/ui.store";
 import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { hidePopup } from "~/lib/custom-map";
 import { useMapStore } from "~/app/_state/map.store";
+
+type SvgPath = {
+  d: string;
+  fill?: string;
+  stroke?: string;
+  strokeLinecap?: "butt" | "round" | "square" | "inherit";
+  strokeLinejoin?: "miter" | "round" | "bevel" | "inherit";
+};
+
+function getPathFill(path: SVGPathElement) {
+  const fill = path.getAttribute("fill");
+  if (fill) return fill;
+
+  const styleFill = path
+    .getAttribute("style")
+    ?.match(/(?:^|;)\s*fill\s*:\s*([^;]+)/)?.[1]
+    ?.trim();
+  return styleFill;
+}
 
 function renderContributor(contributor: ContributorCredit) {
   const name = getContributorName(contributor);
@@ -36,7 +55,7 @@ function renderContributor(contributor: ContributorCredit) {
         key={`${name}-${instagram}`}
         href={`https://www.instagram.com/${instagram}`}
         target="_blank"
-        className="break-words text-blue-500 underline"
+        className="wrap-break-word text-blue-500 underline"
         rel="noreferrer"
       >
         {name}
@@ -45,7 +64,7 @@ function renderContributor(contributor: ContributorCredit) {
   }
 
   return (
-    <span className="break-words" key={name}>
+    <span className="wrap-break-word" key={name}>
       {name}
     </span>
   );
@@ -60,13 +79,66 @@ export function SvgIcon({
   className?: string;
   size?: number;
 }) {
+  const sanitizedIcon = useMemo(() => {
+    if (typeof DOMParser === "undefined") return null;
+
+    const parser = new DOMParser();
+    const document = parser.parseFromString(html.trim(), "image/svg+xml");
+    const svg = document.querySelector("svg");
+    if (!svg) return null;
+
+    const viewBox = svg.getAttribute("viewBox") ?? "0 0 24 24";
+    const fill = svg.getAttribute("fill") ?? undefined;
+    const stroke = svg.getAttribute("stroke") ?? undefined;
+    const paths = Array.from(svg.querySelectorAll("path")).flatMap((path) => {
+      const d = path.getAttribute("d");
+      if (!d) return [];
+
+      return [
+        {
+          d,
+          fill: getPathFill(path) ?? fill,
+          stroke: path.getAttribute("stroke") ?? stroke,
+          strokeLinecap:
+            (path.getAttribute("stroke-linecap") as SvgPath["strokeLinecap"]) ??
+            undefined,
+          strokeLinejoin:
+            (path.getAttribute(
+              "stroke-linejoin",
+            ) as SvgPath["strokeLinejoin"]) ?? undefined,
+        },
+      ];
+    });
+
+    return { fill, stroke, viewBox, paths };
+  }, [html]);
+
   return (
     <span
       aria-hidden
       className={className}
       {...(size ? { style: { width: size, height: size } } : {})}
-      dangerouslySetInnerHTML={{ __html: html.trim() }}
-    />
+    >
+      {sanitizedIcon && (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill={sanitizedIcon.fill}
+          stroke={sanitizedIcon.stroke}
+          viewBox={sanitizedIcon.viewBox}
+        >
+          {sanitizedIcon.paths.map((path) => (
+            <path
+              key={path.d}
+              d={path.d}
+              fill={path.fill}
+              stroke={path.stroke}
+              strokeLinecap={path.strokeLinecap}
+              strokeLinejoin={path.strokeLinejoin}
+            />
+          ))}
+        </svg>
+      )}
+    </span>
   );
 }
 
@@ -93,6 +165,7 @@ export function PopupContent({
 
       <button
         type="button"
+        aria-label="Share location"
         onClick={() =>
           navigator.share({
             title: `Checkout this Cantopop地圖 location from ${data.artists.join(", ")}`,
@@ -136,7 +209,7 @@ export function PopupContent({
             className="flex min-w-0 flex-col items-start justify-start"
             key={key}
           >
-            <p className="min-w-0 break-words">
+            <p className="min-w-0 wrap-break-word">
               {humanizeRoleKey(key)} <br></br>
             </p>
             <div className="min-w-0 max-w-full text-left text-xs font-normal">
@@ -154,7 +227,7 @@ export function PopupContent({
               className="flex w-full min-w-0 flex-col items-start justify-start"
               key={key}
             >
-              <p className="min-w-0 break-words">
+              <p className="min-w-0 wrap-break-word">
                 {humanizeRoleKey(key)} <br></br>
               </p>
               <div className="min-w-0 max-w-full text-left text-xs font-normal">
@@ -186,6 +259,7 @@ export function PopupContent({
         <>
           <button
             type="button"
+          aria-label="Delete custom location"
             className="absolute right-0 top-0"
             onClick={onDelete}
           >
@@ -193,6 +267,7 @@ export function PopupContent({
           </button>
           <button
             type="button"
+          aria-label="Edit custom location"
             className="absolute left-0 top-0"
             onClick={onEdit}
           >
@@ -204,6 +279,7 @@ export function PopupContent({
       <button
         className={`absolute left-0 top-0`}
         type="button"
+        aria-label="Close location popup"
         onClick={() => {
           const { lastPopup, lastMarker } = useMapStore.getState();
           if (lastPopup && lastMarker) {
@@ -236,6 +312,7 @@ export function PopupContent({
         <button
           className={`absolute right-0 top-0`}
           type="button"
+          aria-label="Open location credits"
           onClick={() => {
             setSelectedLocationCredits(data);
             const url = new URL(window.location.href);

@@ -484,6 +484,7 @@ export default function Menu() {
         <button
           type="button"
           name="Download PWA Tutorial"
+          aria-label="Open PWA install tutorial"
           className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
           onClick={() => {
             setIsPwaTutorialVisible(true);
@@ -499,6 +500,7 @@ export default function Menu() {
         <button
           type="button"
           disabled={mobileCameraViewOpen}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
           className="relative z-20 mr-3 transition-transform duration-300 hover:scale-110"
           onClick={() => {
             setMenuOpen(!menuOpen);
@@ -589,6 +591,11 @@ export default function Menu() {
                   <h2 className="text-white">Artists & Songs</h2>
                   <button
                     type="button"
+                    aria-label={
+                      songsAndArtistsOpen
+                        ? "Collapse artists and songs"
+                        : "Expand artists and songs"
+                    }
                     className={`text-white ${songsAndArtistsOpen ? "" : "rotate-180"}`}
                     onClick={() => setSongsAndArtistsOpen(!songsAndArtistsOpen)}
                   >
@@ -663,6 +670,11 @@ export default function Menu() {
                   <h2 className="text-white">Contributors</h2>
                   <button
                     type="button"
+                    aria-label={
+                      contributorsOpen
+                        ? "Collapse contributors"
+                        : "Expand contributors"
+                    }
                     className={`text-white ${contributorsOpen ? "" : "rotate-180"}`}
                     onClick={() => setContributorsOpen(!contributorsOpen)}
                   >

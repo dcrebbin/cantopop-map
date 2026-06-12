@@ -41,7 +41,7 @@ const RawLocationSchema = z.object({
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
-export const LocationItemSchema = RawLocationSchema.transform((raw) => {
+const LocationItemSchema = RawLocationSchema.transform((raw) => {
   const [lat, lng] = raw.coordinates ?? [null, null];
   const name = typeof raw.name === "string" ? raw.name : raw.name.name;
   const locationKey =
@@ -7607,7 +7607,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
 ];
 
-export const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
+const SLUG_LOCATIONS = RAW_LOCATIONS.map((location) => {
   return { [constructTitle(location)]: location };
 });
 

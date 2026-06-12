@@ -167,17 +167,17 @@ function LocationPage() {
   return (
     <div className="relative h-screen w-screen">
       <div
-        className="fixed z-[95] flex h-screen w-screen flex-col items-center justify-center bg-black/30"
+        className="fixed z-95 flex h-screen w-screen flex-col items-center justify-center bg-black/30"
         id="location-modal"
       >
-        <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-[60rem] xl:w-[80rem] 2xl:w-[90rem]">
+        <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-240 xl:w-7xl 2xl:w-360">
           <script
             type="application/ld+json"
             suppressHydrationWarning
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
           <div className="flex w-full flex-row items-center justify-between">
-            <h1 className="text-xl font-bold">
+            <h1 className="text-xl font-semibold">
               {location?.artists.join(", ")} - {location?.name} | Music Video
               Location
             </h1>
