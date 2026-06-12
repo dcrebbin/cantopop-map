@@ -1,6 +1,7 @@
 import { MAP_LOCATIONS } from "../common/locations";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
+const siteUrl =
+  import.meta.env.NEXT_PUBLIC_SITE_URL ?? import.meta.env.SITE_URL ?? "";
 
 export function HomePageJsonLd() {
   const jsonLd = {

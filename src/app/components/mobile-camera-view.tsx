@@ -1,7 +1,6 @@
 /* eslint-disable no-alert */
 "use client";
 
-import Image from "next/image";
 import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import { MAP_LOCATIONS, type LocationItem } from "../common/locations";
 import { useUIStore } from "../_state/ui.store";
@@ -703,12 +702,10 @@ export default function MobileCameraView() {
             {entry.location.artists.join(", ")}
           </span>
         </div>
-        <Image
+        <img
           src={entry.location.image}
           alt={entry.location.name}
-          fill
-          sizes="12rem"
-          className="absolute z-[0] rounded-xl object-cover brightness-[30%]"
+          className="absolute inset-0 z-[0] h-full w-full rounded-xl object-cover brightness-[30%]"
         />
       </div>
     );

@@ -1,6 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss" source("../");
+
+@theme {
+  --font-cute: "Cute", cursive;
+}
 
 html,
 body {

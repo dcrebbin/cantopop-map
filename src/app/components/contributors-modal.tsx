@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { useMemo } from "react";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -270,7 +269,7 @@ export default function ContributorsModal() {
                       rel="noreferrer"
                       className="transition-transform duration-300 hover:scale-105 hover:shadow-lg"
                     >
-                      <Image
+                      <img
                         src={c.location.image}
                         alt={c.location.name}
                         width={160}

@@ -7,9 +7,8 @@ import {
   type ContributorCredit,
 } from "~/app/common/locations";
 import { nameToInstagramMap } from "~/app/common/social-media";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import HomePage from "~/app/components/home-page";
+import { createFileRoute, notFound } from "@tanstack/react-router";
+import DynamicHomePage from "~/app/components/dynamic-home-page";
 import CloseButton from "~/app/components/close-button";
 
 function getContributorInstagramUrl(contributor: ContributorCredit) {
@@ -21,73 +20,71 @@ function getContributorInstagramUrl(contributor: ContributorCredit) {
   return instagram ? `https://www.instagram.com/${instagram}` : null;
 }
 
-export function generateStaticParams() {
-  return Object.keys(nameToLocation).map((slug) => ({ slug }));
-}
+export const Route = createFileRoute("/locations/$slug")({
+  head: ({ params }) => {
+    const slug = decodeURIComponent(params.slug);
+    const location = nameToLocation[slug];
+    if (!location) return {};
 
-export function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Metadata {
-  const slug = decodeURIComponent(params.slug);
-  const location = nameToLocation[slug];
-  if (!location) return {};
+    const artistNames = location.artists.join(", ");
+    const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
+    const locationDescription = location.address
+      ? ` at ${location.address}, Hong Kong`
+      : "";
+    const description = `Discover the filming location for "${location.name}" by ${artistNames}${locationDescription}. Watch the music video and explore the credits with Cantopop Map.`;
+    const images = location.image ? [location.image] : ["/images/og-image.png"];
+    const path = `/locations/${encodeURIComponent(params.slug)}`;
 
-  const artistNames = location.artists.join(", ");
-  const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
-  const locationDescription = location.address
-    ? ` at ${location.address}, Hong Kong`
-    : "";
-  const description = `Discover the filming location for "${location.name}" by ${artistNames}${locationDescription}. Watch the music video and explore the credits with Cantopop Map.`;
-  const images = location.image ? [location.image] : ["/images/og-image.png"];
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        {
+          name: "keywords",
+          content: [
+            location.name,
+            ...location.artists,
+            "cantopop map",
+            "粵語歌地圖",
+            "music video location",
+            "hong kong filming location",
+            location.address ?? "",
+            "cantopop",
+            "廣東歌",
+          ]
+            .filter(Boolean)
+            .join(","),
+        },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: path },
+        { property: "og:site_name", content: "Cantopop Map" },
+        { property: "og:locale", content: "en_HK" },
+        ...images.map((image) => ({ property: "og:image", content: image })),
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        ...images.map((image) => ({ name: "twitter:image", content: image })),
+      ],
+      links: [
+        { rel: "canonical", href: path },
+        { rel: "alternate", hrefLang: "en", href: path },
+        { rel: "alternate", hrefLang: "zh-HK", href: path },
+        { rel: "alternate", hrefLang: "x-default", href: path },
+      ],
+    };
+  },
+  component: LocationPage,
+});
 
-  return {
-    title,
-    description,
-    keywords: [
-      location.name,
-      ...location.artists,
-      "cantopop map",
-      "粵語歌地圖",
-      "music video location",
-      "hong kong filming location",
-      location.address ?? "",
-      "cantopop",
-      "廣東歌",
-    ],
-    alternates: {
-      canonical: `/locations/${encodeURIComponent(params.slug)}`,
-      languages: {
-        en: `/locations/${encodeURIComponent(params.slug)}`,
-        "zh-HK": `/locations/${encodeURIComponent(params.slug)}`,
-        "x-default": `/locations/${encodeURIComponent(params.slug)}`,
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      images,
-      type: "article",
-      url: `/locations/${encodeURIComponent(params.slug)}`,
-      siteName: "Cantopop Map",
-      locale: "en_HK",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images,
-    },
-  };
-}
-
-export default function LocationPage({ params }: { params: { slug: string } }) {
-  const slug = decodeURIComponent(params.slug);
+function LocationPage() {
+  const { slug: encodedSlug } = Route.useParams();
+  const slug = decodeURIComponent(encodedSlug);
   const location = nameToLocation[slug];
 
   if (!location) {
-    return notFound();
+    throw notFound();
   }
 
   const videoId = location?.url.includes("youtu.be")
@@ -352,7 +349,7 @@ export default function LocationPage({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <HomePage location={location} />
+      <DynamicHomePage location={location} />
     </div>
   );
 }

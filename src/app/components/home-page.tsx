@@ -22,7 +22,10 @@ import SelectedLocation from "./selected-location";
 import ContributorsModal from "./contributors-modal";
 import CreditsModal from "./credits-modal";
 
-mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
+const mapboxAccessToken = import.meta.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? "";
+if (mapboxAccessToken) {
+  mapboxgl.accessToken = mapboxAccessToken;
+}
 
 const MAP_CENTER = [114.16819296950341, 22.31382741410536] as const;
 const MAP_ZOOM = 10;
@@ -48,6 +51,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
 
   const handleMapContainerRef = (node: HTMLDivElement | null) => {
     if (!node || map) return;
+    if (!mapboxAccessToken) return;
     mapContainer.current = node;
 
     const newMap = new mapboxgl.Map({
@@ -142,6 +146,13 @@ export default function HomePage({ location }: { location?: LocationItem }) {
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
       <div className="relative flex w-[100vw] justify-center overflow-hidden">
+        {!mapboxAccessToken ? (
+          <div className="absolute inset-0 z-[200] flex items-center justify-center bg-[#e8eaed]/95 p-6 text-center text-sm text-black">
+            Map configuration is missing. Set{" "}
+            <code className="mx-1">NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN</code> in your
+            .env file.
+          </div>
+        ) : null}
         <ToastContainer />
         <Appbar />
         <Menu />
