@@ -2024,17 +2024,17 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
-        composer: ["$alty Chick"],
-        lyricist: ["$alty Chick"],
-        vocals: ["$alty Chick"],
+        composer: ["$alty Chick鹽焗雞"],
+        lyricist: ["$alty Chick鹽焗雞"],
+        vocals: ["$alty Chick鹽焗雞"],
         arranger: ["Dodo Museum"],
         mixing: ["Dodo Museum"],
-        producer: ["$alty Chick", "Dodo Museum"],
+        producer: ["$alty Chick鹽焗雞", "Dodo Museum"],
       },
       musicVideo: {
         director: ["Jade Lam"],
         starring: ["Belle Liu"],
-        screenwriterEditor: ["$alty Chick", "Jade Lam"],
+        screenwriterEditor: ["$alty Chick鹽焗雞", "Jade Lam"],
         cinematographer: ["Jade Lam"],
         hairStylist: ["Adrian Fan"],
         artConsultant: ["Lai Sze"],

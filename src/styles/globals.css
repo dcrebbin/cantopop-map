@@ -1,4 +1,4 @@
-@import "tailwindcss" source("../");
+@import "tailwindcss";
 
 @theme {
   --font-cute: "Cute", cursive;
@@ -7,6 +7,10 @@
 html,
 body {
   background-color: #e8eaed;
+}
+
+input:focus {
+  outline: none;
 }
 
 @font-face {
