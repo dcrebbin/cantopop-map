@@ -77,7 +77,7 @@ export function PopupContent({
   const uiStore = useUIStore();
 
   const actionButtons = (
-    <div className="mt-2 flex w-full items-center justify-center gap-2 text-black">
+    <div className="mt-2 flex h-2 w-full items-center justify-center gap-2 text-black">
       <a
         href={data.url}
         target="_blank"
@@ -117,12 +117,63 @@ export function PopupContent({
       className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
       tabIndex={-1}
       style={{
-        maxHeight: isExpanded ? "none" : "150px",
+        maxHeight: isExpanded ? "none" : "",
         height: isExpanded ? "350px" : "100%",
         width: isExpanded ? "350px" : "150px",
       }}
       data-song={`popup-${data.name}`}
     >
+      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 text-black">
+        <button
+          type="button"
+          aria-label="Close location popup"
+          onClick={() => {
+            const { lastPopup, lastMarker } = useMapStore.getState();
+            if (lastPopup && lastMarker) {
+              uiStore.setSelectedLocation({
+                value: "",
+                artists: [],
+                streetViewEmbed: "",
+              });
+              const params = new URLSearchParams(window.location.search);
+              params.delete("title");
+              const query = params.toString();
+              const newUrl = query
+                ? `${window.location.pathname}?${query}`
+                : window.location.pathname;
+              window.history.replaceState({}, "", newUrl);
+              if (mapStore.lastPopup && mapStore.lastMarker) {
+                hidePopup(
+                  mapStore.lastPopup,
+                  mapStore.lastMarker,
+                  mapStore.selectedLocationId ?? "",
+                );
+              }
+              mapStore.clearSelectedLocation();
+            }
+          }}
+        >
+          <XMarkIcon className="size-4" />
+        </button>
+        {data.contributors && (
+          <button
+            type="button"
+            aria-label="Open location credits"
+            onClick={() => {
+              setSelectedLocationCredits(data);
+              const url = new URL(window.location.href);
+              url.searchParams.set("view-credits", "true");
+              window.history.replaceState({}, "", url.toString());
+              posthog.capture("toggle_contributor_section", {
+                artists: data.artists.join(", "),
+                songTitle: data.name,
+              });
+            }}
+          >
+            <ArrowUpRightIcon className="size-3.5" />
+          </button>
+        )}
+      </div>
       <p className="text-center text-base font-bold">
         {data.artists.join(", ")}
       </p>
@@ -130,57 +181,6 @@ export function PopupContent({
       <p className="text-center text-xs">{data.address}</p>
 
       {actionButtons}
-      <button
-        className={`absolute top-0 left-0`}
-        type="button"
-        aria-label="Close location popup"
-        onClick={() => {
-          const { lastPopup, lastMarker } = useMapStore.getState();
-          if (lastPopup && lastMarker) {
-            uiStore.setSelectedLocation({
-              value: "",
-              artists: [],
-              streetViewEmbed: "",
-            });
-            const params = new URLSearchParams(window.location.search);
-            params.delete("title");
-            const query = params.toString();
-            const newUrl = query
-              ? `${window.location.pathname}?${query}`
-              : window.location.pathname;
-            window.history.replaceState({}, "", newUrl);
-            if (mapStore.lastPopup && mapStore.lastMarker) {
-              hidePopup(
-                mapStore.lastPopup,
-                mapStore.lastMarker,
-                mapStore.selectedLocationId ?? "",
-              );
-            }
-            mapStore.clearSelectedLocation();
-          }
-        }}
-      >
-        <XMarkIcon className="size-4" />
-      </button>
-      {data.contributors && (
-        <button
-          className={`absolute top-0 right-0`}
-          type="button"
-          aria-label="Open location credits"
-          onClick={() => {
-            setSelectedLocationCredits(data);
-            const url = new URL(window.location.href);
-            url.searchParams.set("view-credits", "true");
-            window.history.replaceState({}, "", url.toString());
-            posthog.capture("toggle_contributor_section", {
-              artists: data.artists.join(", "),
-              songTitle: data.name,
-            });
-          }}
-        >
-          <ArrowUpRightIcon className="size-3.5" />
-        </button>
-      )}
     </div>
   );
 }
