@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
+import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
 import { Route as LeaderboardRouteImport } from './app/leaderboard'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
@@ -18,6 +19,11 @@ import { Route as ApiProxyRouteImport } from './app/api/proxy'
 import { Route as ApiLocationReverseRouteImport } from './app/api/location/reverse'
 import { Route as ApiLocationAddressRouteImport } from './app/api/location/address'
 
+const SrtQuantizeRoute = SrtQuantizeRouteImport.update({
+  id: '/srt-quantize',
+  path: '/srt-quantize',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
@@ -62,6 +68,7 @@ const ApiLocationAddressRoute = ApiLocationAddressRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/leaderboard'
+    | '/srt-quantize'
     | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/leaderboard'
+    | '/srt-quantize'
     | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/leaderboard'
+    | '/srt-quantize'
     | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  SrtQuantizeRoute: typeof SrtQuantizeRoute
   ApiProxyRoute: typeof ApiProxyRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   RobotsTxtRoute: typeof RobotsTxtRoute
@@ -136,6 +149,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/srt-quantize': {
+      id: '/srt-quantize'
+      path: '/srt-quantize'
+      fullPath: '/srt-quantize'
+      preLoaderRoute: typeof SrtQuantizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/leaderboard': {
       id: '/leaderboard'
       path: '/leaderboard'
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LeaderboardRoute: LeaderboardRoute,
+  SrtQuantizeRoute: SrtQuantizeRoute,
   ApiProxyRoute: ApiProxyRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   RobotsTxtRoute: RobotsTxtRoute,

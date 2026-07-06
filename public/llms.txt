@@ -1,7 +1,7 @@
 # Cantopop Map - LLMs directory
 > A community-curated map of Cantonese pop music video locations.
 site: https://cantopopmap.hk
-generated_at: 2026-06-12T16:09:08.459Z
+generated_at: 2026-07-06T05:49:49.895Z
 
 ## Important pages
 https://cantopopmap.hk/
@@ -38,6 +38,7 @@ https://cantopopmap.hk/locations/COLLAR-暴走女團-Can't-stop-Won't-stop | tit
 https://cantopopmap.hk/locations/CONSTANCE-康堤-一律建議分手-(stop-calling!!) | title="CONSTANCE 康堤 — 一律建議分手 (stop calling!!)" | address="Somewhere in Shanghai" | source="https://youtu.be/WHDM3Swv4Jg?t=204"
 https://cantopopmap.hk/locations/CONSTANCE-康堤-新人一樣-(new-kid-on-the-block) | title="CONSTANCE 康堤 — 新人一樣 (new kid on the block)" | address="Pottinger St, Central, Hong Kong Island" | source="https://youtu.be/iCEVCy4yhtg?t=63" | streetView="https://maps.app.goo.gl/LyoKjk4reQg9T1jy5"
 https://cantopopmap.hk/locations/CONSTANCE-康堤-要還-(something-borrowed) | title="CONSTANCE 康堤 — 要還 (something borrowed)" | source="https://youtu.be/9INH_yd0Us4?t=58"
+https://cantopopmap.hk/locations/Cy-Leo-何卓彥-Ivana-Wong-王菀之-在兩個心中間坐下-(Two-Worlds) | title="Cy Leo 何卓彥, Ivana Wong 王菀之 — 在兩個心中間坐下 (Two Worlds)" | address="West K, Kowloon, Hong Kong" | source="https://youtu.be/DiNixx5drOI?t=15" | streetView="https://maps.app.goo.gl/F1BUnbm9xJGg23VN7"
 https://cantopopmap.hk/locations/DAY-許軼-imma-go-boom | title="DAY 許軼 — imma go boom" | address="嘉龍片場, Shek Kong" | source="https://youtu.be/ugRhb4Qh6GU?t=164" | streetView="https://maps.app.goo.gl/zFkEhVendy9rkL9Q9"
 https://cantopopmap.hk/locations/DAY-許軼-Wait-A-Second | title="DAY 許軼 — Wait A Second" | address="Tai Shui Hang" | source="https://youtu.be/4ZRo4BrJdU4?t=22" | streetView="https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6"
 https://cantopopmap.hk/locations/Dear-Jane-不消失戀愛連續-I-Don't-Wanna-Be-Your-IG-Story | title="Dear Jane — 不消失戀愛連續 I Don't Wanna Be Your IG Story" | address="Around Kowloon" | source="https://youtu.be/4-85jDmMQNo?t=409" | streetView="https://www.google.com/maps/place/Loong+Jun+Enterprises+Ltd/@22.3268597,114.1637183,3a,75y,22.3h,91.5t/data=!3m7!1e1!3m5!1s-3Jda4lLwiQrjvug-CA7kA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4987673664758887%26panoid%3D-3Jda4lLwiQrjvug-CA7kA%26yaw%3D22.29617937600097!7i16384!8i8192!4m6!3m5!1s0x340400b42691e4d1:0xdc3fe8132f680566!8m2!3d22.326932!4d114.163766!16s%2Fg%2F12m9k28vc?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
@@ -61,6 +62,8 @@ https://cantopopmap.hk/locations/J-Jelly-Love-me-first | title="J Jelly — Love
 https://cantopopmap.hk/locations/J-Jelly-人海-(sea-of-us) | title="J Jelly — 人海 (sea of us)" | address="Mongo Land, Vietnam" | source="https://youtu.be/DHCWa3SxGiM?t=129"
 https://cantopopmap.hk/locations/JACE-陳凱詠-PTSD | title="JACE 陳凱詠 — PTSD" | address="51 Hill Road, Sai Wan, Hong Kong Island" | source="https://youtu.be/oELReZoJ6es?t=414" | streetView="https://maps.app.goo.gl/peuyzxf645f4bmwo6"
 https://cantopopmap.hk/locations/JACE-陳凱詠-SWITCH | title="JACE 陳凱詠 — SWITCH" | address="Yau Ma Tei Fruit Market, Yau Ma Tei" | source="https://youtu.be/hBFihlLf610?t=57" | streetView="https://maps.app.goo.gl/wLCWRmAD2t54EwCJ7"
+https://cantopopmap.hk/locations/JACE-陳凱詠-我養你-(Pamper-Ü) | title="JACE 陳凱詠 — 我養你 (Pamper Ü)" | address="152 Kam Tin Shi St, Yuen Long, New Territories" | source="https://youtu.be/HoXat0lZKxw?t=60" | streetView="https://maps.app.goo.gl/1xmSBjn1887Sn4596"
+https://cantopopmap.hk/locations/JACE-陳凱詠-那黑夜沒很夜-(Huggies) | title="JACE 陳凱詠 — 那黑夜沒很夜 (Huggies)" | address="Round Island, Stanley Bay, Hong Kong Island" | source="https://youtu.be/xauyCYV-jzY?t=133" | streetView="https://maps.app.goo.gl/pBspjsboSRp1Ch976"
 https://cantopopmap.hk/locations/Jay-Fung-Break-Me-Down | title="Jay Fung — Break Me Down" | address="192 Kowloon City Rd, To Kwa Wan" | source="https://youtu.be/rEl7UUuFjvU?t=210" | streetView="https://maps.app.goo.gl/ennsBcXmVg6AfJRG7"
 https://cantopopmap.hk/locations/Jay-Fung-手繪黑卡-(I-drew-you-a-black-card) | title="Jay Fung — 手繪黑卡 (I drew you a black card)" | address="Queen's Road, Wanchai" | source="https://youtu.be/dbO-5kOZEWY?t=38"
 https://cantopopmap.hk/locations/Jay-Fung-馮國宏-遠在眼前-(Not-Too-Far-Away) | title="Jay Fung 馮國宏 — 遠在眼前 (Not Too Far Away)" | address="24 Kansu St" | source="https://youtu.be/_K4QAcB1mtE?t=31" | streetView="https://maps.app.goo.gl/zREgT83qotvZKGcL9"
