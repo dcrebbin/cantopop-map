@@ -6,9 +6,39 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useReducer,
   useRef,
   useState,
 } from "react";
+
+type MenuAnimationState = {
+  rendered: boolean;
+  animatedOpen: boolean;
+};
+
+type MenuAnimationAction =
+  | { type: "OPEN_START" }
+  | { type: "OPEN_ANIMATE" }
+  | { type: "CLOSE_START" }
+  | { type: "CLOSE_COMPLETE" };
+
+function menuAnimationReducer(
+  state: MenuAnimationState,
+  action: MenuAnimationAction,
+): MenuAnimationState {
+  switch (action.type) {
+    case "OPEN_START":
+      return { rendered: true, animatedOpen: false };
+    case "OPEN_ANIMATE":
+      return { ...state, animatedOpen: true };
+    case "CLOSE_START":
+      return { ...state, animatedOpen: false };
+    case "CLOSE_COMPLETE":
+      return { rendered: false, animatedOpen: false };
+    default:
+      return state;
+  }
+}
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
@@ -113,8 +143,11 @@ export default function Menu() {
   const { allMarkers, map } = useMapStore();
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
-  const [menuRendered, setMenuRendered] = useState(menuOpen);
-  const [menuAnimatedOpen, setMenuAnimatedOpen] = useState(menuOpen);
+  const [menuAnimation, dispatchMenuAnimation] = useReducer(
+    menuAnimationReducer,
+    menuOpen,
+    (open) => ({ rendered: open, animatedOpen: open }),
+  );
   const [searchResults, setSearchResults] = useState(() => ({
     artists: ARTISTS,
     songs: SONGS,
@@ -215,20 +248,30 @@ export default function Menu() {
     updateMarkerVisibility(newSelectedArtists, selectedContributors);
   }
 
-  function handleContributorCheckboxChange(contributor: string) {
-    const newSelectedContributors = selectedContributors.includes(contributor)
-      ? selectedContributors.filter((c) => c !== contributor)
-      : [...selectedContributors, contributor];
-    setSelectedContributors(newSelectedContributors);
-    updateMarkerVisibility(selectedArtists, newSelectedContributors);
-  }
+  const handleContributorCheckboxChange = useCallback(
+    (contributor: string) => {
+      const newSelectedContributors = selectedContributors.includes(contributor)
+        ? selectedContributors.filter((c) => c !== contributor)
+        : [...selectedContributors, contributor];
+      setSelectedContributors(newSelectedContributors);
+      updateMarkerVisibility(selectedArtists, newSelectedContributors);
+    },
+    [
+      selectedContributors,
+      selectedArtists,
+      setSelectedContributors,
+      updateMarkerVisibility,
+    ],
+  );
 
   useEffect(() => {
     if (menuOpen) {
-      setMenuRendered(true);
+      dispatchMenuAnimation({ type: "OPEN_START" });
       let openFrame = 0;
       const startFrame = requestAnimationFrame(() => {
-        openFrame = requestAnimationFrame(() => setMenuAnimatedOpen(true));
+        openFrame = requestAnimationFrame(() =>
+          dispatchMenuAnimation({ type: "OPEN_ANIMATE" }),
+        );
       });
       return () => {
         cancelAnimationFrame(startFrame);
@@ -236,7 +279,7 @@ export default function Menu() {
       };
     }
 
-    setMenuAnimatedOpen(false);
+    dispatchMenuAnimation({ type: "CLOSE_START" });
   }, [menuOpen]);
 
   function handleMenuTransitionEnd(
@@ -244,7 +287,7 @@ export default function Menu() {
   ) {
     if (event.target !== event.currentTarget) return;
     if (!menuOpen) {
-      setMenuRendered(false);
+      dispatchMenuAnimation({ type: "CLOSE_COMPLETE" });
     }
   }
 
@@ -478,7 +521,7 @@ export default function Menu() {
   return (
     <div
       className="absolute top-0 right-0 m-0 flex flex-row gap-4"
-      style={{ zIndex: menuRendered ? 999999 : 90 }}
+      style={{ zIndex: menuAnimation.rendered ? 999999 : 90 }}
     >
       {!isPWA && (
         <button
@@ -536,10 +579,10 @@ export default function Menu() {
           </div>
         )}
       </div>
-      {menuRendered && (
+      {menuAnimation.rendered && (
         <div
           className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-180 lg:w-120 lg:bg-black/20 ${
-            menuAnimatedOpen
+            menuAnimation.animatedOpen
               ? "translate-x-0"
               : "pointer-events-none translate-x-full motion-reduce:translate-x-0"
           }`}
