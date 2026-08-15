@@ -1001,7 +1001,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "今晚好想好想打俾你",
     url: "https://youtu.be/QTeoNGh2kBE?t=106",
     streetView: "https://maps.app.goo.gl/BowZh16zno2ydENa8",
-    image: "https://i.ytimg.com/vi/QTeoNGh2kBE/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/QTeoNGh2kBE/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["$alty Chick鹽焗雞"],
@@ -1022,7 +1022,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "雪愛 Melted",
     url: "https://youtu.be/gnwjoc2e3cI?t=58",
     streetView: "https://maps.app.goo.gl/74xjdk75E88k1LHf8",
-    image: "https://i.ytimg.com/vi/gnwjoc2e3cI/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/gnwjoc2e3cI/mqdefault.jpg",
     contributors: {
       song: {
         music: ["JONO", "Sandy Natsuly", "T-Ma 馬敬恆", "王保為Bowie Ong"],
@@ -1196,7 +1196,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "和暖的風",
     streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
     url: "https://youtu.be/IJ2IS-BvveM?t=40",
-    image: "https://i.ytimg.com/vi/IJ2IS-BvveM/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/IJ2IS-BvveM/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["Byejack"],
@@ -2207,7 +2207,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "有你萬事屋 (Magical Sweet Home)",
     streetView: "https://maps.app.goo.gl/9Nnme8Maxmp9SmmA8",
     url: "https://youtu.be/D3LoWaf0Pfk?t=73",
-    image: "https://i.ytimg.com/vi/D3LoWaf0Pfk/sddefault.jpg",
+    image: "https://i.ytimg.com/vi/D3LoWaf0Pfk/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["謝芊彤"],
@@ -2505,7 +2505,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "當年情",
     streetView: "https://maps.app.goo.gl/ncicUakwU7u5g6aj9",
     url: "https://youtu.be/cYo047rraQw?t=34",
-    image: "https://i.ytimg.com/vi/cYo047rraQw/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/cYo047rraQw/mqdefault.jpg",
   },
   {
     coordinates: [22.2866191, 114.1913576],
@@ -2514,7 +2514,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "男人怎可以 (What Makes A Man)",
     streetView: "https://maps.app.goo.gl/VxciRHzEJv3NKXgo7",
     url: "https://youtu.be/g1GBE8eeNyM?t=184",
-    image: "https://i.ytimg.com/vi/g1GBE8eeNyM/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/g1GBE8eeNyM/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["陳考威", "AP潘宇謙"],
@@ -2589,7 +2589,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "有誰共鳴",
     streetView: "https://maps.app.goo.gl/QAvSz9h6LXpSbi2s7",
     url: "https://youtu.be/9b1vv1kWYc4?t=48",
-    image: "https://i.ytimg.com/vi/9b1vv1kWYc4/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/9b1vv1kWYc4/mqdefault.jpg",
   },
   {
     coordinates: [22.3019803, 114.18578777],
@@ -3817,7 +3817,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "天氣之女 (Weathering with Me)",
     streetView: "https://maps.app.goo.gl/4ZgLTWo2sdhFKgiUA",
     url: "https://youtu.be/Q9yq9NXciR8?t=179",
-    image: "https://i.ytimg.com/vi/Q9yq9NXciR8/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/Q9yq9NXciR8/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
@@ -4695,7 +4695,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "就這樣嗎 (yue & jp)",
     streetView: "https://maps.app.goo.gl/kzuXFeXuMB9yweWTA",
     url: "https://youtu.be/1S_EQxhiONw?t=206",
-    image: "https://i.ytimg.com/vi/1S_EQxhiONw/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/1S_EQxhiONw/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["Kan Lo", "Rinka"],
@@ -5124,7 +5124,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "海闊天空",
     streetView: "https://maps.app.goo.gl/EMNbmQjQdsf79ZFv8",
     url: "https://youtu.be/qu_FSptjRic?t=129",
-    image: "https://i.ytimg.com/vi/qu_FSptjRic/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/qu_FSptjRic/mqdefault.jpg",
   },
   {
     coordinates: [22.2824124, 114.1540831],
@@ -5490,7 +5490,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Container Port Road",
     name: "意外現場 METANOIA",
     url: "https://www.youtube.com/watch?v=YZTdYEJvVBU",
-    image: "https://i.ytimg.com/vi/YZTdYEJvVBU/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/YZTdYEJvVBU/mqdefault.jpg",
   },
   {
     coordinates: [22.29904788270136, 114.15558672262901],
@@ -6176,7 +6176,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Mt. Davis Battery",
     name: "陀飛輪",
     url: "https://www.youtube.com/watch?v=URUIcYDq3_I",
-    image: "https://i.ytimg.com/vi/URUIcYDq3_I/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/URUIcYDq3_I/mqdefault.jpg",
   },
   {
     coordinates: [31.196595182957555, 121.32137371588486],
@@ -6184,7 +6184,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Somewhere in Shanghai",
     name: "一律建議分手 (stop calling!!)",
     url: "https://youtu.be/WHDM3Swv4Jg?t=204",
-    image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "Eason YH Chan", "Ernest Choi"],
@@ -6576,7 +6576,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Jordan Street",
     name: "霓虹黯色 - 《傾城》選曲 (cover)",
     url: "https://www.youtube.com/watch?v=jQHM-dB4NXg",
-    image: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/sddefault.jpg",
+    image: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/mqdefault.jpg",
   },
   {
     coordinates: [22.294059012706807, 114.16848164217643],
@@ -6888,7 +6888,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/94nNwWUtJjZuaAfN7",
     name: "喵！(MEOW!)",
     url: "https://youtu.be/WJxQ9Xh19DI?t=87",
-    image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/sddefault.jpg",
+    image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/mqdefault.jpg",
     contributors: {
       song: {
         allKeysSynthsAndProgrammingsBy: ["SiuTung"],
@@ -7013,7 +7013,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Central Ferry Pier (?)",
     name: "傷心的時候別説話 Beyond Words",
     url: "https://www.youtube.com/watch?v=CjGGpzZN2P0",
-    image: "https://i.ytimg.com/vi/CjGGpzZN2P0/sddefault.jpg",
+    image: "https://i.ytimg.com/vi/CjGGpzZN2P0/mqdefault.jpg",
     contributors: {
       song: {
         vocalProduction: ["Gareth Chan", "Jeffero Chan"],
@@ -7352,7 +7352,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一樣 (The Same)",
     url: "https://youtu.be/fU3zsnKszPE?t=69",
     streetView: "https://maps.app.goo.gl/a8fmW8LCrauQvY8v8",
-    image: "https://i.ytimg.com/vi/fU3zsnKszPE/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/fU3zsnKszPE/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -7644,7 +7644,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757845897701!6m8!1m7!1s7hZ2lKgHq_UjqeFCAS7-Pg!2m2!1d22.28501886188788!2d114.1488047660514!3f126.9892122468262!4f-6.604822390976906!5f0.4000000000000002",
     url: "https://youtu.be/4G8SDPTK_lY?t=16",
-    image: "https://i.ytimg.com/vi/4G8SDPTK_lY/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/4G8SDPTK_lY/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["陳可為"],
