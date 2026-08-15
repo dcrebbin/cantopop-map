@@ -72,7 +72,7 @@ function createCustomMarker(
       src: data.image,
       id,
       className:
-        "w-auto h-14 cursor-pointer mt-8 z-[1000] rounded-md hover:scale-110",
+        "image-skeleton mt-8 h-14 w-24 cursor-pointer rounded-md object-cover hover:scale-110 z-[1000]",
       onClick: () => {
         const targetMap = mapInstance;
         if (!targetMap) return;

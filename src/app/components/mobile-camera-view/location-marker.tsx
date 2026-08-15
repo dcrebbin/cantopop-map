@@ -36,7 +36,7 @@ export function LocationMarker({
       <img
         src={entry.location.image}
         alt={entry.location.name}
-        className="absolute inset-0 z-0 h-full w-full rounded-xl object-cover brightness-30"
+        className="image-skeleton absolute inset-0 z-0 h-full w-full rounded-xl object-cover brightness-30"
       />
     </div>
   );

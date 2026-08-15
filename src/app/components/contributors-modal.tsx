@@ -267,7 +267,7 @@ export default function ContributorsModal() {
                         alt={c.location.name}
                         width={160}
                         height={90}
-                        className="aspect-video h-20 w-auto rounded object-contain"
+                        className="image-skeleton aspect-video h-20 w-auto rounded object-contain"
                         style={{ aspectRatio: "16/9" }}
                       />
                     </a>
