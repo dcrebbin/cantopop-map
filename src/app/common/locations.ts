@@ -2230,6 +2230,27 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [35.8360758, 138.0592835],
+    artists: ["XTIE"],
+    address: "Gonbee Hwy, Ina, Nagano, Japan",
+    name: "麥田看守員 (vacation ver.)",
+    streetView: "https://maps.app.goo.gl/3i9HTh25nzkgyxR76",
+    url: "https://youtu.be/IFwn1zP57Vk?t=165",
+    image: "https://i.ytimg.com/vi/IFwn1zP57Vk/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["XTIE"],
+        lyricist: ["鍾說", "XTIE"],
+        arranger: ["XTIE"],
+        producer: ["XTIE"],
+      },
+      musicVideo: {
+        director: ["XTIE"],
+        directorOfPhotography: ["XTIE"],
+      },
+    },
+  },
+  {
     coordinates: [23.050205076668163, 113.20738266379263],
     artists: ["Kiri T"],
     address: "The Raw, Guangzhou",
