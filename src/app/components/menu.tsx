@@ -53,7 +53,6 @@ import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import {
-  ArrowDownIcon,
   ArrowDownTrayIcon,
   ChevronDownIcon,
   XMarkIcon,
@@ -581,7 +580,7 @@ export default function Menu() {
       </div>
       {menuAnimation.rendered && (
         <div
-          className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-180 lg:w-120 lg:bg-black/20 ${
+          className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white bg-black/40 p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:w-120 lg:max-h-180 ${
             menuAnimation.animatedOpen
               ? "translate-x-0"
               : "pointer-events-none translate-x-full motion-reduce:translate-x-0"

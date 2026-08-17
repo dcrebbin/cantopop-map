@@ -6,7 +6,7 @@ import type { LocationItem } from "../common/locations";
 function HomePageFallback() {
   return (
     <div className="full-height flex w-screen flex-col overflow-hidden">
-      <div className="relative flex w-[100vw] justify-center overflow-hidden">
+      <div className="relative flex w-screen justify-center overflow-hidden">
         <div className="map-container relative bg-[#e8eaed]" />
       </div>
     </div>

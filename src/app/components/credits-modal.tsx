@@ -51,8 +51,8 @@ export default function CreditsModal() {
   }
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[99999999] flex items-center justify-center bg-transparent text-white">
-      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[76vh] min-h-[20rem] w-[98%] max-w-[50rem] flex-col overflow-y-auto rounded-md border-[3px] border-white/50 bg-black/[25%] p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:max-h-[65vh] xl:w-full">
+    <div className="pointer-events-none fixed inset-0 z-99999999 flex items-center justify-center bg-transparent text-white">
+      <div className="pointer-events-auto absolute top-14 z-10 mx-2 mt-5 flex max-h-[76vh] min-h-80 w-[98%] max-w-200 flex-col overflow-y-auto rounded-md border-[3px] border-white/50 bg-black/25 p-4 drop-shadow-md backdrop-blur-lg xl:top-5 xl:max-h-[65vh] xl:w-full">
         <div className="z-30 flex items-start justify-between gap-2">
           <div className="w-full border-b border-white/70 pb-2">
             <h1 className="font-serif text-2xl font-bold drop-shadow-[0_0_4px_rgba(0,0,0,0.5)]">
@@ -84,7 +84,7 @@ export default function CreditsModal() {
                 className="flex min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 text-base break-words xl:text-sm">
+                <p className="min-w-0 text-base wrap-break-word xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
                 <div className="max-w-full min-w-0 text-left text-xs font-normal">
@@ -94,7 +94,7 @@ export default function CreditsModal() {
                     return (
                       <span
                         key={displayName}
-                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base break-words xl:text-sm"
+                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base wrap-break-word xl:text-sm"
                       >
                         {displayName}
                         <button
@@ -131,7 +131,7 @@ export default function CreditsModal() {
                 className="flex w-full min-w-0 flex-col items-start justify-start"
                 key={key}
               >
-                <p className="min-w-0 text-base break-words xl:text-sm">
+                <p className="min-w-0 text-base wrap-break-word xl:text-sm">
                   {humanizeRoleKey(key)} <br></br>
                 </p>
                 <div className="max-w-full min-w-0 text-left font-normal xl:text-xs">
@@ -141,7 +141,7 @@ export default function CreditsModal() {
                     return (
                       <span
                         key={displayName}
-                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base break-words xl:text-sm"
+                        className="flex max-w-full min-w-0 flex-wrap items-center gap-1 text-base wrap-break-word xl:text-sm"
                       >
                         {displayName}
                         <button

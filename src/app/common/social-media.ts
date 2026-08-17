@@ -7,6 +7,7 @@ export const nameToInstagramMap = {
   "Gordon Flanders": "gordon4x",
   "Agnes Kahei": "AGNESCKH",
   "Edan 呂爵安": "edanlui",
+  Hanghang: "hiavmy",
   Zpecial: "zpecial_hk",
   "DAY 許軼": "6y_day",
   "MC 張天賦": "mcheung1201",
