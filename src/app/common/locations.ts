@@ -1063,7 +1063,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         musicBy: ["Maia 慶孫", "Matt Chow", "Jonathan Chan", "musicbyAP"],
         lyricistBy: ["陳蕾"],
         raplyricistBy: ["marife", "T-Ma 馬敬恆"],
-        arrangedBy: ["musicbyAP", "Jonathan Chan"],
+        arranger: ["musicbyAP", "Jonathan Chan"],
         productionCompany: ["T-Ma 馬敬恆"],
       },
       musicVideo: {
@@ -4573,10 +4573,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/2MoVxJNllVo/mqdefault.jpg",
     contributors: {
       song: {
-        composedBy: ["Gordon Flanders"],
+        composer: ["Gordon Flanders"],
         lyricsBy: ["王樂儀"],
-        arrangedBy: ["Justin Yau"],
-        producedBy: ["Gordon Flanders"],
+        arranger: ["Justin Yau"],
+        producer: ["Gordon Flanders"],
       },
       musicVideo: {
         director: ["Terry To"],
@@ -4627,10 +4627,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/vCeWfXOKWOI/mqdefault.jpg",
     contributors: {
       song: {
-        composedBy: ["KW朱敏希"],
+        composer: ["KW朱敏希"],
         lyricsBy: ["亞木", "KW朱敏希"],
-        arrangedBy: ["SeaTravel"],
-        producedBy: [
+        arranger: ["SeaTravel"],
+        producer: [
           "Derrick Sepnio張德銘@電費貴DFG Music",
           "Fergus Chow貢多傑@電費貴 DFG Music",
         ],
@@ -7002,11 +7002,11 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/uy25Ak-xdtY/mqdefault.jpg",
     contributors: {
       song: {
-        composedBy: ["Whizz"],
+        composer: ["Whizz"],
         lyricistWrittenBy: ["鄭敏"],
         englishlyricistBy: ["Whizz"],
         productionCompany: ["Whizz", "Goro Wong"],
-        arrangedBy: ["Whizz"],
+        arranger: ["Whizz"],
         synthesizerProgrammedBy: ["Moo@Whizz"],
         electricGuitarsBy: ["Moo@Whizz", "YuShanWong@Whizz"],
         acousticAndNylonGuitarBy: ["YuShanWong@Whizz"],
@@ -7014,7 +7014,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
         drumsBy: ["Jess@Whizz"],
         vocalBy: ["Whizz"],
         backingVocalsBy: ["Moo@Whizz", "Bowie@Whizz", "Jess@Whizz"],
-        backingVocalsArrangedBy: ["Moo@Whizz"],
+        backingVocalsarranger: ["Moo@Whizz"],
         vocalRecordedBy: ["Goro Wong at 117A"],
         guitarsAndBassRecordedBy: ["Goro Wong at 117A"],
         acousticGuitarRecordedBy: ["Goro Wong at 117A"],
@@ -7992,10 +7992,10 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     image: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/mqdefault.jpg",
     contributors: {
       song: {
-        composedBy: ["陳健安"],
-        lyricsBy: ["Oscar"],
-        arrangedBy: ["黃兆銘"],
-        producedBy: ["陳考威"],
+        composer: ["陳健安"],
+        lyrics: ["Oscar"],
+        arranger: ["黃兆銘"],
+        producer: ["陳考威"],
       },
       musicVideo: {
         director: ["Justin Law"],
