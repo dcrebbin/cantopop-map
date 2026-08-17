@@ -7987,7 +7987,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "沒誰保佑 (Not The Only One)",
     address: "Maclehose Trail Sec. 1, High Island Reservoir, Hong Kong",
     coordinates: [22.363973, 114.3724806],
-    streetView: "https://maps.app.goo.gl/j3AL1dfJ8zX7PBGW6",
+    streetView: "https://maps.app.goo.gl/24UsHXVX5Q6ggd2R7",
     url: "https://youtu.be/Bt5ZOpbMPTE?t=163",
     image: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/mqdefault.jpg",
     contributors: {
