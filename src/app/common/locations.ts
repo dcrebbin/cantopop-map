@@ -7984,7 +7984,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     artists: ["EGG 黃詠霖", "陳健安 On Chan"],
-    name: "沒誰保佑",
+    name: "沒誰保佑 (Not The Only One)",
     address: "Maclehose Trail Sec. 1, High Island Reservoir, Hong Kong",
     coordinates: [22.363973, 114.3724806],
     streetView: "https://maps.app.goo.gl/j3AL1dfJ8zX7PBGW6",
