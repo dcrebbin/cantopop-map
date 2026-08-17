@@ -7918,6 +7918,27 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    artists: ["dessy 守一"],
+    name: "Fell Too Deep (en)",
+    address: "9 Yuk Nga Ln, Hong Kong, New Territories",
+    coordinates: [22.3245857, 114.2541069],
+    streetView: "https://maps.app.goo.gl/jekBL5UWGZcqm6Pb9",
+    url: "https://youtu.be/kwVF0t4SSIY",
+    image: "https://i.ytimg.com/vi/kwVF0t4SSIY/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["dessy 守一"],
+        lyricist: ["dessy 守一"],
+        arranger: ["dessy 守一", "Basil Jet", "Laurence Lo"],
+        producer: ["dessy 守一", "PLAYGROUND", "Luarence Lo"],
+      },
+      musicVideo: {
+        coverDesign: ["Hanghang"],
+        director: ["Hanghang"],
+      },
+    },
+  },
+  {
     artists: ["Gordon Flanders"],
     name: "溝之口 沒有 藤井風 (Just you and me (and Fujii Kaze))",
     url: "https://www.youtube.com/watch?v=InNy_2BZYxE",
