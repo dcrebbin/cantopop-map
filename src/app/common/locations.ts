@@ -8015,7 +8015,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     artists: ["EGG 黃詠霖"],
-    name: "沒誰保佑 (Nobody to bless me)",
+    name: "沒誰保佑 (Not The Only One)",
     address: "Shing Mun River, New Territories, Hong Kong",
     coordinates: [22.377186, 114.1895227],
     streetView: "https://maps.app.goo.gl/uhpCAQKaMpNsG5jV7",
