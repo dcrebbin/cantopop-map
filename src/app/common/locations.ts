@@ -2233,6 +2233,29 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    coordinates: [22.3312963, 114.1636098],
+    artists: ["雷同二友 The Absent Brother"],
+    address: "60 Fuk Wing St, Sham Shui Po, Hong Kong",
+    name: "mimimomo 🐢🐢",
+    streetView: "https://maps.app.goo.gl/ojTELVYBPQUEVe1D6",
+    url: "https://youtu.be/0hCZ_6TktlM?t=40",
+    image: "https://i.ytimg.com/vi/0hCZ_6TktlM/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["謝芊彤"],
+        lyrics: ["謝芊彤"],
+        arranger: ["WHIZZ", "謝芊彤"],
+        producer: ["謝芊彤"],
+      },
+      musicVideo: {
+        colourist: ["謝芊蕾"],
+        editor: ["謝芊蕾"],
+        director: ["雷同二友 The Absent Brother"],
+        directorOfPhotography: ["雷同二友 The Absent Brother"],
+      },
+    },
+  },
+  {
     coordinates: [35.8360758, 138.0592835],
     artists: ["XTIE"],
     address: "Gonbee Hwy, Ina, Nagano, Japan",
