@@ -698,7 +698,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["GooChan", "MC 張天賦"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["GooChan", "黃兆銘"],
         producer: ["徐浩"],
       },
@@ -1465,7 +1465,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       song: {
         composer: ["Gordon Flanders"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Justin Yau"],
         producer: ["Gordon Flanders"],
       },
@@ -1806,7 +1806,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "范梓謙"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["范梓謙", "葉崇恩"],
         producer: ["湯湯令山 Gareth T", "范梓謙", "葉崇恩"],
       },
@@ -1899,7 +1899,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "陳易行"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["陳易行"],
         producer: ["陳易行"],
         drumsAndGuitars: ["Daniel Toh"],
@@ -1999,7 +1999,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["范卓賢"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Justin Yau"],
         producer: ["徐浩"],
       },
@@ -2040,7 +2040,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Gordon Flanders", "CONSTANCE 康堤"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Eason YH Chan"],
         producer: ["Eason YH Chan"],
       },
@@ -2390,7 +2390,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Kiri T"],
-        lyricist: ["Wyman Wong"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Stephen Ho", "Kiri T"],
         producer: ["Stephen Ho", "Kiri T"],
       },
@@ -2638,7 +2638,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
           "Eason YH Chan",
           "Daniel Toh",
         ],
-        lyricist: ["Wyman Wong"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Nic Tsui", "Justin Yau"],
         producer: ["moon tang", "Nic Tsui"],
       },
@@ -2753,7 +2753,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["馮允謙", "陳考威", "黃兆銘"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["黃兆銘"],
         producer: ["陳考威"],
       },
@@ -2961,7 +2961,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "葉崇恩"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: [
           "湯湯令山 Gareth T",
           "葉崇恩",
@@ -3102,7 +3102,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       song: {
         composer: ["湯湯令山 Gareth T", "范梓謙"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: [
           "湯湯令山 Gareth T",
           "范梓謙",
@@ -3236,7 +3236,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "大匙羹"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arrangerProducer: ["湯湯令山 Gareth T", "蘇道哲"],
       },
       musicVideo: {
@@ -3334,7 +3334,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["黃兆銘"],
         producer: ["陳考威"],
       },
@@ -3678,7 +3678,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       song: {
         composer: ["馮允謙"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Dick Wong"],
         producer: ["周錫漢"],
       },
@@ -3725,7 +3725,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       song: {
         composer: ["Yungie"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Nic Tsui", "黃兆銘"],
         producer: ["徐浩"],
       },
@@ -4254,7 +4254,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["馮允謙"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["蘇道哲", "Nic Tsui"],
         producer: ["蘇道哲"],
       },
@@ -5458,7 +5458,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["謝子晴"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["黃兆銘"],
         producer: ["周錫漢", "謝國維"],
       },
@@ -5734,7 +5734,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["馮穎琪"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["謝國維"],
         producer: ["謝國維"],
       },
@@ -5828,7 +5828,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["馮允謙", "陳考威", "JNYBeatz"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         raplyricist: ["Young Hysan"],
         arranger: ["Derrick Sepnio", "Fergus Chow", "黃兆銘"],
         producer: ["陳考威"],
@@ -5872,7 +5872,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
       song: {
         producer: ["moon tang", "Enoch Cheng", "Nicholas Cheung"],
         composer: ["moon tang", "Enoch Cheng"],
-        lyricist: ["Wyman Wong"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Jason Gelchen", "Robbie Say"],
       },
       musicVideo: {
@@ -6339,7 +6339,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "Eason YH Chan", "Ernest Choi"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         englishlyricist: ["CONSTANCE 康堤"],
         arranger: ["Eason YH Chan", "Ernest Choi"],
         producer: ["Ernest Choi"],
@@ -6674,7 +6674,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["湯令山 Gareth Tong"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         raplyricist: ["湯令山 Gareth Tong", "marife"],
         arranger: ["湯令山 Gareth Tong"],
         producer: ["湯令山 Gareth Tong", "謝國維"],
@@ -7402,7 +7402,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["J. Arie", "Kiri T", "Gavin Chan"],
-        lyricist: ["Wyman Wong"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Kiri T", "Nathaniel So"],
         producer: ["Kiri T", "Gareth Chan"],
       },
@@ -7617,7 +7617,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Bryan Tse", "Neena Fjelddahl"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Bryan Tse", "謝國維"],
         producer: ["謝國維"],
         vocals: ["COLLAR"],
@@ -7799,7 +7799,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["陳可為"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         producer: ["陳考威"],
         vocals: ["張蔓莎"],
       },
@@ -8198,7 +8198,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Gordon Flanders", "PLAYGROUND"],
-        lyricist: ["黃偉文"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["PLAYGROUND", "Gordon Flanders"],
         producer: ["Gordon Flanders", "PLAYGROUND"],
       },
@@ -8360,7 +8360,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
-        lyricist: ["Wyman Wong"],
+        lyricist: ["Wyman Wong 黃偉文"],
         arranger: ["Justin Yau"],
         producer: ["Gordon Flanders"],
         drummer: ["SHOOTlo"],
