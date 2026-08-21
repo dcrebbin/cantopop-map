@@ -2336,7 +2336,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["Helen So 蘇凱倫"],
     name: "魔鬼在身邊",
-    url: "",
+    url: "https://youtu.be/oqe1X5KGt0Y?t=14",
     image: "https://i.ytimg.com/vi/oqe1X5KGt0Y/mqdefault.jpg",
     contributors: {
       song: {
