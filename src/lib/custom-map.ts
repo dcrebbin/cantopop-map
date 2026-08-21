@@ -5,7 +5,7 @@ import {
   constructTitle,
   extractContributorNamesFromLocation,
   type MappableLocationItem,
-} from "~/app/common/locations";
+} from "~/app/common/lib";
 import { useMapStore } from "~/app/_state/map.store";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "~/app/_state/ui.store";

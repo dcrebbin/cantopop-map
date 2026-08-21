@@ -7,7 +7,7 @@ import {
   type LocationItem,
   MAP_LOCATIONS,
   nameToLocation,
-} from "../common/locations";
+} from "../common/lib";
 import { useMapStore } from "../_state/map.store";
 import Appbar from "./appbar";
 import LocationButton from "./location-button";

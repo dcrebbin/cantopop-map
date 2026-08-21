@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { LocationItem } from "../common/locations";
+import type { LocationItem } from "../common/lib";
 
 function HomePageFallback() {
   return (

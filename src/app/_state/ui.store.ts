@@ -1,10 +1,5 @@
 import { create } from "zustand";
-import {
-  ARTISTS,
-  CONTRIBUTORS,
-  SONGS,
-  type LocationItem,
-} from "../common/locations";
+import { ARTISTS, CONTRIBUTORS, SONGS, type LocationItem } from "../common/lib";
 
 interface UIState {
   menuOpen: boolean;

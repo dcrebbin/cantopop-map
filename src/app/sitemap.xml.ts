@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { nameToLocation } from "~/app/common/locations";
+import { nameToLocation } from "~/app/common/lib";
 
 function escapeXml(value: string) {
   return value

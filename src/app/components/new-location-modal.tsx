@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "../_state/ui.store";
-import { ARTISTS, type MappableLocationItem } from "../common/locations";
+import { ARTISTS, type MappableLocationItem } from "../common/lib";
 import { addPlace } from "~/lib/custom-map";
 import { useMapStore } from "../_state/map.store";
 import mapboxgl from "mapbox-gl";
@@ -127,7 +127,10 @@ export default function NewLocationModal() {
         <hr className="my-1 w-full" />
         <div className="flex w-full flex-col items-center justify-start gap-2">
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <label htmlFor="new-location-song-title" className="text-sm font-bold">
+            <label
+              htmlFor="new-location-song-title"
+              className="text-sm font-bold"
+            >
               Song Title
             </label>
             <input
@@ -188,7 +191,10 @@ export default function NewLocationModal() {
             )}
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <label htmlFor="new-location-video-url" className="text-sm font-bold">
+            <label
+              htmlFor="new-location-video-url"
+              className="text-sm font-bold"
+            >
               Video URL (with timestamp)
             </label>
             <input
@@ -235,7 +241,10 @@ export default function NewLocationModal() {
             </div>
           </div>
           <div className="flex w-full flex-col items-start justify-start gap-2">
-            <label htmlFor="new-location-street-view" className="text-sm font-bold">
+            <label
+              htmlFor="new-location-street-view"
+              className="text-sm font-bold"
+            >
               Street View (optional)
             </label>
             <input

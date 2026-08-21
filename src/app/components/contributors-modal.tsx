@@ -8,7 +8,7 @@ import {
   humanizeRoleKey,
   type ContributorCredit,
   type LocationItem,
-} from "../common/locations";
+} from "../common/lib";
 import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { nameToInstagramMap } from "../common/social-media";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";

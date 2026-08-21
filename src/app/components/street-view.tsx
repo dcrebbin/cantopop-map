@@ -1,6 +1,6 @@
 /** biome-ignore-all lint/correctness/useExhaustiveDependencies: mount-only game initialization */
 import { useCallback, useEffect, useRef } from "react";
-import { LOCATIONS } from "../common/locations";
+import { LOCATIONS } from "../common/lib";
 import { useUIStore } from "../_state/ui.store";
 import { SvgIcon } from "./map/PopupContent";
 import { closeIcon } from "~/lib/icons/closeIcon";
@@ -73,7 +73,7 @@ export default function StreetView() {
   }, [pickRandomLocation]);
 
   return (
-    <div className="fixed bottom-0 right-0 z-[90] flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div className="fixed right-0 bottom-0 z-[90] flex h-full w-full items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="mx-4 mb-0 flex h-auto w-full flex-col items-center gap-4 rounded-lg bg-white p-4 lg:mb-28 lg:w-[55rem]">
         <div className="flex w-full flex-row items-center justify-between">
           <h1>Cantopop地圖 Guesser</h1>

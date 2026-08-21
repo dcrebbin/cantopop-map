@@ -7,7 +7,7 @@ import {
   getContributorDisplayName,
   humanizeRoleKey,
   type ContributorCredit,
-} from "../common/locations";
+} from "../common/lib";
 
 type CategoryFilter = "all" | "song" | "musicVideo";
 
@@ -347,13 +347,13 @@ export default function LeaderboardPage() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search contributor"
             aria-label="Search contributor"
-            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 placeholder:text-white/50 focus:ring-2"
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm ring-white/40 outline-none placeholder:text-white/50 focus:ring-2"
           />
           <select
             value={artistFilter}
             onChange={(e) => setArtistFilter(e.target.value)}
             aria-label="Filter by artist"
-            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm ring-white/40 outline-none focus:ring-2"
           >
             <option value="all">All artists</option>
             {filterOptions.artists.map((artist) => (
@@ -368,7 +368,7 @@ export default function LeaderboardPage() {
               setCategoryFilter(e.target.value as CategoryFilter)
             }
             aria-label="Filter by credit category"
-            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm ring-white/40 outline-none focus:ring-2"
           >
             <option value="all">All categories</option>
             <option value="song">Song credits only</option>
@@ -378,7 +378,7 @@ export default function LeaderboardPage() {
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
             aria-label="Filter by contributor role"
-            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm outline-none ring-white/40 focus:ring-2"
+            className="rounded-md border border-white/30 bg-black/40 px-3 py-2 text-sm ring-white/40 outline-none focus:ring-2"
           >
             <option value="all">All roles</option>
             {filterOptions.roles.map((role) => (
@@ -390,7 +390,7 @@ export default function LeaderboardPage() {
         </section>
 
         <section className="z-1 min-w-0 overflow-y-auto rounded-lg border border-white/20 bg-black/20">
-          <div className="grid grid-cols-[36px_minmax(0,1fr)_44px_44px_36px] gap-1 border-b border-white/20 px-2 py-2 text-xs font-semibold uppercase tracking-wide text-white/80 sm:grid-cols-[64px_minmax(0,1fr)_110px_110px_110px] sm:gap-2 sm:px-3">
+          <div className="grid grid-cols-[36px_minmax(0,1fr)_44px_44px_36px] gap-1 border-b border-white/20 px-2 py-2 text-xs font-semibold tracking-wide text-white/80 uppercase sm:grid-cols-[64px_minmax(0,1fr)_110px_110px_110px] sm:gap-2 sm:px-3">
             <span>#</span>
             <span className="min-w-0">Name</span>
             <span className="text-right">Total</span>
@@ -425,7 +425,7 @@ export default function LeaderboardPage() {
           </ul>
         </section>
       </main>
-      <div className="fixed left-0 top-0 z-[-2] h-screen w-screen bg-[url('/images/hk.jpg')] bg-cover bg-center blur-sm"></div>
+      <div className="fixed top-0 left-0 z-[-2] h-screen w-screen bg-[url('/images/hk.jpg')] bg-cover bg-center blur-sm"></div>
     </div>
   );
 }

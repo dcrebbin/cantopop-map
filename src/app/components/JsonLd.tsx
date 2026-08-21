@@ -1,4 +1,4 @@
-import { MAP_LOCATIONS } from "../common/locations";
+import { MAP_LOCATIONS } from "../common/lib";
 
 const siteUrl =
   import.meta.env.NEXT_PUBLIC_SITE_URL ?? import.meta.env.SITE_URL ?? "";

@@ -1,6 +1,6 @@
 "use client";
 
-import { type MappableLocationItem } from "~/app/common/locations";
+import { type MappableLocationItem } from "~/app/common/lib";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";

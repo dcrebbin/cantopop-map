@@ -10,7 +10,7 @@ import {
   humanizeRoleKey,
   type ContributorCredit,
   type LocationItem,
-} from "../common/locations";
+} from "../common/lib";
 import { nameToInstagramMap } from "../common/social-media";
 import { useUIStore } from "../_state/ui.store";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
