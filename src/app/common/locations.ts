@@ -2338,6 +2338,9 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "魔鬼在身邊",
     url: "https://youtu.be/oqe1X5KGt0Y?t=14",
     image: "https://i.ytimg.com/vi/oqe1X5KGt0Y/mqdefault.jpg",
+    coordinates: [22.3891088, 113.919764],
+    address: "Lung Kwu Tan, Google Street View",
+    streetView: "https://maps.app.goo.gl/t9g5C16tTPbZiJDe8",
     contributors: {
       song: {
         composer: ["Antoine Adel Aboulkassimi", "Asa Bjartmarz"],
