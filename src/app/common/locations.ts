@@ -2339,7 +2339,7 @@ const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/oqe1X5KGt0Y?t=14",
     image: "https://i.ytimg.com/vi/oqe1X5KGt0Y/mqdefault.jpg",
     coordinates: [22.3891088, 113.919764],
-    address: "Lung Kwu Tan, Google Street View",
+    address: "8 Lung Yiu St, Lung Kwu Tan, New Territories, Hong Kong",
     streetView: "https://maps.app.goo.gl/t9g5C16tTPbZiJDe8",
     contributors: {
       song: {
