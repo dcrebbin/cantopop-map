@@ -439,7 +439,7 @@ export const nameToInstagramMap = {
   "Alvin Chu": "west_chu",
   "Edwin Tay": "tatt.mr.raccoon",
   Cow10: "cow10_",
-  "Edwardo Chan": "edwardochan",
+  Edwardo: "edwardochan",
   "Effy Leung": "effy_leunggggg",
   "Jim Chow": "j_pt_trainer",
   "Hero Pun": "hero.punk.oficial",
