@@ -5507,7 +5507,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
   },
   {
     artists: ["Cozy Syndrome"],
-    coordinates: [22.41219157043263, 113.97989184690498],
+    coordinates: [22.418747862844114, 113.98169936202656],
     address: "Lam Tei Station Overpass, Tuen Mun, Hong Kong",
     streetView: "https://maps.app.goo.gl/MU7EPHm7vGtZdgKL8",
     name: "逐個字講好想你",
