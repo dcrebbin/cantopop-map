@@ -6351,7 +6351,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     contributors: {
       song: {
         composer: ["dessy 守一", "hirsk"],
-        lyricist: ["雷暐樂"],
+        lyricist: ["雷暐樂 Peter Lui"],
         arranger: ["hirsk", "Laurence Lo", "dessy 守一"],
         producer: ["hirsk"],
       },
