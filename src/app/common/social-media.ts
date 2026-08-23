@@ -464,6 +464,7 @@ export const nameToInstagramMap = {
   "Rachael Leung": "rachellyt",
   "Mag Lam": "maglam_",
   "Pik Yi": "pikyilee",
+  Heily: "heiheibibii",
   Estelle: "estelleeee1",
   Mandy: "hymannndy",
   "Sum Tik": "sumtik",
