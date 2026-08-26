@@ -6707,6 +6707,30 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    artists: ["Abby艾比"],
+    name: "定休日 Daybreak",
+    coordinates: [22.2949008, 114.1670158],
+    address: "Harbour City Roof, Tsim Sha Tsui, Hong Kong",
+    streetView: "https://maps.app.goo.gl/8v8xduCgmm88pPM28",
+    url: "https://youtu.be/N9uGbXNOMEM?t=11",
+    image: "https://i.ytimg.com/vi/N9uGbXNOMEM/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Sy8"],
+        lyricist: ["Abby艾比"],
+        arranger: ["Sy8"],
+        producer: ["S.Kin"],
+      },
+      musicVideo: {
+        additionalCamera: ["S.kin", "Ben Wong"],
+        director: ["Abby艾比"],
+        editor: ["Abby艾比"],
+        stillPhotography: ["Ben Wong"],
+        titleDesign: ["Ben Wong"],
+      },
+    },
+  },
+  {
     artists: ["CONSTANCE 康堤"],
     name: "好鍾意！LOVE!",
     url: "https://youtu.be/noe6uXY-KiY?t=144",
