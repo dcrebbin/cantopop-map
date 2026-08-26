@@ -6709,7 +6709,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["Abby艾比"],
     name: "定休日 Daybreak",
-    coordinates: [22.2949008, 114.1670158],
+    coordinates: [22.29461507144101, 114.16503346736097],
     address: "Harbour City Roof, Tsim Sha Tsui, Hong Kong",
     streetView: "https://maps.app.goo.gl/8v8xduCgmm88pPM28",
     url: "https://youtu.be/N9uGbXNOMEM?t=11",
