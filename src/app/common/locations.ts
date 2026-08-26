@@ -7,7 +7,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/XeK9gvVb-uE?t=37",
     image: "https://i.ytimg.com/vi/XeK9gvVb-uE/mqdefault.jpg",
     coordinates: [35.3391565, 138.891134],
-    address: "Gotemba, Shizuoka, Google Street View",
+    address: "Gotemba, Shizuoka, Japan",
     streetView: "https://maps.app.goo.gl/vipb1Pk8CWMzfeWs8",
     contributors: {
       song: {
