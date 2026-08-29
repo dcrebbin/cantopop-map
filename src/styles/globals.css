@@ -62,6 +62,58 @@ input[type="checkbox"] {
   background-color: #e8eaed;
 }
 
+.cantopop-cluster-marker {
+  position: relative;
+  width: 4rem;
+  height: 3.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 3px 5px rgb(0 0 0 / 35%));
+  transition: transform 150ms ease;
+}
+
+.cantopop-cluster-marker:hover,
+.cantopop-cluster-marker:focus-visible {
+  z-index: 2000;
+  outline: none;
+  transform: scale(1.08);
+}
+
+.cantopop-cluster-marker:focus-visible {
+  box-shadow: 0 0 0 3px rgb(255 255 255 / 95%);
+}
+
+.cantopop-cluster-thumbnail {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.cantopop-cluster-count {
+  position: absolute;
+  top: -0.65rem;
+  right: -0.65rem;
+  display: grid;
+  min-width: 1.5rem;
+  height: 1.7rem;
+  padding: 0 0.45rem;
+  place-items: center;
+  border: none;
+  border-radius: 9999px;
+  background: #111827;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
 .cherry-blossom-petal {
   position: absolute;
   top: 0;

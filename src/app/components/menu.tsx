@@ -49,6 +49,7 @@ import {
   nameToLocation,
   SONGS,
 } from "../common/lib";
+import { refreshMarkerClusters } from "~/lib/custom-map";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
@@ -177,10 +178,11 @@ export default function Menu() {
 
         const hasAnyFilter = hasArtistFilter || hasContributorFilter;
         const shouldShow = !hasAnyFilter || artistMatch || contributorMatch;
-        marker.style.display = shouldShow ? "block" : "none";
+        marker.dataset.filterHidden = shouldShow ? "false" : "true";
       }
+      refreshMarkerClusters(map);
     },
-    [allMarkers],
+    [allMarkers, map],
   );
 
   const syncFiltersToUrl = useCallback(
@@ -411,13 +413,15 @@ export default function Menu() {
   useEffect(() => {
     if (selectedArtists.length === 0 && selectedContributors.length === 0) {
       for (const marker of allMarkers) {
-        marker.style.display = "block";
+        marker.dataset.filterHidden = "false";
       }
+      refreshMarkerClusters(map);
     } else {
       updateMarkerVisibility(selectedArtists, selectedContributors);
     }
   }, [
     allMarkers,
+    map,
     selectedArtists,
     selectedContributors,
     updateMarkerVisibility,

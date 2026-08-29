@@ -2,6 +2,48 @@ import { RawLocationSchema } from "./lib";
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["晚安莉莉 Goodnight Lillie"],
+    address: "Kitty Woo Stadium, San Po Kong, Kowloon, Hong Kong ",
+    coordinates: [22.3354539, 114.1991655],
+    name: "我看見今晚的月色很美，你呢？(Tsuki)",
+    url: "https://youtu.be/q70X4QvSZ9M?t=25",
+    image: "https://i.ytimg.com/vi/q70X4QvSZ9M/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Chick Chan", "Sinnie Ng"],
+        writer: ["Sinnie Ng"],
+        arranger: ["晚安莉莉"],
+        producer: ["Goro Wong"],
+        singer: ["晚安莉莉"],
+      },
+      musicVideo: {
+        cast: ["晚安莉莉 Goodnight Lillie", "Heibi Pang", "Carson Lee"],
+        director: ["Henry Lei"],
+        dop: ["Lon Ng"],
+        concertVideoDirector: ["Keita Chan"],
+        concertVideography: ["Blue chow"],
+        editor: ["Somen", "Henry Lei"],
+        colorist: ["Somen"],
+        concertStillPhotographer: ["Sherwin Wong"],
+        titleAndCoverDesign: ["CharlieBoy"],
+        lyricsTypography: ["Sinnie Ng"],
+        stylist: ["Dorothy Lau @ GTDL Creative"],
+        stylingAssistant: ["Kammie Cheung @ GTDL Creative"],
+        wardrobe: [
+          "Marimekko",
+          "Pedro",
+          "Charles & Keith",
+          "ALLSAINTS",
+          "YanYan",
+          "Leather Lab",
+          "Sinzerely",
+        ],
+        makeupArtists: ["Debby Chan", "Coffee Chan"],
+        hairStylists: ["Ricky Lau @ Hair pyua", "Mario Chow"],
+      },
+    },
+  },
+  {
     artists: ["JESS Law"],
     streetView: "https://maps.app.goo.gl/Bu2x5bviNwnKGbqF9",
     address: "Brewginning, Wang Chiu Rd, Kowloon, Hong Kong",
@@ -2643,6 +2685,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       musicVideo: {
         dit: ["Theo Yeung"],
         bts: ["Samwill Yau"],
+        director: ["Travis Good"],
         photographer: ["Sunny Liu"],
         editor: ["Jo"],
         colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
