@@ -34,11 +34,13 @@ export default function CreditsModal() {
     selectedLocationCredits,
     setSelectedLocationCredits,
     setSelectedContributor,
+    setContributorCreditsOrigin,
   } = useUIStore();
 
   if (!selectedLocationCredits) return null;
 
   function showContributorPortfolio(contributor: string) {
+    setContributorCreditsOrigin(selectedLocationCredits);
     setSelectedContributor(contributor);
     setSelectedLocationCredits(null as unknown as LocationItem);
 

@@ -124,7 +124,8 @@ export default function ContributorsList({
   selectedContributors,
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
-  const { setSelectedContributor, setMenuOpen } = useUIStore();
+  const { setSelectedContributor, setMenuOpen, setContributorCreditsOrigin } =
+    useUIStore();
   const [state, dispatch] = useReducer(
     contributorsListReducer,
     initialContributorsListState,
@@ -370,6 +371,7 @@ export default function ContributorsList({
                   className="flex items-center text-sm"
                   onClick={() => {
                     updateContributorModalUrl(item.name);
+                    setContributorCreditsOrigin(null);
                     setSelectedContributor(item.name);
                     setMenuOpen(false);
                   }}
