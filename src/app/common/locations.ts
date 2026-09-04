@@ -3,9 +3,9 @@ import { RawLocationSchema } from "./lib";
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["葉巧琳 Mischa Ip"],
-    address: "Sam Mun Tsai San Tsuen, Hong Kong",
-    coordinates: [22.3354539, 114.1991655],
-    name: "提防小手 Thieves Beware",
+    address: "Sam Mun Tsai San Tsuen, New Territories, Hong Kong",
+    coordinates: [22.4567651, 114.2143053],
+    name: "提防小手 (Thieves Beware)",
     url: "https://youtu.be/mqQ0GzbuPTw?t=22",
     image: "https://i.ytimg.com/vi/mqQ0GzbuPTw/mqdefault.jpg",
     contributors: {
