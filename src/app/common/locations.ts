@@ -2,10 +2,42 @@ import { RawLocationSchema } from "./lib";
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Sandy Natsuly"],
+    address: "Mui Wo Fireboat Pier, Lantau Island, Hong Kong",
+    coordinates: [22.2657680986977, 114.00193887347143],
+    name: "away",
+    url: "https://youtu.be/qubn-4UNy_A?t=52",
+    image: "https://i.ytimg.com/vi/qubn-4UNy_A/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Sandy Natsuly"],
+        writer: ["Kudos Lam"],
+        arranger: ["ChrisTam"],
+        producer: ["Kudos Lam", "Sandy Natsuly"],
+      },
+      musicVideo: {
+        director: ["Wilson Lee"],
+        producer: ["Kapo Li", "Sandy Natsuly"],
+        productionAssistant: ["Samantha Lai"],
+        starring: ["Sandy Natsuly", "Jenny Tong"],
+        dop: ["Wilson Lee"],
+        bCameraOperator: ["Kapo Li"],
+        editor: ["Kapo Li", "Wilson Lee", "Sandy Natsuly"],
+        colorist: ["Wilson Lee"],
+        stillPhotographer: ["Wilson Lee", "Kapo Li"],
+        coverArt: ["Wilson Lee"],
+        stylist: ["Sandy Natsuly"],
+        stylistAssistant: ["Samantha Lai"],
+        bts: ["Samantha Lai"],
+      },
+    },
+  },
+  {
     artists: ["葉巧琳 Mischa Ip"],
     address: "Sam Mun Tsai San Tsuen, New Territories, Hong Kong",
     coordinates: [22.4567651, 114.2143053],
     name: "提防小手 (Thieves Beware)",
+    streetView: "https://maps.app.goo.gl/pj3HEBMpgMZKw3KVA",
     url: "https://youtu.be/mqQ0GzbuPTw?t=22",
     image: "https://i.ytimg.com/vi/mqQ0GzbuPTw/mqdefault.jpg",
     contributors: {
