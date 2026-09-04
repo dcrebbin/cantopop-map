@@ -1,6 +1,7 @@
 export const nameToInstagramMap = {
   "Kiri T": "kiri_thy",
-  "雷暐樂 Peter Lui":"lui.wailok",
+  "6": "maubolung",
+  "雷暐樂 Peter Lui": "lui.wailok",
   Kaelyn: "kaelynloveletters",
   "moon tang": "moonstyles_",
   "Nancy Kwai": "nancykwai",

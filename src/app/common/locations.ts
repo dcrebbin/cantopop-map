@@ -17,7 +17,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
         singer: ["葉巧琳"],
       },
       musicVideo: {
-        director: ["Tim Lui"],
+        director: ["Tim Lui", "6"],
         assistantDirector: ["Yeh"],
         directorOfPhotography: ["Ming Wong"],
         focusPuller: ["Poon Chiu Lap"],
