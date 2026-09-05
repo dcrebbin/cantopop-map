@@ -21,8 +21,9 @@ export default function LocationButton() {
           setMobileCameraViewOpen(!mobileCameraViewOpen);
         }}
       >
-        <SvgIcon
-          html={phoneIcon}
+        <img
+          src="/icons/phone.png"
+          alt="Phone"
           className="size-10 text-white drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
         />
       </button>
@@ -116,7 +117,7 @@ export default function LocationButton() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="white"
-            className="size-10 drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
+            className="size-11 drop-shadow-[0_0_2px_rgba(0,0,0,1)]"
           >
             <title>Clear Filters</title>
             <path

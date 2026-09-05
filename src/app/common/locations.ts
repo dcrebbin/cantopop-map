@@ -1,6 +1,57 @@
 import { RawLocationSchema } from "./lib";
 
+const defaulLocation = {
+  artists: [""],
+  address: "",
+  coordinates: [0, 0],
+  name: "",
+  streetView: "",
+  url: "",
+  image: "https://i.ytimg.com/vi/youtube_id/mqdefault.jpg",
+  contributors: {
+    song: {},
+    musicVideo: {},
+  },
+};
+
 export const RAW_LOCATIONS: RawLocationSchema[] = [
+  {
+    artists: ["moon tang"],
+    name: "favourite jeans",
+    url: "https://www.youtube.com/watch?v=zv0tFMSynfM",
+    image: "https://i.ytimg.com/vi/zv0tFMSynfM/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["moon tang", "Nic Tsui", "Sam Ock"],
+        writer: ["moon tang"],
+        arranger: ["Sam Ock"],
+        producer: ["moon tang", "Nic Tsui", "Sam Ock", "Nicholas Cheung"],
+        vocalTuning: ["Chris Tam"],
+        mixing: ["Sam Ock"],
+      },
+      musicVideo: {
+        director: ["moon tang", "Sandy Natsuly"],
+        producer: ["Mo"],
+        productionAssistant: ["Samantha Lai"],
+        assistantCamera: ["Tsutsumame"],
+        productionSupport: ["Ringo Tang", "Lam Fung"],
+        assistant: ["Stephen Cheng"],
+        dvCamAndBts: ["Samantha Lai"],
+        editor: ["moon tang", "Sandy Natsuly"],
+        colorist: ["Kidney"],
+        animator: ["moon tang", "Sandy Natsuly"],
+        coverArt: ["moon tang", "Sandy Natsuly"],
+        choreographer: ["Charlize Lai"],
+        wardrobe: ["魔女", "Fei Fei"],
+        jeansDesigner: ["Prime.jeansus"],
+        makeupAndHair: ["Kidd Sun"],
+        venue: ["Onboard Studio"],
+        projectAndArtistManagement: ["Malik Zain Ali", "Nicolas Cheung"],
+        crewMeal: ["Deliveroo"],
+        specialThanks: ["Titus Chan", "Tim Wong", "Lauyuensan", "Warnergochan"],
+      },
+    },
+  },
   {
     artists: ["曠野回聲 wui4sing1"],
     address: "St Marks bridge, Regent Canal, London, England",
@@ -4560,6 +4611,13 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
         mastering: ["Alex Psaroudakis"],
       },
       musicVideo: {
+        cast: [
+          "Nic Tsui",
+          "Thomae Brenners",
+          "Sandy Natsuly",
+          "Lauyuensan",
+          "Jennie Wong",
+        ],
         productionCompany: ["入屋叫人"],
         director: ["Titus Chan"],
         assistantDirector: ["Wallace Tang"],
