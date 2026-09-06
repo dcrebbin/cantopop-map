@@ -16,6 +16,47 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["盧凱彤 Ellen Loo"],
+    name: "還不夠遠",
+    coordinates: [22.467702, 114.2354073],
+    streetView: "https://maps.app.goo.gl/1qmdtFByZXg3PfdF7",
+    address: "Plover Cover Resevoir, Shuen Wan, New Territories, Hong Kong",
+    url: "https://youtu.be/eHzUi11kfjg?t=24",
+    image: "https://i.ytimg.com/vi/eHzUi11kfjg/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["盧凱彤 Ellen Loo"],
+        writer: ["盧凱彤 Ellen Loo"],
+        producer: ["蔡德才", "盧凱彤 Ellen Loo"],
+        arranger: ["盧凱彤 Ellen Loo"],
+        acousticElectricGuitar: ["盧凱彤 Ellen Loo"],
+        backingVocals: ["盧凱彤 Ellen Loo"],
+        keyboards: ["蔡德才"],
+        programming: ["蔡德才"],
+        drums: ["Stephane S. Wong"],
+        bass: ["WaitingSoul"],
+      },
+      musicVideo: {
+        director: ["Dan", "INVISIBLE LAB"],
+        producer: ["Yingying", "INVISIBLE LAB"],
+        directorOfPhotography: ["Kristanto Harris"],
+        cameraAssistant: ["Elfisher Chan"],
+        gaffer: ["Mike Chan", "Jacky Cheung"],
+        aerialPhotography: ["Johnny Sze"],
+        productionAssistant: ["Samson Yip", "Emily Poon", "Sophia Chan"],
+        caligraphy: ["盧凱彤 Ellen Loo"],
+        editing: ["Dan", "INVISIBLE LAB"],
+        compositing: [
+          "Dan",
+          "INVISIBLE LAB",
+          "Emily Poon",
+          "Sophia Chan",
+          "Sunny Lam",
+        ],
+      },
+    },
+  },
+  {
     artists: ["moon tang"],
     name: "favourite jeans",
     url: "https://www.youtube.com/watch?v=zv0tFMSynfM",

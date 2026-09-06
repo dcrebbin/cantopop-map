@@ -41,13 +41,15 @@ function getRolesForPerson(
   contributorDisplayName: string,
 ): string[] {
   if (!bucket) return [];
+  const normalizedContributorDisplayName = contributorDisplayName.toLowerCase();
   const roles: string[] = [];
   for (const roleKey of Object.keys(bucket)) {
     const people = bucket[roleKey] ?? [];
     if (
       people.some(
         (person) =>
-          getContributorDisplayName(person) === contributorDisplayName,
+          getContributorDisplayName(person).toLowerCase() ===
+          normalizedContributorDisplayName,
       )
     ) {
       roles.push(humanizeRoleKey(roleKey));
