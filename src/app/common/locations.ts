@@ -17,7 +17,7 @@ const defaulLocation = {
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["盧凱彤 Ellen Loo"],
-    name: "還不夠遠",
+    name: "還不夠遠 (zh)",
     coordinates: [22.467702, 114.2354073],
     streetView: "https://maps.app.goo.gl/1qmdtFByZXg3PfdF7",
     address: "Plover Cover Resevoir, Shuen Wan, New Territories, Hong Kong",
