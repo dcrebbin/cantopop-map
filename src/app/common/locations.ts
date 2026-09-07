@@ -23,7 +23,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "踏空氣的人 (A girl steps on air)",
     streetView: "https://maps.app.goo.gl/qxQjhWXKr4o7WBAU7",
     url: "https://youtu.be/xNjkUL8j564?t=75",
-    image: "https://i.ytimg.com/vi/youtube_id/mqdefault.jpg",
+    image: "https://i.ytimg.com/vi/xNjkUL8j564/mqdefault.jpg",
     contributors: {
       song: {
         composer: ["Vincy 蘇詠淳", "JUNI"],
