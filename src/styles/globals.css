@@ -44,6 +44,7 @@ input[type="checkbox"] {
 .mapboxgl-popup-content {
   width: fit-content !important;
   padding: 10px !important;
+  border-radius: 15px !important;
 }
 
 .mapboxgl-popup {

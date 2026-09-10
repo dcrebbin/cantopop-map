@@ -8,7 +8,7 @@ import { locationIcon } from "~/lib/icons/locationIcon";
 import { useState } from "react";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
-import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import { hidePopup } from "~/lib/custom-map";
 import { useMapStore } from "~/app/_state/map.store";
 
@@ -114,7 +114,7 @@ export function PopupContent({
 
   return (
     <div
-      className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
+      className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start gap-1 rounded-md bg-white p-1"
       tabIndex={-1}
       style={{
         maxHeight: isExpanded ? "none" : "",
@@ -153,7 +153,7 @@ export function PopupContent({
             }
           }}
         >
-          <XMarkIcon className="size-4" />
+          <XMarkIcon className="size-4 cursor-pointer" />
         </button>
         {data.contributors && (
           <button
@@ -170,16 +170,20 @@ export function PopupContent({
               });
             }}
           >
-            <ArrowUpRightIcon className="size-3.5" />
+            <ArrowUpRightIcon className="size-4 cursor-pointer" />
           </button>
         )}
       </div>
-      <p className="text-center text-base font-bold">
-        {data.artists.join(", ")}
-      </p>
-      <p className="text-center text-xs">{data.name}</p>
-      <p className="text-center text-xs">{data.address}</p>
-
+      <div className="mt-2 flex flex-col items-center justify-center">
+        <p className="text-center text-base font-bold">
+          {data.artists.join(", ")}
+        </p>
+        <p className="text-center text-sm">{data.name}</p>
+        <hr className="my-1 w-full border-[1px] border-t border-black/10"></hr>
+        <p className="text-center text-[0.6rem] leading-none tracking-tight">
+          {data.address}
+        </p>
+      </div>
       {actionButtons}
     </div>
   );
