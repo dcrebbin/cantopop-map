@@ -16,6 +16,27 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["my little airport"],
+    address: "Kowloon Park Swimming Pool, Kowloon, Hong Kong",
+    coordinates: [22.3012776, 114.1709122],
+    name: "九龍公園游泳池",
+    streetView: "https://maps.app.goo.gl/HFTL4ZJR8JGmQezdA",
+    url: "https://youtu.be/8kla1Swx5tU",
+    image: "https://i.ytimg.com/vi/8kla1Swx5tU/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["林阿P"],
+        writer: ["林阿P"],
+        arranger: ["林阿P"],
+        singer: ["Nicole"],
+      },
+      musicVideo: {
+        director: ["my little airport"],
+        directorOfPhotography: ["my little airport"],
+      },
+    },
+  },
+  {
     artists: ["Vincy 蘇詠淳"],
     address:
       "Kwun Tong High Level Service Reservoir Garden, Kowloon, Hong Kong",
