@@ -91,7 +91,7 @@ export function PopupContent({
         aria-label="Share location"
         onClick={() => void shareLocation(data)}
       >
-        <SvgIcon html={shareIcon} className="size-6" />
+        <SvgIcon html={shareIcon} className="size-6 cursor-pointer" />
       </button>
       <a
         href={buildStreetViewUrl(data)}
