@@ -94,6 +94,7 @@ export function PopupContent({
         <SvgIcon html={shareIcon} className="size-6 cursor-pointer" />
       </button>
       <a
+        hidden={!data.streetView}
         href={buildStreetViewUrl(data)}
         target="_blank"
         rel="noreferrer"

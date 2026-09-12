@@ -17,7 +17,7 @@ const defaulLocation = {
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["Teddy Fan"],
-    address: "太陽谷, Kam Tin",
+    address: "太陽谷, Kam Tin, New Territories, Hong Kong",
     coordinates: [22.45116221944996, 114.06842235468415],
     name: "一次",
     url: "https://youtu.be/Yvu59DMaDwM?t=211",
