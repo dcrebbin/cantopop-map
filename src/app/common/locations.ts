@@ -22,6 +22,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.270777182062325, 114.12077501746309],
     name: "六度相隔理論 (Six Degrees of Connection",
     url: "https://youtu.be/AWWpACbvS70?t=79",
+    streetView: "https://maps.app.goo.gl/tBiJZ61KKeEBmECR9",
     image: "https://i.ytimg.com/vi/AWWpACbvS70/mqdefault.jpg",
     contributors: {
       song: {
