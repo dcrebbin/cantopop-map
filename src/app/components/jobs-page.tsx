@@ -938,9 +938,9 @@ function DiscoveryDeck({
             <button
               type="button"
               onClick={() => setShowShortlist(true)}
-              className="min-h-11 shrink-0 rounded-md border border-white bg-black/40 px-3 text-xs font-bold text-white backdrop-blur-sm"
+              className="min-h-11 shrink-0 rounded-md bg-black/40 px-3 text-xs font-bold text-white backdrop-blur-sm"
             >
-              Recommended · {shortlisted.length}
+              Recommended: {shortlisted.length}
             </button>
           </div>
 
@@ -1083,7 +1083,7 @@ function DiscoveryDeck({
       </div>
 
       {showShortlist && (
-        <div className="fixed inset-0 z-130 flex items-start justify-center bg-black/35 p-3 backdrop-blur-sm sm:p-6">
+        <div className="fixed inset-0 z-130 flex items-start justify-center p-3 backdrop-blur-md sm:p-6">
           <div className="relative top-20 m-3 max-h-[calc(100dvh-9rem)] w-full overflow-y-auto overscroll-contain rounded-2xl border-2 border-white/50 bg-black/40 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-white shadow-2xl backdrop-blur-md sm:max-h-[85dvh] sm:border-[3px] sm:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -1142,6 +1142,7 @@ function DiscoveryDeck({
                               credits
                             </span>
                           </span>
+                          More
                           <ChevronRightIcon
                             className={`h-4 w-4 shrink-0 transition-transform ${isExpanded ? "rotate-90" : ""}`}
                           />
@@ -1152,7 +1153,7 @@ function DiscoveryDeck({
                             href={`https://www.instagram.com/${profile.instagram.replace(/^@/, "")}`}
                             target="_blank"
                             rel="noreferrer"
-                            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-black/20 text-white"
+                            className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-white"
                             aria-label={`Open ${profile.name} on Instagram`}
                           >
                             <InstagramIcon className="h-9 w-9" />
