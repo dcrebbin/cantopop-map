@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './app/__root'
 import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
 import { Route as LeaderboardRouteImport } from './app/leaderboard'
 import { Route as JobsRouteImport } from './app/jobs'
+import { Route as DSCVRRouteImport } from './app/DSCVR'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
 import { Route as RobotsTxtRouteImport } from './app/robots.txt'
@@ -33,6 +34,11 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
 const JobsRoute = JobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DSCVRRoute = DSCVRRouteImport.update({
+  id: '/DSCVR',
+  path: '/DSCVR',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,6 +79,7 @@ const ApiLocationAddressRoute = ApiLocationAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/DSCVR': typeof DSCVRRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
@@ -85,6 +92,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/DSCVR': typeof DSCVRRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
@@ -98,6 +106,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/DSCVR': typeof DSCVRRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
@@ -112,6 +121,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/DSCVR'
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
@@ -124,6 +134,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/DSCVR'
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
@@ -136,6 +147,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/DSCVR'
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
@@ -149,6 +161,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DSCVRRoute: typeof DSCVRRoute
   JobsRoute: typeof JobsRoute
   LeaderboardRoute: typeof LeaderboardRoute
   SrtQuantizeRoute: typeof SrtQuantizeRoute
@@ -181,6 +194,13 @@ declare module '@tanstack/react-router' {
       path: '/jobs'
       fullPath: '/jobs'
       preLoaderRoute: typeof JobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/DSCVR': {
+      id: '/DSCVR'
+      path: '/DSCVR'
+      fullPath: '/DSCVR'
+      preLoaderRoute: typeof DSCVRRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -237,6 +257,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DSCVRRoute: DSCVRRoute,
   JobsRoute: JobsRoute,
   LeaderboardRoute: LeaderboardRoute,
   SrtQuantizeRoute: SrtQuantizeRoute,
