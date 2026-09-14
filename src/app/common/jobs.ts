@@ -14,7 +14,8 @@ export type RoleFamilyId =
   | "production"
   | "post"
   | "styling"
-  | "music";
+  | "music"
+  | `song:${string}`;
 
 export interface RoleFamily {
   id: RoleFamilyId;
@@ -51,7 +52,7 @@ export interface TalentProfile {
   artists: string[];
 }
 
-export const ROLE_FAMILIES: RoleFamily[] = [
+const BASE_ROLE_FAMILIES: RoleFamily[] = [
   {
     id: "art",
     label: "Art department",
@@ -118,18 +119,11 @@ export const ROLE_FAMILIES: RoleFamily[] = [
   },
   {
     id: "music",
-    label: "Music & audio",
-    eyebrow: "The sound of the story",
-    description: "Composers, arrangers, producers, writers and sound teams.",
-    rolePattern:
-      /(composer|arranger|lyric|writer|music|sound|mix|mastered|mastering|vocal|audio)/i,
-    rolePatternsByCategory: {
-      song: /(composer|arranger|lyric|writer|music|mix|mastered|mastering|vocal|audio)/i,
-      musicVideo: /(sound|audio|voiceOverMixing)/i,
-    },
-    excludedRolePattern:
-      /(contentWriter|copywriter|screenwriter|scriptWriter|subtitleWriter)/i,
-    categories: ["song", "musicVideo"],
+    label: "Sound & audio",
+    eyebrow: "Sound for the screen",
+    description: "Sound and audio teams credited on music videos.",
+    rolePattern: /(sound|audio|voiceOverMixing)/i,
+    categories: ["musicVideo"],
   },
 ];
 
@@ -150,6 +144,34 @@ type TalentProfileAccumulator = Omit<
 function getCreditBuckets(location: LocationItem): CreditBuckets {
   return location.contributors as CreditBuckets;
 }
+
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+const songRoleKeys = new Set<string>();
+
+for (const location of LOCATIONS) {
+  const songCredits = getCreditBuckets(location)?.song;
+  if (!songCredits) continue;
+  for (const roleKey of Object.keys(songCredits)) songRoleKeys.add(roleKey);
+}
+
+const SONG_ROLE_FAMILIES: RoleFamily[] = [...songRoleKeys]
+  .map((roleKey) => {
+    const label = humanizeRoleKey(roleKey);
+    return {
+      id: `song:${roleKey}` as const,
+      label,
+      eyebrow: "Song credit",
+      description: `People credited for ${label.toLocaleLowerCase()} on Cantopop songs.`,
+      rolePattern: new RegExp(`^${escapeRegExp(roleKey)}$`),
+      categories: ["song" as const],
+    };
+  })
+  .toSorted((left, right) => left.label.localeCompare(right.label));
+
+export const ROLE_FAMILIES: RoleFamily[] = [...BASE_ROLE_FAMILIES];
 
 function normalizePersonName(name: string) {
   return name.trim().toLocaleLowerCase();

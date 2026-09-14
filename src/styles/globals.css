@@ -200,7 +200,8 @@ input[type="checkbox"] {
 }
 
 .jobs-talent-card-enter {
-  animation: jobs-card-fade-in 300ms ease-out both;
+  transform-origin: top center;
+  animation: jobs-card-straighten 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .jobs-talent-card-back {
@@ -208,13 +209,17 @@ input[type="checkbox"] {
   transform-origin: top center;
 }
 
-@keyframes jobs-card-fade-in {
+.jobs-talent-card-back .jobs-talent-card-enter {
+  animation: none;
+}
+
+@keyframes jobs-card-straighten {
   from {
-    opacity: 0;
+    transform: translateY(10px) scale(0.97) rotate(1.5deg);
   }
 
   to {
-    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
   }
 }
 

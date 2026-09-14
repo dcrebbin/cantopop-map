@@ -40,6 +40,7 @@ type SignalWeights = Record<string, number>;
 
 const INITIAL_ROLE_ID = "art";
 const SWIPE_THRESHOLD = 92;
+const EMPTY_TALENT_PROFILES: TalentProfile[] = [];
 
 function formatHandle(handle: string) {
   return handle.startsWith("@") ? handle : `@${handle}`;
@@ -116,47 +117,6 @@ function weightsFromSwipes(swipes: Swipe[]) {
   );
 }
 
-function youtubeThumbnailCandidates(image: string) {
-  const thumbnailPattern =
-    /(maxresdefault|sddefault|hqdefault|mqdefault)\.(jpg|webp)/;
-  const candidates = ["maxresdefault", "sddefault", "hqdefault"].map(
-    (quality) => image.replace(thumbnailPattern, `${quality}.$2`),
-  );
-
-  return [...new Set([...candidates, image, "/images/og-image.png"])];
-}
-
-function ResilientWorkImage({ image }: { image: string }) {
-  const candidates = youtubeThumbnailCandidates(image);
-  const [candidateIndex, setCandidateIndex] = useState(0);
-  const advanceCandidate = () =>
-    setCandidateIndex((current) =>
-      Math.min(current + 1, candidates.length - 1),
-    );
-
-  return (
-    <img
-      src={candidates[candidateIndex]}
-      alt=""
-      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-      onLoad={(event) => {
-        const thumbnail = event.currentTarget;
-
-        // YouTube serves this 120x90 placeholder with HTTP 200 when a requested
-        // quality is unavailable, so an error handler alone cannot detect it.
-        if (
-          thumbnail.naturalWidth === 120 &&
-          thumbnail.naturalHeight === 90 &&
-          candidateIndex < candidates.length - 1
-        ) {
-          advanceCandidate();
-        }
-      }}
-      onError={advanceCandidate}
-    />
-  );
-}
-
 function RolePicker({
   onStart,
 }: {
@@ -175,14 +135,14 @@ function RolePicker({
   return (
     <main className="jobs-map-shell flex min-h-dvh flex-col overflow-x-hidden text-white">
       <Appbar />
-      <section className="relative flex w-full min-w-0 flex-1 items-start px-3 pt-24 pb-4 sm:px-8 sm:pt-32 sm:pb-8 lg:items-center lg:px-16 lg:py-32">
-        <div className="mx-auto flex w-full max-w-6xl min-w-0 flex-col items-start justify-center gap-2 xl:flex-row xl:gap-8">
-          <div className="box-border w-full max-w-xl min-w-0 overflow-hidden rounded-xl border-2 border-white/50 bg-black/25 p-4 drop-shadow-md backdrop-blur-md sm:rounded-2xl sm:border-[3px] sm:p-6">
+      <section className="h-max-content relative flex w-full min-w-0 flex-1 items-start px-3 pt-24 pb-4 sm:px-8 sm:pt-32 sm:pb-8 lg:items-center lg:px-16 lg:py-32">
+        <div className="h-max-content mx-auto flex w-full max-w-6xl min-w-0 flex-col items-start justify-center gap-2 xl:flex-row xl:gap-8">
+          <div className="box-border h-full w-full max-w-xl min-w-0 overflow-hidden rounded-xl border-2 border-white/50 bg-black/25 p-4 drop-shadow-md backdrop-blur-md sm:rounded-2xl sm:border-[3px] sm:p-6">
             <div className="mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mb-7 sm:text-xs">
               Crew finder · 招募人才
             </div>
             <h1 className="max-w-2xl font-[Cute] text-[clamp(2.65rem,13vw,3.5rem)] leading-[0.86] tracking-[-0.055em] drop-shadow-[0_0_7px_rgba(0,0,0,0.9)]">
-              Find the artists behind the music videos.
+              Find the artists behind the music and the videos.
             </h1>
             <p className="mt-4 hidden max-w-lg text-sm leading-5 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:mt-7 sm:block sm:text-lg sm:leading-7">
               Start with a department. We’ll surface people through their real
@@ -207,7 +167,7 @@ function RolePicker({
               </label>
             </div>
 
-            <div className="max-h-[min(14rem,25dvh)] min-w-0 space-y-1 overflow-y-auto overscroll-contain px-1 sm:max-h-[23rem] sm:px-3">
+            <div className="max-h-[23rem] min-w-0 space-y-1 overflow-y-auto overscroll-contain px-1 sm:max-h-[29rem] sm:px-3">
               {filteredRoles.map((role) => {
                 const isSelected = role.id === selectedId;
                 return (
@@ -287,6 +247,30 @@ function selectedWorkFor(profile: TalentProfile, seed: number) {
   ]!;
 }
 
+function worksByMusicVideo(works: TalentWork[]) {
+  const musicVideos = new Map<
+    string,
+    TalentWork & { creditedRoles: string[] }
+  >();
+
+  for (const work of works) {
+    const existing = musicVideos.get(work.locationId);
+    if (existing) {
+      if (!existing.creditedRoles.includes(work.role)) {
+        existing.creditedRoles.push(work.role);
+      }
+      continue;
+    }
+
+    musicVideos.set(work.locationId, {
+      ...work,
+      creditedRoles: [work.role],
+    });
+  }
+
+  return [...musicVideos.values()];
+}
+
 function WorkPlayer({
   profile,
   work,
@@ -314,13 +298,19 @@ function WorkPlayer({
           className="group relative h-full w-full text-left"
           aria-label={`Play ${work.title}`}
         >
-          <ResilientWorkImage key={work.id} image={work.image} />
+          <img src={work.image} alt="" className="h-full w-full object-cover" />
           <span className="absolute inset-0 grid place-items-center">
             <span className="grid h-12 w-12 place-items-center rounded-full border border-white/50 bg-white/90 text-black shadow-xl transition group-hover:scale-105 sm:h-14 sm:w-14">
               <PlayIcon className="ml-0.5 h-5 w-5 fill-current" />
             </span>
           </span>
-          <span className="absolute right-3 bottom-3 left-3 text-white sm:right-5 sm:bottom-4 sm:left-5">
+          <span
+            className="absolute right-0 bottom-0 left-0 px-3 pt-10 pb-3 text-white backdrop-blur-[0.5px] sm:right-0 sm:bottom-0 sm:left-0 sm:px-5 sm:pb-2"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.95) 100%)",
+            }}
+          >
             <span className="block truncate text-sm font-extrabold sm:text-lg">
               {work.title}
             </span>
@@ -478,65 +468,33 @@ function ContributorCreditSection({
 
 function TalentCardBack({
   profile,
+  contributors,
+  recommendedIds,
   seed,
 }: {
   profile: TalentProfile;
+  contributors: TalentProfile[];
+  recommendedIds: Set<string>;
   seed: number;
 }) {
-  const work = selectedWorkFor(profile, seed);
-  const otherWorks = profile.works.slice(0, 4);
-
   return (
     <div
       aria-hidden="true"
-      className="jobs-talent-card-back pointer-events-none absolute inset-0 overflow-hidden rounded-lg bg-white text-black shadow-xl select-none"
+      ref={(element) => element?.setAttribute("inert", "")}
+      className="jobs-talent-card-back pointer-events-none absolute inset-0"
     >
-      <div className="relative aspect-video overflow-hidden rounded-t-lg bg-[#22211e]">
-        <ResilientWorkImage image={work.image} />
-        <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/10" />
-        <span className="absolute right-4 bottom-4 left-4 truncate font-serif text-base font-bold text-white">
-          {work.title}
-        </span>
-      </div>
-
-      <div className="rounded-b-lg bg-white p-4 sm:p-7">
-        <div className="flex items-start justify-between gap-2 sm:gap-4">
-          <div className="min-w-0">
-            <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
-              {profile.name}
-            </h2>
-            <p className="mt-2 truncate text-sm font-bold text-blue-500">
-              {profile.roles[0]}
-            </p>
-          </div>
-          <div className="shrink-0 text-right">
-            <span className="block text-xl font-black sm:text-2xl">
-              {profile.works.length}
-            </span>
-            <span className="block text-[10px] font-bold tracking-[0.14em] text-[#77736a] uppercase">
-              verified credits
-            </span>
-          </div>
-        </div>
-
-        <div className="mt-4 grid grid-cols-4 gap-3 border-t border-[#ddd7cb] pt-4 sm:mt-6 sm:gap-5 sm:pt-5">
-          {otherWorks.map((otherWork) => (
-            <div key={otherWork.id} className="min-w-0">
-              <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[#ded9ce]">
-                <img
-                  src={otherWork.image}
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <p className="mt-1.5 truncate text-xs font-bold">
-                {otherWork.title}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
+      <TalentCard
+        profile={profile}
+        contributors={contributors}
+        recommendedIds={recommendedIds}
+        seed={seed}
+        dragX={0}
+        dragging={false}
+        onPointerDown={() => undefined}
+        onPointerMove={() => undefined}
+        onPointerUp={() => undefined}
+        onRecommend={() => undefined}
+      />
     </div>
   );
 }
@@ -544,6 +502,7 @@ function TalentCardBack({
 function TalentCard({
   profile,
   nextProfile,
+  nextContributors = EMPTY_TALENT_PROFILES,
   contributors,
   recommendedIds,
   seed,
@@ -556,6 +515,7 @@ function TalentCard({
 }: {
   profile: TalentProfile;
   nextProfile?: TalentProfile;
+  nextContributors?: TalentProfile[];
   contributors: TalentProfile[];
   recommendedIds: Set<string>;
   seed: number;
@@ -572,12 +532,19 @@ function TalentCard({
     "--drag-x": `${dragX}px`,
     "--drag-rotate": `${rotation}deg`,
   } as CSSProperties;
-  const otherWorks = profile.works.slice(0, 4);
+  const otherWorks = worksByMusicVideo(profile.works);
   const selectedWork = selectedWorkFor(profile, seed);
 
   return (
     <div className="jobs-talent-card-enter relative z-100 mx-auto w-full max-w-[43rem]">
-      {nextProfile && <TalentCardBack profile={nextProfile} seed={seed} />}
+      {nextProfile && (
+        <TalentCardBack
+          profile={nextProfile}
+          contributors={nextContributors}
+          recommendedIds={recommendedIds}
+          seed={seed}
+        />
+      )}
       <div
         className={`jobs-talent-card relative touch-pan-y rounded-lg bg-transparent text-black shadow-xl select-none ${dragging ? "is-dragging" : ""} ${dragX !== 0 ? "is-offset" : ""}`}
         style={cardStyle}
@@ -726,7 +693,10 @@ function TalentCard({
                 {profile.artists.length === 1 ? "" : "s"}
               </span>
             </div>
-            <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:gap-x-5 sm:gap-y-3 sm:overflow-visible sm:px-0 sm:pb-0">
+            <div
+              className="-mx-4 flex touch-pan-x gap-3 overflow-x-auto overscroll-x-contain px-4 pb-1 sm:mx-0 sm:gap-5 sm:px-0"
+              onPointerDown={(event) => event.stopPropagation()}
+            >
               {otherWorks.map((work) => (
                 <a
                   key={work.id}
@@ -735,7 +705,7 @@ function TalentCard({
                     .replace(/[?&]$/, "")}
                   target="_blank"
                   rel="noreferrer"
-                  className="group w-[8.5rem] shrink-0 snap-start sm:w-auto sm:min-w-0"
+                  className="group w-[8.5rem] shrink-0 sm:w-[9.25rem]"
                   onPointerDown={(event) => event.stopPropagation()}
                 >
                   <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[#ded9ce]">
@@ -750,7 +720,7 @@ function TalentCard({
                     {work.title}
                   </p>
                   <p className="truncate text-[10px] text-[#77736a]">
-                    {work.artists.join(", ")}
+                    {work.creditedRoles.join(" · ")}
                   </p>
                 </a>
               ))}
@@ -779,6 +749,7 @@ function DiscoveryDeck({
   );
   const [swipes, setSwipes] = useState<Swipe[]>([]);
   const [weights, setWeights] = useState<SignalWeights>({});
+  const [activeProfileId, setActiveProfileId] = useState<string | null>(null);
   const [dragX, setDragX] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [departing, setDeparting] = useState<SwipeDirection | null>(null);
@@ -803,14 +774,17 @@ function DiscoveryDeck({
         ),
     [explorationSeed, profiles, role, swipedIds, weights],
   );
-  const current = rankedProfiles[0];
-  const next = rankedProfiles[1];
+  const current =
+    rankedProfiles.find((profile) => profile.id === activeProfileId) ??
+    rankedProfiles[0];
+  const next = rankedProfiles.find((profile) => profile.id !== current?.id);
   const shortlisted = swipes.filter((swipe) => swipe.direction === "like");
   const recommendedIds = useMemo(
     () => new Set(shortlisted.map(({ profile }) => profile.id)),
     [shortlisted],
   );
   const selectedWork = current ? selectedWorkFor(current, workSeed) : undefined;
+  const nextSelectedWork = next ? selectedWorkFor(next, workSeed) : undefined;
   const workContributors = useMemo(
     () =>
       selectedWork
@@ -828,12 +802,32 @@ function DiscoveryDeck({
         : [],
     [allProfiles, current?.id, selectedWork],
   );
+  const nextWorkContributors = useMemo(
+    () =>
+      nextSelectedWork
+        ? allProfiles
+            .filter((profile) =>
+              profile.works.some(
+                (work) => work.locationId === nextSelectedWork.locationId,
+              ),
+            )
+            .toSorted((left, right) => {
+              if (left.id === next?.id) return -1;
+              if (right.id === next?.id) return 1;
+              return right.works.length - left.works.length;
+            })
+        : [],
+    [allProfiles, next?.id, nextSelectedWork],
+  );
 
   function commitSwipe(direction: SwipeDirection) {
     if (!current || departing) return;
     setDeparting(direction);
     setDragX(direction === "like" ? 720 : -720);
     window.setTimeout(() => {
+      // Keep the card that was already visible underneath at the front of the
+      // deck. The updated recommendation weights should only rank cards after it.
+      setActiveProfileId(next?.id ?? null);
       setSwipes((previous) => [...previous, { profile: current, direction }]);
       setWeights((previous) => updateWeights(previous, current, direction));
       setDeparting(null);
@@ -844,6 +838,7 @@ function DiscoveryDeck({
 
   function undoLastSwipe() {
     if (swipes.length === 0) return;
+    setActiveProfileId(swipes.at(-1)!.profile.id);
     const remainingSwipes = swipes.slice(0, -1);
     setWeights(weightsFromSwipes(remainingSwipes));
     setSwipes(remainingSwipes);
@@ -955,6 +950,7 @@ function DiscoveryDeck({
                 key={`${current.id}:${selectedWork?.id}`}
                 profile={current}
                 nextProfile={next}
+                nextContributors={nextWorkContributors}
                 contributors={workContributors}
                 recommendedIds={recommendedIds}
                 seed={workSeed}
