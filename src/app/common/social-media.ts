@@ -483,7 +483,6 @@ export const nameToInstagramMap = {
   "Joey Young": "youngjoey32",
   "Nic Ko": "nickoletsgo",
   "Lele Cheung": "lelecheung_",
-  Eastwindgoodart: "eastwindgoodart",
   "Fanshu.F": "fanshu.f",
   "Sam Leung": "midwin_",
   "To Tsz Kin": "totszkin_",
@@ -595,3 +594,25 @@ export const nameToInstagramMap = {
   Wenan: "wenan____",
   WanillaCoco: "wanillacoco",
 };
+
+function normalizeContributorName(name: string) {
+  return name
+    .normalize("NFKC")
+    .split("@")[0]
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLocaleLowerCase();
+}
+
+const normalizedNameToInstagramMap = new Map(
+  Object.entries(nameToInstagramMap).map(([name, instagram]) => [
+    normalizeContributorName(name),
+    instagram,
+  ]),
+);
+
+export function getInstagramByName(name: string): string | null {
+  return (
+    normalizedNameToInstagramMap.get(normalizeContributorName(name)) ?? null
+  );
+}

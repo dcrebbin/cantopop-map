@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { RAW_LOCATIONS } from "./locations";
+import { getInstagramByName } from "./social-media";
 
 // Zod schema for raw items as written in the data file
 const ContributorsSchema = z
@@ -86,9 +87,12 @@ export function getContributorName(contributor: ContributorCredit): string {
 export function getContributorInstagram(
   contributor: ContributorCredit,
 ): string | null {
-  if (typeof contributor !== "string") return contributor.instagram;
-  const [, handle] = contributor.split("@");
-  return handle ?? null;
+  if (typeof contributor !== "string") {
+    return contributor.instagram.trim() || getInstagramByName(contributor.name);
+  }
+
+  const inlineHandle = /@([A-Za-z0-9._]+)/.exec(contributor)?.[1];
+  return inlineHandle ?? getInstagramByName(contributor);
 }
 
 export function getContributorDisplayName(

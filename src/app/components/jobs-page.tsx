@@ -260,7 +260,10 @@ function WorkPlayer({
           aria-label={`Play ${work.title}`}
         >
           <img
-            src={work.image}
+            src={
+              work.image.replace("mqdefault.jpg", "maxresdefault.jpg") ??
+              work.image.replace("mqdefault.jpg", "sddefault.jpg")
+            }
             alt=""
             className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
           />
@@ -571,22 +574,6 @@ function DiscoveryDeck({
             <p className="mt-3 text-sm leading-6 text-white/70">
               {role.description}
             </p>
-          </div>
-          <div className="mt-8 border-t border-white/30 pt-6">
-            <div className="flex items-center justify-between text-xs">
-              <span className="font-bold">Session learning</span>
-              <span className="font-mono text-white/60">
-                {swipes.length} signals
-              </span>
-            </div>
-            <div className="mt-3 flex gap-1">
-              {Array.from({ length: 8 }, (_, index) => (
-                <span
-                  key={index}
-                  className={`h-1 flex-1 rounded-full ${index < Math.min(swipes.length, 8) ? "bg-blue-400" : "bg-white/25"}`}
-                />
-              ))}
-            </div>
           </div>
         </aside>
 

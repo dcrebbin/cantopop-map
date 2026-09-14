@@ -22,7 +22,12 @@ export interface RoleFamily {
   eyebrow: string;
   description: string;
   rolePattern: RegExp;
+  rolePatternsByCategory?: Partial<Record<ContributorCategory, RegExp>>;
+  excludedRolePattern?: RegExp;
+  categories: ContributorCategory[];
 }
+
+type ContributorCategory = "song" | "musicVideo";
 
 export interface TalentWork {
   id: string;
@@ -52,14 +57,21 @@ export const ROLE_FAMILIES: RoleFamily[] = [
     description:
       "Art directors, production designers, set designers and art crew.",
     rolePattern:
-      /(art|productionDesigner|setDesign|prop|graphicDesign|illustrat|scenic|decor)/i,
+      /(^art(?!ist)|assistantArt|executiveArt|onSiteArt|imageDirectionAndArt|coverArt|productionDesigner|^set|prop|graphicDesign|illustrat|scenic|decor|titleArt)/i,
+    excludedRolePattern:
+      /(artist|makeup|makeUp|hair|styling|stylist|wardrobe|costume|vfx|cgi?|animat|photograph|management|setMedic)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "direction",
     label: "Direction",
     eyebrow: "Ideas into motion",
     description: "Directors, assistant directors and creative directors.",
-    rolePattern: /(director|creativeDirector|assistantToDirector)/i,
+    rolePattern:
+      /(^director$|assistantDirector|assistantToDirector|directorAssistant|coAssistantDirector|coDirector|firstAssistantDirector|secondAssistantDirector|creativeAndDirector|creativeDirector|executiveDirector|visualDirector|imageDirector)/i,
+    excludedRolePattern:
+      /(art|photograph|animation|hair|makeup|makeUp|casting|choreograph|movement|production|editing)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "camera",
@@ -68,7 +80,9 @@ export const ROLE_FAMILIES: RoleFamily[] = [
     description:
       "Cinematographers, camera crew, gaffers, grips and lighting teams.",
     rolePattern:
-      /(cinemat|photograph|camera|dop|gaffer|grip|electric|focusPull|\bdit\b|\bac\b|firstAc|secondAc)/i,
+      /(cinemat|photograph|camera|dop|gaffer|grip|electrician|focusPull|^dit$|^ac$|firstAc|secondAc|lighting)/i,
+    excludedRolePattern: /(equipment|providedBy|coverArt)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "production",
@@ -76,7 +90,10 @@ export const ROLE_FAMILIES: RoleFamily[] = [
     eyebrow: "Make the shoot happen",
     description: "Producers, production managers, coordinators and assistants.",
     rolePattern:
-      /(produc|lineProducer|projectManag|coordinator|locationManag)/i,
+      /(producer|production|projectManag|locationCoordinator|locationManag)/i,
+    excludedRolePattern:
+      /(postProduction|colorProducer|colourProducer|productionDesigner|productionDirector|stylingProducer|vfx.*Producer|vocalProduction|musicProducer|arrangerProducer)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "post",
@@ -85,13 +102,17 @@ export const ROLE_FAMILIES: RoleFamily[] = [
     description: "Editors, colourists, animators, VFX and finishing artists.",
     rolePattern:
       /(edit|colou?r|vfx|animat|postProduction|composit|finishing|retouch)/i,
+    excludedRolePattern:
+      /(hairColorist|colorProducer|colourProducer|executiveColorProducer)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "styling",
     label: "Styling & beauty",
     eyebrow: "Character through detail",
     description: "Stylists, costume, wardrobe, hair and makeup artists.",
-    rolePattern: /(styl|costume|wardrobe|makeUp|makeup|hair)/i,
+    rolePattern: /(styl|costume|wardrobe|makeUp|makeup|hair|manicure|nailArt)/i,
+    categories: ["musicVideo"],
   },
   {
     id: "music",
@@ -99,7 +120,14 @@ export const ROLE_FAMILIES: RoleFamily[] = [
     eyebrow: "The sound of the story",
     description: "Composers, arrangers, producers, writers and sound teams.",
     rolePattern:
-      /(composer|arranger|lyric|writer|music|sound|mix|master|vocal|audio)/i,
+      /(composer|arranger|lyric|writer|music|sound|mix|mastered|mastering|vocal|audio)/i,
+    rolePatternsByCategory: {
+      song: /(composer|arranger|lyric|writer|music|mix|mastered|mastering|vocal|audio)/i,
+      musicVideo: /(sound|audio|voiceOverMixing)/i,
+    },
+    excludedRolePattern:
+      /(contentWriter|copywriter|screenwriter|scriptWriter|subtitleWriter)/i,
+    categories: ["song", "musicVideo"],
   },
 ];
 
@@ -107,6 +135,15 @@ type CreditBuckets = {
   song?: Record<string, ContributorCredit[]>;
   musicVideo?: Record<string, ContributorCredit[]>;
 } | null;
+
+type TalentProfileAccumulator = Omit<
+  TalentProfile,
+  "roleKeys" | "roles" | "artists"
+> & {
+  roleKeys: Set<string>;
+  roles: Set<string>;
+  artists: Set<string>;
+};
 
 function getCreditBuckets(location: LocationItem): CreditBuckets {
   return location.contributors as CreditBuckets;
@@ -116,19 +153,37 @@ function normalizePersonName(name: string) {
   return name.trim().toLocaleLowerCase();
 }
 
+export function roleBelongsToFamily(
+  family: RoleFamily,
+  category: ContributorCategory,
+  roleKey: string,
+) {
+  if (!family.categories.includes(category)) return false;
+  const rolePattern =
+    family.rolePatternsByCategory?.[category] ?? family.rolePattern;
+  if (!rolePattern.test(roleKey)) return false;
+  return !family.excludedRolePattern?.test(roleKey);
+}
+
 export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
-  const profiles = new Map<string, TalentProfile>();
+  const profiles = new Map<string, TalentProfileAccumulator>();
 
   for (const location of LOCATIONS) {
     const buckets = getCreditBuckets(location);
     if (!buckets) continue;
 
-    for (const bucket of [buckets.musicVideo, buckets.song]) {
+    const categoryBuckets: Array<
+      [ContributorCategory, Record<string, ContributorCredit[]> | undefined]
+    > = [
+      ["musicVideo", buckets.musicVideo],
+      ["song", buckets.song],
+    ];
+
+    for (const [category, bucket] of categoryBuckets) {
       if (!bucket) continue;
 
       for (const [roleKey, people] of Object.entries(bucket)) {
-        if (!family.rolePattern.test(roleKey)) continue;
-        if (family.id === "art" && /^artis/i.test(roleKey)) continue;
+        if (!roleBelongsToFamily(family, category, roleKey)) continue;
 
         for (const person of people) {
           const name = getContributorName(person).trim();
@@ -140,9 +195,9 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
             name,
             instagram: getContributorInstagram(person),
             works: [],
-            roleKeys: [],
-            roles: [],
-            artists: [],
+            roleKeys: new Set<string>(),
+            roles: new Set<string>(),
+            artists: new Set<string>(),
           };
 
           const workId = `${location.id}-${roleKey}`;
@@ -159,13 +214,10 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
           }
 
           existing.instagram ??= getContributorInstagram(person);
-          if (!existing.roleKeys.includes(roleKey))
-            existing.roleKeys.push(roleKey);
-          const role = humanizeRoleKey(roleKey);
-          if (!existing.roles.includes(role)) existing.roles.push(role);
+          existing.roleKeys.add(roleKey);
+          existing.roles.add(humanizeRoleKey(roleKey));
           for (const artist of location.artists) {
-            if (!existing.artists.includes(artist))
-              existing.artists.push(artist);
+            existing.artists.add(artist);
           }
           profiles.set(id, existing);
         }
@@ -173,7 +225,14 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
     }
   }
 
-  return [...profiles.values()].filter((profile) => profile.works.length > 0);
+  return [...profiles.values()]
+    .filter((profile) => profile.works.length > 0)
+    .map((profile) => ({
+      ...profile,
+      roleKeys: [...profile.roleKeys],
+      roles: [...profile.roles],
+      artists: [...profile.artists],
+    }));
 }
 
 export function youtubeEmbedUrl(url: string) {
