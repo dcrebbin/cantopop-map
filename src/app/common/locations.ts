@@ -24,6 +24,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/AWWpACbvS70?t=79",
     streetView: "https://maps.app.goo.gl/tBiJZ61KKeEBmECR9",
     image: "https://i.ytimg.com/vi/AWWpACbvS70/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/AWWpACbvS70/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Sinnie Ng"],
@@ -116,6 +117,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一次",
     url: "https://youtu.be/Yvu59DMaDwM?t=211",
     image: "https://i.ytimg.com/vi/Yvu59DMaDwM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Yvu59DMaDwM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Teddy Fan"],
@@ -238,6 +240,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/HFTL4ZJR8JGmQezdA",
     url: "https://youtu.be/8kla1Swx5tU",
     image: "https://i.ytimg.com/vi/8kla1Swx5tU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8kla1Swx5tU/hqdefault.jpg",
     contributors: {
       song: {
         composer: ["林阿P"],
@@ -260,6 +263,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/qxQjhWXKr4o7WBAU7",
     url: "https://youtu.be/xNjkUL8j564?t=75",
     image: "https://i.ytimg.com/vi/xNjkUL8j564/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xNjkUL8j564/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Vincy 蘇詠淳", "JUNI"],
@@ -329,6 +333,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Plover Cover Resevoir, Shuen Wan, New Territories, Hong Kong",
     url: "https://youtu.be/eHzUi11kfjg?t=24",
     image: "https://i.ytimg.com/vi/eHzUi11kfjg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/eHzUi11kfjg/sddefault.jpg",
     contributors: {
       song: {
         composer: ["盧凱彤 Ellen Loo"],
@@ -367,6 +372,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "favourite jeans",
     url: "https://www.youtube.com/watch?v=zv0tFMSynfM",
     image: "https://i.ytimg.com/vi/zv0tFMSynfM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/zv0tFMSynfM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["moon tang", "Nic Tsui", "Sam Ock"],
@@ -407,6 +413,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/DDedZXDMZNXgBzbi8",
     url: "https://youtu.be/YlfYLRLOfpM?t=183",
     image: "https://i.ytimg.com/vi/YlfYLRLOfpM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/YlfYLRLOfpM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Moto Leung"],
@@ -455,6 +462,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/BLya9D21FLdZAFnX9",
     url: "https://youtu.be/qubn-4UNy_A?t=52",
     image: "https://i.ytimg.com/vi/qubn-4UNy_A/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qubn-4UNy_A/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Sandy Natsuly"],
@@ -487,6 +495,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/pj3HEBMpgMZKw3KVA",
     url: "https://youtu.be/mqQ0GzbuPTw?t=22",
     image: "https://i.ytimg.com/vi/mqQ0GzbuPTw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/mqQ0GzbuPTw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林奕匡"],
@@ -544,6 +553,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "我看見今晚的月色很美，你呢？(Tsuki)",
     url: "https://youtu.be/q70X4QvSZ9M?t=25",
     image: "https://i.ytimg.com/vi/q70X4QvSZ9M/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/q70X4QvSZ9M/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Chick Chan", "Sinnie Ng"],
@@ -587,6 +597,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/PFJWjZdkRLs?t=46",
     streetView: "https://maps.app.goo.gl/a8gWZXyMvXxUrVE87",
     image: "https://i.ytimg.com/vi/PFJWjZdkRLs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/PFJWjZdkRLs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Sinnie Ng", "Chick Chan"],
@@ -625,6 +636,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "寫輪眼",
     url: "https://youtu.be/oITQOtdoEwU?t=98",
     image: "https://i.ytimg.com/vi/oITQOtdoEwU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oITQOtdoEwU/maxresdefault.jpg",
     contributors: {
       song: {
         writer: ["林寶"],
@@ -660,6 +672,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "SKSKZAZA",
     url: "https://youtu.be/XeK9gvVb-uE?t=37",
     image: "https://i.ytimg.com/vi/XeK9gvVb-uE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/XeK9gvVb-uE/maxresdefault.jpg",
     coordinates: [35.3391565, 138.891134],
     address: "Gotemba, Shizuoka, Japan",
     streetView: "https://maps.app.goo.gl/vipb1Pk8CWMzfeWs8",
@@ -723,6 +736,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "懷疑人生 In Doubt",
     url: "https://www.youtube.com/watch?v=Lmm6dfPiJDM",
     image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/Lmm6dfPiJDM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Wilson Chow"],
@@ -765,6 +779,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Hey Feanna",
     url: "https://youtu.be/rDCt90uJXRg?t=24",
     image: "https://i.ytimg.com/vi/rDCt90uJXRg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/rDCt90uJXRg/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙"],
@@ -822,6 +837,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/rofcioTjhPs?t=53",
     streetView: "https://maps.app.goo.gl/PWrotC3MuvHU428x8",
     image: "https://i.ytimg.com/vi/rofcioTjhPs/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/rofcioTjhPs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA 江海迦"],
@@ -860,6 +876,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/sSKPIHcFSL4?t=189",
     streetView: "https://maps.app.goo.gl/pYkPikppAfZy3bqC7",
     image: "https://i.ytimg.com/vi/sSKPIHcFSL4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/sSKPIHcFSL4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA 江海迦"],
@@ -891,6 +908,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/cIU1LL_VmRk?t=218",
     streetView: "https://maps.app.goo.gl/kUNggTsm6aVGEyt1A",
     image: "https://i.ytimg.com/vi/cIU1LL_VmRk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/cIU1LL_VmRk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA"],
@@ -982,6 +1000,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/Lp68Wc-2Q0g?t=358",
     streetView: "https://maps.app.goo.gl/jdV7iK9iFM6e4BjL7",
     image: "https://i.ytimg.com/vi/Lp68Wc-2Q0g/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Lp68Wc-2Q0g/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA"],
@@ -1028,6 +1047,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Up & Down",
     url: "https://youtu.be/Ngefkftz-e4?t=140",
     image: "https://i.ytimg.com/vi/Ngefkftz-e4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Ngefkftz-e4/maxresdefault.jpg",
     coordinates: [22.2759512, 114.1692234],
     address: "15 St Francis St, Hong Kong, Hong Kong Island",
     streetView: "https://maps.app.goo.gl/HUqX3fWFbdVbeE7q6",
@@ -1075,6 +1095,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/IuSh53sZUVM?t=41",
     streetView: "https://maps.app.goo.gl/wQCy4YSfEgnmNqCr8",
     image: "https://i.ytimg.com/vi/IuSh53sZUVM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/IuSh53sZUVM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA"],
@@ -1147,6 +1168,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/l8qBeJUSyUA?t=20",
     streetView: "https://maps.app.goo.gl/HMDDHevP8owc6fwq7",
     image: "https://i.ytimg.com/vi/l8qBeJUSyUA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/l8qBeJUSyUA/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林家謙"],
@@ -1181,6 +1203,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/tzHDm7jyoEY?t=138",
     streetView: "https://maps.app.goo.gl/TzRFMdQTZh3XtXM66",
     image: "https://i.ytimg.com/vi/tzHDm7jyoEY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/tzHDm7jyoEY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["鄧百亨", "林家謙"],
@@ -1235,6 +1258,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/xMLuHGu-BPU?t=101",
     streetView: "https://maps.app.goo.gl/2NDRBrC9qUYjDuVh8",
     image: "https://i.ytimg.com/vi/xMLuHGu-BPU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xMLuHGu-BPU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA 江海迦"],
@@ -1276,6 +1300,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/BdNKxYgTAFU?t=219",
     streetView: "https://maps.app.goo.gl/iz97zqS2xuxrehag7",
     image: "https://i.ytimg.com/vi/BdNKxYgTAFU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/BdNKxYgTAFU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA 江海迦"],
@@ -1313,6 +1338,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757527654563!6m8!1m7!1s8kZwr4vIuvgRmy85jUlOKA!2m2!1d22.44731071377599!2d113.9931841031054!3f196.45222955852861!4f-1.1711255918759207!5f1.5204554155564356",
     streetView: "https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18",
     image: "https://i.ytimg.com/vi/u14rrcxENDw/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/u14rrcxENDw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["GooChan", "MC 張天賦"],
@@ -1354,6 +1380,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/0i7pWG440KM?t=194",
     streetView: "https://maps.app.goo.gl/DfGFqrKaY4mzHy6j7",
     image: "https://i.ytimg.com/vi/0i7pWG440KM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/0i7pWG440KM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Paul Kwan"],
@@ -1386,6 +1413,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763397473976!6m8!1m7!1sX8L5cyaKdid0aZBf-VrbdQ!2m2!1d-33.87977810112389!2d151.2091698100951!3f206.52697520908646!4f-14.681365438264606!5f0.4003191251351087",
     streetView: "https://maps.app.goo.gl/vBdHriK35nAcsvdp9",
     image: "https://i.ytimg.com/vi/kfQzHcVrQp0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/kfQzHcVrQp0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T", "Enoch Cheng"],
@@ -1412,6 +1440,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763400476194!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzZxZnJxZkE.!2m2!1d-33.84953779197946!2d151.2130477682994!3f64.66300174400925!4f-4.803913439562692!5f0.955600870055432",
     streetView: "https://maps.app.goo.gl/MKD69pWtJF128ATv5",
     image: "https://i.ytimg.com/vi/8fU2Jx04oUA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8fU2Jx04oUA/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T"],
@@ -1438,6 +1467,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763400266169!6m8!1m7!1sEm0P-3s5s0gKYtuyYLPHmA!2m2!1d-33.88862485202878!2d151.2133590407025!3f337.1995621167845!4f-0.1159312718486234!5f2.0949737198895018",
     streetView: "https://maps.app.goo.gl/8Dw1NbAvPdS6MvSj6",
     image: "https://i.ytimg.com/vi/KaHREKJ5x5I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/KaHREKJ5x5I/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Claudia Koh"],
@@ -1464,6 +1494,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763135327506!6m8!1m7!1sOUB1OjXP9rAg16OW9GycxA!2m2!1d23.01469603056407!2d120.2003660726244!3f280.7119411543199!4f-4.4422830164690055!5f1.8128431044599362",
     streetView: "https://maps.app.goo.gl/j1eH3DPkJoMtWTRW7",
     image: "https://i.ytimg.com/vi/6Ebua_Zug1k/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/6Ebua_Zug1k/maxresdefault.jpg",
     contributors: {
       song: {},
       musicVideo: {},
@@ -1477,6 +1508,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/5n1pA3RSDTw?t=79",
     streetView: "https://maps.app.goo.gl/bokGKeu9iTFXwpR67",
     image: "https://i.ytimg.com/vi/5n1pA3RSDTw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/5n1pA3RSDTw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳可為"],
@@ -1504,6 +1536,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/ZFajGxuLWK8?t=62",
     streetView: "https://maps.app.goo.gl/UNaoJ7CRAVo2Q9Xx8",
     image: "https://i.ytimg.com/vi/ZFajGxuLWK8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/ZFajGxuLWK8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
@@ -1544,6 +1577,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/obyHflDX1LY?t=191",
     streetView: "https://maps.app.goo.gl/2hZSj6xH9WqYwsah8",
     image: "https://i.ytimg.com/vi/obyHflDX1LY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/obyHflDX1LY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
@@ -1588,6 +1622,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/8ZFwuUTEwzQ?&t=104",
     streetView: "https://maps.app.goo.gl/ktWrz6YUjkznHvQ58",
     image: "https://i.ytimg.com/vi/8ZFwuUTEwzQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8ZFwuUTEwzQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張繼聰"],
@@ -1617,6 +1652,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/WtZWfNkDujs?t=49",
     streetView: "https://maps.app.goo.gl/7VxtcoTmt6Yj128W6",
     image: "https://i.ytimg.com/vi/WtZWfNkDujs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/WtZWfNkDujs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Novel Fergus", "Tyson Yoshi", "DaiShin", "MADBOII"],
@@ -1675,6 +1711,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/OcK8sMt92DQ?t=25",
     streetView: "https://maps.app.goo.gl/PC4kbcAzLtN5ANf16",
     image: "https://i.ytimg.com/vi/OcK8sMt92DQ/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/OcK8sMt92DQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["唐紹崴 $$uperCandy", "Dena 張粹方", "Jovany Javier"],
@@ -1722,6 +1759,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/QTeoNGh2kBE?t=106",
     streetView: "https://maps.app.goo.gl/BowZh16zno2ydENa8",
     image: "https://i.ytimg.com/vi/QTeoNGh2kBE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/QTeoNGh2kBE/sddefault.jpg",
     contributors: {
       song: {
         composer: ["$alty Chick鹽焗雞"],
@@ -1743,6 +1781,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/gnwjoc2e3cI?t=58",
     streetView: "https://maps.app.goo.gl/74xjdk75E88k1LHf8",
     image: "https://i.ytimg.com/vi/gnwjoc2e3cI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/gnwjoc2e3cI/maxresdefault.jpg",
     contributors: {
       song: {
         music: ["JONO", "Sandy Natsuly", "T-Ma 馬敬恆", "王保為Bowie Ong"],
@@ -1777,6 +1816,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757528023299!6m8!1m7!1sva_3cuxUNA0hRnsKcVVgVw!2m2!1d22.98849358840259!2d120.2209808058009!3f321.1557645257022!4f-11.260670884993061!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/qXgnNfKoZHzybtRp6",
     image: "https://i.ytimg.com/vi/AgEkYyeu3Jg/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/AgEkYyeu3Jg/maxresdefault.jpg",
     contributors: {
       song: {
         musicBy: ["Maia 慶孫", "Matt Chow", "Jonathan Chan", "musicbyAP"],
@@ -1844,6 +1884,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/%E6%84%9B%E6%98%9F%E5%B1%8B/@22.2005237,113.5450258,3a,17.4y,47.79h,85.52t/data=!3m7!1e1!3m5!1sxjEQ9tdsJi9D7YiFVWRPtA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D4.479524584813959%26panoid%3DxjEQ9tdsJi9D7YiFVWRPtA%26yaw%3D47.79128069709897!7i13312!8i6656!4m6!3m5!1s0x34017bc549f6edef:0x58865e9c1eeff8d3!8m2!3d22.2005169!4d113.5452015!16s%2Fg%2F11y74n1nz0?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=fAc4ZSVYOJU",
     image: "https://i.ytimg.com/vi/fAc4ZSVYOJU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/fAc4ZSVYOJU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林靜翬"],
@@ -1879,6 +1920,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/2CAxcypqTt6NVoHC6",
     url: "https://youtu.be/PfMwxbrTxfY?t=47",
     image: "https://i.ytimg.com/vi/PfMwxbrTxfY/default.jpg",
+    highResImage: "https://i.ytimg.com/vi/PfMwxbrTxfY/sddefault.jpg",
     contributors: {
       song: {
         composer: ["謝芊彤"],
@@ -1908,6 +1950,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/6isP2jw8fNMv1DUU9",
     url: "https://youtu.be/556XUWybQYw?t=56",
     image: "https://i.ytimg.com/vi/556XUWybQYw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/556XUWybQYw/maxresdefault.jpg",
   },
   {
     coordinates: [22.2797101, 114.1609824],
@@ -1917,6 +1960,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
     url: "https://youtu.be/IJ2IS-BvveM?t=40",
     image: "https://i.ytimg.com/vi/IJ2IS-BvveM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/IJ2IS-BvveM/sddefault.jpg",
     contributors: {
       song: {
         composer: ["Byejack"],
@@ -1957,6 +2001,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
     url: "https://youtu.be/Wzgvoy0_clc?t=128",
     image: "https://i.ytimg.com/vi/Wzgvoy0_clc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Wzgvoy0_clc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Byejack"],
@@ -1988,6 +2033,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/KaDNacH5k7PBRehP8",
     url: "https://youtu.be/_Q7dfkek1zY?t=174",
     image: "https://i.ytimg.com/vi/_Q7dfkek1zY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/_Q7dfkek1zY/maxresdefault.jpg",
     contributors: {
       song: {
         guitar: ["Byejack", "Lewsz"],
@@ -2007,6 +2053,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/oYsjgqQbWQ26WzBH7",
     url: "https://youtu.be/FkvpFMQaby4?t=207",
     image: "https://i.ytimg.com/vi/FkvpFMQaby4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/FkvpFMQaby4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Chick Chan", "Sinnie Ng"],
@@ -2027,6 +2074,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "SEA OF US REMIX",
     url: "https://www.youtube.com/watch?v=lfwAIduKSbE",
     image: "https://i.ytimg.com/vi/lfwAIduKSbE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/lfwAIduKSbE/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         director: ["KKCTO"],
@@ -2059,6 +2107,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/@22.473348,114.024313,3a,57.3y,184.14h,81.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDq3LDU3gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HbpwtC1DNElZZ30HhUjsS7deGl2Ny68igkVQYF3jY-7VNiFntK3khg8fwzqu6Mqvr3QDQ9b6DzbpQm99IrDU6aYWGRdL1s0CqvHRQNzBpWk8cF21BV_5HeI-63NSGfWyTNB0ZBJ%3Dw900-h600-k-no-pi8.043024207959391-ya171.64525490982788-ro0-fo100!7i10000!8i5000?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/MIhQlIlxAbk?t=162",
     image: "https://i.ytimg.com/vi/MIhQlIlxAbk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         stylist: ["Natalie Ting", "Cherie Kong"],
@@ -2095,6 +2144,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/FY5WayGRF7jtGEc19",
     url: "https://youtu.be/cM_L276Vhvc?t=20",
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["JUDE"],
@@ -2141,6 +2191,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/WKDK9JtNDwx5B5m59",
     url: "https://youtu.be/JEOhR2zApI4?t=7",
     image: "https://i.ytimg.com/vi/JEOhR2zApI4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/JEOhR2zApI4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -2174,6 +2225,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/C1Y2oLmQhRdgEC8V7",
     url: "https://youtu.be/rOZH_1N7Gtc?t=14",
     image: "https://i.ytimg.com/vi/rOZH_1N7Gtc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/rOZH_1N7Gtc/maxresdefault.jpg",
     contributors: {
       song: {
         vocals: ["范卓賢", "丘藍"],
@@ -2220,6 +2272,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Y7FPJZeJRXd2zTcX6",
     url: "https://youtu.be/KoPPm5nWE5M?t=70",
     image: "https://i.ytimg.com/vi/KoPPm5nWE5M/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/KoPPm5nWE5M/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -2255,6 +2308,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/DKcQ56VXfiTMvWYj8",
     url: "https://youtu.be/j0tEF_EBSnM?t=161",
     image: "https://i.ytimg.com/vi/j0tEF_EBSnM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/j0tEF_EBSnM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -2293,6 +2347,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/4YCRAfR9SFeUYkvh6",
     url: "https://youtu.be/lb3r6RdbWOI?t=81",
     image: "https://i.ytimg.com/vi/lb3r6RdbWOI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/lb3r6RdbWOI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿", "Young Hysan"],
@@ -2331,6 +2386,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Pcfdfp4vxtmVSjYz8",
     url: "https://youtu.be/FNtirnQzweQ?t=94",
     image: "https://i.ytimg.com/vi/FNtirnQzweQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯令山 Gareth T"],
@@ -2370,6 +2426,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/9VSEwD9DTYwcJzKj6",
     url: "https://youtu.be/Rvj-o2fNFWk",
     image: "https://i.ytimg.com/vi/Rvj-o2fNFWk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Rvj-o2fNFWk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T"],
@@ -2417,6 +2474,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/nJHsk2YGQVj8ns4D6",
     url: "https://youtu.be/MbD7TAlBFDc?t=185",
     image: "https://i.ytimg.com/vi/MbD7TAlBFDc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/MbD7TAlBFDc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "范梓謙"],
@@ -2449,6 +2507,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/2eHYBFxQK9zHgavC9",
     url: "https://youtu.be/e8GJ-W9ZZW8?t=20",
     image: "https://i.ytimg.com/vi/e8GJ-W9ZZW8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/e8GJ-W9ZZW8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳健安"],
@@ -2510,6 +2569,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/LyoKjk4reQg9T1jy5",
     url: "https://youtu.be/iCEVCy4yhtg?t=63",
     image: "https://i.ytimg.com/vi/iCEVCy4yhtg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/iCEVCy4yhtg/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "陳易行"],
@@ -2584,6 +2644,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/DFTY5s3Gp3Kh1z569",
     url: "https://youtu.be/T4S9tSDH2U0?t=42",
     image: "https://i.ytimg.com/vi/T4S9tSDH2U0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/T4S9tSDH2U0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Anna hisbbuR"],
@@ -2610,6 +2671,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/rTwHPkphDQD9pYWa8",
     url: "https://youtu.be/7KoDZkSCTh8?t=1",
     image: "https://i.ytimg.com/vi/7KoDZkSCTh8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/7KoDZkSCTh8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["范卓賢"],
@@ -2651,6 +2713,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "要還 (something borrowed)",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
     image: "https://i.ytimg.com/vi/9INH_yd0Us4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/9INH_yd0Us4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders", "CONSTANCE 康堤"],
@@ -2703,6 +2766,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/zuF8Jj7lhxU?t=132",
     streetView: "https://maps.app.goo.gl/Sy2kjZydrBvwUBQA9",
     image: "https://i.ytimg.com/vi/zuF8Jj7lhxU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/zuF8Jj7lhxU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["KAREN YEE", "Twelvv Choi", "Ed G. Noyeel"],
@@ -2767,6 +2831,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/rnUN1vu6WP89awyz9",
     url: "https://youtu.be/X9P9kz8ZYDQ?t=160",
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["$alty Chick鹽焗雞"],
@@ -2800,6 +2865,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/uBaicn7tcFQ3E3gD9",
     url: "https://youtu.be/63vmUA5xy18?t=33",
     image: "https://i.ytimg.com/vi/63vmUA5xy18/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/63vmUA5xy18/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AGA"],
@@ -2817,6 +2883,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Un2pauN2m1sYkS8X9",
     url: "https://youtu.be/LaBYdAVD1_o?t=206",
     image: "https://i.ytimg.com/vi/LaBYdAVD1_o/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/LaBYdAVD1_o/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Mike Stock", "Matt Aitken", "Pete Waterman"],
@@ -2878,6 +2945,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/wF7YmkSxd2fQGAXj8",
     url: "https://youtu.be/9itm9bI_J9I?t=22",
     image: "https://i.ytimg.com/vi/9itm9bI_J9I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/9itm9bI_J9I/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林家謙"],
@@ -2926,6 +2994,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/9Nnme8Maxmp9SmmA8",
     url: "https://youtu.be/D3LoWaf0Pfk?t=73",
     image: "https://i.ytimg.com/vi/D3LoWaf0Pfk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/D3LoWaf0Pfk/sddefault.jpg",
     contributors: {
       song: {
         composer: ["謝芊彤"],
@@ -2952,6 +3021,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "魔鬼在身邊",
     url: "https://youtu.be/oqe1X5KGt0Y?t=14",
     image: "https://i.ytimg.com/vi/oqe1X5KGt0Y/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oqe1X5KGt0Y/maxresdefault.jpg",
     coordinates: [22.3891088, 113.919764],
     address: "8 Lung Yiu St, Lung Kwu Tan, New Territories, Hong Kong",
     streetView: "https://maps.app.goo.gl/t9g5C16tTPbZiJDe8",
@@ -2994,6 +3064,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "doot doot",
     url: "https://youtu.be/rNKYDBYEZoM?t=4",
     image: "https://i.ytimg.com/vi/rNKYDBYEZoM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/rNKYDBYEZoM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Jaime Cheung 張天穎"],
@@ -3049,6 +3120,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "12 Lan Kwai Fong, Hong Kong, Hong Kong Island",
     streetView: "https://maps.app.goo.gl/jAUWjwb7DmpoBTBDA",
     image: "https://i.ytimg.com/vi/_KBGMzZ9oc8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/_KBGMzZ9oc8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["ANSONBEAN", "SILVERSTRIKE"],
@@ -3155,6 +3227,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ojTELVYBPQUEVe1D6",
     url: "https://youtu.be/0hCZ_6TktlM?t=40",
     image: "https://i.ytimg.com/vi/0hCZ_6TktlM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/0hCZ_6TktlM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["謝芊彤"],
@@ -3178,6 +3251,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/3i9HTh25nzkgyxR76",
     url: "https://youtu.be/IFwn1zP57Vk?t=165",
     image: "https://i.ytimg.com/vi/IFwn1zP57Vk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/IFwn1zP57Vk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["XTIE"],
@@ -3201,6 +3275,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://j.map.baidu.com/6f/7FMh",
     url: "https://youtu.be/6rfPCq170qA?t=63",
     image: "https://i.ytimg.com/vi/6rfPCq170qA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6rfPCq170qA/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T"],
@@ -3249,6 +3324,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/6NjXhEUZ9oj5hy7R7",
     url: "https://youtu.be/gXsmyDwkUno?t=189",
     image: "https://i.ytimg.com/vi/gXsmyDwkUno/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/gXsmyDwkUno/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Tyson Yoshi", "Teddy Fan", "MadBoii"],
@@ -3339,6 +3415,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1768067659388!6m8!1m7!1sNGSMwItq2YWYqEJYRKq35Q!2m2!1d22.2822893797367!2d114.1592112385193!3f134.97492812974593!4f-2.137800588558548!5f1.376302989881612",
     url: "https://youtu.be/Pv-v5502KxU?t=15",
     image: "https://i.ytimg.com/vi/Pv-v5502KxU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Pv-v5502KxU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿 Gigi"],
@@ -3373,6 +3450,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "tip toe",
     url: "https://www.youtube.com/watch?v=Dv8ymtmTS_s",
     image: "https://i.ytimg.com/vi/Dv8ymtmTS_s/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Dv8ymtmTS_s/maxresdefault.jpg",
     contributors: {
       song: {
         composer: [
@@ -3444,6 +3522,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/space/moon/@2.106113,-15.6824958,15167225m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/OFCMUwqw8Qo?t=76",
     image: "https://i.ytimg.com/vi/OFCMUwqw8Qo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/OFCMUwqw8Qo/maxresdefault.jpg",
     contributors: {
       song: {
         composer: [
@@ -3471,6 +3550,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ncicUakwU7u5g6aj9",
     url: "https://youtu.be/cYo047rraQw?t=34",
     image: "https://i.ytimg.com/vi/cYo047rraQw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/cYo047rraQw/maxresdefault.jpg",
   },
   {
     coordinates: [22.2866191, 114.1913576],
@@ -3480,6 +3560,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/VxciRHzEJv3NKXgo7",
     url: "https://youtu.be/g1GBE8eeNyM?t=184",
     image: "https://i.ytimg.com/vi/g1GBE8eeNyM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/g1GBE8eeNyM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳考威", "AP潘宇謙"],
@@ -3556,6 +3637,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/QAvSz9h6LXpSbi2s7",
     url: "https://youtu.be/9b1vv1kWYc4?t=48",
     image: "https://i.ytimg.com/vi/9b1vv1kWYc4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/9b1vv1kWYc4/maxresdefault.jpg",
   },
   {
     coordinates: [22.3019803, 114.18578777],
@@ -3565,6 +3647,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/tGqV7iNq2kAoFgrk9",
     url: "https://youtu.be/tTxX9cG_tSk?t=50",
     image: "https://i.ytimg.com/vi/tTxX9cG_tSk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/tTxX9cG_tSk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙", "陳考威", "黃兆銘"],
@@ -3621,6 +3704,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Gzs1krr2H9XknBZa7",
     url: "https://youtu.be/2RPuyWSUJP0?t=14",
     image: "https://i.ytimg.com/vi/2RPuyWSUJP0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/2RPuyWSUJP0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -3660,6 +3744,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534551019!6m8!1m7!1s4GX0sDJcr1E15cnDydio7A!2m2!1d22.30837486302836!2d114.1716643943522!3f335.63!4f2.7900000000000063!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/EMPUP9Ph8q0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/EMPUP9Ph8q0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -3698,6 +3783,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
     url: "https://youtu.be/e5TplXPYKt8?t=75",
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["GooChan", "Jaime Cheung 張天穎"],
@@ -3732,6 +3818,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/MqEcLnr613iKGPFq5",
     url: "https://youtu.be/nV7tGxhARCw?t=1",
     image: "https://i.ytimg.com/vi/nV7tGxhARCw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/nV7tGxhARCw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -3773,6 +3860,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/SdbnSFDs9hwuoRQa9",
     url: "https://youtu.be/mt56HEafeWU?t=202",
     image: "https://i.ytimg.com/vi/mt56HEafeWU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/mt56HEafeWU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "葉崇恩"],
@@ -3818,6 +3906,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
     url: "https://youtu.be/MWDaME5LyG4?t=118",
     image: "https://i.ytimg.com/vi/MWDaME5LyG4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/MWDaME5LyG4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳思翰"],
@@ -3840,6 +3929,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ZTLN5CkXJrvo5Z4j8",
     url: "https://youtu.be/SRG29U7Fw_o?t=166",
     image: "https://i.ytimg.com/vi/SRG29U7Fw_o/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙"],
@@ -3875,6 +3965,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Z7qQELhGgLZLJY5h8",
     url: "https://youtu.be/-24iWWT9hj4?t=42",
     image: "https://i.ytimg.com/vi/-24iWWT9hj4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/-24iWWT9hj4/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         director: ["Hanley Chu"],
@@ -3939,6 +4030,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/qgMgJAidgk9NjBGE7",
     url: "https://youtu.be/TTJjtPGY7bQ?t=48",
     image: "https://i.ytimg.com/vi/TTJjtPGY7bQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/TTJjtPGY7bQ/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         productionCompany: ["製作公司", "不聽話映畫 Problem Child Films"],
@@ -3999,6 +4091,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/LFcCRwS3mWMD1B4A8",
     url: "https://youtu.be/dUD_Q7pWNeI?t=233",
     image: "https://i.ytimg.com/vi/dUD_Q7pWNeI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/dUD_Q7pWNeI/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         creative: ["Cherie Kong"],
@@ -4048,6 +4141,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ybCGJSbFBKupkjWn8",
     url: "https://youtu.be/7jXqxjPfRjw?t=38",
     image: "https://i.ytimg.com/vi/7jXqxjPfRjw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/7jXqxjPfRjw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯湯令山 Gareth T", "大匙羹"],
@@ -4093,6 +4187,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/KK3wpT9NnP5F5SE27",
     url: "https://youtu.be/edt_Hhv-UPA?-UPA&t=224",
     image: "https://i.ytimg.com/vi/edt_Hhv-UPA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/edt_Hhv-UPA/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         director: ["Oscar Lee"],
@@ -4146,6 +4241,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/beTT17nz55ju7hk5A",
     url: "https://youtu.be/6LEx2Z_CoEU?t=263",
     image: "https://i.ytimg.com/vi/6LEx2Z_CoEU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6LEx2Z_CoEU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳泳伽", "陳考威", "AP潘宇謙", "黃兆銘"],
@@ -4210,6 +4306,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/tszZnfwT3onibCzW6",
     url: "https://youtu.be/61ymmVaTASc?t=3",
     image: "https://i.ytimg.com/vi/61ymmVaTASc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/61ymmVaTASc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["J Jelly"],
@@ -4260,6 +4357,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/CFwGoUpruYKpGVff6",
     url: "https://youtu.be/DyP40kjim9U?t=88",
     image: "https://i.ytimg.com/vi/DyP40kjim9U/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/DyP40kjim9U/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["徐偉賢"],
@@ -4298,6 +4396,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/qnrVfu2tjN7LwLyY7",
     url: "https://youtu.be/O__X7YL8i5o?t=95",
     image: "https://i.ytimg.com/vi/O__X7YL8i5o/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/O__X7YL8i5o/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Hans陳思翰", "袁景翔", "王璠"],
@@ -4353,6 +4452,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/9TV5ZWJRWq2GYgu19",
     url: "https://youtu.be/VHt8upfvSQ8?t=85",
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["吳林峰"],
@@ -4395,6 +4495,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762843782984!6m8!1m7!1sCAoSHENJQUJJaEJXX3dKV2o5RmtnRnNaTTZ1UlJUWGY.!2m2!1d11.9156481153699!2d108.3392875181811!3f14.66546389573336!4f-53.697074709798194!5f1.797301862974066",
     url: "https://youtu.be/DHCWa3SxGiM?t=129",
     image: "https://i.ytimg.com/vi/DHCWa3SxGiM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/DHCWa3SxGiM/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         director: ["J Jelly"],
@@ -4418,6 +4519,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/MVMZYfdjbUm6RmRH9",
     url: "https://youtu.be/DUk-695vpgU?t=222",
     image: "https://i.ytimg.com/vi/DUk-695vpgU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/DUk-695vpgU/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         starring: ["Miki Yeung", "陳健安 On Chan"],
@@ -4463,6 +4565,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762793654024!6m8!1m7!1sTtoofj58v0r_jDPKKDqFEg!2m2!1d22.2764492431305!2d114.1696551129613!3f222.93381261832315!4f0.4003939250494142!5f0.7820865974627469",
     url: "https://youtu.be/dbO-5kOZEWY?t=38",
     image: "https://i.ytimg.com/vi/dbO-5kOZEWY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/dbO-5kOZEWY/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         creative: ["Sheng Wong"],
@@ -4509,6 +4612,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/QNfqN7WXcDR1FJqe6",
     url: "https://youtu.be/TmyCcYoR0tI?t=11",
     image: "https://i.ytimg.com/vi/TmyCcYoR0tI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/TmyCcYoR0tI/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         director: ["Sheng Wong"],
@@ -4556,6 +4660,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/HFTVBXYZ1LZ98Wdr8",
     url: "https://youtu.be/L17tD_aPypM?t=84",
     image: "https://i.ytimg.com/vi/L17tD_aPypM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/L17tD_aPypM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["徐偉賢"],
@@ -4597,6 +4702,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/fFp7RaqAN75h56ZPA",
     url: "https://youtu.be/HIGEklrsMnQ?t=28",
     image: "https://i.ytimg.com/vi/HIGEklrsMnQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/HIGEklrsMnQ/maxresdefault.jpg",
     contributors: {
       song: {
         vocalist: ["moon tang"],
@@ -4646,6 +4752,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/4CFsQ2Mz1j2UYy7g9",
     url: "https://youtu.be/v3rDVWZd72c?t=100",
     image: "https://i.ytimg.com/vi/v3rDVWZd72c/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/v3rDVWZd72c/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["moon tang", "Gordon Flanders"],
@@ -4675,6 +4782,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/WDr19mxqC4zdQ1uz7",
     url: "https://youtu.be/iYAtwuZXEC8?t=94",
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
@@ -4706,6 +4814,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1768067801949!6m8!1m7!1sjzejvqdGXYpUlbC5U69viw!2m2!1d22.33721480048808!2d114.1745490351873!3f124.28799860871582!4f-14.113687549578486!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Fw4m0jQsoug/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["moon tang"],
@@ -4752,6 +4861,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534809167!6m8!1m7!1sl5_Tb8EOKTnbBJ4sDaqrRw!2m2!1d13.69387778906042!2d100.7491095746951!3f270.414504122176!4f-1.249899399932218!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/vqlzYiT5_aQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/vqlzYiT5_aQ/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["Gordon Flanders"],
@@ -4784,6 +4894,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/4ZgLTWo2sdhFKgiUA",
     url: "https://youtu.be/Q9yq9NXciR8?t=179",
     image: "https://i.ytimg.com/vi/Q9yq9NXciR8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Q9yq9NXciR8/sddefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
@@ -4817,6 +4928,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Hc4moy3c3mym9Mhj8",
     url: "https://youtu.be/uOJ_Ba-WJE0?t=100",
     image: "https://i.ytimg.com/vi/uOJ_Ba-WJE0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/uOJ_Ba-WJE0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["ToNick"],
@@ -4876,6 +4988,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/uepyMuZSd2F8E4YH9",
     url: "https://youtu.be/1LGe_JNwlQM?t=78",
     image: "https://i.ytimg.com/vi/1LGe_JNwlQM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/1LGe_JNwlQM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["阿O"],
@@ -4904,6 +5017,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/22q2NrFRBVUJMZWc9",
     url: "https://youtu.be/s1Cf-BxwcyU?t=133",
     image: "https://i.ytimg.com/vi/s1Cf-BxwcyU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/s1Cf-BxwcyU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周殷廷"],
@@ -4948,6 +5062,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Q9eSCVpmAiuoYjcZA",
     url: "https://youtu.be/tDjuJu-dk_4?t=200",
     image: "https://i.ytimg.com/vi/tDjuJu-dk_4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/tDjuJu-dk_4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["moon tang", "Justin Yau"],
@@ -4989,6 +5104,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Vadyby2JiicbsCek9",
     url: "https://youtu.be/BwGii4Y5fi8?t=3",
     image: "https://i.ytimg.com/vi/BwGii4Y5fi8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/BwGii4Y5fi8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周國賢"],
@@ -5021,6 +5137,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/yRRZDpd7cDPaPpXy7",
     url: "https://youtu.be/ybUJhyMfmpE?t=175",
     image: "https://i.ytimg.com/vi/ybUJhyMfmpE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/ybUJhyMfmpE/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["moon tang", "Nic Tsui"],
@@ -5073,6 +5190,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/vwimpavS8JAAqett7",
     url: "https://youtu.be/6zMMvlASk8M?t=61",
     image: "https://i.ytimg.com/vi/6zMMvlASk8M/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6zMMvlASk8M/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙"],
@@ -5113,6 +5231,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/w2JFdavHhNtNhAoR6",
     url: "https://youtu.be/-o701j6hz3o",
     image: "https://i.ytimg.com/vi/-o701j6hz3o/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/-o701j6hz3o/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["康聰@Zpecial"],
@@ -5158,6 +5277,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757537957208!6m8!1m7!1sufs3tKWSOHu1vedlt-OcwA!2m2!1d22.41478164220148!2d113.9795030658556!3f228.04410402190794!4f-21.999652624153967!5f0.40032265550254637",
     image: "https://i.ytimg.com/vi/B19QxFpTUWY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/B19QxFpTUWY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["康聰"],
@@ -5190,6 +5310,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/Loong+Jun+Enterprises+Ltd/@22.3268597,114.1637183,3a,75y,22.3h,91.5t/data=!3m7!1e1!3m5!1s-3Jda4lLwiQrjvug-CA7kA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4987673664758887%26panoid%3D-3Jda4lLwiQrjvug-CA7kA%26yaw%3D22.29617937600097!7i16384!8i8192!4m6!3m5!1s0x340400b42691e4d1:0xdc3fe8132f680566!8m2!3d22.326932!4d114.163766!16s%2Fg%2F12m9k28vc?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/4-85jDmMQNo?t=409",
     image: "https://i.ytimg.com/vi/4-85jDmMQNo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/4-85jDmMQNo/maxresdefault.jpg",
   },
   {
     coordinates: [22.3067739577149, 114.18289026614131],
@@ -5202,6 +5323,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/Ho+Man+Tin/@22.3068186,114.1828286,3a,37.5y,129.55h,87.5t/data=!3m7!1e1!3m5!1slorJ8mtOeOzhO4XZXb2dcA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D2.504974932997399%26panoid%3DlorJ8mtOeOzhO4XZXb2dcA%26yaw%3D129.55358498814783!7i16384!8i8192!4m6!3m5!1s0x340400dd0e16ed7d:0x34039828f896379b!8m2!3d22.3093594!4d114.1827294!16zL20vMDR5dGgz?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/GUCoNfRmchM?t=159",
     image: "https://i.ytimg.com/vi/GUCoNfRmchM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/GUCoNfRmchM/maxresdefault.jpg",
   },
   {
     coordinates: [22.4438435, 114.0609108],
@@ -5211,6 +5333,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/E14gGoMeQMZ3vj1FA",
     url: "https://youtu.be/Dgd8sUGEFR8?t=67",
     image: "https://i.ytimg.com/vi/Dgd8sUGEFR8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Dgd8sUGEFR8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林家謙"],
@@ -5289,6 +5412,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/UBofJBiBqUJV7vuc6",
     url: "https://youtu.be/levtdfsgdpE?t=107",
     image: "https://i.ytimg.com/vi/levtdfsgdpE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/levtdfsgdpE/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["MC 張天賦", "GooChan", "T-Ma 馬敬恆"],
@@ -5328,6 +5452,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/Us7S3McW7Bxiefhk9",
     url: "https://youtu.be/stCCsTTF8WQ?t=21",
     image: "https://i.ytimg.com/vi/stCCsTTF8WQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/stCCsTTF8WQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["蘇道哲", "李靖筠"],
@@ -5364,6 +5489,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/X17BDjsdQfLVm8MX6",
     url: "https://youtu.be/npiR-J4tVMI?t=17",
     image: "https://i.ytimg.com/vi/npiR-J4tVMI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/npiR-J4tVMI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["MIC 周卓盈"],
@@ -5396,6 +5522,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/UopURpYXy6Khe4G86",
     url: "https://youtu.be/xxoMqGbMKIs?t=60",
     image: "https://i.ytimg.com/vi/xxoMqGbMKIs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xxoMqGbMKIs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["HOPUI 何佩"],
@@ -5445,6 +5572,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/n9YJp3Nv9QrTRL4L7",
     url: "https://youtu.be/_CWnH5K4wsI?t=22",
     image: "https://i.ytimg.com/vi/_CWnH5K4wsI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/_CWnH5K4wsI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Wilma Virintie", "Karrinator", "T-Ma"],
@@ -5517,6 +5645,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/jL4dSa57ndVHXqcp9",
     url: "https://youtu.be/2MoVxJNllVo?t=100",
     image: "https://i.ytimg.com/vi/2MoVxJNllVo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/2MoVxJNllVo/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
@@ -5571,6 +5700,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/KK4CUQm8bm8NMfBZ8",
     url: "https://youtu.be/vCeWfXOKWOI?t=274",
     image: "https://i.ytimg.com/vi/vCeWfXOKWOI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/vCeWfXOKWOI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["KW朱敏希"],
@@ -5619,6 +5749,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/JUnvYNitQaGdPjvC7",
     url: "https://youtu.be/Z0dD_M-WEOs?t=10",
     image: "https://i.ytimg.com/vi/Z0dD_M-WEOs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Z0dD_M-WEOs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Sinnie Ng"],
@@ -5669,6 +5800,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/kzuXFeXuMB9yweWTA",
     url: "https://youtu.be/1S_EQxhiONw?t=206",
     image: "https://i.ytimg.com/vi/1S_EQxhiONw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/1S_EQxhiONw/sddefault.jpg",
     contributors: {
       song: {
         composer: ["Kan Lo", "Rinka"],
@@ -5703,6 +5835,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/9vibfCoF6xvvMZdo8",
     url: "https://youtu.be/TUzhLfgLD1M?t=119",
     image: "https://i.ytimg.com/vi/TUzhLfgLD1M/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/TUzhLfgLD1M/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["蘇道哲", "李靖筠 Gladys Li"],
@@ -5751,6 +5884,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/EFfDLFhAgy53NFEf8",
     url: "https://youtu.be/nmg295E7YfQ?t=107",
     image: "https://i.ytimg.com/vi/nmg295E7YfQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/nmg295E7YfQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: [
@@ -5800,6 +5934,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/QLxKJbtzzM8C7SWe9",
     url: "https://youtu.be/Pib__wYIpww?t=124",
     image: "https://i.ytimg.com/vi/Pib__wYIpww/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Pib__wYIpww/maxresdefault.jpg",
     contributors: {
       song: {
         backingVocals: ["Gladys Li", "Valc", "Chris"],
@@ -5844,6 +5979,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/pBspjsboSRp1Ch976",
     url: "https://youtu.be/xauyCYV-jzY?t=133",
     image: "https://i.ytimg.com/vi/xauyCYV-jzY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xauyCYV-jzY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Jared Evan", "JACE"],
@@ -5898,6 +6034,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/1xmSBjn1887Sn4596",
     url: "https://youtu.be/HoXat0lZKxw?t=60",
     image: "https://i.ytimg.com/vi/HoXat0lZKxw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/HoXat0lZKxw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Lushroom", "Jasmine Kelly", "Kiri T", "JACE 陳凱詠"],
@@ -5946,6 +6083,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/F1BUnbm9xJGg23VN7",
     url: "https://youtu.be/DiNixx5drOI?t=15",
     image: "https://i.ytimg.com/vi/DiNixx5drOI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/DiNixx5drOI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Cy Leo 何卓彥"],
@@ -5985,6 +6123,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/peuyzxf645f4bmwo6",
     url: "https://youtu.be/oELReZoJ6es?t=414",
     image: "https://i.ytimg.com/vi/oELReZoJ6es/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oELReZoJ6es/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["KW朱敏希"],
@@ -6033,6 +6172,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/vDCdHjvHiNvFWKxN8",
     url: "https://youtu.be/6PvvDvs611Q?t=100",
     image: "https://i.ytimg.com/vi/6PvvDvs611Q/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6PvvDvs611Q/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["吳林峰"],
@@ -6089,6 +6229,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/Soho+Corner/@22.2823981,114.1523301,3a,75y,76.18h,76.05t/data=!3m7!1e1!3m5!1sivBCw7hfXtykxpxIIgRZDA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D13.94533764092887%26panoid%3DivBCw7hfXtykxpxIIgRZDA%26yaw%3D76.18336602604404!7i16384!8i8192!4m6!3m5!1s0x3404007ba1c6bab5:0xf07c3974d8c252e1!8m2!3d22.2823924!4d114.1524921!16s%2Fg%2F1tgjhx6l?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/HwlYipX78Qo?t=154",
     image: "https://i.ytimg.com/vi/HwlYipX78Qo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/HwlYipX78Qo/maxresdefault.jpg",
   },
   {
     coordinates: [22.2281296, 114.2562488],
@@ -6098,6 +6239,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/EMNbmQjQdsf79ZFv8",
     url: "https://youtu.be/qu_FSptjRic?t=129",
     image: "https://i.ytimg.com/vi/qu_FSptjRic/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qu_FSptjRic/maxresdefault.jpg",
   },
   {
     coordinates: [22.2824124, 114.1540831],
@@ -6107,6 +6249,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/JPwkyv9jsGbcEkKQA",
     url: "https://youtu.be/xS3OzlOK-LY?t=189",
     image: "https://i.ytimg.com/vi/xS3OzlOK-LY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xS3OzlOK-LY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["AKIKO", "MXNT"],
@@ -6179,6 +6322,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/wLCWRmAD2t54EwCJ7",
     url: "https://youtu.be/hBFihlLf610?t=57",
     image: "https://i.ytimg.com/vi/hBFihlLf610/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/hBFihlLf610/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["EQ Zhu", "noin"],
@@ -6233,6 +6377,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "失眠時我會呆望窗外等待你的來電 (Missing calls on sleepless nights)",
     url: "https://youtu.be/SCDCDKCotng?t=143",
     image: "https://i.ytimg.com/vi/SCDCDKCotng/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/SCDCDKCotng/maxresdefault.jpg",
     coordinates: [22.3676852, 114.0765446],
     address: "Lido Beach, Hong Kong",
     streetView: "https://maps.app.goo.gl/3g3Kvw6TJ9WqdaTh9",
@@ -6307,6 +6452,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "逐個字講好想你",
     url: "https://youtu.be/xocbs95nhhc?t=75",
     image: "https://i.ytimg.com/vi/xocbs95nhhc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/xocbs95nhhc/maxresdefault.jpg",
     contributors: {
       song: {
         arranger: ["Cozy Syndrome"],
@@ -6350,6 +6496,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/8nb4hay27cFerh8t8",
     url: "https://youtu.be/bMsHolN4O5I?t=5",
     image: "https://i.ytimg.com/vi/bMsHolN4O5I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/bMsHolN4O5I/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["TIAB"],
@@ -6391,6 +6538,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/hj49FcE44tLejWGL9",
     url: "https://youtu.be/b5GReCFQMQE?t=116",
     image: "https://i.ytimg.com/vi/b5GReCFQMQE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/b5GReCFQMQE/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["謝子晴"],
@@ -6440,6 +6588,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一手造成 (It's me)",
     url: "https://youtu.be/y7XvrRhTKSQ?t=35",
     image: "https://i.ytimg.com/vi/y7XvrRhTKSQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/y7XvrRhTKSQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["徐浩"],
@@ -6493,6 +6642,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "i hate u owe me $$$ - en",
     url: "https://youtu.be/4hRZudEMff8?t=13",
     image: "https://i.ytimg.com/vi/4hRZudEMff8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T", "Daniel Chu", "Gavin Chan", "moon tang"],
@@ -6523,6 +6673,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "記憶棉 Pillow Talk",
     url: "https://www.youtube.com/watch?v=YZPFbnk_RS0",
     image: "https://i.ytimg.com/vi/YZPFbnk_RS0/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/YZPFbnk_RS0/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["徐浩"],
@@ -6558,6 +6709,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "《四月物語》April Whispers",
     url: "https://www.youtube.com/watch?v=325j6LVzpYI",
     image: "https://i.ytimg.com/vi/325j6LVzpYI/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/325j6LVzpYI/maxresdefault.jpg",
   },
   {
     coordinates: [22.285186191915162, 114.14823550450804],
@@ -6570,6 +6722,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'06.7%22N+114%C2%B008'53.7%22E/@22.2851263,114.1482969,3a,75y,311.6h,75.07t/data=!3m7!1e1!3m5!1su31CYnduqRoYhPYEkj2pKQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D14.932997962100217%26panoid%3Du31CYnduqRoYhPYEkj2pKQ%26yaw%3D311.59964401687176!7i16384!8i8192!4m4!3m3!8m2!3d22.2851862!4d114.1482355?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/7FPL4DRizgk/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/7FPL4DRizgk/maxresdefault.jpg",
   },
   {
     coordinates: [22.334387844185283, 114.12895972674531],
@@ -6578,6 +6731,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "意外現場 METANOIA",
     url: "https://www.youtube.com/watch?v=YZTdYEJvVBU",
     image: "https://i.ytimg.com/vi/YZTdYEJvVBU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/YZTdYEJvVBU/hqdefault.jpg",
   },
   {
     coordinates: [22.29904788270136, 114.15558672262901],
@@ -6586,6 +6740,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "《深夜告別練習》",
     url: "https://www.youtube.com/watch?v=dVgmEuwMPxo",
     image: "https://i.ytimg.com/vi/dVgmEuwMPxo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         production: ["LIVE MOMENT CREATIONS"],
@@ -6615,6 +6770,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/lsfn8FpYDQ8?t=44",
     streetView: "https://maps.app.goo.gl/L5UvF54Lm8Ka6exZ6",
     image: "https://i.ytimg.com/vi/lsfn8FpYDQ8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/lsfn8FpYDQ8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["蘇珮卿 Paige Su"],
@@ -6634,6 +6790,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "AMERICANO",
     url: "https://youtu.be/hdNwlTajyLk?t=24",
     image: "https://i.ytimg.com/vi/hdNwlTajyLk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/hdNwlTajyLk/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/KpGQELuDhGqFC92i9",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757945668841!6m8!1m7!1sQqJIsILHwr1DvIIARt35gA!2m2!1d35.68989545592974!2d139.7043326717666!3f187.4819852629021!4f-10.792572349094897!5f0.7820865974627469",
@@ -6667,6 +6824,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757542205669!6m8!1m7!1sLsFtPBbaZRkLTais6!2m2!1d22.29904788270136!2d114.15558672262901!3f180.0!4f-1.480000000000004!5f1.8040437927425104",
     url: "https://youtu.be/2J_0nahRxBk?t=218",
     image: "https://i.ytimg.com/vi/2J_0nahRxBk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/2J_0nahRxBk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮穎琪"],
@@ -6704,6 +6862,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757542195340!6m8!1m7!1sA2uQOXNvRAKc59-ci_1Tzw!2m2!1d22.40852222990237!2d114.2204960873621!3f310.7!4f-1.480000000000004!5f1.8040437927425104",
     streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
     image: "https://i.ytimg.com/vi/4ZRo4BrJdU4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/4ZRo4BrJdU4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Mike Orange"],
@@ -6783,6 +6942,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "世一 The One For U",
     url: "https://youtu.be/ESmaELNy8GE?t=181",
     image: "https://i.ytimg.com/vi/ESmaELNy8GE/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/ESmaELNy8GE/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙", "陳考威", "JNYBeatz"],
@@ -6826,6 +6986,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "房屋供應問題",
     url: "https://www.youtube.com/watch?v=O96-8g_6NII",
     image: "https://i.ytimg.com/vi/O96-8g_6NII/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/O96-8g_6NII/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["moon tang", "Enoch Cheng", "Nicholas Cheung"],
@@ -6878,7 +7039,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [-8.65321318543236, 115.13240595625565],
     artists: ["moon tang"],
     address: "Bottega Italiana",
-    name: "一口一 zh",
+    name: "一口一 (zh)",
     contributors: {
       song: {
         producer: ["Daniel Toh"],
@@ -6904,6 +7065,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=tWPQSKm5WyQ",
     image: "https://i.ytimg.com/vi/tWPQSKm5WyQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/tWPQSKm5WyQ/maxresdefault.jpg",
   },
   {
     coordinates: [22.480945015645847, 114.15602924346081],
@@ -6916,6 +7078,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/22%C2%B028'51.3%22N+114%C2%B009'21.7%22E/@22.481028,114.1560802,3a,28.6y,310.18h,91.34t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDmh_-gkwE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HZ2XLcqKzEMGYqKBzis-T2veI6s-SxJsnI9tuN-0rD-OL862eRkh3Bth49G08kFHIFv0013vFdgs6uwGRYsDEil5yVFEXsVw8TaLo6FYbXKQubLQLA7QzUBrlA26ESQq1-37uc6%3Dw900-h600-k-no-pi-1.3402438159201182-ya252.3987914797783-ro0-fo100!7i5760!8i2880!4m4!3m3!8m2!3d22.4809167!4d114.1560278?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/aqDDCiZoJIY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/aqDDCiZoJIY/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["moon tang", "Nic Tsui"],
@@ -6963,6 +7126,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542275527!6m8!1m7!1s-i8wnvyBBU0VwuItG00iVQ!2m2!1d22.28615736618844!2d114.1407241720116!3f102.58!4f-11.950000000000003!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/bM-3drXQ4TI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/bM-3drXQ4TI/maxresdefault.jpg",
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'10.2%22N+114%C2%B008'27.0%22E/@22.2861574,114.1407242,3a,75y,102.58h,78.05t/data=!3m7!1e1!3m5!1s-i8wnvyBBU0VwuItG00iVQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D11.949899332072064%26panoid%3D-i8wnvyBBU0VwuItG00iVQ%26yaw%3D102.575493856485!7i16384!8i8192!4m4!3m3!8m2!3d22.2861561!4d114.1408185?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
   },
@@ -6973,6 +7137,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "有你聽我的故事 (All Ears)",
     url: "https://youtu.be/mw8bM7IPJto?t=6",
     image: "https://i.ytimg.com/vi/mw8bM7IPJto/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/mw8bM7IPJto/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/5gxPsB3tnkSumw966",
     contributors: {
       song: {
@@ -7027,6 +7192,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "晴天預報",
     url: "https://youtu.be/FhYiPyrgRyM?t=88",
     image: "https://i.ytimg.com/vi/FhYiPyrgRyM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/FhYiPyrgRyM/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/VMZDvr5k2z9SPaj18",
     contributors: {
       song: {
@@ -7070,6 +7236,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "未firm",
     url: "https://youtu.be/BhrVHMDiw4I?t=20",
     image: "https://i.ytimg.com/vi/BhrVHMDiw4I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/BhrVHMDiw4I/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/SuHHFMq5Br7x86j97",
     contributors: {
       song: {
@@ -7098,6 +7265,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "block了",
     url: "https://youtu.be/zYbLJPX7-Yg?t=136",
     image: "https://i.ytimg.com/vi/zYbLJPX7-Yg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/zYbLJPX7-Yg/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/2jaBRuCXAqggQBJNA",
     contributors: {
       song: {
@@ -7144,6 +7312,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "感情還原鍵 (Deja Vu)",
     url: "https://youtu.be/E7R2d0IAB_w?t=62",
     image: "https://i.ytimg.com/vi/E7R2d0IAB_w/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/E7R2d0IAB_w/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/k1w7NUfFMPkvhEyF8",
     contributors: {
       song: {
@@ -7185,6 +7354,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一人之境 (Solitude)",
     url: "https://youtu.be/qWhavDVsMRc",
     image: "https://i.ytimg.com/vi/qWhavDVsMRc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qWhavDVsMRc/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/3r53hLLojKPu7Tir5",
     contributors: {
       song: {
@@ -7214,6 +7384,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "imma go boom",
     url: "https://youtu.be/ugRhb4Qh6GU?t=164",
     image: "https://i.ytimg.com/vi/ugRhb4Qh6GU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/ugRhb4Qh6GU/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/zFkEhVendy9rkL9Q9",
     contributors: {
       song: {
@@ -7286,6 +7457,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "陀飛輪",
     url: "https://www.youtube.com/watch?v=URUIcYDq3_I",
     image: "https://i.ytimg.com/vi/URUIcYDq3_I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/URUIcYDq3_I/hqdefault.jpg",
   },
   {
     coordinates: [31.196595182957555, 121.32137371588486],
@@ -7294,6 +7466,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "一律建議分手 (stop calling!!)",
     url: "https://youtu.be/WHDM3Swv4Jg?t=204",
     image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/WHDM3Swv4Jg/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "Eason YH Chan", "Ernest Choi"],
@@ -7376,6 +7549,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/8v8xduCgmm88pPM28",
     url: "https://youtu.be/N9uGbXNOMEM?t=11",
     image: "https://i.ytimg.com/vi/N9uGbXNOMEM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/N9uGbXNOMEM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Sy8"],
@@ -7400,6 +7574,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Atami, Shizuoka, Japan",
     streetView: "https://maps.app.goo.gl/VkfUpjhvgUFcbeJP8",
     image: "https://i.ytimg.com/vi/noe6uXY-KiY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/noe6uXY-KiY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["CONSTANCE 康堤", "Eason YH Chan"],
@@ -7448,6 +7623,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/22%C2%B016'06.4%22N+114%C2%B011'12.7%22E/@22.268567,114.1868155,3a,75y,147.02h,82.82t/data=!3m7!1e1!3m5!1ss1bn_R27bLHP8vrV5M0sPw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.1787387254073565%26panoid%3Ds1bn_R27bLHP8vrV5M0sPw%26yaw%3D147.02454317766063!7i16384!8i8192!4m4!3m3!8m2!3d22.2684441!4d114.1868635?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=SHFZkBPub5c",
     image: "https://i.ytimg.com/vi/SHFZkBPub5c/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/SHFZkBPub5c/maxresdefault.jpg",
   },
   {
     coordinates: [22.3219462, 114.1907626],
@@ -7457,6 +7633,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ennsBcXmVg6AfJRG7",
     url: "https://youtu.be/rEl7UUuFjvU?t=210",
     image: "https://i.ytimg.com/vi/rEl7UUuFjvU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/rEl7UUuFjvU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["馮允謙"],
@@ -7505,6 +7682,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "回憶半分鐘 Memento",
     url: "https://www.youtube.com/watch?v=oSeRj1sW3To",
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/oSeRj1sW3To/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
@@ -7543,6 +7721,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "some days (en)",
     url: "https://youtu.be/qTay36oNgIs?t=90",
     image: "https://i.ytimg.com/vi/qTay36oNgIs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qTay36oNgIs/maxresdefault.jpg",
     contributors: {
       song: {
         producer: ["PhD"],
@@ -7587,6 +7766,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "相信一切是最好的安排 In Good Hands",
     url: "https://www.youtube.com/watch?v=RJFcyoDhzKU",
     image: "https://i.ytimg.com/vi/RJFcyoDhzKU/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/RJFcyoDhzKU/maxresdefault.jpg",
   },
   {
     coordinates: [35.7613202, 139.7952697],
@@ -7596,6 +7776,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/-qaHO6iEui4?t=183",
     streetView: "https://maps.app.goo.gl/fBCdDByFcqGi2pGy8",
     image: "https://i.ytimg.com/vi/-qaHO6iEui4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/-qaHO6iEui4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳蕾"],
@@ -7630,6 +7811,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "抽 Inhale",
     url: "https://www.youtube.com/watch?v=JmjKVtw6BrQ",
     image: "https://i.ytimg.com/vi/JmjKVtw6BrQ/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/JmjKVtw6BrQ/maxresdefault.jpg",
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6379.986363075926!2d121.47850717715063!3d25.086840777782257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDA1JzEyLjYiTiAxMjHCsDI4JzUxLjkiRQ!5e1!3m2!1sen!2shk!4v1757779896993!5m2!1sen!2shk",
   },
@@ -7642,6 +7824,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3170.096160411515!2d139.776151103393!3d35.71433559935765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzXCsDQyJzUxLjEiTiAxMznCsDQ2JzM5LjIiRQ!5e1!3m2!1sen!2shk!4v1757779751283!5m2!1sen!2shk",
     url: "https://www.youtube.com/watch?v=Rp4iHpTvBY8",
     image: "https://i.ytimg.com/vi/Rp4iHpTvBY8/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/Rp4iHpTvBY8/maxresdefault.jpg",
   },
   {
     coordinates: [22.27703996311955, 114.16131794662428],
@@ -7650,6 +7833,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "無奈那天",
     url: "https://www.youtube.com/watch?v=_zomc3Nz_-s",
     image: "https://i.ytimg.com/vi/_zomc3Nz_-s/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/_zomc3Nz_-s/maxresdefault.jpg",
   },
   {
     coordinates: [22.3584504, 113.9520403],
@@ -7659,6 +7843,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "哀傷和愛上算不算同音字 Is love enough",
     url: "https://www.youtube.com/watch?v=8Pvj_lEapJ4",
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["雷深如 J.Arie"],
@@ -7695,6 +7880,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "I'm Marf-elous",
     url: "https://www.youtube.com/watch?v=oAgXQwQtoHE",
     image: "https://i.ytimg.com/vi/oAgXQwQtoHE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oAgXQwQtoHE/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/bTU8fGwtiBmMJdNh8",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763074901615!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3hnOEREdlFF!2m2!1d22.37467975749352!2d114.2854848066381!3f284.30202923111244!4f-41.89311802971748!5f1.673426761858031",
@@ -7755,6 +7941,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "霓虹黯色 - 《傾城》選曲 (cover)",
     url: "https://www.youtube.com/watch?v=jQHM-dB4NXg",
     image: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/maxresdefault.jpg",
   },
   {
     coordinates: [22.294059012706807, 114.16848164217643],
@@ -7763,6 +7950,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "關我蛋治 Eggnorant Sandwich",
     url: "https://youtu.be/Lc1McFzS-CM?t=59",
     image: "https://i.ytimg.com/vi/Lc1McFzS-CM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Lc1McFzS-CM/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/CchydecM4kLvKXyD9",
     contributors: {
       song: {
@@ -7820,6 +8008,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "歧義種子 Dear Kiwi",
     url: "https://youtu.be/8DQHxh20EZ8?t=81",
     image: "https://i.ytimg.com/vi/8DQHxh20EZ8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8DQHxh20EZ8/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T", "Daniel Toh"],
@@ -7853,6 +8042,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Let go",
     url: "https://youtu.be/CbpX1RgSOl8?t=143",
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
   {
     coordinates: [22.2868346, 114.1912803],
@@ -7862,6 +8052,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "華富一號 (電影《再見UFO》主題曲)",
     url: "https://youtu.be/gssoEXJdjTo?t=73",
     image: "https://i.ytimg.com/vi/gssoEXJdjTo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/gssoEXJdjTo/maxresdefault.jpg",
     contributors: {
       song: {
         leadVocal: ["黃淑蔓"],
@@ -7886,6 +8077,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "迷途時發吽哣 (Space Out)",
     url: "https://youtu.be/jgrOIm2QRCQ?t=211",
     image: "https://i.ytimg.com/vi/jgrOIm2QRCQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/jgrOIm2QRCQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["張子晴"],
@@ -7921,6 +8113,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "遠在眼前 (Not Too Far Away)",
     url: "https://youtu.be/_K4QAcB1mtE?t=31",
     image: "https://i.ytimg.com/vi/_K4QAcB1mtE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/_K4QAcB1mtE/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["唐善行", "馮允謙"],
@@ -7950,6 +8143,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "真的不是故意的 (Not My Intention)",
     url: "https://youtu.be/VjZODcFM_MY?t=162",
     image: "https://i.ytimg.com/vi/VjZODcFM_MY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/VjZODcFM_MY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["周錫漢"],
@@ -7979,6 +8173,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "不設底線 (Beyond The Bottom Line)",
     url: "https://youtu.be/zneQ_CLNGzU?t=110",
     image: "https://i.ytimg.com/vi/zneQ_CLNGzU/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/zneQ_CLNGzU/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳可為", "張蔓姿", "林寶"],
@@ -8026,6 +8221,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "淚光萬歲",
     url: "https://youtu.be/TuSvk6etlFQ?t=90",
     image: "https://i.ytimg.com/vi/TuSvk6etlFQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/TuSvk6etlFQ/maxresdefault.jpg",
     contributors: {
       song: {
         drumsPianoAndAcousticGuitarBy: ["徐浩"],
@@ -8067,6 +8263,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "喵！(MEOW!)",
     url: "https://youtu.be/WJxQ9Xh19DI?t=87",
     image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/WJxQ9Xh19DI/sddefault.jpg",
     contributors: {
       song: {
         allKeysSynthsAndProgrammingsBy: ["SiuTung"],
@@ -8103,6 +8300,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "專注力失調 (Can't Stay Still)",
     url: "https://youtu.be/DrS8lCer9jA?list=RDDrS8lCer9jA&t=19",
     image: "https://i.ytimg.com/vi/DrS8lCer9jA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/DrS8lCer9jA/maxresdefault.jpg",
     contributors: {
       song: {
         keys: ["SiuTung"],
@@ -8151,6 +8349,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1768339172402!6m8!1m7!1sbi-y-WkokSxrvvE1iYzogA!2m2!1d22.29192239137678!2d113.9284531686982!3f202.09041638027722!4f-3.7553969587656297!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/uy25Ak-xdtY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/uy25Ak-xdtY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Whizz"],
@@ -8192,6 +8391,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "傷心的時候別説話 Beyond Words",
     url: "https://www.youtube.com/watch?v=CjGGpzZN2P0",
     image: "https://i.ytimg.com/vi/CjGGpzZN2P0/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/CjGGpzZN2P0/maxresdefault.jpg",
     contributors: {
       song: {
         vocalProduction: ["Gareth Chan", "Jeffero Chan"],
@@ -8223,6 +8423,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/FB5-rPa5wBA?t=178",
     streetView: "https://maps.app.goo.gl/cf37Bun3gToy9wj56",
     image: "https://i.ytimg.com/vi/FB5-rPa5wBA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/FB5-rPa5wBA/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["湯令山 Gareth T"],
@@ -8264,6 +8465,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/@22.246055,114.176123,2a,58.4y,339.13h,96.91t/data=!3m7!1e1!3m5!1syhcc5BbMGRkAAAQvvewcSw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-6.910184776316683%26panoid%3Dyhcc5BbMGRkAAAQvvewcSw%26yaw%3D339.1276907332437!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/SmlOWWRJZcc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/SmlOWWRJZcc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["moon tang", "Nic Tsui"],
@@ -8308,6 +8510,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/41AdjEHgi4g?t=212",
     streetView: "https://maps.app.goo.gl/rQw416fdirectorOfPhotographysMM8Fs7",
     image: "https://i.ytimg.com/vi/41AdjEHgi4g/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/41AdjEHgi4g/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["林家謙"],
@@ -8337,6 +8540,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757701090785!6m8!1m7!1sj91aCo_7LA4XNgSjz2vfuw!2m2!1d22.32295739006709!2d114.1225594944134!3f191.45458453553783!4f7.2596490290598155!5f0.4000000000000002",
     image: "https://i.ytimg.com/vi/Wmprpb7aF34/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Wmprpb7aF34/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["康聰"],
@@ -8370,6 +8574,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/i1ijH0bwLBg?t=120",
     streetView: "https://maps.app.goo.gl/2TQXCnz6o8Sm7nbR7",
     image: "https://i.ytimg.com/vi/i1ijH0bwLBg/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/i1ijH0bwLBg/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         producer: ["This is my Production House", "入屋叫人"],
@@ -8400,6 +8605,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "中暑傷風加失戀x2 Arctic Summer",
     url: "https://youtu.be/NL0bqEs9Izs?t=8",
     image: "https://i.ytimg.com/vi/NL0bqEs9Izs/hq720.jpg",
+    highResImage: "https://i.ytimg.com/vi/NL0bqEs9Izs/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T"],
@@ -8426,6 +8632,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "至少做一件離譜的事 You Gotta Screw Up At Least Once",
     url: "https://youtu.be/RPoNXvSFHE4?t=205",
     image: "https://i.ytimg.com/vi/RPoNXvSFHE4/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/RPoNXvSFHE4/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["J. Arie", "Kiri T", "Gavin Chan"],
@@ -8449,6 +8656,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "別畏高 (Acrophobia)",
     url: "https://www.youtube.com/watch?v=JTsi1Bc8zuk",
     image: "https://i.ytimg.com/vi/JTsi1Bc8zuk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/JTsi1Bc8zuk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Cloud", "Andrea Hosking", "T-Ma 馬敬恆"],
@@ -8486,6 +8694,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Never-never Land",
     url: "https://youtu.be/0dZ3tx2se-o?t=25",
     image: "https://i.ytimg.com/vi/0dZ3tx2se-o/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/0dZ3tx2se-o/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["徐繼宗"],
@@ -8531,6 +8740,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/fU3zsnKszPE?t=69",
     streetView: "https://maps.app.goo.gl/a8fmW8LCrauQvY8v8",
     image: "https://i.ytimg.com/vi/fU3zsnKszPE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/fU3zsnKszPE/sddefault.jpg",
     contributors: {
       song: {
         composer: ["張蔓姿"],
@@ -8570,6 +8780,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757599853488!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ0VwcnlsUkE.!2m2!1d22.27748886972953!2d114.1220578000749!3f57.18942202533517!4f2.9925477937404423!5f1.4923418075005124",
     url: "https://youtu.be/Jdqd4fyXFgQ?t=65",
     image: "https://i.ytimg.com/vi/Jdqd4fyXFgQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Jdqd4fyXFgQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Jaydos", "郁采真Volcano", "Zoe衛柔伊"],
@@ -8641,6 +8852,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/KXyg1tPcAScXhgxg6",
     url: "https://youtu.be/6EYx-cPUpxk?t=22",
     image: "https://i.ytimg.com/vi/6EYx-cPUpxk/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6EYx-cPUpxk/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Bryan Tse", "Neena Fjelddahl"],
@@ -8719,6 +8931,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "冬天一個遊",
     url: "https://youtu.be/oVpmZoj9mOM?t=37",
     image: "https://i.ytimg.com/vi/oVpmZoj9mOM/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oVpmZoj9mOM/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],
@@ -8760,6 +8973,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/3ey1TasCZFUjqBJu8",
     url: "https://youtu.be/k2W2RGDOtaw?t=38",
     image: "https://i.ytimg.com/vi/k2W2RGDOtaw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/k2W2RGDOtaw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Jay Fung"],
@@ -8795,6 +9009,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757864078102!6m8!1m7!1sSoT-rCzmPPxup9jwdmEuHw!2m2!1d25.03890020414165!2d121.496028361376!3f146.804793862258!4f-7.874700136711837!5f0.7820865974627469",
     url: "https://youtu.be/qw4T2OWrqEc?t=114",
     image: "https://i.ytimg.com/vi/qw4T2OWrqEc/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qw4T2OWrqEc/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Kiri T", "Gavin Chan"],
@@ -8821,6 +9036,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "28:18",
     url: "https://youtu.be/8c_pF5w1-9c?t=83",
     image: "https://i.ytimg.com/vi/8c_pF5w1-9c/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/8c_pF5w1-9c/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Jaime Cheung", "Agwi", "Suyo"],
@@ -8851,6 +9067,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757845897701!6m8!1m7!1s7hZ2lKgHq_UjqeFCAS7-Pg!2m2!1d22.28501886188788!2d114.1488047660514!3f126.9892122468262!4f-6.604822390976906!5f0.4000000000000002",
     url: "https://youtu.be/4G8SDPTK_lY?t=16",
     image: "https://i.ytimg.com/vi/4G8SDPTK_lY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/4G8SDPTK_lY/sddefault.jpg",
     contributors: {
       song: {
         composer: ["陳可為"],
@@ -8907,6 +9124,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/UbFV63cxUYPeJMKB9",
     url: "https://youtu.be/ws4HFAWDfic?t=23",
     image: "https://i.ytimg.com/vi/ws4HFAWDfic/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/ws4HFAWDfic/maxresdefault.jpg",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757844880571!6m8!1m7!1s1BX9Ns3UUoY01h4fs_AR6A!2m2!1d22.2764367155944!2d114.1713616873968!3f207.05213020091497!4f-4.989539528999245!5f1.6746030714300328",
     contributors: {
@@ -8948,6 +9166,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/KCBGvqrZ9JI?t=12",
     streetView: "https://maps.app.goo.gl/SkkyZLFYSSqo27oD9",
     image: "https://i.ytimg.com/vi/KCBGvqrZ9JI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/KCBGvqrZ9JI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["吳林峰"],
@@ -8982,6 +9201,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "沒有送出的詩 Unsent Poems",
     url: "https://youtu.be/O5eamIMVvNs?t=211",
     image: "https://i.ytimg.com/vi/O5eamIMVvNs/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/O5eamIMVvNs/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/ZfPEBHPdoahRPu2s7",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757867908693!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGUzOHE3aXdF!2m2!1d23.10515750597604!2d120.0365962360383!3f190.48708641391016!4f-16.755404570848185!5f2.509060231851157",
@@ -9023,6 +9243,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "告別式",
     url: "https://youtu.be/oqL5LMAHi2I",
     image: "https://i.ytimg.com/vi/oqL5LMAHi2I/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/oqL5LMAHi2I/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/w5U3VoE6GgSxk94R8",
     contributors: {
       song: {
@@ -9044,6 +9265,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "可以不可以 (Ring or Fling)",
     url: "https://www.youtube.com/watch?v=kG9XL4HVmtI",
     image: "https://i.ytimg.com/vi/kG9XL4HVmtI/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/kG9XL4HVmtI/maxresdefault.jpg",
     contributors: {
       song: {
         composer: [
@@ -9104,6 +9326,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/jekBL5UWGZcqm6Pb9",
     url: "https://youtu.be/kwVF0t4SSIY",
     image: "https://i.ytimg.com/vi/kwVF0t4SSIY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/kwVF0t4SSIY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["dessy 守一"],
@@ -9125,6 +9348,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/j3AL1dfJ8zX7PBGW6",
     url: "https://youtu.be/ASfe0qnNQmQ?t=34",
     image: "https://i.ytimg.com/vi/ASfe0qnNQmQ/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/ASfe0qnNQmQ/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["dessy 守一"],
@@ -9169,6 +9393,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/24UsHXVX5Q6ggd2R7",
     url: "https://youtu.be/Bt5ZOpbMPTE?t=163",
     image: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳健安"],
@@ -9200,6 +9425,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/4iRJmcKMYqLTSAeC8",
     url: "https://youtu.be/o3XR1zIRdrY?t=124",
     image: "https://i.ytimg.com/vi/o3XR1zIRdrY/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/o3XR1zIRdrY/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["雷深如 J.Arie"],
@@ -9224,6 +9450,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/uhpCAQKaMpNsG5jV7",
     url: "https://youtu.be/6K4h8mLPJ3c?t=173",
     image: "https://i.ytimg.com/vi/6K4h8mLPJ3c/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/6K4h8mLPJ3c/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["陳健安 On Chan"],
@@ -9273,6 +9500,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "溝之口 沒有 藤井風 (Just you and me (and Fujii Kaze))",
     url: "https://www.youtube.com/watch?v=InNy_2BZYxE",
     image: "https://i.ytimg.com/vi/InNy_2BZYxE/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/InNy_2BZYxE/maxresdefault.jpg",
     streetView: "",
     contributors: {
       song: {
@@ -9319,6 +9547,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     url: "https://youtu.be/qI-mDxJyRig?t=71",
     address: "Gushikawa Coast, Okinawa, Japan",
     image: "https://i.ytimg.com/vi/qI-mDxJyRig/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/qI-mDxJyRig/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/kZDuMaufKq3jFxVF7",
     contributors: {
       song: {
@@ -9362,6 +9591,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "勁浪漫 超溫馨",
     url: "https://www.youtube.com/watch?v=YPJljJJzKFo",
     image: "https://i.ytimg.com/vi/YPJljJJzKFo/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/YPJljJJzKFo/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         producer: ["五芳影業", "Ng Fong Pictures"],
@@ -9399,6 +9629,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757599994189!6m8!1m7!1sKGF5sWTAlemLcaAu5Q7fBA!2m2!1d22.99760563159948!2d120.212290543388!3f90.12572654514159!4f2.2797984873688506!5f3.325193203789971",
     url: "https://www.youtube.com/watch?v=N_bghNhUpkA",
     image: "https://i.ytimg.com/vi/N_bghNhUpkA/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/N_bghNhUpkA/maxresdefault.jpg",
     contributors: {
       musicVideo: {
         actor: ["Cloud Wan"],
@@ -9436,6 +9667,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/43%C2%B018'15.3%22N+5%C2%B023'39.5%22E/@43.3037165,5.3933466,3a,75y,63.77h,90t/data=!3m7!1e1!3m5!1sJ2WLORH1TUQEjxMioUpznA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DJ2WLORH1TUQEjxMioUpznA%26yaw%3D63.774932406866725!7i13312!8i6656!4m4!3m3!8m2!3d43.3042416!4d5.3943122?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/OqZqJ6yaeOw?t=132",
     image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/mqdefault.jpg",
+    highResImage: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
     contributors: {
       song: {
         composer: ["Gordon Flanders"],

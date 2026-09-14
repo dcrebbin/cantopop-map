@@ -11,6 +11,7 @@
     "dev:https": "NODE_ENV=development HOST=0.0.0.0 tsx scripts/dev-https.ts",
     "dev:host": "vite dev --host 0.0.0.0 --port 3000",
     "font:generate": "bash scripts/generate-font.sh",
+    "images:upgrade": "node scripts/upgrade-youtube-thumbnails.mjs",
     "lint": "eslint . --ext .js,.cjs,.ts,.tsx",
     "start": "node .output/server/index.mjs",
     "doctor": "npx react-doctor@latest"

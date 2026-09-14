@@ -27,10 +27,12 @@ export interface RoleFamily {
   categories: ContributorCategory[];
 }
 
-type ContributorCategory = "song" | "musicVideo";
+export type ContributorCategory = "song" | "musicVideo";
 
 export interface TalentWork {
   id: string;
+  locationId: string;
+  category: ContributorCategory;
   title: string;
   artists: string[];
   roleKey: string;
@@ -204,12 +206,14 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
           if (!existing.works.some((work) => work.id === workId)) {
             existing.works.push({
               id: workId,
+              locationId: location.id,
+              category,
               title: location.name.trim(),
               artists: location.artists,
               roleKey,
               role: humanizeRoleKey(roleKey),
               url: location.url,
-              image: location.image,
+              image: location.highResImage ?? location.image,
             });
           }
 
@@ -233,6 +237,36 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
       roles: [...profile.roles],
       artists: [...profile.artists],
     }));
+}
+
+export function buildAllTalentProfiles(): TalentProfile[] {
+  const profiles = new Map<string, TalentProfile>();
+
+  for (const family of ROLE_FAMILIES) {
+    for (const profile of buildTalentProfiles(family)) {
+      const existing = profiles.get(profile.id);
+      if (!existing) {
+        profiles.set(profile.id, profile);
+        continue;
+      }
+
+      existing.instagram ??= profile.instagram;
+      existing.works = [
+        ...new Map(
+          [...existing.works, ...profile.works].map((work) => [work.id, work]),
+        ).values(),
+      ];
+      existing.roleKeys = [
+        ...new Set([...existing.roleKeys, ...profile.roleKeys]),
+      ];
+      existing.roles = [...new Set([...existing.roles, ...profile.roles])];
+      existing.artists = [
+        ...new Set([...existing.artists, ...profile.artists]),
+      ];
+    }
+  }
+
+  return [...profiles.values()];
 }
 
 export function youtubeEmbedUrl(url: string) {
