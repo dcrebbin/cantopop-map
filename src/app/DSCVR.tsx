@@ -105,6 +105,10 @@ function DscvrSlide({
   const [playing, setPlaying] = useState(false);
   const [playerError, setPlayerError] = useState(false);
   const desiredRef = useRef({ active, muted, paused });
+  const restoreSoundRef = useRef(false);
+  const retriedMutedRef = useRef(false);
+  const [soundBlocked, setSoundBlocked] = useState(false);
+  const effectivelyMuted = muted || soundBlocked;
   const { location } = item;
   const embedUrl = youtubeEmbedUrl(location.url);
   const instagram = location.artists
@@ -118,12 +122,16 @@ function DscvrSlide({
     if (!player) return;
     const desired = desiredRef.current;
     if (!desired.active) {
+      restoreSoundRef.current = false;
       player.mute();
       player.pauseVideo();
       return;
     }
-    if (desired.muted) player.mute();
-    else player.unMute();
+    // Start every selection muted; restore the preference only after playback.
+    restoreSoundRef.current = !desired.muted;
+    retriedMutedRef.current = false;
+    setSoundBlocked(false);
+    player.mute();
     if (desired.paused) player.pauseVideo();
     else player.playVideo();
   }, []);
@@ -138,7 +146,7 @@ function DscvrSlide({
         if (disposed) return;
         // The API owns this iframe so destroy() never removes React-owned nodes.
         const iframe = document.createElement("iframe");
-        iframe.src = `${embedUrl}&autoplay=0&mute=1&controls=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.src = `${embedUrl}&autoplay=0&mute=1&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
         iframe.title = "Cantopop music video";
         iframe.className = "absolute inset-0 h-full w-full";
         iframe.allow = "autoplay; encrypted-media; picture-in-picture";
@@ -158,14 +166,31 @@ function DscvrSlide({
                 target.pauseVideo();
                 return;
               }
-              setPlaying(data === 1 || data === 3);
+              if (desired.paused && (data === 1 || data === 3)) {
+                target.pauseVideo();
+                return;
+              }
+              setPlaying(data === 1);
+              if (data === 1 && restoreSoundRef.current) {
+                restoreSoundRef.current = false;
+                if (!desired.muted) target.unMute();
+              }
               if (data === 0 && desired.active && !desired.paused) {
                 target.seekTo(0, true);
                 target.playVideo();
               }
             },
-            onAutoplayBlocked: () => {
-              if (!disposed) setPlaying(false);
+            onAutoplayBlocked: ({ target }) => {
+              if (disposed) return;
+              setPlaying(false);
+              const desired = desiredRef.current;
+              if (!desired.active || desired.paused) return;
+              restoreSoundRef.current = false;
+              setSoundBlocked(!desired.muted);
+              if (retriedMutedRef.current) return;
+              retriedMutedRef.current = true;
+              target.mute();
+              target.playVideo();
             },
           },
         });
@@ -195,9 +220,14 @@ function DscvrSlide({
   };
 
   const toggleMuted = () => {
-    desiredRef.current = { active, paused, muted: !muted };
-    syncPlayer();
-    onToggleMuted();
+    const nextMuted = !effectivelyMuted;
+    desiredRef.current = { active, paused, muted: nextMuted };
+    restoreSoundRef.current = false;
+    setSoundBlocked(false);
+    // Sound changes made by a click retain the browser's user activation.
+    if (nextMuted) playerRef.current?.mute();
+    else playerRef.current?.unMute();
+    if (nextMuted !== muted) onToggleMuted();
   };
 
   return (
@@ -221,15 +251,7 @@ function DscvrSlide({
             </p>
           )}
           {active && (
-            <button
-              type="button"
-              className="absolute inset-0 z-10"
-              onClick={togglePaused}
-              aria-label={playing ? "Pause video" : "Play video"}
-            />
-          )}
-          {active && (
-            <div className="absolute right-3 bottom-3 z-10 flex gap-2">
+            <div className="absolute right-3 -bottom-12 z-10 flex gap-2">
               <button
                 type="button"
                 onClick={togglePaused}
@@ -246,9 +268,9 @@ function DscvrSlide({
                 type="button"
                 onClick={toggleMuted}
                 className="grid size-10 place-items-center rounded-full bg-black/65 text-white backdrop-blur transition hover:bg-black/85"
-                aria-label={muted ? "Unmute video" : "Mute video"}
+                aria-label={effectivelyMuted ? "Unmute video" : "Mute video"}
               >
-                {muted ? (
+                {effectivelyMuted ? (
                   <SpeakerXMarkIcon className="size-5" />
                 ) : (
                   <SpeakerWaveIcon className="size-5" />
@@ -345,7 +367,7 @@ function DscvrPage() {
 
     itemRefs.current.forEach((element) => element && observer.observe(element));
     return () => observer.disconnect();
-  }, [feed.length]);
+  }, [feed]);
 
   const extendFeed = useCallback(() => {
     const cycle = cycleRef.current;
@@ -365,7 +387,7 @@ function DscvrPage() {
   }, [extendFeed]);
 
   const discoverAppBar = (
-    <div className="fixed top-0 left-0 z-120 w-full pt-5 flex justify-center text-center">
+    <div className="fixed top-0 left-0  z-120 w-full pt-2 flex justify-start text-center">
       <a href="/">
         <h1 className="px-3 pt-3 pb-0 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
           cantopop地圖 DSCVR
