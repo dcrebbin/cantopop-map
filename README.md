@@ -23,3 +23,23 @@ Alternatively, you can submit an issue with the location information or email me
    The script also works with `npm run dev:https` or `bun run dev:https`.
 
 Environment variables `LOCAL_SSL_KEY`, `LOCAL_SSL_CERT`, and `LOCAL_SSL_CA` can override the default `.ssl` paths if you prefer to store certificates elsewhere.
+
+## Updating YouTube view counts
+
+Run the updater without an API key:
+
+```bash
+npm run views:update
+```
+
+The default provider uses the bundled `./modules/yt-dlp` executable to retrieve each video's view count, uploader channel ID, and channel subscriber count in the same request. It uses three throttled workers, checkpoints after every 10 videos, and only rewrites the locations file after every video resolves successfully.
+
+Uploader relationships are generated as `ARTIST_TO_YOUTUBE_CHANNEL_IDS`, with subscriber totals stored once per channel in `YOUTUBE_CHANNEL_SUBSCRIBER_COUNTS`. Artists can have multiple channel IDs because their videos may be published by different channels.
+
+Direct watch-page scraping is also available as a fallback. It retrieves view counts but not channel subscriber counts:
+
+```bash
+npm run views:update -- --provider scrape
+```
+
+Both providers use small sequential batches with delays to reduce the likelihood of YouTube rate limiting. Run either command with `--help` to see tuning and cookie options.

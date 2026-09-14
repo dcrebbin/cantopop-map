@@ -22,6 +22,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.270777182062325, 114.12077501746309],
     name: "六度相隔理論 (Six Degrees of Connection",
     url: "https://youtu.be/AWWpACbvS70?t=79",
+    viewCount: 748324,
     streetView: "https://maps.app.goo.gl/tBiJZ61KKeEBmECR9",
     image: "https://i.ytimg.com/vi/AWWpACbvS70/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/AWWpACbvS70/maxresdefault.jpg",
@@ -116,6 +117,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.45116221944996, 114.06842235468415],
     name: "一次",
     url: "https://youtu.be/Yvu59DMaDwM?t=211",
+    viewCount: 54011,
     image: "https://i.ytimg.com/vi/Yvu59DMaDwM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Yvu59DMaDwM/maxresdefault.jpg",
     contributors: {
@@ -239,6 +241,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "九龍公園游泳池",
     streetView: "https://maps.app.goo.gl/HFTL4ZJR8JGmQezdA",
     url: "https://youtu.be/8kla1Swx5tU",
+    viewCount: 1056593,
     image: "https://i.ytimg.com/vi/8kla1Swx5tU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/8kla1Swx5tU/hqdefault.jpg",
     contributors: {
@@ -262,6 +265,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "踏空氣的人 (A girl steps on air)",
     streetView: "https://maps.app.goo.gl/qxQjhWXKr4o7WBAU7",
     url: "https://youtu.be/xNjkUL8j564?t=75",
+    viewCount: 83779,
     image: "https://i.ytimg.com/vi/xNjkUL8j564/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xNjkUL8j564/maxresdefault.jpg",
     contributors: {
@@ -332,6 +336,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/1qmdtFByZXg3PfdF7",
     address: "Plover Cover Resevoir, Shuen Wan, New Territories, Hong Kong",
     url: "https://youtu.be/eHzUi11kfjg?t=24",
+    viewCount: 370382,
     image: "https://i.ytimg.com/vi/eHzUi11kfjg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/eHzUi11kfjg/sddefault.jpg",
     contributors: {
@@ -371,6 +376,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["moon tang"],
     name: "favourite jeans",
     url: "https://www.youtube.com/watch?v=zv0tFMSynfM",
+    viewCount: 153365,
     image: "https://i.ytimg.com/vi/zv0tFMSynfM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/zv0tFMSynfM/maxresdefault.jpg",
     contributors: {
@@ -412,6 +418,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "放手抓緊一次",
     streetView: "https://maps.app.goo.gl/DDedZXDMZNXgBzbi8",
     url: "https://youtu.be/YlfYLRLOfpM?t=183",
+    viewCount: 3036,
     image: "https://i.ytimg.com/vi/YlfYLRLOfpM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/YlfYLRLOfpM/maxresdefault.jpg",
     contributors: {
@@ -461,6 +468,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "away",
     streetView: "https://maps.app.goo.gl/BLya9D21FLdZAFnX9",
     url: "https://youtu.be/qubn-4UNy_A?t=52",
+    viewCount: 2178,
     image: "https://i.ytimg.com/vi/qubn-4UNy_A/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qubn-4UNy_A/maxresdefault.jpg",
     contributors: {
@@ -494,6 +502,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "提防小手 (Thieves Beware)",
     streetView: "https://maps.app.goo.gl/pj3HEBMpgMZKw3KVA",
     url: "https://youtu.be/mqQ0GzbuPTw?t=22",
+    viewCount: 124760,
     image: "https://i.ytimg.com/vi/mqQ0GzbuPTw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/mqQ0GzbuPTw/maxresdefault.jpg",
     contributors: {
@@ -552,6 +561,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.3354539, 114.1991655],
     name: "我看見今晚的月色很美，你呢？(Tsuki)",
     url: "https://youtu.be/q70X4QvSZ9M?t=25",
+    viewCount: 4241031,
     image: "https://i.ytimg.com/vi/q70X4QvSZ9M/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/q70X4QvSZ9M/maxresdefault.jpg",
     contributors: {
@@ -595,6 +605,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [35.644978, 139.5373097],
     name: "如果花火可不消散 (Hanabi)",
     url: "https://youtu.be/PFJWjZdkRLs?t=46",
+    viewCount: 909496,
     streetView: "https://maps.app.goo.gl/a8gWZXyMvXxUrVE87",
     image: "https://i.ytimg.com/vi/PFJWjZdkRLs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/PFJWjZdkRLs/maxresdefault.jpg",
@@ -635,6 +646,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.3240751, 114.208873],
     name: "寫輪眼",
     url: "https://youtu.be/oITQOtdoEwU?t=98",
+    viewCount: 111531,
     image: "https://i.ytimg.com/vi/oITQOtdoEwU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oITQOtdoEwU/maxresdefault.jpg",
     contributors: {
@@ -671,6 +683,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["COLLAR"],
     name: "SKSKZAZA",
     url: "https://youtu.be/XeK9gvVb-uE?t=37",
+    viewCount: 401696,
     image: "https://i.ytimg.com/vi/XeK9gvVb-uE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/XeK9gvVb-uE/maxresdefault.jpg",
     coordinates: [35.3391565, 138.891134],
@@ -735,6 +748,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "EASY JOE's",
     name: "懷疑人生 In Doubt",
     url: "https://www.youtube.com/watch?v=Lmm6dfPiJDM",
+    viewCount: 7824066,
     image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/Lmm6dfPiJDM/maxresdefault.jpg",
     contributors: {
@@ -778,6 +792,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/WD1gzQSehCD1keZo8",
     name: "Hey Feanna",
     url: "https://youtu.be/rDCt90uJXRg?t=24",
+    viewCount: 280945,
     image: "https://i.ytimg.com/vi/rDCt90uJXRg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/rDCt90uJXRg/maxresdefault.jpg",
     contributors: {
@@ -835,6 +850,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "10 P.za Carlo Alberto, Turin, Italy",
     name: "Tonight",
     url: "https://youtu.be/rofcioTjhPs?t=53",
+    viewCount: 1739143,
     streetView: "https://maps.app.goo.gl/PWrotC3MuvHU428x8",
     image: "https://i.ytimg.com/vi/rofcioTjhPs/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/rofcioTjhPs/maxresdefault.jpg",
@@ -874,6 +890,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Seven Stars Tree, Hokkaido, Japan",
     name: "無期",
     url: "https://youtu.be/sSKPIHcFSL4?t=189",
+    viewCount: 5964199,
     streetView: "https://maps.app.goo.gl/pYkPikppAfZy3bqC7",
     image: "https://i.ytimg.com/vi/sSKPIHcFSL4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/sSKPIHcFSL4/maxresdefault.jpg",
@@ -906,6 +923,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "7-Eleven, Habour Centre, Wan Chai, Hong Kong",
     name: "DRUNK DIAL",
     url: "https://youtu.be/cIU1LL_VmRk?t=218",
+    viewCount: 366790,
     streetView: "https://maps.app.goo.gl/kUNggTsm6aVGEyt1A",
     image: "https://i.ytimg.com/vi/cIU1LL_VmRk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/cIU1LL_VmRk/maxresdefault.jpg",
@@ -998,6 +1016,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Shell, 21 Ma On Shan Promenade, Ma On Shan",
     name: "Gas Station Diner",
     url: "https://youtu.be/Lp68Wc-2Q0g?t=358",
+    viewCount: 749606,
     streetView: "https://maps.app.goo.gl/jdV7iK9iFM6e4BjL7",
     image: "https://i.ytimg.com/vi/Lp68Wc-2Q0g/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Lp68Wc-2Q0g/maxresdefault.jpg",
@@ -1046,6 +1065,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Kaelyn"],
     name: "Up & Down",
     url: "https://youtu.be/Ngefkftz-e4?t=140",
+    viewCount: 72285,
     image: "https://i.ytimg.com/vi/Ngefkftz-e4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Ngefkftz-e4/maxresdefault.jpg",
     coordinates: [22.2759512, 114.1692234],
@@ -1093,6 +1113,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Old Tainan Branch of Kangyo Bank, Tainan, Taiwan",
     name: "陌生之城 (Unfamiliar City)",
     url: "https://youtu.be/IuSh53sZUVM?t=41",
+    viewCount: 671121,
     streetView: "https://maps.app.goo.gl/wQCy4YSfEgnmNqCr8",
     image: "https://i.ytimg.com/vi/IuSh53sZUVM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/IuSh53sZUVM/maxresdefault.jpg",
@@ -1166,6 +1187,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Festival Pier, London",
     name: "你的世界 (Your World) (zh)",
     url: "https://youtu.be/l8qBeJUSyUA?t=20",
+    viewCount: 1735768,
     streetView: "https://maps.app.goo.gl/HMDDHevP8owc6fwq7",
     image: "https://i.ytimg.com/vi/l8qBeJUSyUA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/l8qBeJUSyUA/maxresdefault.jpg",
@@ -1201,6 +1223,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "188 Tai Nan Street, Kowloon, Hong Kong",
     name: "喃嘸師感官漫遊 (Lamoland)",
     url: "https://youtu.be/tzHDm7jyoEY?t=138",
+    viewCount: 3286261,
     streetView: "https://maps.app.goo.gl/TzRFMdQTZh3XtXM66",
     image: "https://i.ytimg.com/vi/tzHDm7jyoEY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/tzHDm7jyoEY/maxresdefault.jpg",
@@ -1256,6 +1279,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Brunch Club, 70 Peel Street, Central, Hong Kong",
     name: "理性與任性之間 (Between Sense and Nonsense)",
     url: "https://youtu.be/xMLuHGu-BPU?t=101",
+    viewCount: 5005936,
     streetView: "https://maps.app.goo.gl/2NDRBrC9qUYjDuVh8",
     image: "https://i.ytimg.com/vi/xMLuHGu-BPU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xMLuHGu-BPU/maxresdefault.jpg",
@@ -1298,6 +1322,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "76 Peel Street, Central, Hong Kong",
     name: "3AM",
     url: "https://youtu.be/BdNKxYgTAFU?t=219",
+    viewCount: 7822770,
     streetView: "https://maps.app.goo.gl/iz97zqS2xuxrehag7",
     image: "https://i.ytimg.com/vi/BdNKxYgTAFU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/BdNKxYgTAFU/maxresdefault.jpg",
@@ -1334,6 +1359,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tang Ancestral Hall, Ha Tsuen",
     name: "老派約會之必要 A Gentleman's Guide to Old Fashioned Dating",
     url: "https://youtu.be/u14rrcxENDw?t=134",
+    viewCount: 32286672,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757527654563!6m8!1m7!1s8kZwr4vIuvgRmy85jUlOKA!2m2!1d22.44731071377599!2d113.9931841031054!3f196.45222955852861!4f-1.1711255918759207!5f1.5204554155564356",
     streetView: "https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18",
@@ -1378,6 +1404,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Mid-Levels, Hong Kong",
     name: "心中有一千個鐘 (I Believe)",
     url: "https://youtu.be/0i7pWG440KM?t=194",
+    viewCount: 61869,
     streetView: "https://maps.app.goo.gl/DfGFqrKaY4mzHy6j7",
     image: "https://i.ytimg.com/vi/0i7pWG440KM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/0i7pWG440KM/maxresdefault.jpg",
@@ -1409,6 +1436,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Haymarket, NSW",
     name: "我可能是迴避型 (Avoidant Attachment?)",
     url: "https://youtu.be/kfQzHcVrQp0?t=87",
+    viewCount: 869639,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763397473976!6m8!1m7!1sX8L5cyaKdid0aZBf-VrbdQ!2m2!1d-33.87977810112389!2d151.2091698100951!3f206.52697520908646!4f-14.681365438264606!5f0.4003191251351087",
     streetView: "https://maps.app.goo.gl/vBdHriK35nAcsvdp9",
@@ -1436,6 +1464,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Crown Street, Surry Hills, NSW",
     name: "safe but sorry (en)",
     url: "https://youtu.be/8fU2Jx04oUA",
+    viewCount: 82942,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763400476194!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzZxZnJxZkE.!2m2!1d-33.84953779197946!2d151.2130477682994!3f64.66300174400925!4f-4.803913439562692!5f0.955600870055432",
     streetView: "https://maps.app.goo.gl/MKD69pWtJF128ATv5",
@@ -1463,6 +1492,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Crown Street, Surry Hills, NSW",
     name: "倒後走不需要什麽理由 (Return Ticket) (zh)",
     url: "https://youtu.be/KaHREKJ5x5I?t=3",
+    viewCount: 45801,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763400266169!6m8!1m7!1sEm0P-3s5s0gKYtuyYLPHmA!2m2!1d-33.88862485202878!2d151.2133590407025!3f337.1995621167845!4f-0.1159312718486234!5f2.0949737198895018",
     streetView: "https://maps.app.goo.gl/8Dw1NbAvPdS6MvSj6",
@@ -1490,6 +1520,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "7-ELEVEN 海安門市, Taiwan",
     name: "沒有咖啡的喫茶店 (Cantonese Version)",
     url: "https://youtu.be/6Ebua_Zug1k?t=65",
+    viewCount: 654344,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763135327506!6m8!1m7!1sOUB1OjXP9rAg16OW9GycxA!2m2!1d23.01469603056407!2d120.2003660726244!3f280.7119411543199!4f-4.4422830164690055!5f1.8128431044599362",
     streetView: "https://maps.app.goo.gl/j1eH3DPkJoMtWTRW7",
@@ -1506,6 +1537,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "42 Ko Shan Rd, Kowloon, Hong Kong",
     name: "開心果",
     url: "https://youtu.be/5n1pA3RSDTw?t=79",
+    viewCount: 801913,
     streetView: "https://maps.app.goo.gl/bokGKeu9iTFXwpR67",
     image: "https://i.ytimg.com/vi/5n1pA3RSDTw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/5n1pA3RSDTw/maxresdefault.jpg",
@@ -1534,6 +1566,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Kwun Tong, Hong Kong",
     name: "外星少女失語症 (Lose My Tongue)",
     url: "https://youtu.be/ZFajGxuLWK8?t=62",
+    viewCount: 298691,
     streetView: "https://maps.app.goo.gl/UNaoJ7CRAVo2Q9Xx8",
     image: "https://i.ytimg.com/vi/ZFajGxuLWK8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ZFajGxuLWK8/maxresdefault.jpg",
@@ -1575,6 +1608,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Harbour City carpark, Tsim Sha Tsui, Hong Kong",
     name: "JET-51CA",
     url: "https://youtu.be/obyHflDX1LY?t=191",
+    viewCount: 128430,
     streetView: "https://maps.app.goo.gl/2hZSj6xH9WqYwsah8",
     image: "https://i.ytimg.com/vi/obyHflDX1LY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/obyHflDX1LY/maxresdefault.jpg",
@@ -1620,6 +1654,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Japan, 〒413-0014 Shizuoka, Atami, Nagisacho, 3-1-1 階角",
     name: "大團圓結局 (Happy Ending))",
     url: "https://youtu.be/8ZFwuUTEwzQ?&t=104",
+    viewCount: 263557,
     streetView: "https://maps.app.goo.gl/ktWrz6YUjkznHvQ58",
     image: "https://i.ytimg.com/vi/8ZFwuUTEwzQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/8ZFwuUTEwzQ/maxresdefault.jpg",
@@ -1650,6 +1685,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "The Stage, Wan Chai, Hong Kong",
     name: "Sor9ly",
     url: "https://youtu.be/WtZWfNkDujs?t=49",
+    viewCount: 253639,
     streetView: "https://maps.app.goo.gl/7VxtcoTmt6Yj128W6",
     image: "https://i.ytimg.com/vi/WtZWfNkDujs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/WtZWfNkDujs/maxresdefault.jpg",
@@ -1709,6 +1745,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Hoi Kee Stationery, Wanchai, Hong Kong",
     name: "給你一隻大口仔 SMILE (Not For Sale) ",
     url: "https://youtu.be/OcK8sMt92DQ?t=25",
+    viewCount: 897018,
     streetView: "https://maps.app.goo.gl/PC4kbcAzLtN5ANf16",
     image: "https://i.ytimg.com/vi/OcK8sMt92DQ/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/OcK8sMt92DQ/maxresdefault.jpg",
@@ -1757,6 +1794,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "1 Morocco Street, London, UK",
     name: "今晚好想好想打俾你",
     url: "https://youtu.be/QTeoNGh2kBE?t=106",
+    viewCount: 95063,
     streetView: "https://maps.app.goo.gl/BowZh16zno2ydENa8",
     image: "https://i.ytimg.com/vi/QTeoNGh2kBE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/QTeoNGh2kBE/sddefault.jpg",
@@ -1779,6 +1817,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "율치과의원, Korea",
     name: "雪愛 Melted",
     url: "https://youtu.be/gnwjoc2e3cI?t=58",
+    viewCount: 514346,
     streetView: "https://maps.app.goo.gl/74xjdk75E88k1LHf8",
     image: "https://i.ytimg.com/vi/gnwjoc2e3cI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/gnwjoc2e3cI/maxresdefault.jpg",
@@ -1812,6 +1851,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tainan, Taiwan",
     name: "Love me down",
     url: "https://youtu.be/AgEkYyeu3Jg?t=115",
+    viewCount: 197409,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757528023299!6m8!1m7!1sva_3cuxUNA0hRnsKcVVgVw!2m2!1d22.98849358840259!2d120.2209808058009!3f321.1557645257022!4f-11.260670884993061!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/qXgnNfKoZHzybtRp6",
@@ -1883,6 +1923,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/%E6%84%9B%E6%98%9F%E5%B1%8B/@22.2005237,113.5450258,3a,17.4y,47.79h,85.52t/data=!3m7!1e1!3m5!1sxjEQ9tdsJi9D7YiFVWRPtA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D4.479524584813959%26panoid%3DxjEQ9tdsJi9D7YiFVWRPtA%26yaw%3D47.79128069709897!7i13312!8i6656!4m6!3m5!1s0x34017bc549f6edef:0x58865e9c1eeff8d3!8m2!3d22.2005169!4d113.5452015!16s%2Fg%2F11y74n1nz0?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=fAc4ZSVYOJU",
+    viewCount: 37232,
     image: "https://i.ytimg.com/vi/fAc4ZSVYOJU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/fAc4ZSVYOJU/maxresdefault.jpg",
     contributors: {
@@ -1919,6 +1960,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Over Over",
     streetView: "https://maps.app.goo.gl/2CAxcypqTt6NVoHC6",
     url: "https://youtu.be/PfMwxbrTxfY?t=47",
+    viewCount: 733679,
     image: "https://i.ytimg.com/vi/PfMwxbrTxfY/default.jpg",
     highResImage: "https://i.ytimg.com/vi/PfMwxbrTxfY/sddefault.jpg",
     contributors: {
@@ -1949,6 +1991,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "The cutest pair (Cantonese Version)",
     streetView: "https://maps.app.goo.gl/6isP2jw8fNMv1DUU9",
     url: "https://youtu.be/556XUWybQYw?t=56",
+    viewCount: 176637,
     image: "https://i.ytimg.com/vi/556XUWybQYw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/556XUWybQYw/maxresdefault.jpg",
   },
@@ -1959,6 +2002,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "和暖的風",
     streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
     url: "https://youtu.be/IJ2IS-BvveM?t=40",
+    viewCount: 666783,
     image: "https://i.ytimg.com/vi/IJ2IS-BvveM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/IJ2IS-BvveM/sddefault.jpg",
     contributors: {
@@ -2000,6 +2044,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "康城的日出",
     streetView: "https://maps.app.goo.gl/eNpBuywsmC3JBSe88",
     url: "https://youtu.be/Wzgvoy0_clc?t=128",
+    viewCount: 294582,
     image: "https://i.ytimg.com/vi/Wzgvoy0_clc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Wzgvoy0_clc/maxresdefault.jpg",
     contributors: {
@@ -2032,6 +2077,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Feels like back in 2018",
     streetView: "https://maps.app.goo.gl/KaDNacH5k7PBRehP8",
     url: "https://youtu.be/_Q7dfkek1zY?t=174",
+    viewCount: 35535,
     image: "https://i.ytimg.com/vi/_Q7dfkek1zY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/_Q7dfkek1zY/maxresdefault.jpg",
     contributors: {
@@ -2052,6 +2098,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "當我們不再說晚安 (No More GN)",
     streetView: "https://maps.app.goo.gl/oYsjgqQbWQ26WzBH7",
     url: "https://youtu.be/FkvpFMQaby4?t=207",
+    viewCount: 856694,
     image: "https://i.ytimg.com/vi/FkvpFMQaby4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/FkvpFMQaby4/maxresdefault.jpg",
     contributors: {
@@ -2073,6 +2120,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "North Roof Garden, M+, Hong Kong",
     name: "SEA OF US REMIX",
     url: "https://www.youtube.com/watch?v=lfwAIduKSbE",
+    viewCount: 11679,
     image: "https://i.ytimg.com/vi/lfwAIduKSbE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/lfwAIduKSbE/maxresdefault.jpg",
     contributors: {
@@ -2106,6 +2154,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/@22.473348,114.024313,3a,57.3y,184.14h,81.96t/data=!3m8!1e1!3m6!1sCIHM0ogKEICAgIDq3LDU3gE!2e10!3e11!6shttps:%2F%2Flh3.googleusercontent.com%2Fgpms-cs-s%2FAB8u6HbpwtC1DNElZZ30HhUjsS7deGl2Ny68igkVQYF3jY-7VNiFntK3khg8fwzqu6Mqvr3QDQ9b6DzbpQm99IrDU6aYWGRdL1s0CqvHRQNzBpWk8cF21BV_5HeI-63NSGfWyTNB0ZBJ%3Dw900-h600-k-no-pi8.043024207959391-ya171.64525490982788-ro0-fo100!7i10000!8i5000?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/MIhQlIlxAbk?t=162",
+    viewCount: 430754,
     image: "https://i.ytimg.com/vi/MIhQlIlxAbk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/MIhQlIlxAbk/maxresdefault.jpg",
     contributors: {
@@ -2143,6 +2192,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534415473!6m8!1m7!1sPM1g-S6Z0G1rhVkE-X750A!2m2!1d22.26584600993253!2d114.2426315636989!3f324.63!4f-1.5499999999999972!5f3.325193203789971",
     streetView: "https://maps.app.goo.gl/FY5WayGRF7jtGEc19",
     url: "https://youtu.be/cM_L276Vhvc?t=20",
+    viewCount: 230718,
     image: "https://i.ytimg.com/vi/cM_L276Vhvc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/cM_L276Vhvc/maxresdefault.jpg",
     contributors: {
@@ -2190,6 +2240,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534462413!6m8!1m7!1stI-TeHb56CO6kkMDI6564Q!2m2!1d25.05582118680902!2d121.5204518689158!3f275.98!4f-9.480000000000004!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/WKDK9JtNDwx5B5m59",
     url: "https://youtu.be/JEOhR2zApI4?t=7",
+    viewCount: 106002,
     image: "https://i.ytimg.com/vi/JEOhR2zApI4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/JEOhR2zApI4/maxresdefault.jpg",
     contributors: {
@@ -2224,6 +2275,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "裂縫 (Fractured)",
     streetView: "https://maps.app.goo.gl/C1Y2oLmQhRdgEC8V7",
     url: "https://youtu.be/rOZH_1N7Gtc?t=14",
+    viewCount: 73846,
     image: "https://i.ytimg.com/vi/rOZH_1N7Gtc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/rOZH_1N7Gtc/maxresdefault.jpg",
     contributors: {
@@ -2271,6 +2323,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1759076669428!6m8!1m7!1swV9m6AdvTxQHM0OmzqiP_w!2m2!1d25.05458393248259!2d121.510104463323!3f302.5990083398775!4f19.850497744896217!5f0.8069977109786659",
     streetView: "https://maps.app.goo.gl/Y7FPJZeJRXd2zTcX6",
     url: "https://youtu.be/KoPPm5nWE5M?t=70",
+    viewCount: 84663,
     image: "https://i.ytimg.com/vi/KoPPm5nWE5M/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/KoPPm5nWE5M/maxresdefault.jpg",
     contributors: {
@@ -2307,6 +2360,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1758820531905!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQzZ0SVMyd3dF!2m2!1d25.20162669924706!2d121.423897316008!3f23.282063485269884!4f4.137314107487029!5f1.8063693686433164",
     streetView: "https://maps.app.goo.gl/DKcQ56VXfiTMvWYj8",
     url: "https://youtu.be/j0tEF_EBSnM?t=161",
+    viewCount: 116168,
     image: "https://i.ytimg.com/vi/j0tEF_EBSnM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/j0tEF_EBSnM/maxresdefault.jpg",
     contributors: {
@@ -2346,6 +2400,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1759080687410!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJRHF2ZlN4Ymc.!2m2!1d22.37526888298805!2d114.1352843805607!3f77.35497718573649!4f-11.625974198308668!5f3.325193203789971",
     streetView: "https://maps.app.goo.gl/4YCRAfR9SFeUYkvh6",
     url: "https://youtu.be/lb3r6RdbWOI?t=81",
+    viewCount: 569349,
     image: "https://i.ytimg.com/vi/lb3r6RdbWOI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/lb3r6RdbWOI/maxresdefault.jpg",
     contributors: {
@@ -2385,6 +2440,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534505994!6m8!1m7!1sq-PaT5SalyLh0cqL77ln1g!2m2!1d22.30980189599026!2d114.1699720629664!3f82.97!4f0.04000000000000625!5f1.8817596243290082",
     streetView: "https://maps.app.goo.gl/Pcfdfp4vxtmVSjYz8",
     url: "https://youtu.be/FNtirnQzweQ?t=94",
+    viewCount: 567149,
     image: "https://i.ytimg.com/vi/FNtirnQzweQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/FNtirnQzweQ/maxresdefault.jpg",
     contributors: {
@@ -2425,6 +2481,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "顏色 (zh)",
     streetView: "https://maps.app.goo.gl/9VSEwD9DTYwcJzKj6",
     url: "https://youtu.be/Rvj-o2fNFWk",
+    viewCount: 4165570,
     image: "https://i.ytimg.com/vi/Rvj-o2fNFWk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Rvj-o2fNFWk/maxresdefault.jpg",
     contributors: {
@@ -2473,6 +2530,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "國際孤獨等級",
     streetView: "https://maps.app.goo.gl/nJHsk2YGQVj8ns4D6",
     url: "https://youtu.be/MbD7TAlBFDc?t=185",
+    viewCount: 10998167,
     image: "https://i.ytimg.com/vi/MbD7TAlBFDc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/MbD7TAlBFDc/maxresdefault.jpg",
     contributors: {
@@ -2506,6 +2564,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "課題分離 (S.O.T)",
     streetView: "https://maps.app.goo.gl/2eHYBFxQK9zHgavC9",
     url: "https://youtu.be/e8GJ-W9ZZW8?t=20",
+    viewCount: 298310,
     image: "https://i.ytimg.com/vi/e8GJ-W9ZZW8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/e8GJ-W9ZZW8/maxresdefault.jpg",
     contributors: {
@@ -2568,6 +2627,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1767868019477!6m8!1m7!1sja13FZQjmUbhjbQwoJsO4Q!2m2!1d22.28200304213089!2d114.1546596897657!3f228.1760433437197!4f-0.13211073034395326!5f1.3873320303285794",
     streetView: "https://maps.app.goo.gl/LyoKjk4reQg9T1jy5",
     url: "https://youtu.be/iCEVCy4yhtg?t=63",
+    viewCount: 46728,
     image: "https://i.ytimg.com/vi/iCEVCy4yhtg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/iCEVCy4yhtg/maxresdefault.jpg",
     contributors: {
@@ -2643,6 +2703,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "please forget about me (en)",
     streetView: "https://maps.app.goo.gl/DFTY5s3Gp3Kh1z569",
     url: "https://youtu.be/T4S9tSDH2U0?t=42",
+    viewCount: 9467,
     image: "https://i.ytimg.com/vi/T4S9tSDH2U0/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/T4S9tSDH2U0/maxresdefault.jpg",
     contributors: {
@@ -2670,6 +2731,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "三尖八角 (misfit)",
     streetView: "https://maps.app.goo.gl/rTwHPkphDQD9pYWa8",
     url: "https://youtu.be/7KoDZkSCTh8?t=1",
+    viewCount: 226038,
     image: "https://i.ytimg.com/vi/7KoDZkSCTh8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/7KoDZkSCTh8/maxresdefault.jpg",
     contributors: {
@@ -2712,6 +2774,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["CONSTANCE 康堤"],
     name: "要還 (something borrowed)",
     url: "https://youtu.be/9INH_yd0Us4?t=58",
+    viewCount: 122344,
     image: "https://i.ytimg.com/vi/9INH_yd0Us4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/9INH_yd0Us4/maxresdefault.jpg",
     contributors: {
@@ -2764,6 +2827,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Fa Yuen Street, Mong Kok, Hong Kong",
     name: "Rrrr",
     url: "https://youtu.be/zuF8Jj7lhxU?t=132",
+    viewCount: 543247,
     streetView: "https://maps.app.goo.gl/Sy2kjZydrBvwUBQA9",
     image: "https://i.ytimg.com/vi/zuF8Jj7lhxU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/zuF8Jj7lhxU/maxresdefault.jpg",
@@ -2830,6 +2894,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763678637134!6m8!1m7!1sU6RwbGPt0o_nLYVIZ7f48w!2m2!1d22.28742973015592!2d114.2111312608453!3f102.8208724571302!4f-3.973948358383737!5f1.2730364586212994",
     streetView: "https://maps.app.goo.gl/rnUN1vu6WP89awyz9",
     url: "https://youtu.be/X9P9kz8ZYDQ?t=160",
+    viewCount: 6714,
     image: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/X9P9kz8ZYDQ/maxresdefault.jpg",
     contributors: {
@@ -2864,6 +2929,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763647167603!6m8!1m7!1sujIWvylCgO1no5eP9utfaA!2m2!1d35.70751784100989!2d139.8201540074747!3f308.9859060517006!4f-19.86282807795868!5f0.4003224593710227",
     streetView: "https://maps.app.goo.gl/uBaicn7tcFQ3E3gD9",
     url: "https://youtu.be/63vmUA5xy18?t=33",
+    viewCount: 245860,
     image: "https://i.ytimg.com/vi/63vmUA5xy18/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/63vmUA5xy18/maxresdefault.jpg",
     contributors: {
@@ -2882,6 +2948,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "深宵便利愛 (24/7 Convenient Love)",
     streetView: "https://maps.app.goo.gl/Un2pauN2m1sYkS8X9",
     url: "https://youtu.be/LaBYdAVD1_o?t=206",
+    viewCount: 215848,
     image: "https://i.ytimg.com/vi/LaBYdAVD1_o/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/LaBYdAVD1_o/maxresdefault.jpg",
     contributors: {
@@ -2944,6 +3011,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "我們只有一往直前 (Keep Going)",
     streetView: "https://maps.app.goo.gl/wF7YmkSxd2fQGAXj8",
     url: "https://youtu.be/9itm9bI_J9I?t=22",
+    viewCount: 791505,
     image: "https://i.ytimg.com/vi/9itm9bI_J9I/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/9itm9bI_J9I/maxresdefault.jpg",
     contributors: {
@@ -2993,6 +3061,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "有你萬事屋 (Magical Sweet Home)",
     streetView: "https://maps.app.goo.gl/9Nnme8Maxmp9SmmA8",
     url: "https://youtu.be/D3LoWaf0Pfk?t=73",
+    viewCount: 242054,
     image: "https://i.ytimg.com/vi/D3LoWaf0Pfk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/D3LoWaf0Pfk/sddefault.jpg",
     contributors: {
@@ -3020,6 +3089,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Helen So 蘇凱倫"],
     name: "魔鬼在身邊",
     url: "https://youtu.be/oqe1X5KGt0Y?t=14",
+    viewCount: 54386,
     image: "https://i.ytimg.com/vi/oqe1X5KGt0Y/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oqe1X5KGt0Y/maxresdefault.jpg",
     coordinates: [22.3891088, 113.919764],
@@ -3063,6 +3133,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Jaime Cheung 張天穎"],
     name: "doot doot",
     url: "https://youtu.be/rNKYDBYEZoM?t=4",
+    viewCount: 195884,
     image: "https://i.ytimg.com/vi/rNKYDBYEZoM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/rNKYDBYEZoM/maxresdefault.jpg",
     contributors: {
@@ -3116,6 +3187,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["ANSONBEAN"],
     name: "終於要唱失戀歌 (T.T) [Prod.SILVERSTRIKE]",
     url: "https://youtu.be/_KBGMzZ9oc8?t=62",
+    viewCount: 22841,
     coordinates: [22.280686, 114.1555306],
     address: "12 Lan Kwai Fong, Hong Kong, Hong Kong Island",
     streetView: "https://maps.app.goo.gl/jAUWjwb7DmpoBTBDA",
@@ -3226,6 +3298,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "mimimomo 🐢🐢",
     streetView: "https://maps.app.goo.gl/ojTELVYBPQUEVe1D6",
     url: "https://youtu.be/0hCZ_6TktlM?t=40",
+    viewCount: 95372,
     image: "https://i.ytimg.com/vi/0hCZ_6TktlM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/0hCZ_6TktlM/maxresdefault.jpg",
     contributors: {
@@ -3250,6 +3323,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "麥田看守員 (vacation ver.)",
     streetView: "https://maps.app.goo.gl/3i9HTh25nzkgyxR76",
     url: "https://youtu.be/IFwn1zP57Vk?t=165",
+    viewCount: 1849,
     image: "https://i.ytimg.com/vi/IFwn1zP57Vk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/IFwn1zP57Vk/maxresdefault.jpg",
     contributors: {
@@ -3274,6 +3348,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "通往另一個世界的出口 (Exit to a whole new world)",
     streetView: "https://j.map.baidu.com/6f/7FMh",
     url: "https://youtu.be/6rfPCq170qA?t=63",
+    viewCount: 331148,
     image: "https://i.ytimg.com/vi/6rfPCq170qA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6rfPCq170qA/maxresdefault.jpg",
     contributors: {
@@ -3323,6 +3398,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1763410973709!6m8!1m7!1sUowYCUI-RtUvjSzGd8rFUA!2m2!1d22.3297908760577!2d114.1887729413141!3f272.51011162542096!4f-16.139074013420853!5f1.1380275293459583",
     streetView: "https://maps.app.goo.gl/6NjXhEUZ9oj5hy7R7",
     url: "https://youtu.be/gXsmyDwkUno?t=189",
+    viewCount: 4601483,
     image: "https://i.ytimg.com/vi/gXsmyDwkUno/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/gXsmyDwkUno/maxresdefault.jpg",
     contributors: {
@@ -3414,6 +3490,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1768067659388!6m8!1m7!1sNGSMwItq2YWYqEJYRKq35Q!2m2!1d22.2822893797367!2d114.1592112385193!3f134.97492812974593!4f-2.137800588558548!5f1.376302989881612",
     url: "https://youtu.be/Pv-v5502KxU?t=15",
+    viewCount: 268390,
     image: "https://i.ytimg.com/vi/Pv-v5502KxU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Pv-v5502KxU/maxresdefault.jpg",
     contributors: {
@@ -3449,6 +3526,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["moon tang"],
     name: "tip toe",
     url: "https://www.youtube.com/watch?v=Dv8ymtmTS_s",
+    viewCount: 62334,
     image: "https://i.ytimg.com/vi/Dv8ymtmTS_s/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Dv8ymtmTS_s/maxresdefault.jpg",
     contributors: {
@@ -3521,6 +3599,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/space/moon/@2.106113,-15.6824958,15167225m/data=!3m1!1e3?entry=ttu&g_ep=EgoyMDI2MDUyMC4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/OFCMUwqw8Qo?t=76",
+    viewCount: 598577,
     image: "https://i.ytimg.com/vi/OFCMUwqw8Qo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/OFCMUwqw8Qo/maxresdefault.jpg",
     contributors: {
@@ -3549,6 +3628,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "當年情",
     streetView: "https://maps.app.goo.gl/ncicUakwU7u5g6aj9",
     url: "https://youtu.be/cYo047rraQw?t=34",
+    viewCount: 5546576,
     image: "https://i.ytimg.com/vi/cYo047rraQw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/cYo047rraQw/maxresdefault.jpg",
   },
@@ -3559,6 +3639,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "男人怎可以 (What Makes A Man)",
     streetView: "https://maps.app.goo.gl/VxciRHzEJv3NKXgo7",
     url: "https://youtu.be/g1GBE8eeNyM?t=184",
+    viewCount: 2805509,
     image: "https://i.ytimg.com/vi/g1GBE8eeNyM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/g1GBE8eeNyM/maxresdefault.jpg",
     contributors: {
@@ -3636,6 +3717,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "有誰共鳴",
     streetView: "https://maps.app.goo.gl/QAvSz9h6LXpSbi2s7",
     url: "https://youtu.be/9b1vv1kWYc4?t=48",
+    viewCount: 5927467,
     image: "https://i.ytimg.com/vi/9b1vv1kWYc4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/9b1vv1kWYc4/maxresdefault.jpg",
   },
@@ -3646,6 +3728,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "吉卜力 (Ghibli)",
     streetView: "https://maps.app.goo.gl/tGqV7iNq2kAoFgrk9",
     url: "https://youtu.be/tTxX9cG_tSk?t=50",
+    viewCount: 403413,
     image: "https://i.ytimg.com/vi/tTxX9cG_tSk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/tTxX9cG_tSk/maxresdefault.jpg",
     contributors: {
@@ -3703,6 +3786,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757541941114!6m8!1m7!1sNaHq8IhxEtE7pQV-4rGZ1A!2m2!1d22.32527694741373!2d114.1636762902887!3f97.48!4f4.799999999999997!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/Gzs1krr2H9XknBZa7",
     url: "https://youtu.be/2RPuyWSUJP0?t=14",
+    viewCount: 474991,
     image: "https://i.ytimg.com/vi/2RPuyWSUJP0/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/2RPuyWSUJP0/maxresdefault.jpg",
     contributors: {
@@ -3741,6 +3825,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "深夜浪漫 Midnight Romance",
     streetView: "https://maps.app.goo.gl/2qYVjwWaEjazJ8YTA",
     url: "https://youtu.be/EMPUP9Ph8q0?t=96",
+    viewCount: 1807273,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534551019!6m8!1m7!1s4GX0sDJcr1E15cnDydio7A!2m2!1d22.30837486302836!2d114.1716643943522!3f335.63!4f2.7900000000000063!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/EMPUP9Ph8q0/mqdefault.jpg",
@@ -3782,6 +3867,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534607522!6m8!1m7!1shpdFKr7pHNmotf_ktdOMyg!2m2!1d26.21410869215542!2d127.6867702758708!3f214.71!4f2.319999999999993!5f0.7820865974627469",
     streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
     url: "https://youtu.be/e5TplXPYKt8?t=75",
+    viewCount: 1931342,
     image: "https://i.ytimg.com/vi/e5TplXPYKt8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/e5TplXPYKt8/maxresdefault.jpg",
     contributors: {
@@ -3817,6 +3903,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1761567803309!6m8!1m7!1sEs-4CbJWWGZWFb5LtwBvrA!2m2!1d22.28260053700466!2d114.1523760963311!3f81.39296662288167!4f-8.149540285187186!5f1.951266611877784",
     streetView: "https://maps.app.goo.gl/MqEcLnr613iKGPFq5",
     url: "https://youtu.be/nV7tGxhARCw?t=1",
+    viewCount: 128650,
     image: "https://i.ytimg.com/vi/nV7tGxhARCw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/nV7tGxhARCw/maxresdefault.jpg",
     contributors: {
@@ -3859,6 +3946,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1761133330572!6m8!1m7!1sgMRivJimCwN7RY_Dt8fKng!2m2!1d47.89686986842094!2d106.9071843519436!3f350.0372363042417!4f6.861534245606862!5f0.7820865974627469",
     streetView: "https://maps.app.goo.gl/SdbnSFDs9hwuoRQa9",
     url: "https://youtu.be/mt56HEafeWU?t=202",
+    viewCount: 22342338,
     image: "https://i.ytimg.com/vi/mt56HEafeWU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/mt56HEafeWU/maxresdefault.jpg",
     contributors: {
@@ -3905,6 +3993,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1758888291790!6m8!1m7!1s7S5OmOXTlgsU9l1LoROmng!2m2!1d25.04612310815421!2d121.5093879512971!3f226.19381579834692!4f6.8657789798810995!5f0.7820865974627469",
     streetView: "https://maps.app.goo.gl/eRg345WZ9RpRmege7",
     url: "https://youtu.be/MWDaME5LyG4?t=118",
+    viewCount: 186497,
     image: "https://i.ytimg.com/vi/MWDaME5LyG4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/MWDaME5LyG4/maxresdefault.jpg",
     contributors: {
@@ -3928,6 +4017,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "會再見的 (See You Soon, It's Not A Goodbye)",
     streetView: "https://maps.app.goo.gl/ZTLN5CkXJrvo5Z4j8",
     url: "https://youtu.be/SRG29U7Fw_o?t=166",
+    viewCount: 4548318,
     image: "https://i.ytimg.com/vi/SRG29U7Fw_o/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/SRG29U7Fw_o/maxresdefault.jpg",
     contributors: {
@@ -3964,6 +4054,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757542028839!6m8!1m7!1sWFzV474cwGtFPG_0p5puGg!2m2!1d22.3297550581031!2d114.188473420921!3f7.17!4f-6.150000000000006!5f0.42014447740813105",
     streetView: "https://maps.app.goo.gl/Z7qQELhGgLZLJY5h8",
     url: "https://youtu.be/-24iWWT9hj4?t=42",
+    viewCount: 1107408,
     image: "https://i.ytimg.com/vi/-24iWWT9hj4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/-24iWWT9hj4/maxresdefault.jpg",
     contributors: {
@@ -4029,6 +4120,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1760617575159!6m8!1m7!1sYy0gnivjx9dMx7wZP3SXJA!2m2!1d25.04476597310769!2d121.510372489778!3f198.4345844033606!4f-13.313481996869612!5f0.7820865974627469",
     streetView: "https://maps.app.goo.gl/qgMgJAidgk9NjBGE7",
     url: "https://youtu.be/TTJjtPGY7bQ?t=48",
+    viewCount: 11281681,
     image: "https://i.ytimg.com/vi/TTJjtPGY7bQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/TTJjtPGY7bQ/maxresdefault.jpg",
     contributors: {
@@ -4090,6 +4182,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1761053638258!6m8!1m7!1sVBG9oNKxCuG0Ho_x6zkYTg!2m2!1d22.46320037829036!2d114.2399653207745!3f56.74541286649007!4f-7.582934300176802!5f1.5402470388707457",
     streetView: "https://maps.app.goo.gl/LFcCRwS3mWMD1B4A8",
     url: "https://youtu.be/dUD_Q7pWNeI?t=233",
+    viewCount: 706871,
     image: "https://i.ytimg.com/vi/dUD_Q7pWNeI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/dUD_Q7pWNeI/maxresdefault.jpg",
     contributors: {
@@ -4140,6 +4233,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534758858!6m8!1m7!1sxqhKNasppkK9apuWk2mM3A!2m2!1d25.12192525020563!2d121.866712705366!3f180.93230351886578!4f-13.715150022961126!5f0.5412317992315563",
     streetView: "https://maps.app.goo.gl/ybCGJSbFBKupkjWn8",
     url: "https://youtu.be/7jXqxjPfRjw?t=38",
+    viewCount: 1796274,
     image: "https://i.ytimg.com/vi/7jXqxjPfRjw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/7jXqxjPfRjw/maxresdefault.jpg",
     contributors: {
@@ -4186,6 +4280,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762976745589!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQzRuSVBIR0E.!2m2!1d22.34351746492439!2d114.1822404114573!3f262.340913695593!4f0.7211522395844838!5f3.2190692181981135",
     streetView: "https://maps.app.goo.gl/KK3wpT9NnP5F5SE27",
     url: "https://youtu.be/edt_Hhv-UPA?-UPA&t=224",
+    viewCount: 419519,
     image: "https://i.ytimg.com/vi/edt_Hhv-UPA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/edt_Hhv-UPA/maxresdefault.jpg",
     contributors: {
@@ -4240,6 +4335,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762890641318!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQzZnOUcwMUFF!2m2!1d22.2339489049752!2d113.9555277965461!3f49.084285636674444!4f5.963722347415285!5f1.5135439781680207",
     streetView: "https://maps.app.goo.gl/beTT17nz55ju7hk5A",
     url: "https://youtu.be/6LEx2Z_CoEU?t=263",
+    viewCount: 351359,
     image: "https://i.ytimg.com/vi/6LEx2Z_CoEU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6LEx2Z_CoEU/maxresdefault.jpg",
     contributors: {
@@ -4305,6 +4401,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762864877438!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0U1S2YzcWdF!2m2!1d22.23804302972852!2d114.2008139996349!3f283.4349114656525!4f-4.569123930134438!5f1.5803772220813768",
     streetView: "https://maps.app.goo.gl/tszZnfwT3onibCzW6",
     url: "https://youtu.be/61ymmVaTASc?t=3",
+    viewCount: 2382,
     image: "https://i.ytimg.com/vi/61ymmVaTASc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/61ymmVaTASc/maxresdefault.jpg",
     contributors: {
@@ -4356,6 +4453,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762863716703!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3hnOEREdlFF!2m2!1d22.37467975749352!2d114.2854848066381!3f66.19172630296667!4f-80.01250479239631!5f1.709068505045467",
     streetView: "https://maps.app.goo.gl/CFwGoUpruYKpGVff6",
     url: "https://youtu.be/DyP40kjim9U?t=88",
+    viewCount: 695535,
     image: "https://i.ytimg.com/vi/DyP40kjim9U/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/DyP40kjim9U/maxresdefault.jpg",
     contributors: {
@@ -4395,6 +4493,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "我想和你虛度光陰 (I want to do nothing with you)",
     streetView: "https://maps.app.goo.gl/qnrVfu2tjN7LwLyY7",
     url: "https://youtu.be/O__X7YL8i5o?t=95",
+    viewCount: 130344,
     image: "https://i.ytimg.com/vi/O__X7YL8i5o/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/O__X7YL8i5o/maxresdefault.jpg",
     contributors: {
@@ -4451,6 +4550,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534696810!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRHE3Zi1meWdF!2m2!1d22.22091470487148!2d113.8861307639452!3f29.89!4f-4.329999999999998!5f0.5766985730221924",
     streetView: "https://maps.app.goo.gl/9TV5ZWJRWq2GYgu19",
     url: "https://youtu.be/VHt8upfvSQ8?t=85",
+    viewCount: 1853604,
     image: "https://i.ytimg.com/vi/VHt8upfvSQ8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/VHt8upfvSQ8/maxresdefault.jpg",
     contributors: {
@@ -4494,6 +4594,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1762843782984!6m8!1m7!1sCAoSHENJQUJJaEJXX3dKV2o5RmtnRnNaTTZ1UlJUWGY.!2m2!1d11.9156481153699!2d108.3392875181811!3f14.66546389573336!4f-53.697074709798194!5f1.797301862974066",
     url: "https://youtu.be/DHCWa3SxGiM?t=129",
+    viewCount: 4118,
     image: "https://i.ytimg.com/vi/DHCWa3SxGiM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/DHCWa3SxGiM/maxresdefault.jpg",
     contributors: {
@@ -4518,6 +4619,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762795815675!6m8!1m7!1sm27qz4l6WE4szIAIF--6Vg!2m2!1d22.28723834256021!2d114.1413353426895!3f253.6600131518101!4f1.705424649779303!5f3.121512466564903",
     streetView: "https://maps.app.goo.gl/MVMZYfdjbUm6RmRH9",
     url: "https://youtu.be/DUk-695vpgU?t=222",
+    viewCount: 853078,
     image: "https://i.ytimg.com/vi/DUk-695vpgU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/DUk-695vpgU/maxresdefault.jpg",
     contributors: {
@@ -4564,6 +4666,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1762793654024!6m8!1m7!1sTtoofj58v0r_jDPKKDqFEg!2m2!1d22.2764492431305!2d114.1696551129613!3f222.93381261832315!4f0.4003939250494142!5f0.7820865974627469",
     url: "https://youtu.be/dbO-5kOZEWY?t=38",
+    viewCount: 1131114,
     image: "https://i.ytimg.com/vi/dbO-5kOZEWY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/dbO-5kOZEWY/maxresdefault.jpg",
     contributors: {
@@ -4611,6 +4714,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1762499028106!6m8!1m7!1smoHe2lWL0JIu8irpuZTixQ!2m2!1d22.28139032397975!2d114.1569234955491!3f207.31!4f-0.5400000000000063!5f0.5665552877019592",
     streetView: "https://maps.app.goo.gl/QNfqN7WXcDR1FJqe6",
     url: "https://youtu.be/TmyCcYoR0tI?t=11",
+    viewCount: 351993,
     image: "https://i.ytimg.com/vi/TmyCcYoR0tI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/TmyCcYoR0tI/maxresdefault.jpg",
     contributors: {
@@ -4659,6 +4763,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1760062753378!6m8!1m7!1sXvemKwL-vB84SQ7CF6keiw!2m2!1d22.36742181374943!2d114.1354927636287!3f60.66!4f4.739999999999995!5f3.325193203789971",
     streetView: "https://maps.app.goo.gl/HFTVBXYZ1LZ98Wdr8",
     url: "https://youtu.be/L17tD_aPypM?t=84",
+    viewCount: 818542,
     image: "https://i.ytimg.com/vi/L17tD_aPypM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/L17tD_aPypM/maxresdefault.jpg",
     contributors: {
@@ -4701,6 +4806,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757534724758!6m8!1m7!1sOQnIWBAYh-n7BbsTZIpdFw!2m2!1d24.93575055292044!2d121.8864994688883!3f334.37!4f2.769999999999996!5f1.5370994932325743",
     streetView: "https://maps.app.goo.gl/fFp7RaqAN75h56ZPA",
     url: "https://youtu.be/HIGEklrsMnQ?t=28",
+    viewCount: 654686,
     image: "https://i.ytimg.com/vi/HIGEklrsMnQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/HIGEklrsMnQ/maxresdefault.jpg",
     contributors: {
@@ -4751,6 +4857,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1758903388505!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0tvWi1FM0FF!2m2!1d35.54486110566749!2d140.4673352308183!3f247.39422254082402!4f-0.7677163181735551!5f1.4529372934287887",
     streetView: "https://maps.app.goo.gl/4CFsQ2Mz1j2UYy7g9",
     url: "https://youtu.be/v3rDVWZd72c?t=100",
+    viewCount: 3845043,
     image: "https://i.ytimg.com/vi/v3rDVWZd72c/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/v3rDVWZd72c/maxresdefault.jpg",
     contributors: {
@@ -4781,6 +4888,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "歌頓花園 Gordon's Garden",
     streetView: "https://maps.app.goo.gl/WDr19mxqC4zdQ1uz7",
     url: "https://youtu.be/iYAtwuZXEC8?t=94",
+    viewCount: 816710,
     image: "https://i.ytimg.com/vi/iYAtwuZXEC8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/iYAtwuZXEC8/maxresdefault.jpg",
     contributors: {
@@ -4811,6 +4919,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "i hate u (en)",
     streetView: "https://maps.app.goo.gl/D1tE3nvc8hQinEwQ9",
     url: "https://youtu.be/Fw4m0jQsoug?t=119",
+    viewCount: 445191,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1768067801949!6m8!1m7!1sjzejvqdGXYpUlbC5U69viw!2m2!1d22.33721480048808!2d114.1745490351873!3f124.28799860871582!4f-14.113687549578486!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/Fw4m0jQsoug/mqdefault.jpg",
@@ -4858,6 +4967,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "二十五圓舞曲",
     streetView: "https://maps.app.goo.gl/au5kud7843H3C8T77",
     url: "https://youtu.be/vqlzYiT5_aQ?t=10",
+    viewCount: 594446,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757534809167!6m8!1m7!1sl5_Tb8EOKTnbBJ4sDaqrRw!2m2!1d13.69387778906042!2d100.7491095746951!3f270.414504122176!4f-1.249899399932218!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/vqlzYiT5_aQ/mqdefault.jpg",
@@ -4893,6 +5003,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "天氣之女 (Weathering with Me)",
     streetView: "https://maps.app.goo.gl/4ZgLTWo2sdhFKgiUA",
     url: "https://youtu.be/Q9yq9NXciR8?t=179",
+    viewCount: 606560,
     image: "https://i.ytimg.com/vi/Q9yq9NXciR8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Q9yq9NXciR8/sddefault.jpg",
     contributors: {
@@ -4927,6 +5038,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "be friend ok?",
     streetView: "https://maps.app.goo.gl/Hc4moy3c3mym9Mhj8",
     url: "https://youtu.be/uOJ_Ba-WJE0?t=100",
+    viewCount: 192540,
     image: "https://i.ytimg.com/vi/uOJ_Ba-WJE0/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/uOJ_Ba-WJE0/maxresdefault.jpg",
     contributors: {
@@ -4987,6 +5099,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: ";",
     streetView: "https://maps.app.goo.gl/uepyMuZSd2F8E4YH9",
     url: "https://youtu.be/1LGe_JNwlQM?t=78",
+    viewCount: 1817,
     image: "https://i.ytimg.com/vi/1LGe_JNwlQM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/1LGe_JNwlQM/maxresdefault.jpg",
     contributors: {
@@ -5016,6 +5129,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "今世情人 (Destined Lover)",
     streetView: "https://maps.app.goo.gl/22q2NrFRBVUJMZWc9",
     url: "https://youtu.be/s1Cf-BxwcyU?t=133",
+    viewCount: 1448184,
     image: "https://i.ytimg.com/vi/s1Cf-BxwcyU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/s1Cf-BxwcyU/maxresdefault.jpg",
     contributors: {
@@ -5061,6 +5175,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "bad weather (en)",
     streetView: "https://maps.app.goo.gl/Q9eSCVpmAiuoYjcZA",
     url: "https://youtu.be/tDjuJu-dk_4?t=200",
+    viewCount: 227691,
     image: "https://i.ytimg.com/vi/tDjuJu-dk_4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/tDjuJu-dk_4/maxresdefault.jpg",
     contributors: {
@@ -5103,6 +5218,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "再見有時 (Until We Meet Again)",
     streetView: "https://maps.app.goo.gl/Vadyby2JiicbsCek9",
     url: "https://youtu.be/BwGii4Y5fi8?t=3",
+    viewCount: 1631744,
     image: "https://i.ytimg.com/vi/BwGii4Y5fi8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/BwGii4Y5fi8/maxresdefault.jpg",
     contributors: {
@@ -5136,6 +5252,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "take three (en)",
     streetView: "https://maps.app.goo.gl/yRRZDpd7cDPaPpXy7",
     url: "https://youtu.be/ybUJhyMfmpE?t=175",
+    viewCount: 790152,
     image: "https://i.ytimg.com/vi/ybUJhyMfmpE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ybUJhyMfmpE/maxresdefault.jpg",
     contributors: {
@@ -5189,6 +5306,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "少甜 Not Too Sweet",
     streetView: "https://maps.app.goo.gl/vwimpavS8JAAqett7",
     url: "https://youtu.be/6zMMvlASk8M?t=61",
+    viewCount: 122750,
     image: "https://i.ytimg.com/vi/6zMMvlASk8M/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6zMMvlASk8M/maxresdefault.jpg",
     contributors: {
@@ -5230,6 +5348,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "要愛不愛 (Love Me Not)",
     streetView: "https://maps.app.goo.gl/w2JFdavHhNtNhAoR6",
     url: "https://youtu.be/-o701j6hz3o",
+    viewCount: 125732,
     image: "https://i.ytimg.com/vi/-o701j6hz3o/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/-o701j6hz3o/maxresdefault.jpg",
     contributors: {
@@ -5274,6 +5393,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "若果我們未曾遇過 If We Never Met",
     streetView: "https://maps.app.goo.gl/u1FSjrs3ToKsgo6J6",
     url: "https://youtu.be/B19QxFpTUWY?t=93",
+    viewCount: 385454,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757537957208!6m8!1m7!1sufs3tKWSOHu1vedlt-OcwA!2m2!1d22.41478164220148!2d113.9795030658556!3f228.04410402190794!4f-21.999652624153967!5f0.40032265550254637",
     image: "https://i.ytimg.com/vi/B19QxFpTUWY/mqdefault.jpg",
@@ -5309,6 +5429,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/Loong+Jun+Enterprises+Ltd/@22.3268597,114.1637183,3a,75y,22.3h,91.5t/data=!3m7!1e1!3m5!1s-3Jda4lLwiQrjvug-CA7kA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-1.4987673664758887%26panoid%3D-3Jda4lLwiQrjvug-CA7kA%26yaw%3D22.29617937600097!7i16384!8i8192!4m6!3m5!1s0x340400b42691e4d1:0xdc3fe8132f680566!8m2!3d22.326932!4d114.163766!16s%2Fg%2F12m9k28vc?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/4-85jDmMQNo?t=409",
+    viewCount: 632058,
     image: "https://i.ytimg.com/vi/4-85jDmMQNo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/4-85jDmMQNo/maxresdefault.jpg",
   },
@@ -5322,6 +5443,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/Ho+Man+Tin/@22.3068186,114.1828286,3a,37.5y,129.55h,87.5t/data=!3m7!1e1!3m5!1slorJ8mtOeOzhO4XZXb2dcA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D2.504974932997399%26panoid%3DlorJ8mtOeOzhO4XZXb2dcA%26yaw%3D129.55358498814783!7i16384!8i8192!4m6!3m5!1s0x340400dd0e16ed7d:0x34039828f896379b!8m2!3d22.3093594!4d114.1827294!16zL20vMDR5dGgz?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/GUCoNfRmchM?t=159",
+    viewCount: 9614904,
     image: "https://i.ytimg.com/vi/GUCoNfRmchM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/GUCoNfRmchM/maxresdefault.jpg",
   },
@@ -5332,6 +5454,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "夏日之子 (Boundless)",
     streetView: "https://maps.app.goo.gl/E14gGoMeQMZ3vj1FA",
     url: "https://youtu.be/Dgd8sUGEFR8?t=67",
+    viewCount: 2433333,
     image: "https://i.ytimg.com/vi/Dgd8sUGEFR8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Dgd8sUGEFR8/maxresdefault.jpg",
     contributors: {
@@ -5411,6 +5534,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "時候不早 (About Time)",
     streetView: "https://maps.app.goo.gl/UBofJBiBqUJV7vuc6",
     url: "https://youtu.be/levtdfsgdpE?t=107",
+    viewCount: 18826239,
     image: "https://i.ytimg.com/vi/levtdfsgdpE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/levtdfsgdpE/maxresdefault.jpg",
     contributors: {
@@ -5451,6 +5575,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "差一些什麼? (Missing Something)",
     streetView: "https://maps.app.goo.gl/Us7S3McW7Bxiefhk9",
     url: "https://youtu.be/stCCsTTF8WQ?t=21",
+    viewCount: 353140,
     image: "https://i.ytimg.com/vi/stCCsTTF8WQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/stCCsTTF8WQ/maxresdefault.jpg",
     contributors: {
@@ -5488,6 +5613,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "超級普通人",
     streetView: "https://maps.app.goo.gl/X17BDjsdQfLVm8MX6",
     url: "https://youtu.be/npiR-J4tVMI?t=17",
+    viewCount: 111319,
     image: "https://i.ytimg.com/vi/npiR-J4tVMI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/npiR-J4tVMI/maxresdefault.jpg",
     contributors: {
@@ -5521,6 +5647,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "末日還想看日落",
     streetView: "https://maps.app.goo.gl/UopURpYXy6Khe4G86",
     url: "https://youtu.be/xxoMqGbMKIs?t=60",
+    viewCount: 63617,
     image: "https://i.ytimg.com/vi/xxoMqGbMKIs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xxoMqGbMKIs/maxresdefault.jpg",
     contributors: {
@@ -5571,6 +5698,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "idc",
     streetView: "https://maps.app.goo.gl/n9YJp3Nv9QrTRL4L7",
     url: "https://youtu.be/_CWnH5K4wsI?t=22",
+    viewCount: 1046592,
     image: "https://i.ytimg.com/vi/_CWnH5K4wsI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/_CWnH5K4wsI/maxresdefault.jpg",
     contributors: {
@@ -5644,6 +5772,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "淚光 (Blue Tears)",
     streetView: "https://maps.app.goo.gl/jL4dSa57ndVHXqcp9",
     url: "https://youtu.be/2MoVxJNllVo?t=100",
+    viewCount: 290868,
     image: "https://i.ytimg.com/vi/2MoVxJNllVo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/2MoVxJNllVo/maxresdefault.jpg",
     contributors: {
@@ -5699,6 +5828,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Ms. Icy",
     streetView: "https://maps.app.goo.gl/KK4CUQm8bm8NMfBZ8",
     url: "https://youtu.be/vCeWfXOKWOI?t=274",
+    viewCount: 270320,
     image: "https://i.ytimg.com/vi/vCeWfXOKWOI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/vCeWfXOKWOI/maxresdefault.jpg",
     contributors: {
@@ -5748,6 +5878,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "四方帽之約 (For Us)",
     streetView: "https://maps.app.goo.gl/JUnvYNitQaGdPjvC7",
     url: "https://youtu.be/Z0dD_M-WEOs?t=10",
+    viewCount: 1635359,
     image: "https://i.ytimg.com/vi/Z0dD_M-WEOs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Z0dD_M-WEOs/maxresdefault.jpg",
     contributors: {
@@ -5799,6 +5930,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "就這樣嗎 (yue & jp)",
     streetView: "https://maps.app.goo.gl/kzuXFeXuMB9yweWTA",
     url: "https://youtu.be/1S_EQxhiONw?t=206",
+    viewCount: 24140,
     image: "https://i.ytimg.com/vi/1S_EQxhiONw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/1S_EQxhiONw/sddefault.jpg",
     contributors: {
@@ -5834,6 +5966,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "00000",
     streetView: "https://maps.app.goo.gl/9vibfCoF6xvvMZdo8",
     url: "https://youtu.be/TUzhLfgLD1M?t=119",
+    viewCount: 379841,
     image: "https://i.ytimg.com/vi/TUzhLfgLD1M/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/TUzhLfgLD1M/maxresdefault.jpg",
     contributors: {
@@ -5883,6 +6016,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "二人限定故事 (Daydreaming Our Little Things)",
     streetView: "https://maps.app.goo.gl/EFfDLFhAgy53NFEf8",
     url: "https://youtu.be/nmg295E7YfQ?t=107",
+    viewCount: 1086654,
     image: "https://i.ytimg.com/vi/nmg295E7YfQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/nmg295E7YfQ/maxresdefault.jpg",
     contributors: {
@@ -5933,6 +6067,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "最好比我更懶 (Lazy Lace)",
     streetView: "https://maps.app.goo.gl/QLxKJbtzzM8C7SWe9",
     url: "https://youtu.be/Pib__wYIpww?t=124",
+    viewCount: 379079,
     image: "https://i.ytimg.com/vi/Pib__wYIpww/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Pib__wYIpww/maxresdefault.jpg",
     contributors: {
@@ -5978,6 +6113,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "那黑夜沒很夜 (Huggies)",
     streetView: "https://maps.app.goo.gl/pBspjsboSRp1Ch976",
     url: "https://youtu.be/xauyCYV-jzY?t=133",
+    viewCount: 272673,
     image: "https://i.ytimg.com/vi/xauyCYV-jzY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xauyCYV-jzY/maxresdefault.jpg",
     contributors: {
@@ -6033,6 +6169,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "我養你 (Pamper Ü)",
     streetView: "https://maps.app.goo.gl/1xmSBjn1887Sn4596",
     url: "https://youtu.be/HoXat0lZKxw?t=60",
+    viewCount: 218739,
     image: "https://i.ytimg.com/vi/HoXat0lZKxw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/HoXat0lZKxw/maxresdefault.jpg",
     contributors: {
@@ -6082,6 +6219,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "在兩個心中間坐下 (Two Worlds)",
     streetView: "https://maps.app.goo.gl/F1BUnbm9xJGg23VN7",
     url: "https://youtu.be/DiNixx5drOI?t=15",
+    viewCount: 18817,
     image: "https://i.ytimg.com/vi/DiNixx5drOI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/DiNixx5drOI/maxresdefault.jpg",
     contributors: {
@@ -6122,6 +6260,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "PTSD",
     streetView: "https://maps.app.goo.gl/peuyzxf645f4bmwo6",
     url: "https://youtu.be/oELReZoJ6es?t=414",
+    viewCount: 983433,
     image: "https://i.ytimg.com/vi/oELReZoJ6es/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oELReZoJ6es/maxresdefault.jpg",
     contributors: {
@@ -6171,6 +6310,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "原地拖手 (Dreaming of...)",
     streetView: "https://maps.app.goo.gl/vDCdHjvHiNvFWKxN8",
     url: "https://youtu.be/6PvvDvs611Q?t=100",
+    viewCount: 648436,
     image: "https://i.ytimg.com/vi/6PvvDvs611Q/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6PvvDvs611Q/maxresdefault.jpg",
     contributors: {
@@ -6228,6 +6368,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/Soho+Corner/@22.2823981,114.1523301,3a,75y,76.18h,76.05t/data=!3m7!1e1!3m5!1sivBCw7hfXtykxpxIIgRZDA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D13.94533764092887%26panoid%3DivBCw7hfXtykxpxIIgRZDA%26yaw%3D76.18336602604404!7i16384!8i8192!4m6!3m5!1s0x3404007ba1c6bab5:0xf07c3974d8c252e1!8m2!3d22.2823924!4d114.1524921!16s%2Fg%2F1tgjhx6l?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/HwlYipX78Qo?t=154",
+    viewCount: 16603921,
     image: "https://i.ytimg.com/vi/HwlYipX78Qo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/HwlYipX78Qo/maxresdefault.jpg",
   },
@@ -6238,6 +6379,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "海闊天空",
     streetView: "https://maps.app.goo.gl/EMNbmQjQdsf79ZFv8",
     url: "https://youtu.be/qu_FSptjRic?t=129",
+    viewCount: 180305967,
     image: "https://i.ytimg.com/vi/qu_FSptjRic/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qu_FSptjRic/maxresdefault.jpg",
   },
@@ -6248,6 +6390,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "GET WILD",
     streetView: "https://maps.app.goo.gl/JPwkyv9jsGbcEkKQA",
     url: "https://youtu.be/xS3OzlOK-LY?t=189",
+    viewCount: 340518,
     image: "https://i.ytimg.com/vi/xS3OzlOK-LY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xS3OzlOK-LY/maxresdefault.jpg",
     contributors: {
@@ -6321,6 +6464,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "SWITCH",
     streetView: "https://maps.app.goo.gl/wLCWRmAD2t54EwCJ7",
     url: "https://youtu.be/hBFihlLf610?t=57",
+    viewCount: 247556,
     image: "https://i.ytimg.com/vi/hBFihlLf610/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/hBFihlLf610/maxresdefault.jpg",
     contributors: {
@@ -6376,6 +6520,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Sinnie Ng"],
     name: "失眠時我會呆望窗外等待你的來電 (Missing calls on sleepless nights)",
     url: "https://youtu.be/SCDCDKCotng?t=143",
+    viewCount: 270388,
     image: "https://i.ytimg.com/vi/SCDCDKCotng/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/SCDCDKCotng/maxresdefault.jpg",
     coordinates: [22.3676852, 114.0765446],
@@ -6451,6 +6596,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/MU7EPHm7vGtZdgKL8",
     name: "逐個字講好想你",
     url: "https://youtu.be/xocbs95nhhc?t=75",
+    viewCount: 21289,
     image: "https://i.ytimg.com/vi/xocbs95nhhc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/xocbs95nhhc/maxresdefault.jpg",
     contributors: {
@@ -6495,6 +6641,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Wonderlous Cafe (now HARA), 3 Kwun Chung Street, Jordan",
     streetView: "https://maps.app.goo.gl/8nb4hay27cFerh8t8",
     url: "https://youtu.be/bMsHolN4O5I?t=5",
+    viewCount: 1386084,
     image: "https://i.ytimg.com/vi/bMsHolN4O5I/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/bMsHolN4O5I/maxresdefault.jpg",
     contributors: {
@@ -6537,6 +6684,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "直白 (Straightforward)",
     streetView: "https://maps.app.goo.gl/hj49FcE44tLejWGL9",
     url: "https://youtu.be/b5GReCFQMQE?t=116",
+    viewCount: 1319286,
     image: "https://i.ytimg.com/vi/b5GReCFQMQE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/b5GReCFQMQE/maxresdefault.jpg",
     contributors: {
@@ -6587,6 +6735,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Lakeview Garden (private residence), Tai Wai",
     name: "一手造成 (It's me)",
     url: "https://youtu.be/y7XvrRhTKSQ?t=35",
+    viewCount: 2058353,
     image: "https://i.ytimg.com/vi/y7XvrRhTKSQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/y7XvrRhTKSQ/maxresdefault.jpg",
     contributors: {
@@ -6641,6 +6790,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Boston Restaurant",
     name: "i hate u owe me $$$ - en",
     url: "https://youtu.be/4hRZudEMff8?t=13",
+    viewCount: 49549,
     image: "https://i.ytimg.com/vi/4hRZudEMff8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/4hRZudEMff8/maxresdefault.jpg",
     contributors: {
@@ -6672,6 +6822,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Nina Hotel Tsuen Wan West",
     name: "記憶棉 Pillow Talk",
     url: "https://www.youtube.com/watch?v=YZPFbnk_RS0",
+    viewCount: 40024495,
     image: "https://i.ytimg.com/vi/YZPFbnk_RS0/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/YZPFbnk_RS0/maxresdefault.jpg",
     contributors: {
@@ -6708,6 +6859,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Sai Wan Ho Ferry Pier",
     name: "《四月物語》April Whispers",
     url: "https://www.youtube.com/watch?v=325j6LVzpYI",
+    viewCount: 4966278,
     image: "https://i.ytimg.com/vi/325j6LVzpYI/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/325j6LVzpYI/maxresdefault.jpg",
   },
@@ -6717,6 +6869,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tai Ping Shan",
     name: "《E先生連環不幸事件》",
     url: "https://youtu.be/7FPL4DRizgk?t=163",
+    viewCount: 23360165,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542170056!6m8!1m7!1su31CYnduqRoYhPYEkj2pKQ!2m2!1d22.28512634634416!2d114.1482969323193!3f311.6!4f-14.930000000000007!5f0.7820865974627469",
     streetView:
@@ -6730,6 +6883,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Container Port Road",
     name: "意外現場 METANOIA",
     url: "https://www.youtube.com/watch?v=YZTdYEJvVBU",
+    viewCount: 13531792,
     image: "https://i.ytimg.com/vi/YZTdYEJvVBU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/YZTdYEJvVBU/hqdefault.jpg",
   },
@@ -6739,6 +6893,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "West Kowloon Art Park",
     name: "《深夜告別練習》",
     url: "https://www.youtube.com/watch?v=dVgmEuwMPxo",
+    viewCount: 11000081,
     image: "https://i.ytimg.com/vi/dVgmEuwMPxo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/dVgmEuwMPxo/maxresdefault.jpg",
     contributors: {
@@ -6768,6 +6923,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Matsumoto, Nagano",
     name: "綠縈 Green Reed",
     url: "https://youtu.be/lsfn8FpYDQ8?t=44",
+    viewCount: 121383,
     streetView: "https://maps.app.goo.gl/L5UvF54Lm8Ka6exZ6",
     image: "https://i.ytimg.com/vi/lsfn8FpYDQ8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/lsfn8FpYDQ8/maxresdefault.jpg",
@@ -6789,6 +6945,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Shinjuku City, Tokyo",
     name: "AMERICANO",
     url: "https://youtu.be/hdNwlTajyLk?t=24",
+    viewCount: 68052,
     image: "https://i.ytimg.com/vi/hdNwlTajyLk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/hdNwlTajyLk/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/KpGQELuDhGqFC92i9",
@@ -6823,6 +6980,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542205669!6m8!1m7!1sLsFtPBbaZRkLTais6!2m2!1d22.29904788270136!2d114.15558672262901!3f180.0!4f-1.480000000000004!5f1.8040437927425104",
     url: "https://youtu.be/2J_0nahRxBk?t=218",
+    viewCount: 10979185,
     image: "https://i.ytimg.com/vi/2J_0nahRxBk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/2J_0nahRxBk/maxresdefault.jpg",
     contributors: {
@@ -6858,6 +7016,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tai Shui Hang",
     name: "Wait A Second",
     url: "https://youtu.be/4ZRo4BrJdU4?t=22",
+    viewCount: 825790,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542195340!6m8!1m7!1sA2uQOXNvRAKc59-ci_1Tzw!2m2!1d22.40852222990237!2d114.2204960873621!3f310.7!4f-1.480000000000004!5f1.8040437927425104",
     streetView: "https://maps.app.goo.gl/3RCbYx1fUvaLZ7ot6",
@@ -6941,6 +7100,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "HK Space Museum",
     name: "世一 The One For U",
     url: "https://youtu.be/ESmaELNy8GE?t=181",
+    viewCount: 16841724,
     image: "https://i.ytimg.com/vi/ESmaELNy8GE/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/ESmaELNy8GE/maxresdefault.jpg",
     contributors: {
@@ -6985,6 +7145,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "IKEA",
     name: "房屋供應問題",
     url: "https://www.youtube.com/watch?v=O96-8g_6NII",
+    viewCount: 847897,
     image: "https://i.ytimg.com/vi/O96-8g_6NII/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/O96-8g_6NII/maxresdefault.jpg",
     contributors: {
@@ -7064,6 +7225,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=tWPQSKm5WyQ",
+    viewCount: 377437,
     image: "https://i.ytimg.com/vi/tWPQSKm5WyQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/tWPQSKm5WyQ/maxresdefault.jpg",
   },
@@ -7073,6 +7235,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "near Yuk Hing Temple",
     name: "grwm",
     url: "https://youtu.be/aqDDCiZoJIY?t=44",
+    viewCount: 174877,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542250449!6m8!1m7!1sCIHM0ogKEICAgIDmh_-gkwE!2m2!1d22.48102814707211!2d114.1560802220131!3f310.18!4f-9.480000000000004!5f0.4000000000000002",
     streetView:
@@ -7123,6 +7286,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Second Street",
     name: "銀河修理員 Galactic Repairman",
     url: "https://youtu.be/sg8V5BLMEhE?t=138",
+    viewCount: 21585629,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757542275527!6m8!1m7!1s-i8wnvyBBU0VwuItG00iVQ!2m2!1d22.28615736618844!2d114.1407241720116!3f102.58!4f-11.950000000000003!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/bM-3drXQ4TI/mqdefault.jpg",
@@ -7136,6 +7300,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Shun Lin Rd, Hong Kong",
     name: "有你聽我的故事 (All Ears)",
     url: "https://youtu.be/mw8bM7IPJto?t=6",
+    viewCount: 6026269,
     image: "https://i.ytimg.com/vi/mw8bM7IPJto/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/mw8bM7IPJto/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/5gxPsB3tnkSumw966",
@@ -7191,6 +7356,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Jockey Club HKFA Football Training Centre, Hong Kong",
     name: "晴天預報",
     url: "https://youtu.be/FhYiPyrgRyM?t=88",
+    viewCount: 108808,
     image: "https://i.ytimg.com/vi/FhYiPyrgRyM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/FhYiPyrgRyM/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/VMZDvr5k2z9SPaj18",
@@ -7235,6 +7401,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Chaoyang Rd, Yilan County, Taiwan",
     name: "未firm",
     url: "https://youtu.be/BhrVHMDiw4I?t=20",
+    viewCount: 167184,
     image: "https://i.ytimg.com/vi/BhrVHMDiw4I/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/BhrVHMDiw4I/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/SuHHFMq5Br7x86j97",
@@ -7264,6 +7431,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "龍.Home Camping ground, Ting Kok Vlg Rd, Tai po, Hong Kong",
     name: "block了",
     url: "https://youtu.be/zYbLJPX7-Yg?t=136",
+    viewCount: 107312,
     image: "https://i.ytimg.com/vi/zYbLJPX7-Yg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/zYbLJPX7-Yg/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/2jaBRuCXAqggQBJNA",
@@ -7311,6 +7479,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "88 Queen's Rd",
     name: "感情還原鍵 (Deja Vu)",
     url: "https://youtu.be/E7R2d0IAB_w?t=62",
+    viewCount: 40592,
     image: "https://i.ytimg.com/vi/E7R2d0IAB_w/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/E7R2d0IAB_w/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/k1w7NUfFMPkvhEyF8",
@@ -7353,6 +7522,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Changtanli Yugang, Taiwan",
     name: "一人之境 (Solitude)",
     url: "https://youtu.be/qWhavDVsMRc",
+    viewCount: 16859865,
     image: "https://i.ytimg.com/vi/qWhavDVsMRc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qWhavDVsMRc/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/3r53hLLojKPu7Tir5",
@@ -7383,6 +7553,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "嘉龍片場, Shek Kong",
     name: "imma go boom",
     url: "https://youtu.be/ugRhb4Qh6GU?t=164",
+    viewCount: 116190,
     image: "https://i.ytimg.com/vi/ugRhb4Qh6GU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ugRhb4Qh6GU/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/zFkEhVendy9rkL9Q9",
@@ -7456,6 +7627,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Mt. Davis Battery",
     name: "陀飛輪",
     url: "https://www.youtube.com/watch?v=URUIcYDq3_I",
+    viewCount: 24994587,
     image: "https://i.ytimg.com/vi/URUIcYDq3_I/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/URUIcYDq3_I/hqdefault.jpg",
   },
@@ -7465,6 +7637,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Somewhere in Shanghai",
     name: "一律建議分手 (stop calling!!)",
     url: "https://youtu.be/WHDM3Swv4Jg?t=204",
+    viewCount: 200810,
     image: "https://i.ytimg.com/vi/WHDM3Swv4Jg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/WHDM3Swv4Jg/maxresdefault.jpg",
     contributors: {
@@ -7548,6 +7721,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Harbour City Roof, Tsim Sha Tsui, Hong Kong",
     streetView: "https://maps.app.goo.gl/8v8xduCgmm88pPM28",
     url: "https://youtu.be/N9uGbXNOMEM?t=11",
+    viewCount: 15897,
     image: "https://i.ytimg.com/vi/N9uGbXNOMEM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/N9uGbXNOMEM/maxresdefault.jpg",
     contributors: {
@@ -7570,6 +7744,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["CONSTANCE 康堤"],
     name: "好鍾意！LOVE!",
     url: "https://youtu.be/noe6uXY-KiY?t=144",
+    viewCount: 141373,
     coordinates: [35.0854153, 139.0806341],
     address: "Atami, Shizuoka, Japan",
     streetView: "https://maps.app.goo.gl/VkfUpjhvgUFcbeJP8",
@@ -7622,6 +7797,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/22%C2%B016'06.4%22N+114%C2%B011'12.7%22E/@22.268567,114.1868155,3a,75y,147.02h,82.82t/data=!3m7!1e1!3m5!1ss1bn_R27bLHP8vrV5M0sPw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.1787387254073565%26panoid%3Ds1bn_R27bLHP8vrV5M0sPw%26yaw%3D147.02454317766063!7i16384!8i8192!4m4!3m3!8m2!3d22.2684441!4d114.1868635?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://www.youtube.com/watch?v=SHFZkBPub5c",
+    viewCount: 232906,
     image: "https://i.ytimg.com/vi/SHFZkBPub5c/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/SHFZkBPub5c/maxresdefault.jpg",
   },
@@ -7632,6 +7808,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "Break Me Down",
     streetView: "https://maps.app.goo.gl/ennsBcXmVg6AfJRG7",
     url: "https://youtu.be/rEl7UUuFjvU?t=210",
+    viewCount: 290622,
     image: "https://i.ytimg.com/vi/rEl7UUuFjvU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/rEl7UUuFjvU/maxresdefault.jpg",
     contributors: {
@@ -7681,6 +7858,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757543959304!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ3VvTlBsbWdF!2m2!1d34.70285577086902!2d135.497586898638!3f151.750789695359!4f0.8880319415493005!5f1.8581076242228396",
     name: "回憶半分鐘 Memento",
     url: "https://www.youtube.com/watch?v=oSeRj1sW3To",
+    viewCount: 3695251,
     image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/oSeRj1sW3To/maxresdefault.jpg",
     contributors: {
@@ -7720,6 +7898,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Lepingzhen (Estimation)",
     name: "some days (en)",
     url: "https://youtu.be/qTay36oNgIs?t=90",
+    viewCount: 336938,
     image: "https://i.ytimg.com/vi/qTay36oNgIs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qTay36oNgIs/maxresdefault.jpg",
     contributors: {
@@ -7765,6 +7944,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Shibuya Restaurants",
     name: "相信一切是最好的安排 In Good Hands",
     url: "https://www.youtube.com/watch?v=RJFcyoDhzKU",
+    viewCount: 3843156,
     image: "https://i.ytimg.com/vi/RJFcyoDhzKU/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/RJFcyoDhzKU/maxresdefault.jpg",
   },
@@ -7774,6 +7954,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Nishiarai Bridge Green Space Riverside Field, Tokyo",
     name: "天損之人 (The Chosen One)",
     url: "https://youtu.be/-qaHO6iEui4?t=183",
+    viewCount: 233588,
     streetView: "https://maps.app.goo.gl/fBCdDByFcqGi2pGy8",
     image: "https://i.ytimg.com/vi/-qaHO6iEui4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/-qaHO6iEui4/maxresdefault.jpg",
@@ -7810,6 +7991,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tainan (Estimation)",
     name: "抽 Inhale",
     url: "https://www.youtube.com/watch?v=JmjKVtw6BrQ",
+    viewCount: 16235228,
     image: "https://i.ytimg.com/vi/JmjKVtw6BrQ/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/JmjKVtw6BrQ/maxresdefault.jpg",
     mapEmbed:
@@ -7823,6 +8005,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3170.096160411515!2d139.776151103393!3d35.71433559935765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzXCsDQyJzUxLjEiTiAxMznCsDQ2JzM5LjIiRQ!5e1!3m2!1sen!2shk!4v1757779751283!5m2!1sen!2shk",
     url: "https://www.youtube.com/watch?v=Rp4iHpTvBY8",
+    viewCount: 18515375,
     image: "https://i.ytimg.com/vi/Rp4iHpTvBY8/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/Rp4iHpTvBY8/maxresdefault.jpg",
   },
@@ -7832,6 +8015,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Olympic Square (Estimation)",
     name: "無奈那天",
     url: "https://www.youtube.com/watch?v=_zomc3Nz_-s",
+    viewCount: 85867,
     image: "https://i.ytimg.com/vi/_zomc3Nz_-s/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/_zomc3Nz_-s/maxresdefault.jpg",
   },
@@ -7842,6 +8026,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tuen Mun Fire station",
     name: "哀傷和愛上算不算同音字 Is love enough",
     url: "https://www.youtube.com/watch?v=8Pvj_lEapJ4",
+    viewCount: 2132930,
     image: "https://i.ytimg.com/vi/8Pvj_lEapJ4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/8Pvj_lEapJ4/maxresdefault.jpg",
     contributors: {
@@ -7879,6 +8064,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "大鏟洲",
     name: "I'm Marf-elous",
     url: "https://www.youtube.com/watch?v=oAgXQwQtoHE",
+    viewCount: 278895,
     image: "https://i.ytimg.com/vi/oAgXQwQtoHE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oAgXQwQtoHE/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/bTU8fGwtiBmMJdNh8",
@@ -7940,6 +8126,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Jordan Street",
     name: "霓虹黯色 - 《傾城》選曲 (cover)",
     url: "https://www.youtube.com/watch?v=jQHM-dB4NXg",
+    viewCount: 4415693,
     image: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/t-ZQ4iT9mVY/maxresdefault.jpg",
   },
@@ -7949,6 +8136,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tsim Sha Tsui Pier",
     name: "關我蛋治 Eggnorant Sandwich",
     url: "https://youtu.be/Lc1McFzS-CM?t=59",
+    viewCount: 476590,
     image: "https://i.ytimg.com/vi/Lc1McFzS-CM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Lc1McFzS-CM/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/CchydecM4kLvKXyD9",
@@ -8007,6 +8195,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/FiWGWiC5L56TZuDJ9",
     name: "歧義種子 Dear Kiwi",
     url: "https://youtu.be/8DQHxh20EZ8?t=81",
+    viewCount: 479779,
     image: "https://i.ytimg.com/vi/8DQHxh20EZ8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/8DQHxh20EZ8/maxresdefault.jpg",
     contributors: {
@@ -8041,6 +8230,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/place/25%C2%B003'13.9%22N+121%C2%B031'13.1%22E/@25.0538235,121.5203269,3a,75y,304.64h,74.05t/data=!3m7!1e1!3m5!1svXWUvs5cVIgdzrYZAnuI_A!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D15.953851951431403%26panoid%3DvXWUvs5cVIgdzrYZAnuI_A%26yaw%3D304.64273250789427!7i16384!8i8192!4m4!3m3!8m2!3d25.0538517!4d121.5203063?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     name: "Let go",
     url: "https://youtu.be/CbpX1RgSOl8?t=143",
+    viewCount: 6190816,
     image: "https://i.ytimg.com/vi/CbpX1RgSOl8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/CbpX1RgSOl8/maxresdefault.jpg",
   },
@@ -8051,6 +8241,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/5HdiKBBLe2eH2FFy7",
     name: "華富一號 (電影《再見UFO》主題曲)",
     url: "https://youtu.be/gssoEXJdjTo?t=73",
+    viewCount: 934089,
     image: "https://i.ytimg.com/vi/gssoEXJdjTo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/gssoEXJdjTo/maxresdefault.jpg",
     contributors: {
@@ -8076,6 +8267,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/SyFabDykFy41R6vh8",
     name: "迷途時發吽哣 (Space Out)",
     url: "https://youtu.be/jgrOIm2QRCQ?t=211",
+    viewCount: 384640,
     image: "https://i.ytimg.com/vi/jgrOIm2QRCQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/jgrOIm2QRCQ/maxresdefault.jpg",
     contributors: {
@@ -8112,6 +8304,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/zREgT83qotvZKGcL9",
     name: "遠在眼前 (Not Too Far Away)",
     url: "https://youtu.be/_K4QAcB1mtE?t=31",
+    viewCount: 4639020,
     image: "https://i.ytimg.com/vi/_K4QAcB1mtE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/_K4QAcB1mtE/maxresdefault.jpg",
     contributors: {
@@ -8142,6 +8335,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/cBFHi6nf6w61rcYg8",
     name: "真的不是故意的 (Not My Intention)",
     url: "https://youtu.be/VjZODcFM_MY?t=162",
+    viewCount: 954778,
     image: "https://i.ytimg.com/vi/VjZODcFM_MY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/VjZODcFM_MY/maxresdefault.jpg",
     contributors: {
@@ -8172,6 +8366,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/ax5sZ43vcwXNRTEx6",
     name: "不設底線 (Beyond The Bottom Line)",
     url: "https://youtu.be/zneQ_CLNGzU?t=110",
+    viewCount: 134124,
     image: "https://i.ytimg.com/vi/zneQ_CLNGzU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/zneQ_CLNGzU/maxresdefault.jpg",
     contributors: {
@@ -8220,6 +8415,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/pAFCPZWnM3G7MQDU7",
     name: "淚光萬歲",
     url: "https://youtu.be/TuSvk6etlFQ?t=90",
+    viewCount: 294017,
     image: "https://i.ytimg.com/vi/TuSvk6etlFQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/TuSvk6etlFQ/maxresdefault.jpg",
     contributors: {
@@ -8262,6 +8458,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/94nNwWUtJjZuaAfN7",
     name: "喵！(MEOW!)",
     url: "https://youtu.be/WJxQ9Xh19DI?t=87",
+    viewCount: 756164,
     image: "https://i.ytimg.com/vi/WJxQ9Xh19DI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/WJxQ9Xh19DI/sddefault.jpg",
     contributors: {
@@ -8299,6 +8496,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1768410281505!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQzQ0c25ZN1FF!2m2!1d22.23211079357738!2d114.1723022825889!3f262.62492956838435!4f4.710159678080686!5f0.4000000000000002",
     name: "專注力失調 (Can't Stay Still)",
     url: "https://youtu.be/DrS8lCer9jA?list=RDDrS8lCer9jA&t=19",
+    viewCount: 346220,
     image: "https://i.ytimg.com/vi/DrS8lCer9jA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/DrS8lCer9jA/maxresdefault.jpg",
     contributors: {
@@ -8346,6 +8544,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/RKnwFmsM61Fkaix79",
     name: "至關重要事情",
     url: "https://youtu.be/uy25Ak-xdtY?list=RDuy25Ak-xdtY&t=114",
+    viewCount: 28181,
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1768339172402!6m8!1m7!1sbi-y-WkokSxrvvE1iYzogA!2m2!1d22.29192239137678!2d113.9284531686982!3f202.09041638027722!4f-3.7553969587656297!5f0.7820865974627469",
     image: "https://i.ytimg.com/vi/uy25Ak-xdtY/mqdefault.jpg",
@@ -8390,6 +8589,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Central Ferry Pier (?)",
     name: "傷心的時候別説話 Beyond Words",
     url: "https://www.youtube.com/watch?v=CjGGpzZN2P0",
+    viewCount: 1597702,
     image: "https://i.ytimg.com/vi/CjGGpzZN2P0/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/CjGGpzZN2P0/maxresdefault.jpg",
     contributors: {
@@ -8421,6 +8621,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Wu Kai Sha Youth Village Chapel, Ma On Shan, Hong Kong",
     name: "玻璃 (zh)",
     url: "https://youtu.be/FB5-rPa5wBA?t=178",
+    viewCount: 7007121,
     streetView: "https://maps.app.goo.gl/cf37Bun3gToy9wj56",
     image: "https://i.ytimg.com/vi/FB5-rPa5wBA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/FB5-rPa5wBA/maxresdefault.jpg",
@@ -8462,6 +8663,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Sea Life",
     name: "戀人絮語",
     url: "https://youtu.be/SmlOWWRJZcc?t=124",
+    viewCount: 261790,
     streetView:
       "https://www.google.com/maps/@22.246055,114.176123,2a,58.4y,339.13h,96.91t/data=!3m7!1e1!3m5!1syhcc5BbMGRkAAAQvvewcSw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D-6.910184776316683%26panoid%3Dyhcc5BbMGRkAAAQvvewcSw%26yaw%3D339.1276907332437!7i13312!8i6656?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D",
     image: "https://i.ytimg.com/vi/SmlOWWRJZcc/mqdefault.jpg",
@@ -8508,6 +8710,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "64 Hejiang St, Taipei, Taiwan",
     name: "拼命無恙 (In a Funk)",
     url: "https://youtu.be/41AdjEHgi4g?t=212",
+    viewCount: 5616742,
     streetView: "https://maps.app.goo.gl/rQw416fdirectorOfPhotographysMM8Fs7",
     image: "https://i.ytimg.com/vi/41AdjEHgi4g/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/41AdjEHgi4g/maxresdefault.jpg",
@@ -8536,6 +8739,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Stonecutters Bridge Viewing Point",
     name: "第四名的星空 The Shining No.4",
     url: "https://youtu.be/Wmprpb7aF34?t=26",
+    viewCount: 155424,
     streetView: "https://maps.app.goo.gl/wFV3qBYZkYkR9UR38",
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757701090785!6m8!1m7!1sj91aCo_7LA4XNgSjz2vfuw!2m2!1d22.32295739006709!2d114.1225594944134!3f191.45458453553783!4f7.2596490290598155!5f0.4000000000000002",
@@ -8572,6 +8776,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "PORTAL",
     name: " 榮譽博士 PhD",
     url: "https://youtu.be/i1ijH0bwLBg?t=120",
+    viewCount: 177196,
     streetView: "https://maps.app.goo.gl/2TQXCnz6o8Sm7nbR7",
     image: "https://i.ytimg.com/vi/i1ijH0bwLBg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/i1ijH0bwLBg/maxresdefault.jpg",
@@ -8604,6 +8809,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/@22.2804309,114.1855097,3a,75y,75.41h,79.06t/data=!3m7!1e1!3m5!1sg375DufGdUJujemIJNByEA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D10.937259800306904%26panoid%3Dg375DufGdUJujemIJNByEA%26yaw%3D75.40512162212868!7i16384!8i8192?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     name: "中暑傷風加失戀x2 Arctic Summer",
     url: "https://youtu.be/NL0bqEs9Izs?t=8",
+    viewCount: 606609,
     image: "https://i.ytimg.com/vi/NL0bqEs9Izs/hq720.jpg",
     highResImage: "https://i.ytimg.com/vi/NL0bqEs9Izs/maxresdefault.jpg",
     contributors: {
@@ -8631,6 +8837,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tai Tam Tuk",
     name: "至少做一件離譜的事 You Gotta Screw Up At Least Once",
     url: "https://youtu.be/RPoNXvSFHE4?t=205",
+    viewCount: 13453326,
     image: "https://i.ytimg.com/vi/RPoNXvSFHE4/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/RPoNXvSFHE4/maxresdefault.jpg",
     contributors: {
@@ -8655,6 +8862,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "St Stephen's College, Stanley",
     name: "別畏高 (Acrophobia)",
     url: "https://www.youtube.com/watch?v=JTsi1Bc8zuk",
+    viewCount: 309168,
     image: "https://i.ytimg.com/vi/JTsi1Bc8zuk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/JTsi1Bc8zuk/maxresdefault.jpg",
     contributors: {
@@ -8693,6 +8901,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Madame Fu Grand Cafe",
     name: "Never-never Land",
     url: "https://youtu.be/0dZ3tx2se-o?t=25",
+    viewCount: 3575706,
     image: "https://i.ytimg.com/vi/0dZ3tx2se-o/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/0dZ3tx2se-o/maxresdefault.jpg",
     contributors: {
@@ -8738,6 +8947,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tai She Wan Village, Sai Kung",
     name: "一樣 (The Same)",
     url: "https://youtu.be/fU3zsnKszPE?t=69",
+    viewCount: 298634,
     streetView: "https://maps.app.goo.gl/a8fmW8LCrauQvY8v8",
     image: "https://i.ytimg.com/vi/fU3zsnKszPE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/fU3zsnKszPE/sddefault.jpg",
@@ -8779,6 +8989,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757599853488!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ0VwcnlsUkE.!2m2!1d22.27748886972953!2d114.1220578000749!3f57.18942202533517!4f2.9925477937404423!5f1.4923418075005124",
     url: "https://youtu.be/Jdqd4fyXFgQ?t=65",
+    viewCount: 272651,
     image: "https://i.ytimg.com/vi/Jdqd4fyXFgQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Jdqd4fyXFgQ/maxresdefault.jpg",
     contributors: {
@@ -8851,6 +9062,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "暴走女團 Can't stop Won't stop",
     streetView: "https://maps.app.goo.gl/KXyg1tPcAScXhgxg6",
     url: "https://youtu.be/6EYx-cPUpxk?t=22",
+    viewCount: 303557,
     image: "https://i.ytimg.com/vi/6EYx-cPUpxk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6EYx-cPUpxk/maxresdefault.jpg",
     contributors: {
@@ -8930,6 +9142,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Golden Beach",
     name: "冬天一個遊",
     url: "https://youtu.be/oVpmZoj9mOM?t=37",
+    viewCount: 773132,
     image: "https://i.ytimg.com/vi/oVpmZoj9mOM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oVpmZoj9mOM/maxresdefault.jpg",
     contributors: {
@@ -8972,6 +9185,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "報復式浪漫 Sweeetly",
     streetView: "https://maps.app.goo.gl/3ey1TasCZFUjqBJu8",
     url: "https://youtu.be/k2W2RGDOtaw?t=38",
+    viewCount: 2142178,
     image: "https://i.ytimg.com/vi/k2W2RGDOtaw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/k2W2RGDOtaw/maxresdefault.jpg",
     contributors: {
@@ -9008,6 +9222,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757864078102!6m8!1m7!1sSoT-rCzmPPxup9jwdmEuHw!2m2!1d25.03890020414165!2d121.496028361376!3f146.804793862258!4f-7.874700136711837!5f0.7820865974627469",
     url: "https://youtu.be/qw4T2OWrqEc?t=114",
+    viewCount: 2063022,
     image: "https://i.ytimg.com/vi/qw4T2OWrqEc/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qw4T2OWrqEc/maxresdefault.jpg",
     contributors: {
@@ -9035,6 +9250,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView: "https://maps.app.goo.gl/apeewogTUiMJ6XqeA",
     name: "28:18",
     url: "https://youtu.be/8c_pF5w1-9c?t=83",
+    viewCount: 179446,
     image: "https://i.ytimg.com/vi/8c_pF5w1-9c/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/8c_pF5w1-9c/maxresdefault.jpg",
     contributors: {
@@ -9066,6 +9282,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757845897701!6m8!1m7!1s7hZ2lKgHq_UjqeFCAS7-Pg!2m2!1d22.28501886188788!2d114.1488047660514!3f126.9892122468262!4f-6.604822390976906!5f0.4000000000000002",
     url: "https://youtu.be/4G8SDPTK_lY?t=16",
+    viewCount: 325220,
     image: "https://i.ytimg.com/vi/4G8SDPTK_lY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/4G8SDPTK_lY/sddefault.jpg",
     contributors: {
@@ -9123,6 +9340,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "剎那的",
     streetView: "https://maps.app.goo.gl/UbFV63cxUYPeJMKB9",
     url: "https://youtu.be/ws4HFAWDfic?t=23",
+    viewCount: 432009,
     image: "https://i.ytimg.com/vi/ws4HFAWDfic/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ws4HFAWDfic/maxresdefault.jpg",
     streetViewEmbed:
@@ -9164,6 +9382,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Tuve Hotel",
     name: "我也難過的",
     url: "https://youtu.be/KCBGvqrZ9JI?t=12",
+    viewCount: 3739084,
     streetView: "https://maps.app.goo.gl/SkkyZLFYSSqo27oD9",
     image: "https://i.ytimg.com/vi/KCBGvqrZ9JI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/KCBGvqrZ9JI/maxresdefault.jpg",
@@ -9200,6 +9419,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Dingtoue Sandbar",
     name: "沒有送出的詩 Unsent Poems",
     url: "https://youtu.be/O5eamIMVvNs?t=211",
+    viewCount: 153681,
     image: "https://i.ytimg.com/vi/O5eamIMVvNs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/O5eamIMVvNs/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/ZfPEBHPdoahRPu2s7",
@@ -9242,6 +9462,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Hong Kong Zoological and Botanical Gardens",
     name: "告別式",
     url: "https://youtu.be/oqL5LMAHi2I",
+    viewCount: 415889,
     image: "https://i.ytimg.com/vi/oqL5LMAHi2I/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oqL5LMAHi2I/maxresdefault.jpg",
     streetView: "https://maps.app.goo.gl/w5U3VoE6GgSxk94R8",
@@ -9264,6 +9485,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Gordon Flanders", "MC 張天賦"],
     name: "可以不可以 (Ring or Fling)",
     url: "https://www.youtube.com/watch?v=kG9XL4HVmtI",
+    viewCount: 297151,
     image: "https://i.ytimg.com/vi/kG9XL4HVmtI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/kG9XL4HVmtI/maxresdefault.jpg",
     contributors: {
@@ -9325,6 +9547,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.3245857, 114.2541069],
     streetView: "https://maps.app.goo.gl/jekBL5UWGZcqm6Pb9",
     url: "https://youtu.be/kwVF0t4SSIY",
+    viewCount: 2581,
     image: "https://i.ytimg.com/vi/kwVF0t4SSIY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/kwVF0t4SSIY/maxresdefault.jpg",
     contributors: {
@@ -9347,6 +9570,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.2802047, 114.1172306],
     streetView: "https://maps.app.goo.gl/j3AL1dfJ8zX7PBGW6",
     url: "https://youtu.be/ASfe0qnNQmQ?t=34",
+    viewCount: 33814,
     image: "https://i.ytimg.com/vi/ASfe0qnNQmQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ASfe0qnNQmQ/maxresdefault.jpg",
     contributors: {
@@ -9392,6 +9616,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.363973, 114.3724806],
     streetView: "https://maps.app.goo.gl/24UsHXVX5Q6ggd2R7",
     url: "https://youtu.be/Bt5ZOpbMPTE?t=163",
+    viewCount: 29275,
     image: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Bt5ZOpbMPTE/maxresdefault.jpg",
     contributors: {
@@ -9424,6 +9649,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [43.0223385, 141.3221684],
     streetView: "https://maps.app.goo.gl/4iRJmcKMYqLTSAeC8",
     url: "https://youtu.be/o3XR1zIRdrY?t=124",
+    viewCount: 247981,
     image: "https://i.ytimg.com/vi/o3XR1zIRdrY/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/o3XR1zIRdrY/maxresdefault.jpg",
     contributors: {
@@ -9449,6 +9675,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [22.377186, 114.1895227],
     streetView: "https://maps.app.goo.gl/uhpCAQKaMpNsG5jV7",
     url: "https://youtu.be/6K4h8mLPJ3c?t=173",
+    viewCount: 151030,
     image: "https://i.ytimg.com/vi/6K4h8mLPJ3c/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6K4h8mLPJ3c/maxresdefault.jpg",
     contributors: {
@@ -9499,6 +9726,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     artists: ["Gordon Flanders"],
     name: "溝之口 沒有 藤井風 (Just you and me (and Fujii Kaze))",
     url: "https://www.youtube.com/watch?v=InNy_2BZYxE",
+    viewCount: 354519,
     image: "https://i.ytimg.com/vi/InNy_2BZYxE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/InNy_2BZYxE/maxresdefault.jpg",
     streetView: "",
@@ -9545,6 +9773,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     coordinates: [26.3628545, 127.8727801],
     name: "十七奏鳴曲 (Cicada Sonata Op.17)",
     url: "https://youtu.be/qI-mDxJyRig?t=71",
+    viewCount: 178877,
     address: "Gushikawa Coast, Okinawa, Japan",
     image: "https://i.ytimg.com/vi/qI-mDxJyRig/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/qI-mDxJyRig/maxresdefault.jpg",
@@ -9590,6 +9819,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Aberdeen Fishing Village",
     name: "勁浪漫 超溫馨",
     url: "https://www.youtube.com/watch?v=YPJljJJzKFo",
+    viewCount: 5528206,
     image: "https://i.ytimg.com/vi/YPJljJJzKFo/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/YPJljJJzKFo/maxresdefault.jpg",
     contributors: {
@@ -9628,6 +9858,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757599994189!6m8!1m7!1sKGF5sWTAlemLcaAu5Q7fBA!2m2!1d22.99760563159948!2d120.212290543388!3f90.12572654514159!4f2.2797984873688506!5f3.325193203789971",
     url: "https://www.youtube.com/watch?v=N_bghNhUpkA",
+    viewCount: 541209,
     image: "https://i.ytimg.com/vi/N_bghNhUpkA/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/N_bghNhUpkA/maxresdefault.jpg",
     contributors: {
@@ -9666,6 +9897,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetView:
       "https://www.google.com/maps/place/43%C2%B018'15.3%22N+5%C2%B023'39.5%22E/@43.3037165,5.3933466,3a,75y,63.77h,90t/data=!3m7!1e1!3m5!1sJ2WLORH1TUQEjxMioUpznA!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D0%26panoid%3DJ2WLORH1TUQEjxMioUpznA%26yaw%3D63.774932406866725!7i13312!8i6656!4m4!3m3!8m2!3d43.3042416!4d5.3943122?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
     url: "https://youtu.be/OqZqJ6yaeOw?t=132",
+    viewCount: 4008880,
     image: "https://i.ytimg.com/vi/OqZqJ6yaeOw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/OqZqJ6yaeOw/maxresdefault.jpg",
     contributors: {
@@ -9697,3 +9929,191 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
 ];
+
+// BEGIN GENERATED YOUTUBE CHANNEL DATA
+// Updated by scripts/update-youtube-view-counts.mjs.
+export const ARTIST_TO_YOUTUBE_CHANNEL_IDS: Record<string, string[]> = {
+  "$alty Chick鹽焗雞": ["UCIwGE-GZ_DiS5bi0_S4k_dA"],
+  Abby艾比: ["UC9F8B5SW2uOfHijjHYOusCA"],
+  "AGA 江海迦": ["UC0tlrjivieFQ5Aia2e7h5Bg", "UCa2kD29VbGw5BAKJD2naREA"],
+  AKIKO: ["UC-0unh5x9WSd6aj0OGxrgaA"],
+  "Amy Lo": ["UCsnBifIkfLrDAyTib6LOPQA"],
+  "Anna hisbbuR": ["UCIRq6NGXGZmXNfkS60qy1vg"],
+  ANSONBEAN: ["UC-0unh5x9WSd6aj0OGxrgaA", "UCc35hcxNHZWAtWnnzYl8S2Q"],
+  BEYOND: ["UCPcF3KTqhD67ADkukx_OeDg"],
+  Byejack: ["UCjcO8B1ZWbVPUanQvPsw2Pw"],
+  "Candy 王家晴": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "Cloud 雲浩影": ["UC-0unh5x9WSd6aj0OGxrgaA"],
+  COLLAR: ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "CONSTANCE 康堤": ["UCFFbCgnTbnLM2U6LoFMNuCw"],
+  "Cozy Syndrome": ["UCs7xiLgkREcCCyjoRawPFPQ"],
+  "Cy Leo 何卓彥": ["UCpvusy6XzL5Blx_wE9dmzKA"],
+  "DAY 許軼": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "Dear Jane": ["UCOkYP-AE5izd0N7af72uC1Q", "UCiotgREgT1xXXa7Q-MLMnbw"],
+  "dessy 守一": ["UCDdSgxTGvU6ddQx6Qx6855g"],
+  "Edan 呂爵安": ["UCEuQ-0x3uMk1KghGiO1kTHg"],
+  "EGG 黃詠霖": ["UCacInlI6ScRthqySDms-u4w"],
+  "elka 鄭芷淇": ["UCzjg0a_0Ma6z37hAMv5qVZg"],
+  "Faye Wong 王菲": ["UCu_RbjTKpXggDiXUZKqUGow"],
+  "Ghost Style": ["UCa2kD29VbGw5BAKJD2naREA"],
+  "Gigi Cheung": ["UCMB18lprem7Kck0C5JlUSuA"],
+  "Gordon Flanders": ["UCOkYP-AE5izd0N7af72uC1Q", "UCTm8VtTO1dY_IBZJNiRMnfg"],
+  "Helen So 蘇凱倫": ["UCfzqjMNTWzet5DGi_D4Ysuw"],
+  "HOPUI 何佩": ["UCZKoQjvzuUexFHy3-QG2AzA"],
+  "Ivana Wong 王菀之": ["UCpvusy6XzL5Blx_wE9dmzKA"],
+  "Ivy 蘇雅琳": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "IVY 蘇雅琳": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "J Jelly": ["UCc35hcxNHZWAtWnnzYl8S2Q", "UCwrPZ16VKfS82xIxcSq7aOw"],
+  "JACE 陳凱詠": ["UCaAsesot2TkGMYCVjcHXDDg"],
+  "Jaime Cheung 張天穎": ["UC0zVkyvvky_ATIEsjRTPpyg"],
+  "Jay Fung": ["UC0mPcmDRMyo9Y2iGqGWI7_A"],
+  "Jay Fung 馮國宏": ["UC0mPcmDRMyo9Y2iGqGWI7_A"],
+  "JESS Law": ["UCQ7XsZGADCzyNHpd46sjhJA"],
+  Kaelyn: ["UCohmf4ZCL6rYrNR-SieluMQ"],
+  kayan9896: ["UC-0unh5x9WSd6aj0OGxrgaA", "UCx5cRz31IaTkSiujMQLUnnQ"],
+  "Kiri T": [
+    "UCOkYP-AE5izd0N7af72uC1Q",
+    "UCgKWfVL9nbU3tHjhICV8IZw",
+    "UChfG42mAZXV1Rejj64MZszw",
+  ],
+  Kiuu: ["UCMg9Dwihz-5rk64-aSn3Z2w"],
+  "Lester Lam 藍奕持": ["UC-0unh5x9WSd6aj0OGxrgaA"],
+  "Lolly Talk": ["UCpuwKOdtSDo8M2t2sAoE6OA"],
+  "Marf 邱彥筒": ["UCMIXW7ICDyTuCFcCHvBjfIQ", "UCgKWfVL9nbU3tHjhICV8IZw"],
+  "MC 張天賦": ["UC4LyPYXnF07KF97Nb8vE_Pg", "UCTm8VtTO1dY_IBZJNiRMnfg"],
+  "MIC 周卓盈": ["UCPbJdbND7y02P3yq2WMSfKA"],
+  "moon tang": [
+    "UC93-DapOyOo5qHmwTkaet-Q",
+    "UCOkYP-AE5izd0N7af72uC1Q",
+    "UCgKWfVL9nbU3tHjhICV8IZw",
+  ],
+  "my little airport": ["UCi-Lb1gFer4U7tkqFA1adiQ"],
+  "Nancy Kwai 歸綽嶢": ["UCh-oyAfg-Nx06N84U1NNZmw"],
+  "Novel Fergus": ["UChk4ONZXQnPdv246bIRVukg"],
+  "Paul Kwan 關立": ["UCRUId68_IHRQ-0TtRCjF3Og"],
+  "Rinka 蔡若琳": ["UCVBVEAH70Jxr-JJlrz3ZbPQ"],
+  "Sandy Natsuly": ["UCwvOyrxgeistranb4oBErhQ"],
+  Sica: ["UCWiUCA0mb5OiNiMI_MiV8Ow"],
+  "Sinnie Ng": ["UCO5dWd2fH84XbCFI7ISXoZw"],
+  "Sumling 李芯駖": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  "Teddy Fan": ["UCDGWCfAevN6ACbCApNn7x3Q"],
+  "Tyson Yoshi": ["UChk4ONZXQnPdv246bIRVukg"],
+  "TYSON YOSHI": ["UCNdIxz7txarVwbq3BvUJTUQ"],
+  "Vincy 蘇詠淳": ["UCdT3dMXT6c3DOa4Qe1PLzYg"],
+  WHIZZ: ["UCcVvd_9-yVWd-bWzh8mUxXg"],
+  "Winka 陳泳伽": ["UCMIXW7ICDyTuCFcCHvBjfIQ", "UCjcO8B1ZWbVPUanQvPsw2Pw"],
+  "WINKA 陳泳伽": ["UCMIXW7ICDyTuCFcCHvBjfIQ"],
+  XTIE: ["UCXnWefGbxofcP6fvAiXncrg"],
+  "Yan Ting 周殷廷": ["UCoqJShrM2GJ9oe-rSkpktQg"],
+  "Young Hysan": ["UCxvz6PhxiQV4NEx1PvExzLw"],
+  Zpecial: ["UCbUBHEot-ncKeRQzTxRykPQ"],
+  "丘藍 YauLam": ["UC0ZeCn_iWZDj7q5kPSKv3KA"],
+  吳林峰: ["UC50ZJ-v-a59UxwrvhPZrBlQ"],
+  "周殷廷 Yan Ting": ["UCNdIxz7txarVwbq3BvUJTUQ", "UCa2kD29VbGw5BAKJD2naREA"],
+  "張國榮 Leslie Cheung": ["UCWGGQw_iJ7F-7Jz6LrfdDRA"],
+  "張蔓姿 Gigi": ["UCMB18lprem7Kck0C5JlUSuA"],
+  "張蔓莎 Sabrina Cheung": ["UC5iJfn1KQYk0Pl8Db9xB1og"],
+  "晚安莉莉 Goodnight Lillie": ["UCrxwdTTV4mCsD1rjpSHjwow"],
+  "曠野回聲 wui4sing1": ["UCd0cW1GqkRivVHPXxaTQGsA"],
+  未來的歌: ["UCgKWfVL9nbU3tHjhICV8IZw"],
+  "李靖筠 Gladys Li": ["UCCzuPng3HJktPQuNl5lAzBQ"],
+  "林家謙 Terence Lam": ["UC5NMESRUXEIpoi5GzGiHEDA"],
+  "林靜翬 winifai": ["UCTbiJ6MfDhANBE6VU6Y0FEg"],
+  "洪嘉豪 Hung Kaho": ["UCXDQojAB3faJeGnSUXZBGXQ"],
+  "湯令山 Gareth T": ["UCOkYP-AE5izd0N7af72uC1Q", "UCZKGtz4orFEaVSNLe2lORHw"],
+  "盧凱彤 Ellen Loo": ["UCfmhjQHHKBzD7ICvYBCLBMQ"],
+  "范卓賢 Jacky Fan": ["UC0ZeCn_iWZDj7q5kPSKv3KA"],
+  范曉萱: ["UCMB18lprem7Kck0C5JlUSuA"],
+  "葉巧琳 Mischa Ip": ["UCQnCjXKb5Ky9zXoniZc8Iag"],
+  "表妹 Mona": ["UCd5H-DuIDR8AYf62C6DGLYA"],
+  謝芊彤: ["UC50ZJ-v-a59UxwrvhPZrBlQ"],
+  阿O: ["UCU61nPG5WhNX3hPsdo6AoCw"],
+  "陳健安 On Chan": [
+    "UC-0unh5x9WSd6aj0OGxrgaA",
+    "UC9x50BI8t4hWsVjLd58kofA",
+    "UCacInlI6ScRthqySDms-u4w",
+  ],
+  "陳奕迅 Eason Chan": ["UCa2kD29VbGw5BAKJD2naREA"],
+  "陳蕾 Panther Chan": ["UCS8WprrGeExAwlAqDJB0LBw"],
+  "雷同二友 The Absent Brother": ["UCM1fVCsgGnWXakaJrr9ILBw"],
+  "馮允謙 Jay Fung": ["UC0mPcmDRMyo9Y2iGqGWI7_A"],
+  "黃淑蔓 Feanna Wong": ["UCgpqdmjeKOAOOQv15NRzJpw", "UCxvz6PhxiQV4NEx1PvExzLw"],
+};
+
+export const YOUTUBE_CHANNEL_SUBSCRIBER_COUNTS: Record<string, number> = {
+  "UC-0unh5x9WSd6aj0OGxrgaA": 208000,
+  UC0mPcmDRMyo9Y2iGqGWI7_A: 72300,
+  UC0tlrjivieFQ5Aia2e7h5Bg: 60400,
+  UC0ZeCn_iWZDj7q5kPSKv3KA: 4030,
+  UC0zVkyvvky_ATIEsjRTPpyg: 26100,
+  UC4LyPYXnF07KF97Nb8vE_Pg: 315000,
+  "UC50ZJ-v-a59UxwrvhPZrBlQ": 16900,
+  UC5iJfn1KQYk0Pl8Db9xB1og: 17500,
+  UC5NMESRUXEIpoi5GzGiHEDA: 250000,
+  "UC93-DapOyOo5qHmwTkaet-Q": 9910,
+  UC9F8B5SW2uOfHijjHYOusCA: 724,
+  UC9x50BI8t4hWsVjLd58kofA: 40000,
+  UCa2kD29VbGw5BAKJD2naREA: 543000,
+  UCaAsesot2TkGMYCVjcHXDDg: 43600,
+  "UCacInlI6ScRthqySDms-u4w": 8650,
+  "UCbUBHEot-ncKeRQzTxRykPQ": 35400,
+  UCc35hcxNHZWAtWnnzYl8S2Q: 170000,
+  "UCcVvd_9-yVWd-bWzh8mUxXg": 14400,
+  UCCzuPng3HJktPQuNl5lAzBQ: 25700,
+  UCd0cW1GqkRivVHPXxaTQGsA: 588,
+  "UCd5H-DuIDR8AYf62C6DGLYA": 5270,
+  UCDdSgxTGvU6ddQx6Qx6855g: 1980,
+  UCDGWCfAevN6ACbCApNn7x3Q: 20800,
+  UCdT3dMXT6c3DOa4Qe1PLzYg: 576,
+  "UCEuQ-0x3uMk1KghGiO1kTHg": 441000,
+  UCFFbCgnTbnLM2U6LoFMNuCw: 9520,
+  UCfmhjQHHKBzD7ICvYBCLBMQ: 16200,
+  UCfzqjMNTWzet5DGi_D4Ysuw: 553,
+  UCgKWfVL9nbU3tHjhICV8IZw: 63800,
+  UCgpqdmjeKOAOOQv15NRzJpw: 38600,
+  "UCh-oyAfg-Nx06N84U1NNZmw": 51100,
+  UChfG42mAZXV1Rejj64MZszw: 78200,
+  UChk4ONZXQnPdv246bIRVukg: 20,
+  "UCi-Lb1gFer4U7tkqFA1adiQ": 124000,
+  "UCiotgREgT1xXXa7Q-MLMnbw": 283000,
+  UCIRq6NGXGZmXNfkS60qy1vg: 16500,
+  "UCIwGE-GZ_DiS5bi0_S4k_dA": 7980,
+  UCjcO8B1ZWbVPUanQvPsw2Pw: 58800,
+  UCM1fVCsgGnWXakaJrr9ILBw: 25200,
+  UCMB18lprem7Kck0C5JlUSuA: 20800,
+  "UCMg9Dwihz-5rk64-aSn3Z2w": 10100,
+  UCMIXW7ICDyTuCFcCHvBjfIQ: 131000,
+  UCNdIxz7txarVwbq3BvUJTUQ: 232000,
+  UCO5dWd2fH84XbCFI7ISXoZw: 11700,
+  "UCohmf4ZCL6rYrNR-SieluMQ": 2310,
+  "UCOkYP-AE5izd0N7af72uC1Q": 257000,
+  "UCoqJShrM2GJ9oe-rSkpktQg": 66100,
+  UCPbJdbND7y02P3yq2WMSfKA: 9850,
+  UCPcF3KTqhD67ADkukx_OeDg: 3900000,
+  UCpuwKOdtSDo8M2t2sAoE6OA: 63100,
+  UCpvusy6XzL5Blx_wE9dmzKA: 21200,
+  UCQ7XsZGADCzyNHpd46sjhJA: 4180,
+  UCQnCjXKb5Ky9zXoniZc8Iag: 17900,
+  "UCRUId68_IHRQ-0TtRCjF3Og": 139,
+  UCrxwdTTV4mCsD1rjpSHjwow: 25400,
+  UCs7xiLgkREcCCyjoRawPFPQ: 10200,
+  UCS8WprrGeExAwlAqDJB0LBw: 178000,
+  UCsnBifIkfLrDAyTib6LOPQA: 4280,
+  UCTbiJ6MfDhANBE6VU6Y0FEg: 9670,
+  UCTm8VtTO1dY_IBZJNiRMnfg: 42600,
+  UCu_RbjTKpXggDiXUZKqUGow: 19400,
+  UCU61nPG5WhNX3hPsdo6AoCw: 205,
+  "UCVBVEAH70Jxr-JJlrz3ZbPQ": 2340,
+  "UCWGGQw_iJ7F-7Jz6LrfdDRA": 99700,
+  UCWiUCA0mb5OiNiMI_MiV8Ow: 24000,
+  UCwrPZ16VKfS82xIxcSq7aOw: 1420,
+  UCwvOyrxgeistranb4oBErhQ: 362,
+  UCx5cRz31IaTkSiujMQLUnnQ: 38700,
+  UCXDQojAB3faJeGnSUXZBGXQ: 112000,
+  UCXnWefGbxofcP6fvAiXncrg: 9150,
+  UCxvz6PhxiQV4NEx1PvExzLw: 21,
+  UCzjg0a_0Ma6z37hAMv5qVZg: 4340,
+  UCZKGtz4orFEaVSNLe2lORHw: 233000,
+  "UCZKoQjvzuUexFHy3-QG2AzA": 13600,
+};
+// END GENERATED YOUTUBE CHANNEL DATA
