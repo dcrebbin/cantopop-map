@@ -6,6 +6,7 @@ import {
   ArrowTopRightOnSquareIcon,
   CheckIcon,
   ChevronRightIcon,
+  EnvelopeIcon,
   InformationCircleIcon,
   MagnifyingGlassIcon,
   PlayIcon,
@@ -30,6 +31,7 @@ import {
   type TalentProfile,
 } from "../common/jobs";
 import Appbar from "./appbar";
+import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
 type SwipeDirection = "like" | "pass";
 type Swipe = { profile: TalentProfile; direction: SwipeDirection };
@@ -124,11 +126,11 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
     ROLE_FAMILIES.find((role) => role.id === selectedId) ?? ROLE_FAMILIES[0];
 
   return (
-    <main className="jobs-map-shell flex min-h-dvh flex-col text-white">
+    <main className="jobs-map-shell flex min-h-dvh flex-col overflow-hidden text-white">
       <Appbar />
       <section className="relative flex flex-1 items-center px-5 py-12 sm:px-10 lg:px-16">
         <div className="mx-auto grid w-full max-w-6xl items-end gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-          <div className="max-w-xl rounded-lg bg-black/45 p-3 drop-shadow-md backdrop-blur-md">
+          <div className="max-w-xl rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 drop-shadow-md backdrop-blur-md">
             <div className="mb-7 flex items-center gap-3 text-xs font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
               Crew finder · 招募人才
             </div>
@@ -141,7 +143,7 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
             </p>
           </div>
 
-          <div className="rounded-lg bg-black/45 p-3 drop-shadow-md backdrop-blur-md sm:p-5">
+          <div className="rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 drop-shadow-md backdrop-blur-md sm:p-5">
             <div className="p-3 sm:p-5">
               <p className="text-xs font-bold tracking-[0.17em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
                 What role are you hiring for?
@@ -317,7 +319,7 @@ function TalentCard({
         <div className="absolute inset-x-5 top-2 bottom-[-10px] rotate-[1.5deg] rounded-lg border-2 border-white/80 bg-black/40 backdrop-blur-md" />
       )}
       <div
-        className={`jobs-talent-card relative touch-pan-y overflow-hidden rounded-lg border-[3px] border-white bg-white text-black drop-shadow-xl select-none ${dragging ? "is-dragging" : ""}`}
+        className={`jobs-talent-card relative touch-pan-y overflow-hidden rounded-lg bg-white text-black drop-shadow-xl select-none ${dragging ? "is-dragging" : ""}`}
         style={cardStyle}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -342,9 +344,29 @@ function TalentCard({
         <div className="p-5 sm:p-7">
           <div className="flex items-start justify-between gap-4">
             <div className="min-w-0">
-              <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
-                {profile.name}
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
+                  {profile.name}
+                </h2>
+                {profile.instagram !== null ? (
+                  <a
+                    href={`https://www.instagram.com/${profile.instagram}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <InstagramIcon className="h-10 w-10 text-black" />
+                  </a>
+                ) : (
+                  <a
+                    href="mailto:devon@langpal.com.hk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 font-[Cute] text-black underline"
+                  >
+                    <EnvelopeIcon className="h-8 w-8 text-black" />
+                  </a>
+                )}
+              </div>
               <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                 <span className="font-bold text-blue-500">
                   {profile.roles[0]}
@@ -399,7 +421,9 @@ function TalentCard({
               {otherWorks.map((work) => (
                 <a
                   key={work.id}
-                  href={work.url}
+                  href={work.url
+                    .replace(/([?&])t=\d+s?(&|$)/, "$1")
+                    .replace(/[?&]$/, "")}
                   target="_blank"
                   rel="noreferrer"
                   className="group min-w-0"
@@ -425,27 +449,6 @@ function TalentCard({
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function MatchReason({
-  profile,
-  swipeCount,
-}: {
-  profile: TalentProfile;
-  swipeCount: number;
-}) {
-  return (
-    <div className="rounded-lg border border-white/50 bg-white/10 p-4 text-xs leading-5 text-white/75 backdrop-blur-sm">
-      <p className="flex items-center gap-2 font-extrabold text-white">
-        <InformationCircleIcon className="h-4 w-4" /> Why this person?
-      </p>
-      <p className="mt-2">
-        {swipeCount === 0
-          ? `Strong ${(profile.roles[0] ?? "crew").toLocaleLowerCase()} match with ${profile.works.length} mapped credit${profile.works.length === 1 ? "" : "s"}.`
-          : `Ranked from credit strength plus role and artist patterns in your ${swipeCount} swipe${swipeCount === 1 ? "" : "s"}.`}
-      </p>
     </div>
   );
 }
@@ -547,10 +550,10 @@ function DiscoveryDeck({
   }
 
   return (
-    <main className="jobs-map-shell min-h-dvh text-white">
+    <main className="jobs-map-shell min-h-dvh overflow-hidden text-white">
       <Appbar />
       <div className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-[96rem] lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
-        <aside className="mt-30 hidden h-fit rounded-2xl border border-white/30 bg-white/5 p-6 backdrop-blur-md lg:flex lg:flex-col">
+        <aside className="mt-28 hidden h-fit rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 backdrop-blur-md lg:flex lg:flex-col">
           <button
             type="button"
             onClick={onChangeRole}
@@ -617,35 +620,9 @@ function DiscoveryDeck({
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
               />
-              <div className="mx-auto mt-6 flex max-w-[43rem] items-center justify-center gap-4 sm:gap-6">
-                <button
-                  type="button"
-                  onClick={() => commitSwipe("pass")}
-                  className="grid h-14 w-14 place-items-center rounded-full border-2 border-white bg-black/45 text-white drop-shadow-md backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-red-500"
-                  aria-label="Pass"
-                >
-                  <XMarkIcon className="h-7 w-7" strokeWidth={2} />
-                </button>
-                <button
-                  type="button"
-                  onClick={undoLastSwipe}
-                  disabled={swipes.length === 0}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-white bg-black/35 text-white backdrop-blur-md transition hover:bg-black/60 disabled:opacity-30"
-                  aria-label="Undo last swipe"
-                >
-                  <ArrowPathIcon className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => commitSwipe("like")}
-                  className="flex h-14 items-center gap-2 rounded-full border-2 border-white bg-blue-500 px-7 text-sm font-extrabold text-white drop-shadow-md transition hover:-translate-y-0.5 hover:bg-blue-600"
-                  aria-label="Add to shortlist"
-                >
-                  <CheckIcon className="h-5 w-5" strokeWidth={2.5} /> Shortlist
-                </button>
-              </div>
+
               <p className="mt-4 text-center text-[10px] font-semibold tracking-[0.08em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
-                Swipe or use arrow keys
+                Swipe left to pass, right to like
               </p>
             </>
           ) : (
@@ -671,9 +648,9 @@ function DiscoveryDeck({
           )}
         </section>
 
-        <aside className="fixed right-0 hidden h-full border-l border-white/30 bg-white/5 p-6 backdrop-blur-md lg:block">
+        <aside className="fixed right-0 hidden h-full w-1/5 rounded-md border-[3px] border-l border-white/50 bg-black/25 p-6 backdrop-blur-md lg:block">
           <div className="flex items-center justify-between">
-            <h2 className="text-xs font-extrabold tracking-[0.15em] uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
+            <h2 className="text-xs font-extrabold tracking-[0.15em] uppercase">
               Recommended
             </h2>
             <span className="rounded-full bg-blue-500 px-2 py-0.5 text-[10px] font-bold text-white">
@@ -707,7 +684,25 @@ function DiscoveryDeck({
                         {profile.roles[0]}
                       </p>
                     </div>
-                    <CheckIcon className="h-4 w-4 text-blue-300" />
+
+                    {profile.instagram !== null ? (
+                      <a
+                        href={`https://www.instagram.com/${profile.instagram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <InstagramIcon className="h-10 w-10" />
+                      </a>
+                    ) : (
+                      <a
+                        href="mailto:devon@langpal.com.hk"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-[Cute] text-white underline"
+                      >
+                        Contact
+                      </a>
+                    )}
                   </div>
                 ))
             )}

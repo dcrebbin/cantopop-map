@@ -146,6 +146,7 @@ export const nameToInstagramMap = {
   "Jacky Suen": "jackysuench",
   "David Fok": "_david_fok_",
   Yulam: "yulam.fung",
+  Eastwindgoodart: "eastwindgoodart",
   "Leo Li": "leoliu_hk",
   Maia: "mariadonnadaza",
   "Matt Chow": "iammattchow",
