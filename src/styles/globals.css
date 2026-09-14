@@ -184,3 +184,30 @@ input[type="checkbox"] {
     animation: none;
   }
 }
+
+.jobs-map-shell {
+  background-color: #4bc5e8;
+  background-image:
+    linear-gradient(rgb(0 0 0 / 16%), rgb(0 0 0 / 16%)),
+    url("/images/cantopopmap.png");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.jobs-talent-card {
+  transform: translateX(var(--drag-x)) rotate(var(--drag-rotate));
+  transition: transform 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.jobs-talent-card.is-dragging {
+  cursor: grabbing;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jobs-talent-card {
+    transition: none;
+  }
+}

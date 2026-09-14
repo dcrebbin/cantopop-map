@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './app/__root'
 import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
 import { Route as LeaderboardRouteImport } from './app/leaderboard'
+import { Route as JobsRouteImport } from './app/jobs'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
 import { Route as RobotsTxtRouteImport } from './app/robots.txt'
@@ -27,6 +28,11 @@ const SrtQuantizeRoute = SrtQuantizeRouteImport.update({
 const LeaderboardRoute = LeaderboardRouteImport.update({
   id: '/leaderboard',
   path: '/leaderboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsRoute = JobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -67,6 +73,7 @@ const ApiLocationAddressRoute = ApiLocationAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
   '/api/proxy': typeof ApiProxyRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
     | '/api/proxy'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
     | '/api/proxy'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
     | '/api/proxy'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  JobsRoute: typeof JobsRoute
   LeaderboardRoute: typeof LeaderboardRoute
   SrtQuantizeRoute: typeof SrtQuantizeRoute
   ApiProxyRoute: typeof ApiProxyRoute
@@ -161,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/leaderboard'
       fullPath: '/leaderboard'
       preLoaderRoute: typeof LeaderboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs': {
+      id: '/jobs'
+      path: '/jobs'
+      fullPath: '/jobs'
+      preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  JobsRoute: JobsRoute,
   LeaderboardRoute: LeaderboardRoute,
   SrtQuantizeRoute: SrtQuantizeRoute,
   ApiProxyRoute: ApiProxyRoute,
