@@ -11,11 +11,9 @@ import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "~/app/_state/ui.store";
 import { PopupContent } from "~/app/components/map/PopupContent";
 import posthog from "posthog-js";
+import { ChevronUpIcon } from "@heroicons/react/24/solid";
 
 const markerRoots = new WeakMap<HTMLDivElement, Root>();
-const popupRoots = new WeakMap<mapboxgl.Popup, Root>();
-const elementRoots = new WeakMap<HTMLElement, Root>();
-
 const CLUSTER_RADIUS_PX = 28;
 const MAX_CLUSTER_ZOOM = 18;
 
@@ -193,34 +191,25 @@ export function refreshMarkerClusters(map?: mapboxgl.Map | null) {
 }
 
 export function showPopup(
-  currentLastPopup: mapboxgl.Popup | null,
   currentLastMarker: HTMLDivElement | null,
-  id: string,
   data: MappableLocationItem,
-  targetMap: mapboxgl.Map,
   markerElement: HTMLDivElement,
-  popup: mapboxgl.Popup,
 ) {
   const songTitle = constructTitle(data);
 
   markerElement?.classList.add("z-[2000]");
 
-  if (currentLastPopup !== null && currentLastMarker !== null) {
-    hidePopup(currentLastPopup, currentLastMarker, id);
+  if (currentLastMarker !== null && currentLastMarker !== markerElement) {
+    hidePopup(currentLastMarker);
   }
-  const { container, root } = createPopupContent(data);
   posthog.capture("view_location", {
     artists: data.artists.join(", "),
     songTitle: data.name,
   });
-  popup.setDOMContent(container);
-  popupRoots.set(popup, root);
-  popup.addTo(targetMap);
   markerElement.classList.add("visible");
   const markerEntry = markerEntries.get(markerElement);
   if (markerEntry) scheduleClusterUpdate(markerEntry.manager);
   useMapStore.getState().setSelectedLocationId(data.id);
-  useMapStore.getState().setLastPopup(popup);
   useMapStore.getState().setLastMarker(markerElement);
   useUIStore.getState().setSelectedLocation({
     value: data.name,
@@ -236,51 +225,103 @@ export function showPopup(
 }
 
 function createCustomMarker(
-  popup: mapboxgl.Popup,
   data: MappableLocationItem,
   mapInstance?: mapboxgl.Map,
 ) {
   const markerElement = document.createElement("div");
+  markerElement.classList.add("group");
 
   const markerRoot = createRoot(markerElement);
   markerRoots.set(markerElement, markerRoot);
   const id = `${data.artists.join(", ")}-${data.name}`;
+  const closeMarker = () => {
+    const params = new URLSearchParams(window.location.search);
+    params.delete("title");
+    const query = params.toString();
+    const newUrl = query
+      ? `${window.location.pathname}?${query}`
+      : window.location.pathname;
+    window.history.pushState({}, "", newUrl);
+    useUIStore.getState().setSelectedLocation({
+      value: "",
+      artists: [],
+      streetViewEmbed: "",
+    });
+    hidePopup(markerElement);
+  };
   markerRoot.render(
-    createElement("img", {
-      src: data.image,
-      id,
-      className:
-        "image-skeleton mt-8 h-14 w-24 cursor-pointer rounded-md object-cover hover:scale-110 z-[1000]",
-      onClick: () => {
-        const targetMap = mapInstance;
-        if (!targetMap) return;
-        const contentIsVisible = markerElement.classList.contains("visible");
-        const { lastPopup: currentLastPopup, lastMarker: currentLastMarker } =
-          useMapStore.getState();
-
-        if (contentIsVisible) {
-          const params = new URLSearchParams(window.location.search);
-          params.delete("title");
-          const query = params.toString();
-          const newUrl = query
-            ? `${window.location.pathname}?${query}`
-            : window.location.pathname;
-          window.history.pushState({}, "", newUrl);
-
-          hidePopup(popup, markerElement, id);
-        } else {
-          showPopup(
-            currentLastPopup,
-            currentLastMarker,
-            id,
-            data,
-            targetMap,
-            markerElement,
-            popup,
-          );
-        }
+    createElement(
+      "div",
+      {
+        className:
+          "flex w-[5.25rem] flex-col overflow-hidden rounded-[0.65rem] bg-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] transition-[width,filter] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none group-[.visible]:w-40 group-[.visible]:drop-shadow-[0_9px_14px_rgba(0,0,0,0.28)]",
       },
-    }),
+      createElement(
+        "div",
+        {
+          className:
+            "max-h-0 w-full origin-bottom translate-y-3 overflow-hidden opacity-0 transition-[max-height,opacity,transform] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none group-[.visible]:max-h-64 group-[.visible]:translate-y-0 group-[.visible]:opacity-100",
+        },
+        createElement(PopupContent, {
+          data,
+          onClose: closeMarker,
+          onDelete: () => deletePlace(data),
+          onEdit: () => editPlace(data),
+        }),
+      ),
+      createElement(
+        "button",
+        {
+          type: "button",
+          id,
+          className:
+            "relative block h-16 w-[4.75rem] cursor-pointer self-center overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 transition-[width,height,transform] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.04] focus-visible:scale-[1.04] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_rgba(17,24,39,0.45)] motion-reduce:transition-none group-[.visible]:h-32 group-[.visible]:w-full group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem] group-[.visible]:hover:scale-100",
+          "data-marker-trigger": "",
+          "aria-label": `Show ${data.name} by ${data.artists.join(", ")}`,
+          onClick: () => {
+            const targetMap = mapInstance;
+            if (!targetMap) return;
+            const contentIsVisible =
+              markerElement.classList.contains("visible");
+            const { lastMarker: currentLastMarker } = useMapStore.getState();
+
+            if (contentIsVisible) {
+              return;
+            } else {
+              showPopup(currentLastMarker, data, markerElement);
+            }
+          },
+        },
+        createElement("img", {
+          src: data.image,
+          alt: "",
+          className:
+            "image-skeleton relative z-[1] block size-full rounded-[0.42rem] object-cover group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem]",
+        }),
+        createElement(
+          "div",
+          {
+            className:
+              "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-left text-white opacity-0 transition-opacity duration-200 group-[.visible]:opacity-100",
+          },
+          createElement(
+            "p",
+            { className: "line-clamp-1 text-xs leading-tight font-bold" },
+            data.artists.join(", "),
+          ),
+          createElement(
+            "p",
+            { className: "line-clamp-2 text-[0.65rem] leading-tight" },
+            data.name,
+          ),
+        ),
+        createElement(ChevronUpIcon, {
+          "aria-hidden": true,
+          className:
+            "pointer-events-none absolute top-0 left-3 z-[3] size-5 -translate-x-1/2 text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.9)] transition-opacity duration-200 group-[.visible]:opacity-0",
+        }),
+      ),
+    ),
   );
   markerElement.dataset.artist = data.artists.join(", ");
   markerElement.dataset.song = data.name;
@@ -288,8 +329,6 @@ function createCustomMarker(
   if (contributorNames.length > 0) {
     markerElement.dataset.contributors = contributorNames.join(", ");
   }
-  markerElement.style.marginTop = "40px";
-
   return markerElement;
 }
 
@@ -297,17 +336,10 @@ export function addPlace(
   data: MappableLocationItem,
   mapInstance?: mapboxgl.Map,
 ) {
-  const popup = new mapboxgl.Popup({
-    closeButton: false,
-    closeOnClick: false,
-    closeOnMove: false,
-    focusAfterOpen: false,
-  });
-
   const targetMap = mapInstance;
   if (!targetMap) return;
 
-  const markerElement = createCustomMarker(popup, data, targetMap);
+  const markerElement = createCustomMarker(data, targetMap);
 
   const marker = new mapboxgl.Marker({
     element: markerElement,
@@ -323,39 +355,14 @@ export function addPlace(
   scheduleClusterUpdate(manager);
 
   useMapStore.getState().addMarker(markerElement);
-  popup.setLngLat([data.lng, data.lat]);
 }
 
-export function hidePopup(
-  popup: mapboxgl.Popup,
-  marker: HTMLDivElement,
-  _id: string,
-) {
-  const root = popupRoots.get(popup);
-  if (root) {
-    root.unmount();
-    popupRoots.delete(popup);
-  }
-  popup.remove();
+export function hidePopup(marker: HTMLDivElement) {
   marker.classList.remove("visible");
   const markerEntry = markerEntries.get(marker);
   if (markerEntry) scheduleClusterUpdate(markerEntry.manager);
   marker?.classList.remove("z-[2000]");
   useMapStore.getState().clearSelectedLocation();
-}
-
-function createPopupContent(data: MappableLocationItem) {
-  const container = document.createElement("div");
-  const root = createRoot(container);
-  root.render(
-    createElement(PopupContent, {
-      data,
-      onDelete: () => deletePlace(data),
-      onEdit: () => editPlace(data),
-    }),
-  );
-  elementRoots.set(container, root);
-  return { container, root };
 }
 
 function editPlace(data: MappableLocationItem) {
@@ -379,16 +386,5 @@ function deletePlace(data: MappableLocationItem) {
     if (markerRoot && typeof markerRoot.unmount === "function")
       markerRoot.unmount();
     if (!entry) marker.remove();
-  }
-  const popupContent = document.querySelector(
-    `[data-song="popup-${data.name}"]`,
-  );
-  if (popupContent) {
-    const container = popupContent.parentElement as HTMLDivElement;
-    const root = elementRoots.get(container);
-    if (root && typeof root.unmount === "function") root.unmount();
-    const popupEl = popupContent.parentElement
-      ?.parentElement as HTMLDivElement | null;
-    if (popupEl) popupEl.remove();
   }
 }

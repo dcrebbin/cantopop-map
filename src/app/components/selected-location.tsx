@@ -28,12 +28,8 @@ export default function SelectedLocation() {
       ? `${window.location.pathname}?${query}`
       : window.location.pathname;
     window.history.replaceState({}, "", newUrl);
-    if (mapStore.lastPopup && mapStore.lastMarker) {
-      hidePopup(
-        mapStore.lastPopup,
-        mapStore.lastMarker,
-        mapStore.selectedLocationId ?? "",
-      );
+    if (mapStore.lastMarker) {
+      hidePopup(mapStore.lastMarker);
     }
     mapStore.clearSelectedLocation();
   }

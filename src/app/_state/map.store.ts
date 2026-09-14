@@ -4,9 +4,7 @@ interface MapState {
   selectedLocationId: string | null;
   setSelectedLocationId: (id: string) => void;
   clearSelectedLocation: () => void;
-  lastPopup: mapboxgl.Popup | null;
   lastMarker: HTMLDivElement | null;
-  setLastPopup: (popup: mapboxgl.Popup) => void;
   setLastMarker: (marker: HTMLDivElement) => void;
   allMarkers: HTMLDivElement[];
   addMarker: (marker: HTMLDivElement) => void;
@@ -19,9 +17,8 @@ interface MapState {
 export const useMapStore = create<MapState>((set) => ({
   selectedLocationId: null,
   setSelectedLocationId: (id: string) => set({ selectedLocationId: id }),
-  clearSelectedLocation: () => set({ selectedLocationId: null }),
-  lastPopup: null,
-  setLastPopup: (popup: mapboxgl.Popup) => set({ lastPopup: popup }),
+  clearSelectedLocation: () =>
+    set({ selectedLocationId: null, lastMarker: null }),
   lastMarker: null,
   setLastMarker: (marker: HTMLDivElement) => set({ lastMarker: marker }),
   allMarkers: [],

@@ -5,12 +5,9 @@ import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
-import { useState } from "react";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
-import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { hidePopup } from "~/lib/custom-map";
-import { useMapStore } from "~/app/_state/map.store";
+import { ArrowUpRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 function buildDirectionsUrl(data: MappableLocationItem) {
   return `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
@@ -63,21 +60,19 @@ export function SvgIcon({
 
 export function PopupContent({
   data,
+  onClose,
   onDelete: _onDelete,
   onEdit: _onEdit,
 }: {
   data: MappableLocationItem;
+  onClose?: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
 }) {
-  const [isExpanded] = useState(false);
-
   const { setSelectedLocationCredits } = useUIStore();
-  const mapStore = useMapStore();
-  const uiStore = useUIStore();
 
   const actionButtons = (
-    <div className="mt-2 flex h-2 w-full items-center justify-center gap-2 text-black">
+    <div className="mt-7 flex h-2 w-full items-center justify-center gap-2 text-black">
       <a
         href={data.url}
         target="_blank"
@@ -115,46 +110,17 @@ export function PopupContent({
 
   return (
     <div
-      className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start gap-1 rounded-md bg-white p-1"
+      className="relative flex w-full flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
       tabIndex={-1}
-      style={{
-        maxHeight: isExpanded ? "none" : "",
-        height: isExpanded ? "350px" : "100%",
-        width: isExpanded ? "350px" : "150px",
-      }}
       data-song={`popup-${data.name}`}
     >
-      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 text-black">
+      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 p-2 text-black">
         <button
           type="button"
-          aria-label="Close location popup"
-          onClick={() => {
-            const { lastPopup, lastMarker } = useMapStore.getState();
-            if (lastPopup && lastMarker) {
-              uiStore.setSelectedLocation({
-                value: "",
-                artists: [],
-                streetViewEmbed: "",
-              });
-              const params = new URLSearchParams(window.location.search);
-              params.delete("title");
-              const query = params.toString();
-              const newUrl = query
-                ? `${window.location.pathname}?${query}`
-                : window.location.pathname;
-              window.history.replaceState({}, "", newUrl);
-              if (mapStore.lastPopup && mapStore.lastMarker) {
-                hidePopup(
-                  mapStore.lastPopup,
-                  mapStore.lastMarker,
-                  mapStore.selectedLocationId ?? "",
-                );
-              }
-              mapStore.clearSelectedLocation();
-            }
-          }}
+          aria-label="Collapse location details"
+          onClick={onClose}
         >
-          <XMarkIcon className="size-4 cursor-pointer" />
+          <ChevronDownIcon className="size-4 cursor-pointer" />
         </button>
         {data.contributors && (
           <button
@@ -175,17 +141,12 @@ export function PopupContent({
           </button>
         )}
       </div>
-      <div className="mt-2 flex flex-col items-center justify-center">
-        <p className="text-center text-base font-bold">
-          {data.artists.join(", ")}
-        </p>
-        <p className="text-center text-sm">{data.name}</p>
-        <hr className="my-1 w-full border-[1px] border-t border-black/10"></hr>
+      {actionButtons}
+      <div className="flex w-full flex-col items-center justify-center">
         <p className="text-center text-[0.6rem] leading-none tracking-tight">
           {data.address}
         </p>
       </div>
-      {actionButtons}
     </div>
   );
 }

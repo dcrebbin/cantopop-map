@@ -79,7 +79,9 @@ export default function HomePage({ location }: { location?: LocationItem }) {
       const marker = useMapStore
         .getState()
         .allMarkers.find((item) => item.dataset.song === targetLocation.name);
-      const clickableMarkerImage = marker?.querySelector("img");
+      const clickableMarkerImage = marker?.querySelector(
+        "[data-marker-trigger]",
+      );
 
       if (clickableMarkerImage instanceof HTMLElement) {
         clickableMarkerImage.click();
