@@ -2,7 +2,6 @@
 
 import {
   ArrowTopRightOnSquareIcon,
-  MapPinIcon,
   PauseIcon,
   PlayIcon,
   SpeakerWaveIcon,
@@ -13,7 +12,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeEmbedUrl } from "./common/jobs";
 import { getInstagramByName } from "./common/social-media";
-import Appbar from "./components/appbar";
+import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
 const MAX_VIEWS = 50_000;
@@ -68,12 +67,25 @@ function makeBatch(locations: LocationItem[], cycle: number): FeedItem[] {
   );
 }
 
+function shuffledLocations(locations: LocationItem[]): LocationItem[] {
+  const shuffled = [...locations];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex]!,
+      shuffled[index]!,
+    ];
+  }
+  return shuffled;
+}
+
 function youtubeWatchUrl(url: string) {
   return url.replace(/([?&])t=\d+s?(&|$)/, "$1").replace(/[?&]$/, "");
 }
 
 function DscvrSlide({
   item,
+  loadVideo,
   active,
   muted,
   paused,
@@ -81,12 +93,18 @@ function DscvrSlide({
   onTogglePaused,
 }: {
   item: FeedItem;
+  loadVideo: boolean;
   active: boolean;
   muted: boolean;
   paused: boolean;
   onToggleMuted: () => void;
-  onTogglePaused: () => void;
+  onTogglePaused: (paused: boolean) => void;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<YoutubePlayer | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const [playerError, setPlayerError] = useState(false);
+  const desiredRef = useRef({ active, muted, paused });
   const { location } = item;
   const embedUrl = youtubeEmbedUrl(location.url);
   const instagram = location.artists
@@ -95,9 +113,96 @@ function DscvrSlide({
   const youtubeUrl = youtubeWatchUrl(location.url);
   const thumbnail = location.highResImage ?? location.image;
 
+  const syncPlayer = useCallback(() => {
+    const player = playerRef.current;
+    if (!player) return;
+    const desired = desiredRef.current;
+    if (!desired.active) {
+      player.mute();
+      player.pauseVideo();
+      return;
+    }
+    if (desired.muted) player.mute();
+    else player.unMute();
+    if (desired.paused) player.pauseVideo();
+    else player.playVideo();
+  }, []);
+
+  useEffect(() => {
+    if (!loadVideo || !embedUrl || !containerRef.current) return;
+    const container = containerRef.current;
+    let disposed = false;
+    let player: YoutubePlayer | undefined;
+    void loadYoutubePlayer()
+      .then((api) => {
+        if (disposed) return;
+        // The API owns this iframe so destroy() never removes React-owned nodes.
+        const iframe = document.createElement("iframe");
+        iframe.src = `${embedUrl}&autoplay=0&mute=1&controls=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.title = "Cantopop music video";
+        iframe.className = "absolute inset-0 h-full w-full";
+        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+        container.append(iframe);
+        player = new api.Player(iframe, {
+          events: {
+            onReady: ({ target }) => {
+              if (disposed) return;
+              playerRef.current = target;
+              syncPlayer();
+            },
+            onStateChange: ({ target, data }) => {
+              if (disposed) return;
+              const desired = desiredRef.current;
+              if (!desired.active && (data === 1 || data === 3)) {
+                target.mute();
+                target.pauseVideo();
+                return;
+              }
+              setPlaying(data === 1 || data === 3);
+              if (data === 0 && desired.active && !desired.paused) {
+                target.seekTo(0, true);
+                target.playVideo();
+              }
+            },
+            onAutoplayBlocked: () => {
+              if (!disposed) setPlaying(false);
+            },
+          },
+        });
+      })
+      .catch(() => {
+        if (!disposed) setPlayerError(true);
+      });
+    return () => {
+      disposed = true;
+      playerRef.current = null;
+      player?.destroy();
+      container.replaceChildren();
+    };
+  }, [loadVideo, embedUrl, syncPlayer]);
+
+  useEffect(() => {
+    desiredRef.current = { active, muted, paused };
+    syncPlayer();
+  }, [active, muted, paused, syncPlayer]);
+
+  const togglePaused = () => {
+    // Dispatch in the gesture handler to retain browser playback permission.
+    const nextPaused = playing;
+    desiredRef.current = { active, muted, paused: nextPaused };
+    syncPlayer();
+    onTogglePaused(nextPaused);
+  };
+
+  const toggleMuted = () => {
+    desiredRef.current = { active, paused, muted: !muted };
+    syncPlayer();
+    onToggleMuted();
+  };
+
   return (
-    <article className="relative flex h-dvh min-h-[34rem] snap-start snap-always items-center justify-center overflow-hidden sm:p-5 lg:p-7">
-      <div className="relative z-10 grid h-dvh w-[min(100vw,56.25dvh)] grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden bg-black text-white sm:aspect-[9/16] sm:h-[calc(100dvh-2.5rem)] sm:w-auto sm:max-w-[calc(100vw-2.5rem)] sm:rounded-[2rem] sm:border-[3px] sm:border-white/55 sm:shadow-[0_1.5rem_5rem_rgba(0,0,0,.55)] lg:h-[calc(100dvh-3.5rem)] lg:max-w-[calc(100vw-3.5rem)]">
+    <article className="relative flex h-dvh min-h-[34rem] snap-start snap-always items-center justify-center overflow-hidden p-0 lg:p-7">
+      <div className="relative z-10 grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden bg-black text-white sm:aspect-[9/16] sm:h-[calc(100dvh-2.5rem)] sm:w-auto sm:max-w-[calc(100vw-2.5rem)] sm:rounded-[2rem] sm:border-[3px] sm:border-white/55 sm:shadow-[0_1.5rem_5rem_rgba(0,0,0,.55)] lg:h-[calc(100dvh-3.5rem)] lg:max-w-[calc(100vw-3.5rem)]">
         <div className="relative min-h-0 overflow-hidden">
           <img
             src={thumbnail}
@@ -108,20 +213,56 @@ function DscvrSlide({
         </div>
 
         <div className="relative aspect-video w-full shrink-0 bg-black">
-          <iframe
-            src={`${embedUrl}&autoplay=1&mute=${muted ? 1 : 0}&playsinline=1`}
-            title={`${location.name} by ${location.artists.join(", ")}`}
-            className="absolute inset-0 h-full w-full"
-            allow="autoplay; controls;encrypted-media; picture-in-picture"
-            allowFullScreen
-          />
+          <div ref={containerRef} className="absolute inset-0" />
+          {playerError && (
+            <p role="status">
+              playerError: Video unavailable. Open it on YouTube below.{" "}
+              {playerError}
+            </p>
+          )}
+          {active && (
+            <button
+              type="button"
+              className="absolute inset-0 z-10"
+              onClick={togglePaused}
+              aria-label={playing ? "Pause video" : "Play video"}
+            />
+          )}
+          {active && (
+            <div className="absolute right-3 bottom-3 z-10 flex gap-2">
+              <button
+                type="button"
+                onClick={togglePaused}
+                className="grid size-10 place-items-center rounded-full bg-black/65 text-white backdrop-blur transition hover:bg-black/85"
+                aria-label={playing ? "Pause video" : "Play video"}
+              >
+                {!playing ? (
+                  <PlayIcon className="size-5" />
+                ) : (
+                  <PauseIcon className="size-5" />
+                )}
+              </button>
+              <button
+                type="button"
+                onClick={toggleMuted}
+                className="grid size-10 place-items-center rounded-full bg-black/65 text-white backdrop-blur transition hover:bg-black/85"
+                aria-label={muted ? "Unmute video" : "Mute video"}
+              >
+                {muted ? (
+                  <SpeakerXMarkIcon className="size-5" />
+                ) : (
+                  <SpeakerWaveIcon className="size-5" />
+                )}
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="relative min-h-0 overflow-hidden">
           <img
             src={thumbnail}
             alt=""
-            className="h-full w-full object-cover object-center blur-xs"
+            className="h-full w-full object-cover object-center blur-xs scale-250"
           />
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/25 to-black/90" />
 
@@ -167,21 +308,34 @@ function DscvrPage() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
+  const activeIndexRef = useRef(0);
+  const hasRandomizedRef = useRef(false);
+  const feedLocationsRef = useRef(eligibleLocations);
   const cycleRef = useRef(1);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
 
   useEffect(() => {
+    if (hasRandomizedRef.current) return;
+    hasRandomizedRef.current = true;
+    feedLocationsRef.current = shuffledLocations(eligibleLocations);
+    setFeed(makeBatch(feedLocationsRef.current, 0));
+  }, [eligibleLocations]);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const mostVisible = entries
-          .filter((entry) => entry.isIntersecting)
+          .filter(
+            (entry) => entry.isIntersecting && entry.intersectionRatio >= 0.6,
+          )
           .toSorted((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (!mostVisible) return;
         const index = Number(
           (mostVisible.target as HTMLElement).dataset.feedIndex,
         );
-        if (!Number.isNaN(index)) {
+        if (!Number.isNaN(index) && index !== activeIndexRef.current) {
+          activeIndexRef.current = index;
           setActiveIndex(index);
           setPaused(false);
         }
@@ -196,8 +350,11 @@ function DscvrPage() {
   const extendFeed = useCallback(() => {
     const cycle = cycleRef.current;
     cycleRef.current += 1;
-    setFeed((current) => [...current, ...makeBatch(eligibleLocations, cycle)]);
-  }, [eligibleLocations]);
+    setFeed((current) => [
+      ...current,
+      ...makeBatch(feedLocationsRef.current, cycle),
+    ]);
+  }, []);
 
   const handleScroll = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -249,11 +406,12 @@ function DscvrPage() {
             >
               <DscvrSlide
                 item={item}
+                loadVideo={Math.abs(activeIndex - index) <= 1}
                 active={activeIndex === index}
                 muted={muted}
                 paused={paused && activeIndex === index}
                 onToggleMuted={() => setMuted((current) => !current)}
-                onTogglePaused={() => setPaused((current) => !current)}
+                onTogglePaused={setPaused}
               />
             </section>
           );
