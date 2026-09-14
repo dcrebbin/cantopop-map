@@ -7,13 +7,10 @@ import {
   CheckIcon,
   ChevronRightIcon,
   EnvelopeIcon,
-  InformationCircleIcon,
   MagnifyingGlassIcon,
   PlayIcon,
-  SparklesIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "@tanstack/react-router";
 import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
@@ -60,6 +57,7 @@ function scoreProfile(
   profile: TalentProfile,
   weights: SignalWeights,
   family: RoleFamily,
+  explorationSeed: string,
 ) {
   const creditScore = Math.min(profile.works.length, 12) * 2.25;
   const breadthScore = Math.min(profile.artists.length, 8) * 1.2;
@@ -75,7 +73,7 @@ function scoreProfile(
     0,
   );
   const explorationScore =
-    (stableNumber(`${family.id}:${profile.id}`) % 61) / 20;
+    (stableNumber(`${explorationSeed}:${family.id}:${profile.id}`) % 121) / 10;
 
   return (
     50 +
@@ -114,7 +112,39 @@ function weightsFromSwipes(swipes: Swipe[]) {
   );
 }
 
-function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
+function youtubeThumbnailCandidates(image: string) {
+  const thumbnailPattern =
+    /(maxresdefault|sddefault|hqdefault|mqdefault)\.(jpg|webp)/;
+  const candidates = ["maxresdefault", "sddefault", "hqdefault"].map(
+    (quality) => image.replace(thumbnailPattern, `${quality}.$2`),
+  );
+
+  return [...new Set([...candidates, image])];
+}
+
+function ResilientWorkImage({ image }: { image: string }) {
+  const candidates = youtubeThumbnailCandidates(image);
+  const [candidateIndex, setCandidateIndex] = useState(0);
+
+  return (
+    <img
+      src={candidates[candidateIndex]}
+      alt=""
+      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+      onError={() =>
+        setCandidateIndex((current) =>
+          Math.min(current + 1, candidates.length - 1),
+        )
+      }
+    />
+  );
+}
+
+function RolePicker({
+  onStart,
+}: {
+  onStart: (role: RoleFamily, explorationSeed: string) => void;
+}) {
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState(INITIAL_ROLE_ID);
   const filteredRoles = ROLE_FAMILIES.filter((role) =>
@@ -126,30 +156,30 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
     ROLE_FAMILIES.find((role) => role.id === selectedId) ?? ROLE_FAMILIES[0];
 
   return (
-    <main className="jobs-map-shell flex min-h-dvh flex-col overflow-hidden text-white">
+    <main className="jobs-map-shell flex min-h-dvh flex-col overflow-x-hidden text-white">
       <Appbar />
-      <section className="relative flex flex-1 items-center px-5 py-12 sm:px-10 lg:px-16">
-        <div className="mx-auto grid w-full max-w-6xl items-end gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-          <div className="max-w-xl rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 drop-shadow-md backdrop-blur-md">
-            <div className="mb-7 flex items-center gap-3 text-xs font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
+      <section className="relative flex w-full min-w-0 flex-1 items-start px-3 pt-24 pb-4 sm:px-8 sm:pt-32 sm:pb-8 lg:items-center lg:px-16 lg:py-32">
+        <div className="mx-auto grid w-full max-w-6xl min-w-0 items-end gap-3 sm:gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          <div className="box-border w-full max-w-xl min-w-0 overflow-hidden rounded-xl border-2 border-white/50 bg-black/25 p-4 drop-shadow-md backdrop-blur-md sm:rounded-2xl sm:border-[3px] sm:p-6">
+            <div className="mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mb-7 sm:text-xs">
               Crew finder · 招募人才
             </div>
-            <h1 className="max-w-2xl font-[Cute] text-[clamp(3.3rem,8vw,7.5rem)] leading-[0.82] tracking-[-0.055em] drop-shadow-[0_0_7px_rgba(0,0,0,0.9)]">
+            <h1 className="max-w-2xl font-[Cute] text-[clamp(2.65rem,13vw,7.5rem)] leading-[0.86] tracking-[-0.055em] drop-shadow-[0_0_7px_rgba(0,0,0,0.9)]">
               Find the people behind the picture.
             </h1>
-            <p className="mt-7 max-w-lg text-base leading-7 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-lg">
+            <p className="mt-4 hidden max-w-lg text-sm leading-5 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:mt-7 sm:block sm:text-lg sm:leading-7">
               Start with a department. We’ll surface people through their real
               Cantopop credits, then tune the next recommendations as you swipe.
             </p>
           </div>
 
-          <div className="rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 drop-shadow-md backdrop-blur-md sm:p-5">
-            <div className="p-3 sm:p-5">
+          <div className="box-border w-full max-w-full min-w-0 overflow-hidden rounded-xl border-2 border-white/50 bg-black/25 p-2 drop-shadow-md backdrop-blur-md sm:rounded-2xl sm:border-[3px] sm:p-5">
+            <div className="p-2 sm:p-5">
               <p className="text-xs font-bold tracking-[0.17em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
                 What role are you hiring for?
               </p>
-              <label className="mt-4 flex items-center gap-3 rounded-md bg-black/25 px-4 py-3.5 focus-within:bg-black/40">
-                <MagnifyingGlassIcon className="h-5 w-5 text-white" />
+              <label className="mt-3 flex min-w-0 items-center gap-3 rounded-md bg-black/25 px-3 py-3 focus-within:bg-black/40 sm:mt-4 sm:px-4 sm:py-3.5">
+                <MagnifyingGlassIcon className="h-5 w-5 shrink-0 text-white" />
                 <span className="sr-only">Search departments</span>
                 <input
                   value={query}
@@ -160,7 +190,7 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
               </label>
             </div>
 
-            <div className="max-h-[23rem] space-y-1 overflow-y-auto px-1 sm:px-3">
+            <div className="max-h-[min(14rem,25dvh)] min-w-0 space-y-1 overflow-y-auto overscroll-contain px-1 sm:max-h-[23rem] sm:px-3">
               {filteredRoles.map((role) => {
                 const isSelected = role.id === selectedId;
                 return (
@@ -168,7 +198,7 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
                     key={role.id}
                     type="button"
                     onClick={() => setSelectedId(role.id)}
-                    className={`group flex w-full items-center gap-4 rounded-2xl px-4 py-3.5 text-left transition ${
+                    className={`group flex w-full min-w-0 items-center gap-3 overflow-hidden rounded-xl px-3 py-3 text-left transition sm:gap-4 sm:rounded-2xl sm:px-4 sm:py-3.5 ${
                       isSelected
                         ? "bg-blue-500 text-white"
                         : "text-white hover:bg-white/15"
@@ -197,7 +227,7 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
                         {role.description}
                       </span>
                     </span>
-                    <ChevronRightIcon className="h-4 w-4 opacity-50 transition group-hover:translate-x-0.5" />
+                    <ChevronRightIcon className="h-4 w-4 shrink-0 opacity-50 transition group-hover:translate-x-0.5" />
                   </button>
                 );
               })}
@@ -208,15 +238,23 @@ function RolePicker({ onStart }: { onStart: (role: RoleFamily) => void }) {
               )}
             </div>
 
-            <div className="mt-3 border-t border-white/30 p-3 pt-5 sm:p-5">
+            <div className="mt-2 border-t border-white/30 p-2 pt-3 sm:mt-3 sm:p-5 sm:pt-5">
               <button
                 type="button"
                 disabled={!selectedRole}
-                onClick={() => selectedRole && onStart(selectedRole)}
-                className="flex w-full items-center justify-center gap-3 rounded-md bg-blue-500 px-5 py-4 text-sm font-extrabold text-white drop-shadow-md transition hover:bg-blue-600 disabled:opacity-40"
+                onClick={() =>
+                  selectedRole &&
+                  onStart(
+                    selectedRole,
+                    `${Date.now()}:${Math.random().toString(36).slice(2)}`,
+                  )
+                }
+                className="flex min-h-12 w-full min-w-0 items-center justify-center gap-2 overflow-hidden rounded-md bg-blue-500 px-3 py-3 text-sm font-extrabold text-white drop-shadow-md transition hover:bg-blue-600 disabled:opacity-40 sm:gap-3 sm:px-5 sm:py-4"
               >
-                Start discovering {selectedRole?.label.toLocaleLowerCase()}
-                <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                <span className="min-w-0 truncate">
+                  Start discovering {selectedRole?.label.toLocaleLowerCase()}
+                </span>
+                <ArrowTopRightOnSquareIcon className="h-4 w-4 shrink-0" />
               </button>
             </div>
           </div>
@@ -259,25 +297,18 @@ function WorkPlayer({
           className="group relative h-full w-full text-left"
           aria-label={`Play ${work.title}`}
         >
-          <img
-            src={
-              work.image.replace("mqdefault.jpg", "maxresdefault.jpg") ??
-              work.image.replace("mqdefault.jpg", "sddefault.jpg")
-            }
-            alt=""
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
-          />
+          <ResilientWorkImage key={work.id} image={work.image} />
           <span className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/5 to-black/10" />
-          <span className="absolute top-4 left-4 rounded-full bg-white/90 px-3 py-1.5 text-[10px] font-extrabold tracking-[0.13em] text-black uppercase backdrop-blur">
+          <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[9px] font-extrabold tracking-[0.13em] text-black uppercase backdrop-blur sm:top-4 sm:left-4 sm:px-3 sm:py-1.5 sm:text-[10px]">
             Selected work
           </span>
           <span className="absolute inset-0 grid place-items-center">
-            <span className="grid h-14 w-14 place-items-center rounded-full border border-white/50 bg-white/90 text-black shadow-xl transition group-hover:scale-105">
+            <span className="grid h-12 w-12 place-items-center rounded-full border border-white/50 bg-white/90 text-black shadow-xl transition group-hover:scale-105 sm:h-14 sm:w-14">
               <PlayIcon className="ml-0.5 h-5 w-5 fill-current" />
             </span>
           </span>
-          <span className="absolute right-5 bottom-4 left-5 text-white">
-            <span className="block truncate text-lg font-extrabold">
+          <span className="absolute right-3 bottom-3 left-3 text-white sm:right-5 sm:bottom-4 sm:left-5">
+            <span className="block truncate text-sm font-extrabold sm:text-lg">
               {work.title}
             </span>
             <span className="mt-0.5 block truncate text-xs text-white/75">
@@ -344,8 +375,8 @@ function TalentCard({
 
         <WorkPlayer profile={profile} seed={seed} />
 
-        <div className="p-5 sm:p-7">
-          <div className="flex items-start justify-between gap-4">
+        <div className="p-4 sm:p-7">
+          <div className="flex items-start justify-between gap-2 sm:gap-4">
             <div className="min-w-0">
               <div className="flex items-center gap-2">
                 <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
@@ -357,7 +388,10 @@ function TalentCard({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <InstagramIcon className="h-10 w-10 text-black" />
+                    <InstagramIcon className="h-9 w-9 text-black sm:h-10 sm:w-10" />
+                    <span className="sr-only">
+                      Open {profile.name} on Instagram
+                    </span>
                   </a>
                 ) : (
                   <a
@@ -367,6 +401,7 @@ function TalentCard({
                     className="flex items-center gap-2 font-[Cute] text-black underline"
                   >
                     <EnvelopeIcon className="h-8 w-8 text-black" />
+                    <span className="sr-only">Contact {profile.name}</span>
                   </a>
                 )}
               </div>
@@ -388,7 +423,7 @@ function TalentCard({
               </div>
             </div>
             <div className="shrink-0 text-right">
-              <span className="block text-2xl font-black">
+              <span className="block text-xl font-black sm:text-2xl">
                 {profile.works.length}
               </span>
               <span className="block text-[10px] font-bold tracking-[0.14em] text-[#77736a] uppercase">
@@ -410,7 +445,7 @@ function TalentCard({
             </div>
           )}
 
-          <div className="mt-6 border-t border-[#ddd7cb] pt-5">
+          <div className="mt-4 border-t border-[#ddd7cb] pt-4 sm:mt-6 sm:pt-5">
             <div className="mb-3 flex items-center justify-between">
               <h3 className="text-[11px] font-extrabold tracking-[0.16em] uppercase">
                 More work
@@ -420,7 +455,7 @@ function TalentCard({
                 {profile.artists.length === 1 ? "" : "s"}
               </span>
             </div>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-3 sm:grid-cols-4">
+            <div className="-mx-4 flex snap-x gap-3 overflow-x-auto px-4 pb-1 sm:mx-0 sm:grid sm:grid-cols-4 sm:gap-x-5 sm:gap-y-3 sm:overflow-visible sm:px-0 sm:pb-0">
               {otherWorks.map((work) => (
                 <a
                   key={work.id}
@@ -429,7 +464,7 @@ function TalentCard({
                     .replace(/[?&]$/, "")}
                   target="_blank"
                   rel="noreferrer"
-                  className="group min-w-0"
+                  className="group w-[8.5rem] shrink-0 snap-start sm:w-auto sm:min-w-0"
                   onPointerDown={(event) => event.stopPropagation()}
                 >
                   <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[#ded9ce]">
@@ -458,9 +493,11 @@ function TalentCard({
 
 function DiscoveryDeck({
   role,
+  explorationSeed,
   onChangeRole,
 }: {
   role: RoleFamily;
+  explorationSeed: string;
   onChangeRole: () => void;
 }) {
   const profiles = useMemo(() => buildTalentProfiles(role), [role]);
@@ -470,6 +507,9 @@ function DiscoveryDeck({
   const [dragging, setDragging] = useState(false);
   const [departing, setDeparting] = useState<SwipeDirection | null>(null);
   const [showShortlist, setShowShortlist] = useState(false);
+  const [expandedProfileId, setExpandedProfileId] = useState<string | null>(
+    null,
+  );
   const pointerStart = useRef<number | null>(null);
 
   const swipedIds = useMemo(
@@ -482,10 +522,10 @@ function DiscoveryDeck({
         .filter((profile) => !swipedIds.has(profile.id))
         .toSorted(
           (left, right) =>
-            scoreProfile(right, weights, role) -
-            scoreProfile(left, weights, role),
+            scoreProfile(right, weights, role, explorationSeed) -
+            scoreProfile(left, weights, role, explorationSeed),
         ),
-    [profiles, role, swipedIds, weights],
+    [explorationSeed, profiles, role, swipedIds, weights],
   );
   const current = rankedProfiles[0];
   const next = rankedProfiles[1];
@@ -553,8 +593,8 @@ function DiscoveryDeck({
   }
 
   return (
-    <main className="jobs-map-shell min-h-dvh overflow-hidden text-white">
-      <Appbar />
+    <main className="jobs-map-shell min-h-dvh overflow-x-hidden text-white">
+      <Appbar suffix={"jobs"} />
       <div className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-[96rem] lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
         <aside className="mt-28 hidden h-fit rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 backdrop-blur-md lg:flex lg:flex-col">
           <button
@@ -577,19 +617,20 @@ function DiscoveryDeck({
           </div>
         </aside>
 
-        <section className="mt-20 min-w-0 px-4 py-6 sm:px-8 sm:py-8">
-          <div className="mx-auto mb-5 flex max-w-[43rem] items-center justify-between lg:hidden">
+        <section className="min-w-0 px-3 pt-24 pb-8 sm:px-8 sm:pt-28 sm:pb-10 lg:mt-20 lg:py-8">
+          <div className="mx-auto mb-3 flex max-w-[43rem] items-center justify-between gap-3 sm:mb-5 lg:hidden">
             <button
               type="button"
               onClick={onChangeRole}
-              className="flex items-center gap-2 text-xs font-bold"
+              className="flex min-h-11 min-w-0 items-center gap-1.5 rounded-md bg-black/30 px-3 text-xs font-bold backdrop-blur-sm"
             >
-              <ArrowLeftIcon className="h-4 w-4" /> {role.label}
+              <ArrowLeftIcon className="h-4 w-4 shrink-0" />
+              <span className="truncate">{role.label}</span>
             </button>
             <button
               type="button"
               onClick={() => setShowShortlist(true)}
-              className="rounded-md border border-white bg-black/40 px-3 py-1.5 text-xs font-bold text-white backdrop-blur-sm"
+              className="min-h-11 shrink-0 rounded-md border border-white bg-black/40 px-3 text-xs font-bold text-white backdrop-blur-sm"
             >
               Recommended · {shortlisted.length}
             </button>
@@ -608,8 +649,38 @@ function DiscoveryDeck({
                 onPointerUp={handlePointerUp}
               />
 
-              <p className="mt-4 text-center text-[10px] font-semibold tracking-[0.08em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)]">
-                Swipe left to pass, right to like
+              <div className="mx-auto mt-4 flex max-w-[43rem] items-center justify-center gap-5 sm:gap-7">
+                <button
+                  type="button"
+                  onClick={undoLastSwipe}
+                  disabled={swipes.length === 0 || departing !== null}
+                  className="grid h-11 w-11 place-items-center rounded-full border-2 border-white/80 bg-black/35 text-white backdrop-blur-sm transition active:scale-95 disabled:opacity-35"
+                  aria-label="Undo last swipe"
+                >
+                  <ArrowPathIcon className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => commitSwipe("pass")}
+                  disabled={departing !== null}
+                  className="grid h-14 w-14 place-items-center rounded-full border-2 border-white bg-white text-[#eb4932] shadow-lg transition active:scale-95 disabled:opacity-50"
+                  aria-label={`Pass on ${current.name}`}
+                >
+                  <XMarkIcon className="h-7 w-7" strokeWidth={2.5} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => commitSwipe("like")}
+                  disabled={departing !== null}
+                  className="grid h-14 w-14 place-items-center rounded-full border-2 border-white bg-blue-500 text-white shadow-lg transition active:scale-95 disabled:opacity-50"
+                  aria-label={`Shortlist ${current.name}`}
+                >
+                  <CheckIcon className="h-7 w-7" strokeWidth={2.5} />
+                </button>
+              </div>
+
+              <p className="mt-2 text-center text-base font-semibold tracking-[0.08em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mt-3 sm:text-[10px]">
+                Swipe or tap to pass and shortlist
               </p>
             </>
           ) : (
@@ -677,6 +748,7 @@ function DiscoveryDeck({
                         href={`https://www.instagram.com/${profile.instagram}`}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`Open ${profile.name} on Instagram`}
                       >
                         <InstagramIcon className="h-10 w-10" />
                       </a>
@@ -698,14 +770,14 @@ function DiscoveryDeck({
       </div>
 
       {showShortlist && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/35 p-3 backdrop-blur-sm sm:items-center sm:justify-center">
-          <div className="mt-20 max-h-[85dvh] w-full max-w-lg overflow-y-auto rounded-lg border-[3px] border-white bg-black/65 p-5 text-white shadow-2xl backdrop-blur-md sm:p-7">
+        <div className="fixed inset-0 z-130 flex items-start justify-center bg-black/35 p-3 backdrop-blur-sm sm:p-6">
+          <div className="relative top-20 m-3 max-h-[calc(100dvh-9rem)] w-full overflow-y-auto overscroll-contain rounded-2xl border-2 border-white/50 bg-black/40 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] text-white shadow-2xl backdrop-blur-md sm:max-h-[85dvh] sm:border-[3px] sm:p-7">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-[10px] font-bold tracking-[0.16em] text-white/60 uppercase">
-                  Your people
+                  Your recommended people
                 </p>
-                <h2 className="mt-1 font-[Cute] text-4xl">
+                <h2 className="mt-1 font-[Cute] text-3xl sm:text-4xl">
                   Shortlist · {shortlisted.length}
                 </h2>
               </div>
@@ -718,41 +790,114 @@ function DiscoveryDeck({
                 <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
-            <div className="mt-6 space-y-3">
+            <div className="mt-4 space-y-2 sm:mt-6 sm:space-y-3">
               {shortlisted.length === 0 ? (
                 <p className="rounded-lg border border-dashed border-white/50 p-8 text-center text-sm text-white/70">
                   Shortlist people to collect them here.
                 </p>
               ) : (
-                shortlisted.map(({ profile }) => (
-                  <div
-                    key={profile.id}
-                    className="flex items-center gap-4 rounded-lg border border-white/35 bg-black/25 p-3"
-                  >
-                    <img
-                      src={profile.works[0]!.image}
-                      alt=""
-                      className="h-14 w-14 rounded-xl object-cover"
-                    />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-extrabold">
-                        {profile.name}
-                      </p>
-                      <p className="mt-0.5 truncate text-xs text-white/60">
-                        {profile.roles[0]} · {profile.works.length} credits
-                      </p>
-                    </div>
-                    <a
-                      href={profile.works[0]!.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="grid h-9 w-9 place-items-center rounded-full bg-blue-500 text-white"
-                      aria-label={`View ${profile.name}'s work`}
+                shortlisted.map(({ profile }) => {
+                  const isExpanded = expandedProfileId === profile.id;
+                  const panelId = `shortlist-work-${profile.id}`;
+
+                  return (
+                    <div
+                      key={profile.id}
+                      className="overflow-hidden rounded-lg border border-white/35 bg-black/25"
                     >
-                      <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                    </a>
-                  </div>
-                ))
+                      <div className="flex items-center gap-2 p-2.5 sm:gap-3 sm:p-3">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setExpandedProfileId(isExpanded ? null : profile.id)
+                          }
+                          className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                          aria-expanded={isExpanded}
+                          aria-controls={panelId}
+                        >
+                          <img
+                            src={profile.works[0]!.image}
+                            alt=""
+                            className="h-12 w-12 shrink-0 rounded-lg object-cover sm:h-14 sm:w-14 sm:rounded-xl"
+                          />
+                          <span className="min-w-0 flex-1">
+                            <span className="block truncate text-sm font-extrabold">
+                              {profile.name}
+                            </span>
+                            <span className="mt-0.5 block truncate text-xs text-white/60">
+                              {profile.roles[0]} · {profile.works.length}{" "}
+                              credits
+                            </span>
+                          </span>
+                          <ChevronRightIcon
+                            className={`h-4 w-4 shrink-0 transition-transform ${isExpanded ? "rotate-90" : ""}`}
+                          />
+                        </button>
+
+                        {profile.instagram !== null ? (
+                          <a
+                            href={`https://www.instagram.com/${profile.instagram.replace(/^@/, "")}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-black/20 text-white"
+                            aria-label={`Open ${profile.name} on Instagram`}
+                          >
+                            <InstagramIcon className="h-9 w-9" />
+                          </a>
+                        ) : (
+                          <a
+                            href="mailto:devon@langpal.com.hk"
+                            className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-white"
+                            aria-label={`Email about ${profile.name}`}
+                          >
+                            <EnvelopeIcon className="h-8 w-8" />
+                          </a>
+                        )}
+                      </div>
+
+                      {isExpanded && (
+                        <div
+                          id={panelId}
+                          className="border-t border-white/20 px-2.5 py-3 sm:px-3"
+                        >
+                          <p className="mb-2 text-[10px] font-bold tracking-[0.14em] text-white/60 uppercase">
+                            All credited work
+                          </p>
+                          <div className="space-y-2">
+                            {profile.works.map((work) => (
+                              <a
+                                key={work.id}
+                                href={work.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="flex items-center gap-3 rounded-md bg-black/20 p-2 transition hover:bg-black/35"
+                              >
+                                <img
+                                  src={work.image}
+                                  alt=""
+                                  loading="lazy"
+                                  className="aspect-video w-20 shrink-0 rounded object-cover sm:w-24"
+                                />
+                                <span className="min-w-0 flex-1">
+                                  <span className="block truncate text-xs font-bold">
+                                    {work.title}
+                                  </span>
+                                  <span className="mt-0.5 block truncate text-[10px] text-white/55">
+                                    {work.artists.join(", ")}
+                                  </span>
+                                  <span className="mt-1 block text-[10px] font-bold text-blue-200">
+                                    {work.role}
+                                  </span>
+                                </span>
+                                <ArrowTopRightOnSquareIcon className="h-4 w-4 shrink-0 text-white/60" />
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
               )}
             </div>
           </div>
@@ -763,17 +908,27 @@ function DiscoveryDeck({
 }
 
 export default function JobsPage() {
-  const [selectedRole, setSelectedRole] = useState<RoleFamily | null>(null);
+  const [selection, setSelection] = useState<{
+    role: RoleFamily;
+    explorationSeed: string;
+  } | null>(null);
 
-  if (!selectedRole) {
-    return <RolePicker onStart={setSelectedRole} />;
+  if (!selection) {
+    return (
+      <RolePicker
+        onStart={(role, explorationSeed) =>
+          setSelection({ role, explorationSeed })
+        }
+      />
+    );
   }
 
   return (
     <DiscoveryDeck
-      key={selectedRole.id}
-      role={selectedRole}
-      onChangeRole={() => setSelectedRole(null)}
+      key={`${selection.role.id}:${selection.explorationSeed}`}
+      role={selection.role}
+      explorationSeed={selection.explorationSeed}
+      onChangeRole={() => setSelection(null)}
     />
   );
 }
