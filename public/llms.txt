@@ -1,7 +1,7 @@
 # Cantopop Map - LLMs directory
 > A community-curated map of Cantonese pop music video locations.
 site: https://cantopopmap.hk
-generated_at: 2026-09-14T00:31:28.727Z
+generated_at: 2026-09-14T08:49:22.600Z
 
 ## Important pages
 https://cantopopmap.hk/
@@ -126,7 +126,7 @@ https://cantopopmap.hk/locations/moon-tang-Marf-邱彥筒-grwm | title="moon tan
 https://cantopopmap.hk/locations/moon-tang-some-days-(en) | title="moon tang — some days (en)" | address="Lepingzhen (Estimation)" | source="https://youtu.be/qTay36oNgIs?t=90"
 https://cantopopmap.hk/locations/moon-tang-take-three-(en) | title="moon tang — take three (en)" | address="SOHO House, Hong Kong" | source="https://youtu.be/ybUJhyMfmpE?t=175" | streetView="https://maps.app.goo.gl/yRRZDpd7cDPaPpXy7"
 https://cantopopmap.hk/locations/moon-tang-tip-toe | title="moon tang — tip toe" | source="https://www.youtube.com/watch?v=Dv8ymtmTS_s"
-https://cantopopmap.hk/locations/moon-tang-一口一-zh | title="moon tang — 一口一 zh" | address="Bottega Italiana" | source="https://www.youtube.com/watch?v=tWPQSKm5WyQ" | streetView="https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
+https://cantopopmap.hk/locations/moon-tang-一口一-(zh) | title="moon tang — 一口一 (zh)" | address="Bottega Italiana" | source="https://www.youtube.com/watch?v=tWPQSKm5WyQ" | streetView="https://www.google.com/maps/place/Gaia+canggu/@-8.653257,115.1325177,3a,68.8y,276.27h,82.55t/data=!3m7!1e1!3m5!1s2J69iBDPQeY7q183ElG1Aw!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D7.453946092601328%26panoid%3D2J69iBDPQeY7q183ElG1Aw%26yaw%3D276.26852114313795!7i16384!8i8192!4m9!1m2!2m1!1sBottega+Italiana!3m5!1s0x2dd239005655ac51:0x386b833f6c91daeb!8m2!3d-8.6524302!4d115.133087!16s%2Fg%2F11w7jf7wmn?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
 https://cantopopmap.hk/locations/moon-tang-二十五圓舞曲 | title="moon tang — 二十五圓舞曲" | address="Bangkok Airport, Thailand (estimation)" | source="https://youtu.be/vqlzYiT5_aQ?t=10" | streetView="https://maps.app.goo.gl/au5kud7843H3C8T77"
 https://cantopopmap.hk/locations/moon-tang-外星人接我回去-(take-me-home) | title="moon tang — 外星人接我回去 (take me home)" | address="Yilan County, Taiwan" | source="https://youtu.be/HIGEklrsMnQ?t=28" | streetView="https://maps.app.goo.gl/fFp7RaqAN75h56ZPA"
 https://cantopopmap.hk/locations/moon-tang-夜闌人靜 | title="moon tang — 夜闌人靜" | address="Sakuda Beach, Tokyo" | source="https://youtu.be/v3rDVWZd72c?t=100" | streetView="https://maps.app.goo.gl/4CFsQ2Mz1j2UYy7g9"

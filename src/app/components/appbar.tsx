@@ -2,28 +2,34 @@ import posthog from "posthog-js";
 
 export default function Appbar({ suffix }: { suffix?: string }) {
   return (
-    <div className="absolute top-0 left-0 z-120 flex h-fit w-fit flex-col items-start justify-start gap-2 rounded-lg bg-transparent px-2 backdrop-blur-[3px]">
-      <h1 className="flex h-fit items-start justify-start px-3 pt-3 pb-0 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
-        cantopop地圖{suffix ? ` ${suffix}` : ""}
-      </h1>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://savecantonese.org"
-        onClick={() => {
-          posthog.capture("savecantonese_referral");
-        }}
-        className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:text-xl md:no-underline"
-      >
-        <span className="underline">savecantonese.org</span>
-        <img
-          width={100}
-          height={100}
-          src="/images/savecanto.webp"
-          alt="savecanto"
-          className="h-10 w-auto"
-        />
+    <div
+      className={`absolute top-0 left-0 z-120 flex h-fit w-fit items-center items-start justify-start gap-2 rounded-lg bg-transparent px-2 backdrop-blur-[3px] ${suffix ? "flex-row" : "flex-col"}`}
+    >
+      <a href="/">
+        <h1 className="flex h-fit items-start justify-start px-3 pt-3 pb-0 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
+          cantopop地圖{suffix ? ` ${suffix}` : ""}
+        </h1>
       </a>
+      {!suffix && (
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://savecantonese.org"
+          onClick={() => {
+            posthog.capture("savecantonese_referral");
+          }}
+          className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:text-xl md:no-underline"
+        >
+          <span className="underline">savecantonese.org</span>
+          <img
+            width={100}
+            height={100}
+            src="/images/savecanto.webp"
+            alt="savecanto"
+            className="h-10 w-auto"
+          />
+        </a>
+      )}
     </div>
   );
 }

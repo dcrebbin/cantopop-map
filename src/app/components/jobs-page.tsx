@@ -36,6 +36,11 @@ import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
 type SwipeDirection = "like" | "pass";
 type Swipe = { profile: TalentProfile; direction: SwipeDirection };
+type PointerGesture = {
+  startX: number;
+  startY: number;
+  axis: "horizontal" | "vertical" | null;
+};
 type SignalWeights = Record<string, number>;
 
 const INITIAL_ROLE_ID = "art";
@@ -133,15 +138,15 @@ function RolePicker({
     ROLE_FAMILIES.find((role) => role.id === selectedId) ?? ROLE_FAMILIES[0];
 
   return (
-    <main className="jobs-map-shell flex min-h-dvh flex-col overflow-x-hidden text-white">
-      <Appbar />
-      <section className="h-max-content relative flex w-full min-w-0 flex-1 items-start px-3 pt-24 pb-4 sm:px-8 sm:pt-32 sm:pb-8 lg:items-center lg:px-16 lg:py-32">
+    <main className="jobs-map-shell flex h-dvh flex-col overflow-hidden text-white">
+      <Appbar suffix="jobs" />
+      <section className="h-max-content relative flex w-full min-w-0 flex-1 items-start pt-15 pb-4 sm:px-8 sm:pt-12 sm:pb-8 lg:items-center lg:px-10 lg:py-22">
         <div className="h-max-content mx-auto flex w-full max-w-6xl min-w-0 flex-col items-start justify-center gap-2 xl:flex-row xl:gap-8">
           <div className="box-border h-full w-full max-w-xl min-w-0 overflow-hidden rounded-xl border-2 border-white/50 bg-black/25 p-4 drop-shadow-md backdrop-blur-md sm:rounded-2xl sm:border-[3px] sm:p-6">
             <div className="mb-4 flex items-center gap-3 text-[10px] font-bold tracking-[0.2em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mb-7 sm:text-xs">
               Crew finder · 招募人才
             </div>
-            <h1 className="max-w-2xl font-[Cute] text-[clamp(2.65rem,13vw,3.5rem)] leading-[0.86] tracking-[-0.055em] drop-shadow-[0_0_7px_rgba(0,0,0,0.9)]">
+            <h1 className="max-w-2xl font-[Cute] text-[clamp(1.65rem,13vw,0.5rem)] leading-[0.86] tracking-[-0.055em] drop-shadow-[0_0_7px_rgba(0,0,0,0.9)]">
               Find the artists behind the music and the videos.
             </h1>
             <p className="mt-4 hidden max-w-lg text-sm leading-5 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:mt-7 sm:block sm:text-lg sm:leading-7">
@@ -167,7 +172,7 @@ function RolePicker({
               </label>
             </div>
 
-            <div className="max-h-[23rem] min-w-0 space-y-1 overflow-y-auto overscroll-contain px-1 sm:max-h-[29rem] sm:px-3">
+            <div className="max-h-[15rem] min-w-0 space-y-1 overflow-y-auto overscroll-contain px-1 sm:max-h-[23rem] sm:px-3">
               {filteredRoles.map((role) => {
                 const isSelected = role.id === selectedId;
                 return (
@@ -280,46 +285,187 @@ function WorkPlayer({
 }) {
   const [playing, setPlaying] = useState(false);
   const embedUrl = youtubeEmbedUrl(work.url);
+  const otherWorks = useMemo(() => {
+    return profile.works.filter((w) => w.id !== work.id);
+  }, [profile.works, work.id]);
 
   return (
-    <div className="relative aspect-video overflow-hidden rounded-t-lg bg-[#22211e]">
-      {playing && embedUrl ? (
-        <iframe
-          src={`${embedUrl}&autoplay=1`}
-          title={`${work.title} — work by ${profile.name}`}
-          className="h-full w-full"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          allowFullScreen
-        />
-      ) : (
-        <button
-          type="button"
-          onClick={() => setPlaying(true)}
-          className="group relative h-full w-full text-left"
-          aria-label={`Play ${work.title}`}
-        >
-          <img src={work.image} alt="" className="h-full w-full object-cover" />
-          <span className="absolute inset-0 grid place-items-center">
-            <span className="grid h-12 w-12 place-items-center rounded-full border border-white/50 bg-white/90 text-black shadow-xl transition group-hover:scale-105 sm:h-14 sm:w-14">
-              <PlayIcon className="ml-0.5 h-5 w-5 fill-current" />
-            </span>
-          </span>
-          <span
-            className="absolute right-0 bottom-0 left-0 px-3 pt-10 pb-3 text-white backdrop-blur-[0.5px] sm:right-0 sm:bottom-0 sm:left-0 sm:px-5 sm:pb-2"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.95) 100%)",
-            }}
+    <div className="flex h-full min-h-0 w-full flex-col sm:block">
+      <div className="relative aspect-video shrink-0 overflow-hidden rounded-t-lg bg-[#22211e]">
+        {playing && embedUrl ? (
+          <iframe
+            src={`${embedUrl}&autoplay=1`}
+            title={`${work.title} — work by ${profile.name}`}
+            className="h-full w-full"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            className="group relative h-full w-full text-left"
+            aria-label={`Play ${work.title}`}
           >
-            <span className="block truncate text-sm font-extrabold sm:text-lg">
-              {work.title}
+            <img
+              src={work.image}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute inset-0 grid place-items-center">
+              <span className="grid h-12 w-12 place-items-center rounded-2xl border border-white/50 bg-white/20 text-white/50 shadow-xl transition group-hover:scale-105 sm:h-14 sm:w-14">
+                <PlayIcon className="ml-0.5 h-5 w-5 fill-current" />
+              </span>
             </span>
-            <span className="mt-0.5 block truncate text-xs text-white/75">
-              {work.artists.join(", ")}
+            <span
+              className="absolute right-0 bottom-0 left-0 px-3 pt-10 pb-3 text-white backdrop-blur-[0.5px] sm:right-0 sm:bottom-0 sm:left-0 sm:px-5 sm:pb-2"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.85) 60%, rgba(0,0,0,0.95) 100%)",
+              }}
+            >
+              <span className="block truncate text-sm font-extrabold sm:text-lg">
+                {work.title}
+              </span>
+              <span className="mt-0.5 block truncate text-xs text-white/75">
+                {work.artists.join(", ")}
+              </span>
             </span>
-          </span>
-        </button>
-      )}
+          </button>
+        )}
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-hidden rounded-b-lg bg-white p-2 sm:overflow-visible sm:p-7">
+        <div className="flex items-start justify-between gap-2 sm:gap-4">
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h2
+                className="font-[Cute] leading-none"
+                style={{
+                  fontSize: `clamp(1.1rem, ${Math.max(
+                    0.25,
+                    10 / profile.name.length + 1.15, // fallback for funny edge cases
+                  )}rem, 0.25rem)`,
+                  maxWidth: `${Math.min(10, profile.name.length)}ch`,
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  minWidth: "5ch",
+                }}
+                title={profile.name}
+              >
+                {profile.name}
+              </h2>
+
+              {profile.instagram !== null ? (
+                <a
+                  href={`https://www.instagram.com/${profile.instagram}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <InstagramIcon className="h-8 w-8 text-black sm:h-10 sm:w-10" />
+                  <span className="sr-only">
+                    Open {profile.name} on Instagram
+                  </span>
+                </a>
+              ) : (
+                <a
+                  href="mailto:devon@langpal.com.hk"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 font-[Cute] text-black underline"
+                >
+                  <EnvelopeIcon className="h-8 w-8 text-black" />
+                  <span className="sr-only">Contact {profile.name}</span>
+                </a>
+              )}
+            </div>
+            <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:mt-2 sm:text-sm">
+              <span className="font-bold text-blue-500">
+                {profile.roles[0]}
+              </span>
+              {profile.instagram && (
+                <a
+                  href={`https://instagram.com/${profile.instagram.replace(/^@/, "")}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-[#77736a] underline decoration-[#bbb5aa] underline-offset-4 hover:text-black"
+                  onPointerDown={(event) => event.stopPropagation()}
+                >
+                  {formatHandle(profile.instagram)}
+                </a>
+              )}
+            </div>
+          </div>
+          <div className="shrink-0 text-right">
+            <span className="block text-lg font-black sm:text-2xl">
+              {profile.works.length}
+            </span>
+            <span className="block text-[10px] font-bold tracking-[0.14em] text-[#77736a] uppercase">
+              verified credits
+            </span>
+          </div>
+        </div>
+
+        {profile.roles.length > 1 && (
+          <div className="mt-2 overflow-x-auto sm:mt-4">
+            <div className="flex min-w-max gap-1.5 sm:gap-2">
+              {profile.roles.slice(1).map((role) => (
+                <span
+                  key={role}
+                  className="rounded-md border border-black/20 bg-black/5 px-2.5 py-1 text-[10px] font-bold whitespace-nowrap text-[#68645c]"
+                >
+                  {role}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="mt-2 border-t border-[#ddd7cb] pt-2 sm:mt-6 sm:pt-5">
+          <div className="mb-2 flex items-center justify-between sm:mb-3">
+            <h3 className="text-[11px] font-extrabold tracking-[0.16em] uppercase">
+              More work
+            </h3>
+            <span className="text-[10px] text-[#888278]">
+              {profile.artists.length} artist
+              {profile.artists.length === 1 ? "" : "s"}
+            </span>
+          </div>
+          <div
+            className="-mx-3 flex touch-pan-x gap-2 overflow-x-auto overscroll-x-contain px-3 pb-1 sm:mx-0 sm:gap-5 sm:px-0"
+            onPointerDown={(event) => event.stopPropagation()}
+          >
+            {otherWorks.map((work: TalentWork) => (
+              <a
+                key={work.id}
+                href={work.url
+                  .replace(/([?&])t=\d+s?(&|$)/, "$1")
+                  .replace(/[?&]$/, "")}
+                target="_blank"
+                rel="noreferrer"
+                className="group w-[7rem] shrink-0 sm:w-[9.25rem]"
+                onPointerDown={(event) => event.stopPropagation()}
+              >
+                <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[#ded9ce]">
+                  <img
+                    src={work.image}
+                    alt=""
+                    loading="lazy"
+                    className="h-full w-full object-cover transition group-hover:scale-105"
+                  />
+                </div>
+                <p className="mt-1 truncate text-[11px] font-bold group-hover:underline sm:mt-1.5 sm:text-xs">
+                  {work.title}
+                </p>
+                <p className="truncate text-[10px] text-[#77736a]">
+                  {work.role}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -356,12 +502,15 @@ function WorkContributors({
   }, [contributors, work.locationId]);
 
   return (
-    <div className="relative h-full rounded-t-lg border-2 border-white/50 text-white">
+    <div className="relative h-full min-h-0 overflow-hidden rounded-t-lg border-2 border-white/50 text-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-black/40 backdrop-blur-md"
+        className="pointer-events-none absolute inset-0 rounded-md bg-black/40 backdrop-blur-md"
       />
-      <div className="relative h-full overflow-y-auto px-4 py-16 pt-10 sm:px-5 sm:py-4">
+      <div
+        className="relative h-full min-h-0 touch-pan-y overflow-y-auto overscroll-y-contain px-4 pt-4 pb-4 sm:px-5 sm:py-4 lg:pt-10"
+        onPointerDown={(event) => event.stopPropagation()}
+      >
         <div className="mt-10 border-b border-white/50 pb-2">
           <h3 className="truncate font-serif text-lg font-bold drop-shadow-sm">
             {work.title}
@@ -418,7 +567,7 @@ function ContributorCreditSection({
                 return (
                   <div
                     key={contributor.id}
-                    className="flex min-w-0 items-center gap-1 text-xs"
+                    className="flex min-w-0 items-center gap-1 text-base"
                   >
                     <span className="min-w-0 flex-1 truncate">
                       {contributor.name}
@@ -431,14 +580,14 @@ function ContributorCreditSection({
                         className="shrink-0 text-white/75 hover:text-white"
                         aria-label={`Open ${contributor.name} on Instagram`}
                       >
-                        <InstagramIcon className="h-5 w-5" />
+                        <InstagramIcon className="h-8 w-8" />
                       </a>
                     )}
                     <button
                       type="button"
                       onClick={() => onRecommend(contributor)}
                       disabled={isRecommended}
-                      className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border transition ${
+                      className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border transition ${
                         isRecommended
                           ? "border-blue-400 bg-blue-500 text-white"
                           : "border-white/50 bg-white/10 text-white hover:bg-white/20"
@@ -536,7 +685,7 @@ function TalentCard({
   const selectedWork = selectedWorkFor(profile, seed);
 
   return (
-    <div className="jobs-talent-card-enter relative z-100 mx-auto w-full max-w-[43rem]">
+    <div className="jobs-talent-card-enter relative z-100 mx-auto min-h-0 w-full max-w-[43rem] max-sm:flex-1">
       {nextProfile && (
         <TalentCardBack
           profile={nextProfile}
@@ -546,29 +695,16 @@ function TalentCard({
         />
       )}
       <div
-        className={`jobs-talent-card relative touch-pan-y rounded-lg bg-transparent text-black shadow-xl select-none ${dragging ? "is-dragging" : ""} ${dragX !== 0 ? "is-offset" : ""}`}
+        className={`jobs-talent-card relative flex h-full touch-pan-y flex-col overflow-hidden rounded-lg bg-transparent text-black shadow-xl select-none sm:block sm:h-auto sm:overflow-visible ${dragging ? "is-dragging" : ""} ${dragX !== 0 ? "is-offset" : ""}`}
         style={cardStyle}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        <div
-          className="pointer-events-none absolute top-7 left-6 z-20 -rotate-8 rounded-lg border-4 border-[#eb4932] px-3 py-1 text-2xl font-black tracking-wider text-[#eb4932] uppercase"
-          style={{ opacity: Math.max(0, -dragX / SWIPE_THRESHOLD) }}
-        >
-          Pass
-        </div>
-        <div
-          className="pointer-events-none absolute top-7 right-6 z-20 rotate-8 rounded-lg border-4 border-blue-500 px-3 py-1 text-2xl font-black tracking-wider text-blue-500 uppercase"
-          style={{ opacity: Math.max(0, dragX / SWIPE_THRESHOLD) }}
-        >
-          鍾意
-        </div>
-
         <div className="absolute top-0 z-99 px-3 pt-3 pb-2 sm:px-4 sm:pt-4">
           <div
-            className="grid grid-cols-2 rounded-lg bg-black/35 p-1"
+            className="grid grid-cols-2 rounded-lg bg-black/35 p-1 backdrop-blur-xs"
             role="tablist"
             aria-label="Talent card view"
           >
@@ -580,7 +716,7 @@ function TalentCard({
               className={`rounded-md px-3 py-2 text-[10px] font-extrabold tracking-[0.12em] uppercase transition ${
                 activeTab === "work"
                   ? "bg-white text-black shadow"
-                  : "text-white/65 hover:text-white"
+                  : "text-white hover:text-white"
               }`}
             >
               MUSIC VIDEO
@@ -593,14 +729,14 @@ function TalentCard({
               className={`rounded-md px-3 py-2 text-[10px] font-extrabold tracking-[0.12em] uppercase transition ${
                 activeTab === "contributors"
                   ? "bg-white text-black shadow"
-                  : "text-white/65 hover:text-white"
+                  : "text-white hover:text-white"
               }`}
             >
               CREDITS · {contributors.length}
             </button>
           </div>
         </div>
-        <div className="aspect-video">
+        <div className="min-h-0 flex-1 sm:aspect-video sm:h-auto">
           {activeTab === "work" ? (
             <WorkPlayer profile={profile} work={selectedWork} />
           ) : (
@@ -611,121 +747,6 @@ function TalentCard({
               onRecommend={onRecommend}
             />
           )}
-        </div>
-
-        <div className="rounded-b-lg bg-white p-4 sm:p-7">
-          <div className="flex items-start justify-between gap-2 sm:gap-4">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
-                  {profile.name}
-                </h2>
-                {profile.instagram !== null ? (
-                  <a
-                    href={`https://www.instagram.com/${profile.instagram}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <InstagramIcon className="h-9 w-9 text-black sm:h-10 sm:w-10" />
-                    <span className="sr-only">
-                      Open {profile.name} on Instagram
-                    </span>
-                  </a>
-                ) : (
-                  <a
-                    href="mailto:devon@langpal.com.hk"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 font-[Cute] text-black underline"
-                  >
-                    <EnvelopeIcon className="h-8 w-8 text-black" />
-                    <span className="sr-only">Contact {profile.name}</span>
-                  </a>
-                )}
-              </div>
-              <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                <span className="font-bold text-blue-500">
-                  {profile.roles[0]}
-                </span>
-                {profile.instagram && (
-                  <a
-                    href={`https://instagram.com/${profile.instagram.replace(/^@/, "")}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-[#77736a] underline decoration-[#bbb5aa] underline-offset-4 hover:text-black"
-                    onPointerDown={(event) => event.stopPropagation()}
-                  >
-                    {formatHandle(profile.instagram)}
-                  </a>
-                )}
-              </div>
-            </div>
-            <div className="shrink-0 text-right">
-              <span className="block text-xl font-black sm:text-2xl">
-                {profile.works.length}
-              </span>
-              <span className="block text-[10px] font-bold tracking-[0.14em] text-[#77736a] uppercase">
-                verified credits
-              </span>
-            </div>
-          </div>
-
-          {profile.roles.length > 1 && (
-            <div className="mt-4 flex flex-wrap gap-2">
-              {profile.roles.slice(1, 4).map((role) => (
-                <span
-                  key={role}
-                  className="rounded-md border border-black/20 bg-black/5 px-2.5 py-1 text-[10px] font-bold text-[#68645c]"
-                >
-                  {role}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <div className="mt-4 border-t border-[#ddd7cb] pt-4 sm:mt-6 sm:pt-5">
-            <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-[11px] font-extrabold tracking-[0.16em] uppercase">
-                More work
-              </h3>
-              <span className="text-[10px] text-[#888278]">
-                {profile.artists.length} artist
-                {profile.artists.length === 1 ? "" : "s"}
-              </span>
-            </div>
-            <div
-              className="-mx-4 flex touch-pan-x gap-3 overflow-x-auto overscroll-x-contain px-4 pb-1 sm:mx-0 sm:gap-5 sm:px-0"
-              onPointerDown={(event) => event.stopPropagation()}
-            >
-              {otherWorks.map((work) => (
-                <a
-                  key={work.id}
-                  href={work.url
-                    .replace(/([?&])t=\d+s?(&|$)/, "$1")
-                    .replace(/[?&]$/, "")}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group w-[8.5rem] shrink-0 sm:w-[9.25rem]"
-                  onPointerDown={(event) => event.stopPropagation()}
-                >
-                  <div className="aspect-[16/10] overflow-hidden rounded-lg bg-[#ded9ce]">
-                    <img
-                      src={work.image}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-cover transition group-hover:scale-105"
-                    />
-                  </div>
-                  <p className="mt-1.5 truncate text-xs font-bold group-hover:underline">
-                    {work.title}
-                  </p>
-                  <p className="truncate text-[10px] text-[#77736a]">
-                    {work.creditedRoles.join(" · ")}
-                  </p>
-                </a>
-              ))}
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -757,7 +778,7 @@ function DiscoveryDeck({
   const [expandedProfileId, setExpandedProfileId] = useState<string | null>(
     null,
   );
-  const pointerStart = useRef<number | null>(null);
+  const pointerGesture = useRef<PointerGesture | null>(null);
 
   const swipedIds = useMemo(
     () => new Set(swipes.map((swipe) => swipe.profile.id)),
@@ -878,21 +899,41 @@ function DiscoveryDeck({
   function handlePointerDown(event: ReactPointerEvent<HTMLDivElement>) {
     const target = event.target as HTMLElement;
     if (target.closest("a, button, iframe")) return;
-    pointerStart.current = event.clientX;
-    event.currentTarget.setPointerCapture(event.pointerId);
-    setDragging(true);
+    pointerGesture.current = {
+      startX: event.clientX,
+      startY: event.clientY,
+      axis: null,
+    };
   }
 
   function handlePointerMove(event: ReactPointerEvent<HTMLDivElement>) {
-    if (pointerStart.current === null) return;
-    setDragX(event.clientX - pointerStart.current);
+    const gesture = pointerGesture.current;
+    if (!gesture) return;
+
+    const distanceX = event.clientX - gesture.startX;
+    const distanceY = event.clientY - gesture.startY;
+    if (gesture.axis === null && Math.hypot(distanceX, distanceY) >= 6) {
+      gesture.axis =
+        Math.abs(distanceX) > Math.abs(distanceY) ? "horizontal" : "vertical";
+      if (gesture.axis === "horizontal") {
+        event.currentTarget.setPointerCapture(event.pointerId);
+        setDragging(true);
+      }
+    }
+
+    if (gesture.axis === "horizontal") setDragX(distanceX);
   }
 
   function handlePointerUp(event: ReactPointerEvent<HTMLDivElement>) {
-    if (pointerStart.current === null) return;
-    const distance = event.clientX - pointerStart.current;
-    pointerStart.current = null;
-    if (Math.abs(distance) >= SWIPE_THRESHOLD) {
+    const gesture = pointerGesture.current;
+    if (!gesture) return;
+    const distance = event.clientX - gesture.startX;
+    pointerGesture.current = null;
+    if (
+      event.type !== "pointercancel" &&
+      gesture.axis === "horizontal" &&
+      Math.abs(distance) >= SWIPE_THRESHOLD
+    ) {
       commitSwipe(distance > 0 ? "like" : "pass");
     } else {
       setDragging(false);
@@ -901,9 +942,23 @@ function DiscoveryDeck({
   }
 
   return (
-    <main className="jobs-map-shell min-h-dvh overflow-x-hidden text-white">
+    <main className="jobs-map-shell h-dvh overflow-hidden text-white">
       <Appbar suffix={"jobs"} />
-      <div className="mx-auto grid min-h-[calc(100dvh-4rem)] max-w-[96rem] lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed top-[25dvh] left-5 z-200 -rotate-8 rounded-lg border-4 border-[#eb4932] px-3 py-1 text-2xl font-black tracking-wider text-[#eb4932] uppercase shadow-lg backdrop-blur-sm sm:hidden"
+        style={{ opacity: Math.max(0, -dragX / SWIPE_THRESHOLD) }}
+      >
+        Pass
+      </div>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed top-[25dvh] right-5 z-200 rotate-8 rounded-lg border-4 border-blue-500 px-3 py-1 text-2xl font-black tracking-wider text-blue-500 uppercase shadow-lg backdrop-blur-sm sm:hidden"
+        style={{ opacity: Math.max(0, dragX / SWIPE_THRESHOLD) }}
+      >
+        鍾意
+      </div>
+      <div className="mx-auto grid h-full max-w-[96rem] lg:min-h-[calc(100dvh-2rem)] lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
         <aside className="mt-28 hidden h-fit rounded-2xl border-[3px] border-white/50 bg-black/25 p-6 backdrop-blur-md lg:flex lg:flex-col">
           <button
             type="button"
@@ -925,8 +980,8 @@ function DiscoveryDeck({
           </div>
         </aside>
 
-        <section className="min-w-0 px-3 pt-24 pb-8 sm:px-8 sm:pt-28 sm:pb-10 lg:mt-20 lg:py-8">
-          <div className="mx-auto mb-3 flex max-w-[43rem] items-center justify-between gap-3 sm:mb-5 lg:hidden">
+        <section className="flex min-h-0 min-w-0 flex-col overflow-hidden px-3 pt-14 pb-3 sm:block sm:px-8 sm:pt-28 sm:pb-10 lg:mt-0 lg:py-8">
+          <div className="mx-auto mb-3 flex w-full max-w-[43rem] shrink-0 items-center justify-between gap-3 sm:mb-5 lg:hidden">
             <button
               type="button"
               onClick={onChangeRole}
@@ -962,7 +1017,7 @@ function DiscoveryDeck({
                 onRecommend={recommendProfile}
               />
 
-              <div className="mx-auto mt-4 flex max-w-[43rem] items-center justify-center gap-5 sm:gap-7">
+              <div className="relative z-120 mx-auto mt-3 flex w-full max-w-[43rem] shrink-0 items-center justify-center gap-5 sm:mt-4 sm:gap-7">
                 <button
                   type="button"
                   onClick={undoLastSwipe}
@@ -992,12 +1047,12 @@ function DiscoveryDeck({
                 </button>
               </div>
 
-              <p className="mt-2 text-center text-base font-semibold tracking-[0.08em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mt-3 sm:text-[10px]">
+              <p className="mt-2 hidden text-center text-xs font-semibold tracking-[0.08em] text-white uppercase drop-shadow-[0_0_3px_rgba(0,0,0,1)] sm:mt-3 sm:block sm:text-[10px] lg:text-base">
                 Swipe or tap to pass and shortlist
               </p>
             </>
           ) : (
-            <div className="mx-auto flex min-h-[65dvh] max-w-xl flex-col items-center justify-center text-center">
+            <div className="mx-auto flex max-h-[65dvh] max-w-xl flex-col items-center justify-center text-center">
               <span className="grid h-16 w-16 place-items-center rounded-full border-2 border-white bg-blue-500 text-white">
                 <CheckIcon className="h-8 w-8" />
               </span>
@@ -1226,6 +1281,27 @@ export default function JobsPage() {
     role: RoleFamily;
     explorationSeed: string;
   } | null>(null);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const previousRootOverflow = root.style.overflow;
+    const previousRootOverscrollBehavior = root.style.overscrollBehavior;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousBodyOverscrollBehavior =
+      document.body.style.overscrollBehavior;
+
+    root.style.overflow = "hidden";
+    root.style.overscrollBehavior = "none";
+    document.body.style.overflow = "hidden";
+    document.body.style.overscrollBehavior = "none";
+
+    return () => {
+      root.style.overflow = previousRootOverflow;
+      root.style.overscrollBehavior = previousRootOverscrollBehavior;
+      document.body.style.overflow = previousBodyOverflow;
+      document.body.style.overscrollBehavior = previousBodyOverscrollBehavior;
+    };
+  }, []);
 
   if (!selection) {
     return (
