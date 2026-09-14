@@ -196,6 +196,7 @@ input[type="checkbox"] {
 }
 
 .dscvr-feed {
+  contain: paint;
   scrollbar-width: none;
 }
 

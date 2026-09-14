@@ -121,24 +121,17 @@ function DscvrSlide({
           <img
             src={thumbnail}
             alt=""
-            className="h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center blur-xs"
           />
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/25 to-black/90" />
 
           <div className="absolute inset-x-0 bottom-0 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6">
-            <h2 className="truncate font-[Cute] text-3xl leading-none sm:text-4xl">
-              {location.artists.join(" × ")}
+            <h2 className="truncate font-[Cute] text-xl leading-none sm:text-2xl">
+              {location.artists.join(" x ")}
             </h2>
             <p className="mt-2 truncate text-sm font-bold text-white/90">
               {location.name}
             </p>
-            {location.address && (
-              <p className="mt-2 flex items-center gap-1.5 truncate text-[11px] text-white/65">
-                <MapPinIcon className="size-4 shrink-0" />
-                <span className="truncate">{location.address}</span>
-              </p>
-            )}
-
             <div className="mt-4 flex flex-wrap items-center gap-2">
               <a
                 href={youtubeUrl}
@@ -214,10 +207,21 @@ function DscvrPage() {
     if (remaining < scroller.clientHeight * 3) extendFeed();
   }, [extendFeed]);
 
+  const discoverAppBar = (
+    <div className="fixed top-0 left-0 z-120 w-full pt-5 flex justify-center text-center">
+      <a href="/">
+        <h1 className="px-3 pt-3 pb-0 text-center font-[Cute] text-2xl leading-none text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] md:text-4xl">
+          cantopop地圖 DSCVR
+        </h1>
+      </a>
+    </div>
+  );
+
   if (feed.length === 0) {
     return (
       <main className="jobs-map-shell grid h-dvh place-items-center p-6 text-center text-white">
-        <Appbar suffix="DSCVR" />
+        {discoverAppBar}
+
         <div className="rounded-2xl border-2 border-white/50 bg-black/30 p-8 backdrop-blur-md">
           <h1 className="font-[Cute] text-4xl">Nothing to DSCVR yet.</h1>
         </div>
@@ -227,7 +231,7 @@ function DscvrPage() {
 
   return (
     <main className="jobs-map-shell relative h-dvh overflow-hidden text-white">
-      <Appbar suffix="DSCVR" />
+      {discoverAppBar}
       <div
         ref={scrollerRef}
         onScroll={handleScroll}
