@@ -249,7 +249,7 @@ function DscvrSlide({
 
         <div
           data-video-slot
-          className="relative aspect-video w-full shrink-0 overflow-hidden bg-black"
+          className="dscvr-video-slot relative aspect-video w-full shrink-0 overflow-hidden bg-black"
         >
           <SlideThumbnail
             src={thumbnail}
