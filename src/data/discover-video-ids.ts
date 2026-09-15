@@ -4,7 +4,6 @@ const discoverVideoIds = [
   "qubn-4UNy_A",
   "Ngefkftz-e4",
   "0i7pWG440KM",
-  "QTeoNGh2kBE",
   "fAc4ZSVYOJU",
   "rOZH_1N7Gtc",
   "T4S9tSDH2U0",

@@ -14,6 +14,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type ReactNode,
 } from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeVideoId } from "./common/youtube-video-id";
@@ -89,7 +90,104 @@ function youtubeWatchUrl(url: string) {
   return url.replace(/([?&])t=\d+s?(&|$)/, "$1").replace(/[?&]$/, "");
 }
 
-function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
+function formatTime(seconds: number) {
+  const total = Math.max(0, Math.floor(seconds));
+  return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;
+}
+
+function VideoControls({
+  playing,
+  muted,
+  progress,
+  scrubbing,
+  onTogglePlayback,
+  onToggleSound,
+  onSeek,
+  onScrub,
+  onScrubStart,
+  onScrubEnd,
+}: {
+  playing: boolean;
+  muted: boolean;
+  progress: { time: number; duration: number };
+  scrubbing: boolean;
+  onTogglePlayback: () => void;
+  onToggleSound: () => void;
+  onSeek: (seconds: number) => void;
+  onScrub: (seconds: number) => void;
+  onScrubStart: () => void;
+  onScrubEnd: () => void;
+}) {
+  return (
+    <div
+      className="flex w-full items-center gap-2 rounded-full border border-white/40 bg-white/10 p-2"
+      role="group"
+      aria-label="Video playback"
+    >
+      <button
+        type="button"
+        onClick={onTogglePlayback}
+        aria-label={playing ? "Pause video" : "Play video"}
+        className="grid size-8 shrink-0 place-items-center rounded-full text-white"
+      >
+        {playing ? (
+          <PauseIcon className="size-5" />
+        ) : (
+          <PlayIcon className="size-5" />
+        )}
+      </button>
+      <button
+        type="button"
+        onClick={onToggleSound}
+        aria-label={muted ? "Unmute video" : "Mute video"}
+        className="grid size-8 shrink-0 place-items-center rounded-full text-white"
+      >
+        {muted ? (
+          <SpeakerXMarkIcon className="size-5" />
+        ) : (
+          <SpeakerWaveIcon className="size-5" />
+        )}
+      </button>
+      <div className="flex min-w-0 flex-1 items-center gap-2 px-1">
+        <input
+          type="range"
+          min={0}
+          max={progress.duration || 0}
+          step={0.1}
+          value={Math.min(progress.time, progress.duration || 0)}
+          disabled={progress.duration === 0}
+          aria-label="Seek video"
+          aria-valuetext={`${formatTime(progress.time)} of ${formatTime(progress.duration)}`}
+          onPointerDown={onScrubStart}
+          onPointerUp={onScrubEnd}
+          onPointerCancel={onScrubEnd}
+          onChange={(event) => {
+            const next = Number(event.target.value);
+            if (scrubbing) onScrub(next);
+            else onSeek(next);
+          }}
+          className="h-1 min-w-0 flex-1 accent-white"
+        />
+        <span className="shrink-0 text-xs font-bold tabular-nums text-white/80">
+          {formatTime(progress.time)}
+          {progress.duration > 0 ? ` / ${formatTime(progress.duration)}` : ""}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function DscvrSlide({
+  item,
+  onPlay,
+  playing,
+  controls,
+}: {
+  item: FeedItem;
+  onPlay: () => void;
+  playing: boolean;
+  controls?: ReactNode;
+}) {
   const { location } = item;
   const artistInstagrams = location.artists.flatMap((artist) => {
     const handle = getInstagramByName(artist)?.replace(/^@/, "");
@@ -110,7 +208,15 @@ function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
             alt=""
             className="h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/5 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/0 to-black/95" />
+          <div className="absolute inset-x-0 bottom-0 z-10 px-4 pt-10 pb-3 sm:px-6 sm:pb-4">
+            <h2 className="wrap-anywhere font-[Cute] text-xl leading-tight sm:text-2xl">
+              {location.name}
+            </h2>
+            <p className="mt-1 wrap-anywhere text-sm font-bold text-white/90">
+              {location.artists.join(" x ")}
+            </p>
+          </div>
         </div>
 
         <div
@@ -120,7 +226,11 @@ function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
           <button
             type="button"
             onClick={onPlay}
-            aria-label={`Play ${location.name} with sound`}
+            aria-label={
+              playing
+                ? `Pause ${location.name}`
+                : `Play ${location.name} with sound`
+            }
             className="absolute inset-0 h-full w-full"
           >
             <img
@@ -138,11 +248,15 @@ function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
           <img
             src={thumbnail}
             alt=""
-            className="h-full w-full object-cover object-center blur-xs scale-250"
+            className="h-full w-full scale-250 object-cover object-center blur-xs"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/25 to-black/90" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/15 to-black/85" />
 
-          <div className="mt-4 absolute top-0 z-99 justify-center flex flex-wrap items-center gap-2 w-full">
+          <div className="absolute inset-x-0 top-0 z-10 px-3 pt-2 sm:px-4 sm:pt-3">
+            {controls ?? <div className="h-12" aria-hidden="true" />}
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-wrap items-center justify-center gap-2 px-3 pt-10 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-4 sm:pb-4">
             <a
               href={youtubeUrl}
               target="_blank"
@@ -179,14 +293,6 @@ function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
                 />
               </a>
             ))}
-          </div>
-          <div className="absolute inset-x-0 bottom-0 max-h-full overflow-y-auto p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6">
-            <h2 className="wrap-anywhere font-[Cute] text-xl leading-tight sm:text-2xl">
-              {location.artists.join(" x ")}
-            </h2>
-            <p className="mt-2 wrap-anywhere text-sm font-bold text-white/90">
-              {location.name}
-            </p>
           </div>
         </div>
       </div>
@@ -229,6 +335,10 @@ function DscvrPage() {
   const [soundBlocked, setSoundBlocked] = useState(false);
   const [currentVideo, setCurrentVideo] = useState(false);
   const [playerError, setPlayerError] = useState(false);
+  const [progress, setProgress] = useState({ time: 0, duration: 0 });
+  const [scrubbing, setScrubbing] = useState(false);
+  const progressRef = useRef(progress);
+  progressRef.current = progress;
   const selectedRef = useRef<FeedItem | undefined>(feed[0]);
   selectedRef.current = feed[activeIndex];
   const selectedIndexRef = useRef(activeIndex);
@@ -256,9 +366,11 @@ function DscvrPage() {
       .then((api) => {
         if (disposed) return;
         const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        // controls is fixed at load time, so the feed ships without YouTube's
+        // chrome and drives playback through the buttons below instead.
+        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=0&disablekb=1&fs=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
         iframe.title = "Cantopop discovery playlist";
-        iframe.className = "h-full w-full";
+        iframe.className = "pointer-events-none h-full w-full";
         iframe.allow = "autoplay; encrypted-media; picture-in-picture";
         container.append(iframe);
         player = new api.Player(iframe, {
@@ -329,11 +441,7 @@ function DscvrPage() {
     selectedIndexRef.current = activeIndex;
     if (location && videoId) {
       playbackRef.current?.setHookTime(location.hookTime ?? 0);
-      queueRef.current?.select(
-        videoId,
-        location.hookTime ?? 0,
-        newlyFocused,
-      );
+      queueRef.current?.select(videoId, location.hookTime ?? 0, newlyFocused);
     }
     const scroller = scrollerRef.current;
     const host = playerHostRef.current;
@@ -402,12 +510,35 @@ function DscvrPage() {
     setPaused(nextPaused);
   };
 
+  const seekVideo = (seconds: number) => {
+    setProgress((current) => ({ ...current, time: seconds }));
+    playerRef.current?.seekTo(seconds, true);
+  };
+
   const toggleSound = () => {
     const nextMuted = muted || soundBlocked ? false : true;
     mutedRef.current = nextMuted;
     playbackRef.current?.sync({ active: true, muted: nextMuted, paused }, true);
     setMuted(nextMuted);
   };
+
+  useEffect(() => {
+    if (!currentVideo) {
+      setProgress({ time: 0, duration: 0 });
+      return;
+    }
+    if (scrubbing) return;
+    const read = () => {
+      const player = playerRef.current;
+      if (!player) return;
+      const duration = player.getDuration();
+      if (!Number.isFinite(duration) || duration <= 0) return;
+      setProgress({ time: player.getCurrentTime(), duration });
+    };
+    read();
+    const timer = window.setInterval(read, 250);
+    return () => window.clearInterval(timer);
+  }, [currentVideo, scrubbing]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -483,6 +614,7 @@ function DscvrPage() {
         aria-label="Emerging Cantopop discovery feed"
       >
         {feed.map((item, index) => {
+          const live = index === activeIndex && currentVideo && playing;
           return (
             <section
               key={item.key}
@@ -493,18 +625,47 @@ function DscvrPage() {
             >
               <DscvrSlide
                 item={item}
-                onPlay={() => playWithSound(item, index)}
+                playing={live}
+                onPlay={() =>
+                  live ? togglePlayback() : playWithSound(item, index)
+                }
+                controls={
+                  index === activeIndex ? (
+                    <VideoControls
+                      playing={playing}
+                      muted={muted || soundBlocked}
+                      progress={progress}
+                      scrubbing={scrubbing}
+                      onTogglePlayback={() =>
+                        playing ? togglePlayback() : playWithSound(item, index)
+                      }
+                      onToggleSound={toggleSound}
+                      onSeek={seekVideo}
+                      onScrub={(seconds) =>
+                        setProgress((current) => ({
+                          ...current,
+                          time: seconds,
+                        }))
+                      }
+                      onScrubStart={() => setScrubbing(true)}
+                      onScrubEnd={() => {
+                        setScrubbing(false);
+                        playerRef.current?.seekTo(
+                          progressRef.current.time,
+                          true,
+                        );
+                      }}
+                    />
+                  ) : undefined
+                }
               />
             </section>
           );
         })}
         <div
           ref={playerHostRef}
-          className="absolute z-30 overflow-hidden bg-black"
-          style={{
-            opacity: currentVideo ? 1 : 0,
-            pointerEvents: currentVideo ? "auto" : "none",
-          }}
+          className="pointer-events-none absolute z-30 overflow-hidden bg-black"
+          style={{ opacity: currentVideo ? 1 : 0 }}
           aria-hidden={!currentVideo}
         />
         {playerError && (
@@ -519,38 +680,10 @@ function DscvrPage() {
           <button
             type="button"
             onClick={() => playWithSound()}
-            className="fixed bottom-4 right-4 z-40 min-h-10 rounded-full bg-white px-4 text-sm font-bold text-black"
+            className="fixed bottom-20 right-4 z-40 min-h-10 rounded-full bg-white px-4 text-sm font-bold text-black"
           >
             Tap for sound
           </button>
-        )}
-        {currentVideo && (
-          <div className="fixed bottom-4 left-4 z-40 flex gap-2">
-            <button
-              type="button"
-              onClick={togglePlayback}
-              aria-label={playing ? "Pause video" : "Play video"}
-              className="grid size-10 place-items-center rounded-full bg-black/80 text-white"
-            >
-              {playing ? (
-                <PauseIcon className="size-5" />
-              ) : (
-                <PlayIcon className="size-5" />
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={toggleSound}
-              aria-label={muted || soundBlocked ? "Unmute video" : "Mute video"}
-              className="grid size-10 place-items-center rounded-full bg-black/80 text-white"
-            >
-              {muted || soundBlocked ? (
-                <SpeakerXMarkIcon className="size-5" />
-              ) : (
-                <SpeakerWaveIcon className="size-5" />
-              )}
-            </button>
-          </div>
         )}
       </div>
     </main>

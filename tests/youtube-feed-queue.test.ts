@@ -24,6 +24,8 @@ function setup(initialPlaylist: string[]) {
       seekTo: (seconds) => {
         calls.push(`seek:${seconds}`);
       },
+      getCurrentTime: () => 0,
+      getDuration: () => 0,
       getPlaylist: () => playlist,
       getVideoUrl: () =>
         currentId ? `https://www.youtube.com/watch?v=${currentId}` : "",
@@ -83,8 +85,22 @@ void test("quick swipes hide stale tracks and only reveal the selected video", (
   assert.equal(s.visible(), false);
   s.setCurrent("gamma12345");
   s.queue.stateChanged(1);
+  assert.equal(s.visible(), false);
+  s.queue.stateChanged(1);
   assert.equal(s.visible(), true);
   assert.deepEqual(s.calls, ["at:0", "at:1", "at:2", "seek:20"]);
+});
+
+void test("a revealed video stays on screen while paused", () => {
+  const s = setup(["alpha123456"]);
+  s.queue.select("alpha123456", 0);
+  s.setCurrent("alpha123456");
+  s.queue.stateChanged(3);
+  assert.equal(s.visible(), false);
+  s.queue.stateChanged(1);
+  assert.equal(s.visible(), true);
+  s.queue.stateChanged(2);
+  assert.equal(s.visible(), true);
 });
 
 void test("revisiting the same video can restart its hook", () => {
