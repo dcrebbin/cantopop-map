@@ -13,6 +13,7 @@ import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeEmbedUrl } from "./common/jobs";
 import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
+import { YoutubePlayback } from "./common/youtube-playback";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
 const MAX_VIEWS = 100_000;
@@ -113,12 +114,10 @@ function DscvrSlide({
   onTogglePaused: (paused: boolean) => void;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<YoutubePlayer | null>(null);
+  const playbackRef = useRef<YoutubePlayback | null>(null);
   const [playing, setPlaying] = useState(false);
   const [playerError, setPlayerError] = useState(false);
   const desiredRef = useRef({ active, muted, paused });
-  const restoreSoundRef = useRef(false);
-  const retriedMutedRef = useRef(false);
   const [soundBlocked, setSoundBlocked] = useState(false);
   const effectivelyMuted = muted || soundBlocked;
   const { location } = item;
@@ -129,24 +128,36 @@ function DscvrSlide({
   const youtubeUrl = youtubeWatchUrl(location.url);
   const thumbnail = location.highResImage ?? location.image;
 
-  const syncPlayer = useCallback(() => {
-    const player = playerRef.current;
-    if (!player) return;
+  const syncPlayer = useCallback((userGesture = false) => {
     const desired = desiredRef.current;
-    if (!desired.active) {
-      restoreSoundRef.current = false;
-      player.mute();
-      player.pauseVideo();
-      return;
-    }
-    // Start every selection muted; restore the preference only after playback.
-    restoreSoundRef.current = !desired.muted;
-    retriedMutedRef.current = false;
-    setSoundBlocked(false);
-    player.mute();
-    if (desired.paused) player.pauseVideo();
-    else player.playVideo();
+    playbackRef.current?.sync(
+      { ...desired, active: desired.active && !document.hidden },
+      userGesture,
+    );
   }, []);
+
+  useEffect(() => {
+    if (!loadVideo) return;
+    const onVisibilityChange = () => syncPlayer();
+    const retrySound = (event: Event) => {
+      // Controls handle their own gesture; retrying before their click would
+      // change the button's meaning between pointerup and click.
+      if (
+        event.target instanceof Element &&
+        event.target.closest("button, a, input, textarea, select")
+      )
+        return;
+      if (event.isTrusted) playbackRef.current?.retrySound();
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    document.addEventListener("pointerup", retrySound);
+    document.addEventListener("keydown", retrySound);
+    return () => {
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      document.removeEventListener("pointerup", retrySound);
+      document.removeEventListener("keydown", retrySound);
+    };
+  }, [loadVideo, syncPlayer]);
 
   useEffect(() => {
     if (!loadVideo || !embedUrl || !containerRef.current) return;
@@ -167,42 +178,18 @@ function DscvrSlide({
           events: {
             onReady: ({ target }) => {
               if (disposed) return;
-              playerRef.current = target;
+              playbackRef.current = new YoutubePlayback(
+                target,
+                setPlaying,
+                setSoundBlocked,
+              );
               syncPlayer();
             },
-            onStateChange: ({ target, data }) => {
-              if (disposed) return;
-              const desired = desiredRef.current;
-              if (!desired.active && (data === 1 || data === 3)) {
-                target.mute();
-                target.pauseVideo();
-                return;
-              }
-              if (desired.paused && (data === 1 || data === 3)) {
-                target.pauseVideo();
-                return;
-              }
-              setPlaying(data === 1);
-              if (data === 1 && restoreSoundRef.current) {
-                restoreSoundRef.current = false;
-                if (!desired.muted) target.unMute();
-              }
-              if (data === 0 && desired.active && !desired.paused) {
-                target.seekTo(0, true);
-                target.playVideo();
-              }
+            onStateChange: ({ data }) => {
+              if (!disposed) playbackRef.current?.stateChanged(data);
             },
-            onAutoplayBlocked: ({ target }) => {
-              if (disposed) return;
-              setPlaying(false);
-              const desired = desiredRef.current;
-              if (!desired.active || desired.paused) return;
-              restoreSoundRef.current = false;
-              setSoundBlocked(!desired.muted);
-              if (retriedMutedRef.current) return;
-              retriedMutedRef.current = true;
-              target.mute();
-              target.playVideo();
+            onAutoplayBlocked: () => {
+              if (!disposed) playbackRef.current?.autoplayBlocked();
             },
           },
         });
@@ -212,7 +199,7 @@ function DscvrSlide({
       });
     return () => {
       disposed = true;
-      playerRef.current = null;
+      playbackRef.current = null;
       player?.destroy();
       container.replaceChildren();
     };
@@ -227,18 +214,15 @@ function DscvrSlide({
     // Dispatch in the gesture handler to retain browser playback permission.
     const nextPaused = playing;
     desiredRef.current = { active, muted, paused: nextPaused };
-    syncPlayer();
+    syncPlayer(true);
     onTogglePaused(nextPaused);
   };
 
   const toggleMuted = () => {
     const nextMuted = !effectivelyMuted;
     desiredRef.current = { active, paused, muted: nextMuted };
-    restoreSoundRef.current = false;
-    setSoundBlocked(false);
-    // Sound changes made by a click retain the browser's user activation.
-    if (nextMuted) playerRef.current?.mute();
-    else playerRef.current?.unMute();
+    // Send both unmute and play during the click, before React effects run.
+    syncPlayer(true);
     if (nextMuted !== muted) onToggleMuted();
   };
 
@@ -261,34 +245,6 @@ function DscvrSlide({
               playerError: Video unavailable. Open it on YouTube below.{" "}
               {playerError}
             </p>
-          )}
-          {active && (
-            <div className="absolute right-3 -bottom-12 z-10 flex gap-2">
-              <button
-                type="button"
-                onClick={togglePaused}
-                className="grid size-10 place-items-center rounded-full bg-black/65 text-white backdrop-blur transition hover:bg-black/85"
-                aria-label={playing ? "Pause video" : "Play video"}
-              >
-                {!playing ? (
-                  <PlayIcon className="size-5" />
-                ) : (
-                  <PauseIcon className="size-5" />
-                )}
-              </button>
-              <button
-                type="button"
-                onClick={toggleMuted}
-                className="grid size-10 place-items-center rounded-full bg-black/65 text-white backdrop-blur transition hover:bg-black/85"
-                aria-label={effectivelyMuted ? "Unmute video" : "Mute video"}
-              >
-                {effectivelyMuted ? (
-                  <SpeakerXMarkIcon className="size-5" />
-                ) : (
-                  <SpeakerWaveIcon className="size-5" />
-                )}
-              </button>
-            </div>
           )}
         </div>
 
@@ -345,7 +301,7 @@ function DscvrPage() {
   );
   const [feed, setFeed] = useState(() => makeBatch(feedLocations, 0));
   const [activeIndex, setActiveIndex] = useState(0);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [paused, setPaused] = useState(false);
   const activeIndexRef = useRef(0);
   const feedLocationsRef = useRef(feedLocations);
