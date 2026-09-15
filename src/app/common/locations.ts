@@ -16,6 +16,37 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["乙女新夢 Otome Syndream"],
+    address: "Taiso Shrine, Itoshima, Fukuoka, Japan",
+    coordinates: [33.5941589, 130.1093702],
+    name: "不破不立 (Pain/Gain)",
+    streetView: "https://maps.app.goo.gl/hC6gdJZXKmCrPX2x6",
+    url: "https://youtu.be/YJue_inN6w8?t=86",
+    image: "https://i.ytimg.com/vi/YJue_inN6w8/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Teddy Fan"],
+        writer: ["李一丁"],
+        arranger: ["Teddy Fan"],
+        producer: ["李一丁"],
+      },
+      musicVideo: {
+        director: ["Leung Kwok Pang", "RANDOMISTS"],
+        screenplay: ["Leung Kwok Pang", "RANDOMISTS"],
+        producer: ["Maho", "乙女新夢 Otome Syndream"],
+        directorOfPhotography: ["Thomas Ng", "COHESION RENTAL"],
+        gaffer: ["Thomas Ng", "COHESION RENTAL"],
+        cameraOperator: ["Anson Wong"],
+        styling: ["Jo Mehz"],
+        stillPhotographer: ["Luk Wai Ho"],
+        equipmentSponsor: ["Cohesion Rental"],
+        editing: ["Leung Kwok Pang", "RANDOMISTS"],
+        colorist: ["Pete Ma", "PM.COLORLAB"],
+        specialThanks: ["All Dreamers", "#JNPLinks", "#日田天領水", "Damy"],
+      },
+    },
+  },
+  {
     artists: ["Lolly Talk"],
     address:
       "Sandy Bay Swimming Shed, Mount Davis, Hong Kong Island, Hong Kong",
