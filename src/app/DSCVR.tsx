@@ -177,16 +177,43 @@ function VideoControls({
   );
 }
 
+function SlideThumbnail({
+  src,
+  className,
+}: {
+  src: string;
+  className: string;
+}) {
+  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
+  if (loadedSrc !== null && loadedSrc !== src) setLoadedSrc(null);
+
+  return (
+    <>
+      <img
+        src={src}
+        alt=""
+        className={className}
+        onLoad={() => setLoadedSrc(src)}
+        onError={() => setLoadedSrc(src)}
+      />
+      {loadedSrc !== src && (
+        <div
+          className="image-skeleton pointer-events-none absolute inset-0 z-[1] opacity-30"
+          aria-hidden="true"
+        />
+      )}
+    </>
+  );
+}
+
 function DscvrSlide({
   item,
-  onPlay,
-  playing,
   controls,
+  videoLoading,
 }: {
   item: FeedItem;
-  onPlay: () => void;
-  playing: boolean;
   controls?: ReactNode;
+  videoLoading?: boolean;
 }) {
   const { location } = item;
   const artistInstagrams = location.artists.flatMap((artist) => {
@@ -201,16 +228,15 @@ function DscvrSlide({
 
   return (
     <article className="relative flex h-dvh min-h-[34rem] snap-start snap-always items-center justify-center overflow-hidden p-0 lg:p-7">
-      <div className="relative z-10 grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden bg-black text-white sm:aspect-[9/16] sm:h-[calc(100dvh-2.5rem)] sm:w-auto sm:max-w-[calc(100vw-2.5rem)] sm:rounded-[2rem] sm:border-[3px] sm:border-white/55 sm:shadow-[0_1.5rem_5rem_rgba(0,0,0,.55)] lg:h-[calc(100dvh-3.5rem)] lg:max-w-[calc(100vw-3.5rem)]">
+      <div className="relative grid h-dvh w-full grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] overflow-hidden bg-black text-white sm:aspect-[9/16] sm:h-[calc(100dvh-2.5rem)] sm:w-auto sm:max-w-[calc(100vw-2.5rem)] sm:rounded-[2rem] sm:border-[3px] sm:border-white/55 sm:shadow-[0_1.5rem_5rem_rgba(0,0,0,.55)] lg:h-[calc(100dvh-3.5rem)] lg:max-w-[calc(100vw-3.5rem)]">
         <div className="relative min-h-0 overflow-hidden">
-          <img
+          <SlideThumbnail
             src={thumbnail}
-            alt=""
             className="h-full w-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/0 to-black/95" />
           <div className="absolute inset-x-0 bottom-0 z-10 px-4 pt-10 pb-3 sm:px-6 sm:pb-4">
-            <h2 className="wrap-anywhere font-[Cute] text-xl leading-tight sm:text-2xl">
+            <h2 className="wrap-anywhere font-serif text-xl leading-tight sm:text-2xl">
               {location.name}
             </h2>
             <p className="mt-1 wrap-anywhere text-sm font-bold text-white/90">
@@ -223,36 +249,26 @@ function DscvrSlide({
           data-video-slot
           className="relative aspect-video w-full shrink-0 bg-black"
         >
-          <button
-            type="button"
-            onClick={onPlay}
-            aria-label={
-              playing
-                ? `Pause ${location.name}`
-                : `Play ${location.name} with sound`
-            }
-            className="absolute inset-0 h-full w-full"
-          >
-            <img
-              src={thumbnail}
-              alt=""
-              className="h-full w-full object-cover"
+          <SlideThumbnail
+            src={thumbnail}
+            className="h-full w-full object-cover blur-sm"
+          />
+          {videoLoading && (
+            <div
+              className="image-skeleton dscvr-video-skeleton pointer-events-none absolute inset-0 z-[2] opacity-60"
+              aria-hidden="true"
             />
-            <span className="absolute inset-0 grid place-items-center bg-black/20">
-              <PlayIcon className="size-14 rounded-full bg-black/60 p-3" />
-            </span>
-          </button>
+          )}
         </div>
 
-        <div className="relative min-h-0 overflow-hidden">
-          <img
+        <div className="relative z-40 min-h-0 overflow-hidden">
+          <SlideThumbnail
             src={thumbnail}
-            alt=""
             className="h-full w-full scale-250 object-cover object-center blur-xs"
           />
           <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/15 to-black/85" />
 
-          <div className="absolute inset-x-0 top-0 z-10 px-3 pt-2 sm:px-4 sm:pt-3">
+          <div className="pointer-events-auto absolute inset-x-0 top-0 z-40 px-3 pt-2 sm:px-4 sm:pt-3">
             {controls ?? <div className="h-12" aria-hidden="true" />}
           </div>
 
@@ -342,6 +358,38 @@ function DscvrPage() {
   const selectedRef = useRef<FeedItem | undefined>(feed[0]);
   selectedRef.current = feed[activeIndex];
   const selectedIndexRef = useRef(activeIndex);
+  const feedRef = useRef(feed);
+  feedRef.current = feed;
+  const pendingScrollIndexRef = useRef<number | null>(null);
+  const advancingRef = useRef(false);
+  const playingRef = useRef(playing);
+  playingRef.current = playing;
+
+  const advanceToNext = useCallback(() => {
+    if (!selectedRef.current || advancingRef.current) return;
+    const nextIndex = activeIndexRef.current + 1;
+    let nextItem = feedRef.current[nextIndex];
+    if (!nextItem) {
+      const batch = makeBatch(feedLocationsRef.current, cycleRef.current++);
+      nextItem = batch[0];
+      if (!nextItem) return;
+      pendingScrollIndexRef.current = nextIndex;
+      setFeed((current) => [...current, ...batch]);
+    }
+    advancingRef.current = true;
+    activeIndexRef.current = nextIndex;
+    selectedRef.current = nextItem;
+    setActiveIndex(nextIndex);
+    setPaused(false);
+    pausedRef.current = false;
+    const nextId = youtubeVideoId(nextItem.location.url);
+    if (nextId) {
+      playbackRef.current?.setHookTime(nextItem.location.hookTime ?? 0);
+      queueRef.current?.select(nextId, nextItem.location.hookTime ?? 0, true);
+    }
+    if (pendingScrollIndexRef.current === null)
+      itemRefs.current[nextIndex]?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   const syncPlayback = useCallback(
     (userGesture = false) => {
@@ -366,12 +414,10 @@ function DscvrPage() {
       .then((api) => {
         if (disposed) return;
         const iframe = document.createElement("iframe");
-        // controls is fixed at load time, so the feed ships without YouTube's
-        // chrome and drives playback through the buttons below instead.
-        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=0&disablekb=1&fs=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
         iframe.title = "Cantopop discovery playlist";
-        iframe.className = "pointer-events-none h-full w-full";
-        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+        iframe.className = "pointer-events-auto h-full w-full";
+        iframe.allow = "autoplay;controls; encrypted-media; picture-in-picture";
         container.append(iframe);
         player = new api.Player(iframe, {
           events: {
@@ -400,15 +446,15 @@ function DscvrPage() {
               if (disposed) return;
               queueRef.current?.stateChanged(data);
               if (data === 0) {
-                const location = selectedRef.current?.location;
-                const videoId = location && youtubeVideoId(location.url);
-                if (location && videoId)
-                  queueRef.current?.select(
-                    videoId,
-                    location.hookTime ?? 0,
-                    true,
-                  );
-              } else playbackRef.current?.stateChanged(data);
+                advanceToNext();
+              } else {
+                if (
+                  data === 1 &&
+                  youtubeVideoId(playerRef.current?.getVideoUrl() ?? "") ===
+                    youtubeVideoId(selectedRef.current?.location.url ?? "")
+                ) advancingRef.current = false;
+                playbackRef.current?.stateChanged(data);
+              }
             },
             onAutoplayBlocked: () => {
               if (!disposed) playbackRef.current?.autoplayBlocked();
@@ -427,7 +473,7 @@ function DscvrPage() {
       queueRef.current = null;
       container.replaceChildren();
     };
-  }, [feedLocations]);
+  }, [advanceToNext, feedLocations]);
 
   const mutedRef = useRef(muted);
   const pausedRef = useRef(paused);
@@ -533,12 +579,21 @@ function DscvrPage() {
       if (!player) return;
       const duration = player.getDuration();
       if (!Number.isFinite(duration) || duration <= 0) return;
-      setProgress({ time: player.getCurrentTime(), duration });
+      const time = player.getCurrentTime();
+      setProgress({ time, duration });
+      if (
+        playingRef.current &&
+        !document.hidden &&
+        duration > 5 &&
+        time >= duration - 3 &&
+        youtubeVideoId(player.getVideoUrl()) ===
+          youtubeVideoId(selectedRef.current?.location.url ?? "")
+      ) advanceToNext();
     };
     read();
     const timer = window.setInterval(read, 250);
     return () => window.clearInterval(timer);
-  }, [currentVideo, scrubbing]);
+  }, [advanceToNext, currentVideo, scrubbing]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -573,6 +628,13 @@ function DscvrPage() {
       ...makeBatch(feedLocationsRef.current, cycle),
     ]);
   }, []);
+
+  useEffect(() => {
+    const nextIndex = pendingScrollIndexRef.current;
+    if (nextIndex === null || !itemRefs.current[nextIndex]) return;
+    pendingScrollIndexRef.current = null;
+    itemRefs.current[nextIndex]?.scrollIntoView({ behavior: "smooth" });
+  }, [feed]);
 
   const handleScroll = useCallback(() => {
     const scroller = scrollerRef.current;
@@ -614,7 +676,6 @@ function DscvrPage() {
         aria-label="Emerging Cantopop discovery feed"
       >
         {feed.map((item, index) => {
-          const live = index === activeIndex && currentVideo && playing;
           return (
             <section
               key={item.key}
@@ -625,38 +686,8 @@ function DscvrPage() {
             >
               <DscvrSlide
                 item={item}
-                playing={live}
-                onPlay={() =>
-                  live ? togglePlayback() : playWithSound(item, index)
-                }
-                controls={
-                  index === activeIndex ? (
-                    <VideoControls
-                      playing={playing}
-                      muted={muted || soundBlocked}
-                      progress={progress}
-                      scrubbing={scrubbing}
-                      onTogglePlayback={() =>
-                        playing ? togglePlayback() : playWithSound(item, index)
-                      }
-                      onToggleSound={toggleSound}
-                      onSeek={seekVideo}
-                      onScrub={(seconds) =>
-                        setProgress((current) => ({
-                          ...current,
-                          time: seconds,
-                        }))
-                      }
-                      onScrubStart={() => setScrubbing(true)}
-                      onScrubEnd={() => {
-                        setScrubbing(false);
-                        playerRef.current?.seekTo(
-                          progressRef.current.time,
-                          true,
-                        );
-                      }}
-                    />
-                  ) : undefined
+                videoLoading={
+                  index === activeIndex && !currentVideo && !playerError
                 }
               />
             </section>

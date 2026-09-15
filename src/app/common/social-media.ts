@@ -495,6 +495,7 @@ export const nameToInstagramMap = {
   wui4sing1: "wui4sing1",
   "J Jelly": "jjforjelly",
   "$alty Chick鹽焗雞": "saltychick44",
+  Abby艾比: "punpun_abbyv3v",
   "Paul Kwan 關立": "paulkwanpk",
   "Cozy Syndrome": "cozy_syndrome",
   "Vincy 蘇詠淳": "vincysoooo",

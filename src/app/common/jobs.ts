@@ -300,7 +300,7 @@ export function youtubeEmbedUrl(url: string, hookTime?: number) {
       ? parsed.pathname.slice(1)
       : parsed.searchParams.get("v");
     if (!id) return null;
-    return `https://www.youtube-nocookie.com/embed/${id}?rel=0&controls=0&iv_load_policy=3&disablekb=1${hookTime !== undefined ? `&start=${hookTime}` : ""}`;
+    return `https://www.youtube.com/embed/${id}?rel=0&controls=1&iv_load_policy=3&${hookTime !== undefined ? `&start=${hookTime ?? 0}` : ""}`;
   } catch {
     return null;
   }
