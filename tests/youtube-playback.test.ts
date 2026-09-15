@@ -25,9 +25,8 @@ function setup(hookTime = 0) {
       },
       getCurrentTime: () => 0,
       getDuration: () => 0,
-      getPlaylist: () => [],
       getVideoUrl: () => "",
-      playVideoAt: () => { calls.push("at"); },
+      loadVideoById: () => { calls.push("load"); },
       destroy: () => {
         calls.push("destroy");
       },

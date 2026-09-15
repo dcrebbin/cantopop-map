@@ -6,9 +6,8 @@ export interface YoutubePlayer {
   seekTo(seconds: number, allowSeekAhead: boolean): void;
   getCurrentTime(): number;
   getDuration(): number;
-  getPlaylist(): string[];
   getVideoUrl(): string;
-  playVideoAt(index: number): void;
+  loadVideoById(videoId: string): void;
   destroy(): void;
 }
 

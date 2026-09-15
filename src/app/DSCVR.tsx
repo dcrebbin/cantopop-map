@@ -31,6 +31,8 @@ type FeedItem = {
 
 export const Route = createFileRoute("/DSCVR")({
   loader: () => ({ shuffleSeed: Math.random() }),
+  shouldReload: true,
+  preloadStaleTime: 0,
   head: () => ({
     meta: [
       { title: "DSCVR Cantopop | Cantopop Map" },
@@ -247,7 +249,7 @@ function DscvrSlide({
 
         <div
           data-video-slot
-          className="relative aspect-video w-full shrink-0 bg-black"
+          className="relative aspect-video w-full shrink-0 overflow-hidden bg-black"
         >
           <SlideThumbnail
             src={thumbnail}
@@ -266,7 +268,7 @@ function DscvrSlide({
             src={thumbnail}
             className="h-full w-full scale-250 object-cover object-center blur-xs"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-black/80 via-black/15 to-black/85" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/95 via-black/70 to-transparent" />
 
           <div className="pointer-events-auto absolute inset-x-0 top-0 z-40 px-3 pt-2 sm:px-4 sm:pt-3">
             {controls ?? <div className="h-12" aria-hidden="true" />}
@@ -414,8 +416,8 @@ function DscvrPage() {
       .then((api) => {
         if (disposed) return;
         const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-        iframe.title = "Cantopop discovery playlist";
+        iframe.src = `https://www.youtube.com/embed/${youtubeVideoId(feedLocations[0]!.url)}?autoplay=0&controls=1&disablekb=1&fs=0&rel=0&iv_load_policy=3&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.title = "Cantopop discovery video";
         iframe.className = "pointer-events-auto h-full w-full";
         iframe.allow = "autoplay;controls; encrypted-media; picture-in-picture";
         container.append(iframe);
