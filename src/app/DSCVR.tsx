@@ -186,26 +186,7 @@ function SlideThumbnail({
   src: string;
   className: string;
 }) {
-  const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
-  if (loadedSrc !== null && loadedSrc !== src) setLoadedSrc(null);
-
-  return (
-    <>
-      <img
-        src={src}
-        alt=""
-        className={className}
-        onLoad={() => setLoadedSrc(src)}
-        onError={() => setLoadedSrc(src)}
-      />
-      {loadedSrc !== src && (
-        <div
-          className="image-skeleton pointer-events-none absolute inset-0 z-[1] opacity-30"
-          aria-hidden="true"
-        />
-      )}
-    </>
-  );
+  return <img src={src} alt="" className={className} />;
 }
 
 function DscvrSlide({
@@ -257,7 +238,7 @@ function DscvrSlide({
           />
           {videoLoading && (
             <div
-              className="image-skeleton dscvr-video-skeleton pointer-events-none absolute inset-0 z-[2] opacity-60"
+              className="dscvr-thumbnail-skeleton pointer-events-none absolute inset-0 z-[2]"
               aria-hidden="true"
             />
           )}

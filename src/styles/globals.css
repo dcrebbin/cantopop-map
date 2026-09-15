@@ -35,19 +35,24 @@ input[type="checkbox"] {
   animation: image-skeleton-shimmer 1.4s ease-in-out infinite;
 }
 
-.dscvr-video-skeleton {
-  background-color: #1f2937;
-  background-image: linear-gradient(
-    100deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.22) 50%,
-    transparent 80%
-  );
-}
-
 .dscvr-video-slot {
   clip-path: inset(0);
   isolation: isolate;
+}
+
+.dscvr-thumbnail-skeleton {
+  clip-path: inset(0);
+  contain: paint;
+  background-color: rgb(17 24 39 / 65%);
+  background-image: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgb(255 255 255 / 12%) 50%,
+    transparent 80%
+  );
+  background-position: 180% 0;
+  background-size: 200% 100%;
+  animation: image-skeleton-shimmer 2.2s ease-in-out infinite alternate;
 }
 
 @keyframes image-skeleton-shimmer {
@@ -196,6 +201,10 @@ input[type="checkbox"] {
   }
 
   .image-skeleton {
+    animation: none;
+  }
+
+  .dscvr-thumbnail-skeleton {
     animation: none;
   }
 }
