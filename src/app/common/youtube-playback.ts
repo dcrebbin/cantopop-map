@@ -16,6 +16,7 @@ export class YoutubePlayback {
     private player: YoutubePlayer,
     private onPlaying: (playing: boolean) => void,
     private onSoundBlocked: (blocked: boolean) => void,
+    private hookTime = 0,
   ) {}
 
   sync(next: PlaybackIntent, userGesture = false) {
@@ -69,7 +70,7 @@ export class YoutubePlayback {
     }
     this.onPlaying(state === 1);
     if (state === 0) {
-      this.player.seekTo(0, true);
+      this.player.seekTo(this.hookTime, true);
       this.player.playVideo();
     }
   }

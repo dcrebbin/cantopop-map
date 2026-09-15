@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { YoutubePlayback } from "../src/app/common/youtube-playback";
 
-function setup() {
+function setup(hookTime = 0) {
   const calls: string[] = [];
   let playing = false;
   let blocked = false;
@@ -20,8 +20,8 @@ function setup() {
       unMute: () => {
         calls.push("unmute");
       },
-      seekTo: () => {
-        calls.push("seek");
+      seekTo: (seconds) => {
+        calls.push(`seek:${seconds}`);
       },
       destroy: () => {
         calls.push("destroy");
@@ -33,6 +33,7 @@ function setup() {
     (value) => {
       blocked = value;
     },
+    hookTime,
   );
   return { playback, calls, playing: () => playing, blocked: () => blocked };
 }
@@ -106,9 +107,17 @@ void test("only active, unpaused videos loop", () => {
   s.playback.sync(audible);
   s.calls.length = 0;
   s.playback.stateChanged(0);
-  assert.deepEqual(s.calls, ["seek", "play"]);
+  assert.deepEqual(s.calls, ["seek:0", "play"]);
   s.playback.sync({ ...audible, active: false });
   s.calls.length = 0;
   s.playback.stateChanged(0);
   assert.deepEqual(s.calls, ["mute"]);
+});
+
+void test("finished videos loop from their hook time", () => {
+  const s = setup(42);
+  s.playback.sync(audible);
+  s.calls.length = 0;
+  s.playback.stateChanged(0);
+  assert.deepEqual(s.calls, ["seek:42", "play"]);
 });

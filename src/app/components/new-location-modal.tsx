@@ -56,6 +56,7 @@ export default function NewLocationModal() {
       artists,
       streetViewEmbed: null,
       contributors: null,
+      hookTime: null,
       url: videoUrl,
       viewCount: null,
       isCustom: true,

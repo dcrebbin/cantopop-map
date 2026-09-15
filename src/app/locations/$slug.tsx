@@ -92,7 +92,8 @@ function LocationPage() {
     ? location?.url.split("youtu.be/")[1]?.split("?")[0]
     : location?.url.split("v=")[1]?.split("&")[0];
 
-  const time = location?.url.split("?t=")[1]?.split("&")[0];
+  const urlTime = location.url.split("?t=")[1]?.split("&")[0];
+  const time = location.hookTime ?? urlTime;
 
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
@@ -196,7 +197,7 @@ function LocationPage() {
               <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
                 {videoId ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${videoId}?start=${time}`}
+                    src={`https://www.youtube.com/embed/${videoId}${time !== undefined ? `?start=${time}` : ""}`}
                     width="100%"
                     height="100%"
                     title="Youtube Video"

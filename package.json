@@ -15,7 +15,8 @@
     "views:update": "node scripts/update-youtube-view-counts.mjs",
     "lint": "eslint . --ext .js,.cjs,.ts,.tsx",
     "start": "node .output/server/index.mjs",
-    "doctor": "npx react-doctor@latest"
+    "doctor": "npx react-doctor@latest",
+    "discover:update": "tsx scripts/update-discover-list.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

@@ -284,7 +284,7 @@ function WorkPlayer({
   work: TalentWork;
 }) {
   const [playing, setPlaying] = useState(false);
-  const embedUrl = youtubeEmbedUrl(work.url);
+  const embedUrl = youtubeEmbedUrl(work.url, work.hookTime ?? undefined);
   const otherWorks = useMemo(() => {
     return profile.works.filter((w) => w.id !== work.id);
   }, [profile.works, work.id]);

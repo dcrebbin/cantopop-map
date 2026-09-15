@@ -11,13 +11,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeEmbedUrl } from "./common/jobs";
+import { youtubeVideoId } from "./common/youtube-video-id";
+import discoverVideoIds from "./discover-video-ids.json";
 import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { YoutubePlayback } from "./common/youtube-playback";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
-
-const MAX_VIEWS = 100_000;
-const MAX_CHANNEL_SUBSCRIBERS = 10_000;
 
 type FeedItem = {
   key: string;
@@ -45,17 +44,6 @@ export const Route = createFileRoute("/DSCVR")({
   }),
   component: DscvrPage,
 });
-
-function isEligible(location: LocationItem) {
-  const hasEmbeddableVideo = youtubeEmbedUrl(location.url) !== null;
-  const meetsViewLimit =
-    location.viewCount !== null && location.viewCount <= MAX_VIEWS;
-  const meetsSubscriberLimit =
-    location.channelSubscriberCount !== null &&
-    location.channelSubscriberCount < MAX_CHANNEL_SUBSCRIBERS;
-
-  return hasEmbeddableVideo && meetsViewLimit && meetsSubscriberLimit;
-}
 
 function makeBatch(locations: LocationItem[], cycle: number): FeedItem[] {
   if (locations.length === 0) return [];
@@ -121,7 +109,8 @@ function DscvrSlide({
   const [soundBlocked, setSoundBlocked] = useState(false);
   const effectivelyMuted = muted || soundBlocked;
   const { location } = item;
-  const embedUrl = youtubeEmbedUrl(location.url);
+  const hookTime = location.hookTime ?? undefined;
+  const embedUrl = youtubeEmbedUrl(location.url, hookTime);
   const instagram = location.artists
     .map((artist) => getInstagramByName(artist))
     .find((handle) => handle !== null);
@@ -182,6 +171,7 @@ function DscvrSlide({
                 target,
                 setPlaying,
                 setSoundBlocked,
+                hookTime,
               );
               syncPlayer();
             },
@@ -203,7 +193,7 @@ function DscvrSlide({
       player?.destroy();
       container.replaceChildren();
     };
-  }, [loadVideo, embedUrl, syncPlayer]);
+  }, [loadVideo, embedUrl, hookTime, syncPlayer]);
 
   useEffect(() => {
     desiredRef.current = { active, muted, paused };
@@ -294,7 +284,18 @@ function DscvrSlide({
 
 function DscvrPage() {
   const { shuffleSeed } = Route.useLoaderData();
-  const eligibleLocations = useMemo(() => LOCATIONS.filter(isEligible), []);
+  const eligibleLocations = useMemo(() => {
+    const locationsByVideoId = new Map(
+      LOCATIONS.flatMap((location) => {
+        const id = youtubeVideoId(location.url);
+        return id ? [[id, location] as const] : [];
+      }),
+    );
+    return discoverVideoIds.flatMap((id) => {
+      const location = locationsByVideoId.get(id);
+      return location ? [location] : [];
+    });
+  }, []);
   const feedLocations = useMemo(
     () => shuffledLocations(eligibleLocations, shuffleSeed),
     [eligibleLocations, shuffleSeed],

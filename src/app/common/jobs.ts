@@ -40,6 +40,7 @@ export interface TalentWork {
   role: string;
   url: string;
   image: string;
+  hookTime: number | null;
 }
 
 export interface TalentProfile {
@@ -236,6 +237,7 @@ export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
               role: humanizeRoleKey(roleKey),
               url: location.url,
               image: location.highResImage ?? location.image,
+              hookTime: location.hookTime,
             });
           }
 
@@ -291,14 +293,14 @@ export function buildAllTalentProfiles(): TalentProfile[] {
   return [...profiles.values()];
 }
 
-export function youtubeEmbedUrl(url: string) {
+export function youtubeEmbedUrl(url: string, hookTime?: number) {
   try {
     const parsed = new URL(url);
     const id = parsed.hostname.includes("youtu.be")
       ? parsed.pathname.slice(1)
       : parsed.searchParams.get("v");
     if (!id) return null;
-    return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`;
+    return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1${hookTime !== undefined ? `&start=${hookTime}` : ""}`;
   } catch {
     return null;
   }

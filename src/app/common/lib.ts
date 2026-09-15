@@ -44,6 +44,7 @@ const RawLocationSchema = z.object({
   mapEmbed: OptionalUrlSchema,
   isCustom: z.boolean().optional(),
   contributors: ContributorsSchema,
+  hookTime: z.number().int().nonnegative().optional(),
 });
 
 // Normalized item with guaranteed lng/lat ordering, and a stable id
@@ -74,6 +75,7 @@ const LocationItemSchema = RawLocationSchema.transform((raw) => {
     isCustom: raw.isCustom ?? false,
     hidden: !raw.coordinates || !raw.address,
     contributors: raw.contributors ?? null,
+    hookTime: raw.hookTime ?? null,
   };
 });
 
