@@ -7,7 +7,7 @@ import { youtubeVideoId } from "../src/app/common/youtube-video-id";
 const MAX_VIEWS = 100_000;
 const MAX_CHANNEL_SUBSCRIBERS = 20_000;
 const outputPath = fileURLToPath(
-  new URL("../src/app/discover-video-ids.json", import.meta.url),
+  new URL("../src/data/discover-video-ids.ts", import.meta.url),
 );
 
 const videoIds = [
@@ -25,5 +25,8 @@ const videoIds = [
   ),
 ];
 
-await writeFile(outputPath, `${JSON.stringify(videoIds, null, 2)}\n`);
+await writeFile(
+  outputPath,
+  `const discoverVideoIds = ${JSON.stringify(videoIds, null, 2)} as const;\n\nexport default discoverVideoIds;\n`,
+);
 console.log(`Updated ${outputPath} with ${videoIds.length} videos.`);

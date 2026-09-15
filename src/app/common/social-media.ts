@@ -492,6 +492,7 @@ export const nameToInstagramMap = {
   "Rinka 蔡若琳": "rinkabreadko",
   "張蔓莎 Sabrina Cheung": "sabrinasa",
   "Kingjin Cheung": "kingjin.cheung",
+  wui4sing1: "wui4sing1",
   "J Jelly": "jjforjelly",
   "$alty Chick鹽焗雞": "saltychick44",
   "Paul Kwan 關立": "paulkwanpk",

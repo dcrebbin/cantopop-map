@@ -17,7 +17,7 @@ import {
 } from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeVideoId } from "./common/youtube-video-id";
-import discoverVideoIds from "./discover-video-ids.json";
+import discoverVideoIds from "../data/discover-video-ids";
 import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { YoutubePlayback } from "./common/youtube-playback";
@@ -120,7 +120,7 @@ function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
           <button
             type="button"
             onClick={onPlay}
-            aria-label="Play the test playlist with sound"
+            aria-label={`Play ${location.name} with sound`}
             className="absolute inset-0 h-full w-full"
           >
             <img
@@ -256,8 +256,8 @@ function DscvrPage() {
       .then((api) => {
         if (disposed) return;
         const iframe = document.createElement("iframe");
-        iframe.src = `https://www.youtube.com/embed/q70X4QvSZ9M?list=PLKku6FdIE-eo&autoplay=0&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-        iframe.title = "Cantopop test playlist";
+        iframe.src = `https://www.youtube.com/embed/xNjkUL8j564?list=PLTRI32rUM0pU&autoplay=0&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.title = "Cantopop discovery playlist";
         iframe.className = "h-full w-full";
         iframe.allow = "autoplay; encrypted-media; picture-in-picture";
         container.append(iframe);
@@ -273,12 +273,10 @@ function DscvrPage() {
               );
               queueRef.current = new YoutubeFeedQueue(target, setCurrentVideo);
               const location = selectedRef.current?.location;
-              if (location) {
+              const videoId = location && youtubeVideoId(location.url);
+              if (location && videoId) {
                 playbackRef.current.setHookTime(location.hookTime ?? 0);
-                queueRef.current.select(
-                  activeIndexRef.current,
-                  location.hookTime ?? 0,
-                );
+                queueRef.current.select(videoId, location.hookTime ?? 0);
               }
               playbackRef.current.sync({
                 active: !document.hidden,
@@ -291,9 +289,10 @@ function DscvrPage() {
               queueRef.current?.stateChanged(data);
               if (data === 0) {
                 const location = selectedRef.current?.location;
-                if (location)
+                const videoId = location && youtubeVideoId(location.url);
+                if (location && videoId)
                   queueRef.current?.select(
-                    activeIndexRef.current,
+                    videoId,
                     location.hookTime ?? 0,
                     true,
                   );
@@ -325,12 +324,13 @@ function DscvrPage() {
 
   useLayoutEffect(() => {
     const location = feed[activeIndex]?.location;
+    const videoId = location && youtubeVideoId(location.url);
     const newlyFocused = selectedIndexRef.current !== activeIndex;
     selectedIndexRef.current = activeIndex;
-    if (location) {
+    if (location && videoId) {
       playbackRef.current?.setHookTime(location.hookTime ?? 0);
       queueRef.current?.select(
-        activeIndex,
+        videoId,
         location.hookTime ?? 0,
         newlyFocused,
       );
@@ -373,7 +373,9 @@ function DscvrPage() {
       activeIndexRef.current = index;
       selectedRef.current = item;
       setActiveIndex(index);
-      queueRef.current?.select(index, item.location.hookTime ?? 0);
+      const videoId = youtubeVideoId(item.location.url);
+      if (videoId)
+        queueRef.current?.select(videoId, item.location.hookTime ?? 0);
     }
     if (muted) {
       mutedRef.current = false;

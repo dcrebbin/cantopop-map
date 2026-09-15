@@ -12,15 +12,13 @@ export class YoutubeFeedQueue {
     private onCurrentVideo: (current: boolean) => void,
   ) {}
 
-  select(feedIndex: number, hookTime: number, force = false) {
+  select(videoId: string, hookTime: number, force = false) {
     const playlist = this.player.getPlaylist() ?? [];
-    if (playlist.length === 0) {
+    const playlistIndex = playlist.indexOf(videoId);
+    if (playlistIndex < 0) {
       this.onCurrentVideo(false);
       return;
     }
-    const playlistIndex =
-      ((feedIndex % playlist.length) + playlist.length) % playlist.length;
-    const videoId = playlist[playlistIndex] ?? null;
     if (!force && this.selectedId === videoId && this.hookTime === hookTime)
       return;
     this.selectedId = videoId;

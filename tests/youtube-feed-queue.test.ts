@@ -50,7 +50,7 @@ function setup(initialPlaylist: string[]) {
 
 void test("playlist track jumps within one player and seeks at its hook", () => {
   const s = setup(["alpha123456", "beta1234567"]);
-  s.queue.select(1, 43);
+  s.queue.select("beta1234567", 43);
   assert.deepEqual(s.calls, ["at:1"]);
   s.setCurrent("alpha123456");
   s.queue.stateChanged(1);
@@ -62,24 +62,21 @@ void test("playlist track jumps within one player and seeks at its hook", () => 
   assert.deepEqual(s.calls, ["at:1", "seek:43"]);
 });
 
-void test("feed positions wrap through the test playlist only", () => {
+void test("videos absent from the playlist are never loaded", () => {
   const s = setup(["alpha123456", "beta1234567"]);
-  s.queue.select(5, 12);
-  assert.deepEqual(s.calls, ["at:1"]);
-  s.setCurrent("beta1234567");
-  s.queue.stateChanged(1);
-  assert.equal(s.visible(), true);
-  assert.deepEqual(s.calls, ["at:1", "seek:12"]);
+  s.queue.select("outside1234", 12);
+  assert.deepEqual(s.calls, []);
+  assert.equal(s.visible(), false);
 });
 
 void test("quick swipes hide stale tracks and only reveal the selected video", () => {
   const s = setup(["alpha123456", "beta1234567", "gamma12345"]);
-  s.queue.select(0, 0);
+  s.queue.select("alpha123456", 0);
   s.setCurrent("alpha123456");
   s.queue.stateChanged(1);
   assert.equal(s.visible(), true);
-  s.queue.select(1, 10);
-  s.queue.select(2, 20);
+  s.queue.select("beta1234567", 10);
+  s.queue.select("gamma12345", 20);
   assert.equal(s.visible(), false);
   s.setCurrent("beta1234567");
   s.queue.stateChanged(1);
@@ -92,8 +89,8 @@ void test("quick swipes hide stale tracks and only reveal the selected video", (
 
 void test("revisiting the same video can restart its hook", () => {
   const s = setup(["alpha123456"]);
-  s.queue.select(0, 18);
-  s.queue.select(0, 18);
-  s.queue.select(0, 18, true);
+  s.queue.select("alpha123456", 18);
+  s.queue.select("alpha123456", 18);
+  s.queue.select("alpha123456", 18, true);
   assert.deepEqual(s.calls, ["at:0", "at:0"]);
 });

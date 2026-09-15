@@ -8962,6 +8962,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     name: "至關重要事情",
     url: "https://youtu.be/uy25Ak-xdtY?list=RDuy25Ak-xdtY&t=114",
     viewCount: 28197,
+    hookTime: 89,
     channelSubscriberCount: 14400,
     youtubeChannelId: "UCcVvd_9-yVWd-bWzh8mUxXg",
     streetViewEmbed:
