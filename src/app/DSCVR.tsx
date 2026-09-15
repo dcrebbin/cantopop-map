@@ -15,8 +15,8 @@ import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
-const MAX_VIEWS = 50_000;
-const SUBSCRIBER_LIMIT: number | null = null;
+const MAX_VIEWS = 100_000;
+const MAX_CHANNEL_SUBSCRIBERS = 10_000;
 
 type FeedItem = {
   key: string;
@@ -24,6 +24,7 @@ type FeedItem = {
 };
 
 export const Route = createFileRoute("/DSCVR")({
+  loader: () => ({ shuffleSeed: Math.random() }),
   head: () => ({
     meta: [
       { title: "DSCVR Cantopop | Cantopop Map" },
@@ -45,15 +46,14 @@ export const Route = createFileRoute("/DSCVR")({
 });
 
 function isEligible(location: LocationItem) {
+  const hasEmbeddableVideo = youtubeEmbedUrl(location.url) !== null;
   const meetsViewLimit =
     location.viewCount !== null && location.viewCount <= MAX_VIEWS;
+  const meetsSubscriberLimit =
+    location.channelSubscriberCount !== null &&
+    location.channelSubscriberCount < MAX_CHANNEL_SUBSCRIBERS;
 
-  // Subscriber data is not part of locations yet. Keeping this explicit makes
-  // it straightforward to add the second eligibility gate when it is decided.
-  const meetsSubscriberLimit = SUBSCRIBER_LIMIT === null;
-  return (
-    meetsViewLimit && meetsSubscriberLimit && youtubeEmbedUrl(location.url)
-  );
+  return hasEmbeddableVideo && meetsViewLimit && meetsSubscriberLimit;
 }
 
 function makeBatch(locations: LocationItem[], cycle: number): FeedItem[] {
@@ -67,10 +67,22 @@ function makeBatch(locations: LocationItem[], cycle: number): FeedItem[] {
   );
 }
 
-function shuffledLocations(locations: LocationItem[]): LocationItem[] {
+function shuffledLocations(
+  locations: LocationItem[],
+  seed: number,
+): LocationItem[] {
   const shuffled = [...locations];
+  let randomState = Math.floor(seed * 0x1_0000_0000) >>> 0;
+  const nextRandom = () => {
+    randomState = (randomState + 0x6d2b79f5) >>> 0;
+    let value = randomState;
+    value = Math.imul(value ^ (value >>> 15), value | 1);
+    value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+    return ((value ^ (value >>> 14)) >>> 0) / 0x1_0000_0000;
+  };
+
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
+    const swapIndex = Math.floor(nextRandom() * (index + 1));
     [shuffled[index], shuffled[swapIndex]] = [
       shuffled[swapIndex]!,
       shuffled[index]!,
@@ -325,24 +337,21 @@ function DscvrSlide({
 }
 
 function DscvrPage() {
+  const { shuffleSeed } = Route.useLoaderData();
   const eligibleLocations = useMemo(() => LOCATIONS.filter(isEligible), []);
-  const [feed, setFeed] = useState(() => makeBatch(eligibleLocations, 0));
+  const feedLocations = useMemo(
+    () => shuffledLocations(eligibleLocations, shuffleSeed),
+    [eligibleLocations, shuffleSeed],
+  );
+  const [feed, setFeed] = useState(() => makeBatch(feedLocations, 0));
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setMuted] = useState(true);
   const [paused, setPaused] = useState(false);
   const activeIndexRef = useRef(0);
-  const hasRandomizedRef = useRef(false);
-  const feedLocationsRef = useRef(eligibleLocations);
+  const feedLocationsRef = useRef(feedLocations);
   const cycleRef = useRef(1);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
-
-  useEffect(() => {
-    if (hasRandomizedRef.current) return;
-    hasRandomizedRef.current = true;
-    feedLocationsRef.current = shuffledLocations(eligibleLocations);
-    setFeed(makeBatch(feedLocationsRef.current, 0));
-  }, [eligibleLocations]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

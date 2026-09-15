@@ -137,7 +137,7 @@ function getYouTubeVideoId(rawUrl) {
 
 function findLocationVideos(source) {
   const urlPropertyPattern =
-    /^(\s*)url: "([^"]+)",(?:\n\1viewCount: \d+,)?(?:\n\1channelSubscriberCount: \d+,)?/gm;
+    /^(\s*)url: "([^"]+)",(?:\n\1viewCount: \d+,)?(?:\n\1channelSubscriberCount: \d+,)?(?:\n\1youtubeChannelId: "[^"]+",)?/gm;
   const locations = [];
 
   for (const match of source.matchAll(urlPropertyPattern)) {
@@ -344,6 +344,93 @@ async function scrapeViewCount(videoId) {
   throw new Error(`${videoId}: scraping failed after 3 attempts`);
 }
 
+async function scrapeChannelSubscriberCount(channelId) {
+  const url = `https://www.youtube.com/channel/${channelId}?hl=en`;
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "accept-language": "en-US,en;q=0.9",
+          "user-agent":
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
+            "(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36",
+        },
+        redirect: "follow",
+        signal: AbortSignal.timeout(30_000),
+      });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+      const html = await response.text();
+      const jsonLdPattern =
+        /<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi;
+
+      for (const match of html.matchAll(jsonLdPattern)) {
+        const data = JSON.parse(match[1]);
+        const rawStatistics = data?.mainEntity?.interactionStatistic;
+        const statistics = Array.isArray(rawStatistics)
+          ? rawStatistics
+          : [rawStatistics];
+        const followerStatistic = statistics.find(
+          (statistic) =>
+            statistic?.interactionType?.["@type"] === "FollowAction",
+        );
+        const subscriberCount = Number(followerStatistic?.userInteractionCount);
+        if (Number.isSafeInteger(subscriberCount) && subscriberCount >= 0) {
+          return subscriberCount;
+        }
+      }
+
+      throw new Error("structured data did not contain a subscriber count");
+    } catch (error) {
+      if (attempt < 2) {
+        await delay(2 ** attempt);
+        continue;
+      }
+      throw new Error(`${channelId}: ${error.message}`);
+    }
+  }
+
+  throw new Error(`${channelId}: subscriber scraping failed after 3 attempts`);
+}
+
+async function fetchChannelSubscriberCounts(channelIds, options) {
+  const counts = new Map();
+  const errors = [];
+  let nextIndex = 0;
+
+  async function worker() {
+    while (nextIndex < channelIds.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      const channelId = channelIds[index];
+      try {
+        counts.set(channelId, await scrapeChannelSubscriberCount(channelId));
+      } catch (error) {
+        errors.push(error.message);
+      }
+      if (nextIndex < channelIds.length) {
+        await delay(options.requestDelaySeconds);
+      }
+    }
+  }
+
+  await Promise.all(
+    Array.from(
+      { length: Math.min(options.concurrency, channelIds.length) },
+      worker,
+    ),
+  );
+
+  if (errors.length > 0) {
+    console.warn(
+      `${errors.length} channel subscriber count(s) could not be resolved; ` +
+        `retaining their best video-derived values:\n${errors.join("\n")}`,
+    );
+  }
+  return counts;
+}
+
 async function runYouTubeScraper(videoIds, options) {
   const videos = {};
   const errors = [];
@@ -396,9 +483,13 @@ async function retrieveBatch(videoIds, options) {
   };
 }
 
-function updateGeneratedChannelData(source, locations, videos) {
+function updateGeneratedChannelData(
+  source,
+  locations,
+  videos,
+  subscriberCountsByChannel,
+) {
   const channelIdsByArtist = new Map();
-  const subscriberCountsByChannel = new Map();
 
   for (const location of locations) {
     const metadata = videos[location.videoId];
@@ -411,12 +502,6 @@ function updateGeneratedChannelData(source, locations, videos) {
         channelIdsByArtist.set(artist, channelIds);
       }
       channelIds.add(metadata.channelId);
-    }
-    if (metadata.channelSubscriberCount !== null) {
-      subscriberCountsByChannel.set(
-        metadata.channelId,
-        metadata.channelSubscriberCount,
-      );
     }
   }
 
@@ -550,13 +635,60 @@ async function main() {
     );
   }
 
+  const normalizedSubscriberCountsByChannel = new Map();
+  for (const metadata of Object.values(videos)) {
+    if (
+      metadata.channelId === null ||
+      metadata.channelSubscriberCount === null
+    ) {
+      continue;
+    }
+    const previousCount = normalizedSubscriberCountsByChannel.get(
+      metadata.channelId,
+    );
+    normalizedSubscriberCountsByChannel.set(
+      metadata.channelId,
+      Math.max(previousCount ?? 0, metadata.channelSubscriberCount),
+    );
+  }
+  if (options.provider === "yt-dlp") {
+    const channelIds = [
+      ...new Set(
+        Object.values(videos)
+          .map((metadata) => metadata.channelId)
+          .filter(Boolean),
+      ),
+    ];
+    console.log(
+      `Fetching exact subscriber counts for ${channelIds.length} uploader channels...`,
+    );
+    const exactSubscriberCounts = await fetchChannelSubscriberCounts(
+      channelIds,
+      options,
+    );
+    for (const [channelId, subscriberCount] of exactSubscriberCounts) {
+      normalizedSubscriberCountsByChannel.set(channelId, subscriberCount);
+    }
+  }
+
   let changedCount = 0;
   let updatedSource = source.replace(
     urlPropertyPattern,
     (currentProperties, indentation, url) => {
       const videoId = getYouTubeVideoId(url);
       const metadata = videos[videoId];
-      const nextProperties = `${indentation}url: "${url}",\n${indentation}viewCount: ${metadata.viewCount},`;
+      const normalizedSubscriberCount = metadata.channelId
+        ? (normalizedSubscriberCountsByChannel.get(metadata.channelId) ??
+          metadata.channelSubscriberCount)
+        : metadata.channelSubscriberCount;
+      const subscriberProperty =
+        normalizedSubscriberCount === null
+          ? ""
+          : `\n${indentation}channelSubscriberCount: ${normalizedSubscriberCount},`;
+      const channelProperty = metadata.channelId
+        ? `\n${indentation}youtubeChannelId: "${metadata.channelId}",`
+        : "";
+      const nextProperties = `${indentation}url: "${url}",\n${indentation}viewCount: ${metadata.viewCount},${subscriberProperty}${channelProperty}`;
       if (nextProperties === currentProperties) return currentProperties;
       changedCount += 1;
       return nextProperties;
@@ -567,6 +699,7 @@ async function main() {
       updatedSource,
       locations,
       videos,
+      normalizedSubscriberCountsByChannel,
     );
   }
 

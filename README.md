@@ -32,7 +32,7 @@ Run the updater without an API key:
 npm run views:update
 ```
 
-The default provider uses the bundled `./modules/yt-dlp` executable to retrieve each video's view count, uploader channel ID, and channel subscriber count in the same request. It uses three throttled workers, checkpoints after every 10 videos, and only rewrites the locations file after every video resolves successfully.
+The default provider uses the bundled `./modules/yt-dlp` executable to retrieve each video's view count and uploader channel ID, then reads the uploader channel's exact subscriber count from YouTube's structured channel data. Each location stores its video's uploader channel ID and subscriber count so feed eligibility is video-specific. It uses three throttled workers, checkpoints after every 10 videos, and only rewrites the locations file after every video and channel resolves successfully.
 
 Uploader relationships are generated as `ARTIST_TO_YOUTUBE_CHANNEL_IDS`, with subscriber totals stored once per channel in `YOUTUBE_CHANNEL_SUBSCRIBER_COUNTS`. Artists can have multiple channel IDs because their videos may be published by different channels.
 
