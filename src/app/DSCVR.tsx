@@ -1,22 +1,27 @@
 "use client";
 
 import {
-  ArrowTopRightOnSquareIcon,
   PauseIcon,
   PlayIcon,
   SpeakerWaveIcon,
   SpeakerXMarkIcon,
 } from "@heroicons/react/24/outline";
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
-import { youtubeEmbedUrl } from "./common/jobs";
 import { youtubeVideoId } from "./common/youtube-video-id";
 import discoverVideoIds from "./discover-video-ids.json";
 import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { YoutubePlayback } from "./common/youtube-playback";
-import { InstagramIcon } from "~/lib/icons/instagramIcon";
+import { YoutubeFeedQueue } from "./common/youtube-feed-queue";
 
 type FeedItem = {
   key: string;
@@ -84,33 +89,8 @@ function youtubeWatchUrl(url: string) {
   return url.replace(/([?&])t=\d+s?(&|$)/, "$1").replace(/[?&]$/, "");
 }
 
-function DscvrSlide({
-  item,
-  loadVideo,
-  active,
-  muted,
-  paused,
-  onToggleMuted,
-  onTogglePaused,
-}: {
-  item: FeedItem;
-  loadVideo: boolean;
-  active: boolean;
-  muted: boolean;
-  paused: boolean;
-  onToggleMuted: () => void;
-  onTogglePaused: (paused: boolean) => void;
-}) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const playbackRef = useRef<YoutubePlayback | null>(null);
-  const [playing, setPlaying] = useState(false);
-  const [playerError, setPlayerError] = useState(false);
-  const desiredRef = useRef({ active, muted, paused });
-  const [soundBlocked, setSoundBlocked] = useState(false);
-  const effectivelyMuted = muted || soundBlocked;
+function DscvrSlide({ item, onPlay }: { item: FeedItem; onPlay: () => void }) {
   const { location } = item;
-  const hookTime = location.hookTime ?? undefined;
-  const embedUrl = youtubeEmbedUrl(location.url, hookTime);
   const artistInstagrams = location.artists.flatMap((artist) => {
     const handle = getInstagramByName(artist)?.replace(/^@/, "");
     return handle ? [{ artist, handle }] : [];
@@ -120,105 +100,6 @@ function DscvrSlide({
   )}`;
   const youtubeUrl = youtubeWatchUrl(location.url);
   const thumbnail = location.highResImage ?? location.image;
-
-  const syncPlayer = useCallback((userGesture = false) => {
-    const desired = desiredRef.current;
-    playbackRef.current?.sync(
-      { ...desired, active: desired.active && !document.hidden },
-      userGesture,
-    );
-  }, []);
-
-  useEffect(() => {
-    if (!loadVideo) return;
-    const onVisibilityChange = () => syncPlayer();
-    const retrySound = (event: Event) => {
-      // Controls handle their own gesture; retrying before their click would
-      // change the button's meaning between pointerup and click.
-      if (
-        event.target instanceof Element &&
-        event.target.closest("button, a, input, textarea, select")
-      )
-        return;
-      if (event.isTrusted) playbackRef.current?.retrySound();
-    };
-    document.addEventListener("visibilitychange", onVisibilityChange);
-    document.addEventListener("pointerup", retrySound);
-    document.addEventListener("keydown", retrySound);
-    return () => {
-      document.removeEventListener("visibilitychange", onVisibilityChange);
-      document.removeEventListener("pointerup", retrySound);
-      document.removeEventListener("keydown", retrySound);
-    };
-  }, [loadVideo, syncPlayer]);
-
-  useEffect(() => {
-    if (!loadVideo || !embedUrl || !containerRef.current) return;
-    const container = containerRef.current;
-    let disposed = false;
-    let player: YoutubePlayer | undefined;
-    void loadYoutubePlayer()
-      .then((api) => {
-        if (disposed) return;
-        // The API owns this iframe so destroy() never removes React-owned nodes.
-        const iframe = document.createElement("iframe");
-        iframe.src = `${embedUrl}&autoplay=0&mute=1&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-        iframe.title = "Cantopop music video";
-        iframe.className = "absolute inset-0 h-full w-full";
-        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
-        container.append(iframe);
-        player = new api.Player(iframe, {
-          events: {
-            onReady: ({ target }) => {
-              if (disposed) return;
-              playbackRef.current = new YoutubePlayback(
-                target,
-                setPlaying,
-                setSoundBlocked,
-                hookTime,
-              );
-              syncPlayer();
-            },
-            onStateChange: ({ data }) => {
-              if (!disposed) playbackRef.current?.stateChanged(data);
-            },
-            onAutoplayBlocked: () => {
-              if (!disposed) playbackRef.current?.autoplayBlocked();
-            },
-          },
-        });
-      })
-      .catch(() => {
-        if (!disposed) setPlayerError(true);
-      });
-    return () => {
-      disposed = true;
-      playbackRef.current = null;
-      player?.destroy();
-      container.replaceChildren();
-    };
-  }, [loadVideo, embedUrl, hookTime, syncPlayer]);
-
-  useEffect(() => {
-    desiredRef.current = { active, muted, paused };
-    syncPlayer();
-  }, [active, muted, paused, syncPlayer]);
-
-  const togglePaused = () => {
-    // Dispatch in the gesture handler to retain browser playback permission.
-    const nextPaused = playing;
-    desiredRef.current = { active, muted, paused: nextPaused };
-    syncPlayer(true);
-    onTogglePaused(nextPaused);
-  };
-
-  const toggleMuted = () => {
-    const nextMuted = !effectivelyMuted;
-    desiredRef.current = { active, paused, muted: nextMuted };
-    // Send both unmute and play during the click, before React effects run.
-    syncPlayer(true);
-    if (nextMuted !== muted) onToggleMuted();
-  };
 
   return (
     <article className="relative flex h-dvh min-h-[34rem] snap-start snap-always items-center justify-center overflow-hidden p-0 lg:p-7">
@@ -232,14 +113,25 @@ function DscvrSlide({
           <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/5 to-transparent" />
         </div>
 
-        <div className="relative aspect-video w-full shrink-0 bg-black">
-          <div ref={containerRef} className="absolute inset-0" />
-          {playerError && (
-            <p role="status">
-              playerError: Video unavailable. Open it on YouTube below.{" "}
-              {playerError}
-            </p>
-          )}
+        <div
+          data-video-slot
+          className="relative aspect-video w-full shrink-0 bg-black"
+        >
+          <button
+            type="button"
+            onClick={onPlay}
+            aria-label="Play the test playlist with sound"
+            className="absolute inset-0 h-full w-full"
+          >
+            <img
+              src={thumbnail}
+              alt=""
+              className="h-full w-full object-cover"
+            />
+            <span className="absolute inset-0 grid place-items-center bg-black/20">
+              <PlayIcon className="size-14 rounded-full bg-black/60 p-3" />
+            </span>
+          </button>
         </div>
 
         <div className="relative min-h-0 overflow-hidden">
@@ -329,6 +221,191 @@ function DscvrPage() {
   const cycleRef = useRef(1);
   const scrollerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Array<HTMLElement | null>>([]);
+  const playerHostRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<YoutubePlayer | null>(null);
+  const playbackRef = useRef<YoutubePlayback | null>(null);
+  const queueRef = useRef<YoutubeFeedQueue | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const [soundBlocked, setSoundBlocked] = useState(false);
+  const [currentVideo, setCurrentVideo] = useState(false);
+  const [playerError, setPlayerError] = useState(false);
+  const selectedRef = useRef<FeedItem | undefined>(feed[0]);
+  selectedRef.current = feed[activeIndex];
+  const selectedIndexRef = useRef(activeIndex);
+
+  const syncPlayback = useCallback(
+    (userGesture = false) => {
+      playbackRef.current?.sync(
+        {
+          active: !document.hidden,
+          muted,
+          paused,
+        },
+        userGesture,
+      );
+    },
+    [muted, paused],
+  );
+
+  useEffect(() => {
+    const container = playerHostRef.current;
+    if (!container || feedLocations.length === 0) return;
+    let disposed = false;
+    let player: YoutubePlayer | undefined;
+    void loadYoutubePlayer()
+      .then((api) => {
+        if (disposed) return;
+        const iframe = document.createElement("iframe");
+        iframe.src = `https://www.youtube.com/embed/q70X4QvSZ9M?list=PLKku6FdIE-eo&autoplay=0&controls=1&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
+        iframe.title = "Cantopop test playlist";
+        iframe.className = "h-full w-full";
+        iframe.allow = "autoplay; encrypted-media; picture-in-picture";
+        container.append(iframe);
+        player = new api.Player(iframe, {
+          events: {
+            onReady: ({ target }) => {
+              if (disposed) return;
+              playerRef.current = target;
+              playbackRef.current = new YoutubePlayback(
+                target,
+                setPlaying,
+                setSoundBlocked,
+              );
+              queueRef.current = new YoutubeFeedQueue(target, setCurrentVideo);
+              const location = selectedRef.current?.location;
+              if (location) {
+                playbackRef.current.setHookTime(location.hookTime ?? 0);
+                queueRef.current.select(
+                  activeIndexRef.current,
+                  location.hookTime ?? 0,
+                );
+              }
+              playbackRef.current.sync({
+                active: !document.hidden,
+                muted: mutedRef.current,
+                paused: pausedRef.current,
+              });
+            },
+            onStateChange: ({ data }) => {
+              if (disposed) return;
+              queueRef.current?.stateChanged(data);
+              if (data === 0) {
+                const location = selectedRef.current?.location;
+                if (location)
+                  queueRef.current?.select(
+                    activeIndexRef.current,
+                    location.hookTime ?? 0,
+                    true,
+                  );
+              } else playbackRef.current?.stateChanged(data);
+            },
+            onAutoplayBlocked: () => {
+              if (!disposed) playbackRef.current?.autoplayBlocked();
+            },
+          },
+        });
+      })
+      .catch(() => {
+        if (!disposed) setPlayerError(true);
+      });
+    return () => {
+      disposed = true;
+      player?.destroy();
+      playerRef.current = null;
+      playbackRef.current = null;
+      queueRef.current = null;
+      container.replaceChildren();
+    };
+  }, [feedLocations]);
+
+  const mutedRef = useRef(muted);
+  const pausedRef = useRef(paused);
+  mutedRef.current = muted;
+  pausedRef.current = paused;
+
+  useLayoutEffect(() => {
+    const location = feed[activeIndex]?.location;
+    const newlyFocused = selectedIndexRef.current !== activeIndex;
+    selectedIndexRef.current = activeIndex;
+    if (location) {
+      playbackRef.current?.setHookTime(location.hookTime ?? 0);
+      queueRef.current?.select(
+        activeIndex,
+        location.hookTime ?? 0,
+        newlyFocused,
+      );
+    }
+    const scroller = scrollerRef.current;
+    const host = playerHostRef.current;
+    const slot =
+      itemRefs.current[activeIndex]?.querySelector<HTMLElement>(
+        "[data-video-slot]",
+      );
+    if (!scroller || !host || !slot) return;
+    const placePlayer = () => {
+      const view = scroller.getBoundingClientRect();
+      const rect = slot.getBoundingClientRect();
+      host.style.top = `${rect.top - view.top + scroller.scrollTop}px`;
+      host.style.left = `${rect.left - view.left + scroller.scrollLeft}px`;
+      host.style.width = `${rect.width}px`;
+      host.style.height = `${rect.height}px`;
+    };
+    placePlayer();
+    const resize = new ResizeObserver(placePlayer);
+    resize.observe(slot);
+    resize.observe(scroller);
+    return () => resize.disconnect();
+  }, [activeIndex, feed]);
+
+  useEffect(() => {
+    syncPlayback();
+  }, [syncPlayback]);
+
+  useEffect(() => {
+    const onVisibilityChange = () => syncPlayback();
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, [syncPlayback]);
+
+  const playWithSound = (item?: FeedItem, index?: number) => {
+    if (item && index !== undefined && index !== activeIndexRef.current) {
+      activeIndexRef.current = index;
+      selectedRef.current = item;
+      setActiveIndex(index);
+      queueRef.current?.select(index, item.location.hookTime ?? 0);
+    }
+    if (muted) {
+      mutedRef.current = false;
+      setMuted(false);
+    }
+    if (paused) {
+      pausedRef.current = false;
+      setPaused(false);
+    }
+    playbackRef.current?.sync(
+      { active: true, muted: false, paused: false },
+      true,
+    );
+    playerRef.current?.playVideo();
+  };
+
+  const togglePlayback = () => {
+    const nextPaused = playing;
+    pausedRef.current = nextPaused;
+    playbackRef.current?.sync(
+      { active: true, muted, paused: nextPaused },
+      true,
+    );
+    setPaused(nextPaused);
+  };
+
+  const toggleSound = () => {
+    const nextMuted = muted || soundBlocked ? false : true;
+    mutedRef.current = nextMuted;
+    playbackRef.current?.sync({ active: true, muted: nextMuted, paused }, true);
+    setMuted(nextMuted);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -400,7 +477,7 @@ function DscvrPage() {
       <div
         ref={scrollerRef}
         onScroll={handleScroll}
-        className="dscvr-feed h-dvh snap-y snap-mandatory overflow-y-auto overscroll-y-contain"
+        className="dscvr-feed relative h-dvh snap-y snap-mandatory overflow-y-auto overscroll-y-contain"
         aria-label="Emerging Cantopop discovery feed"
       >
         {feed.map((item, index) => {
@@ -414,16 +491,65 @@ function DscvrPage() {
             >
               <DscvrSlide
                 item={item}
-                loadVideo={Math.abs(activeIndex - index) <= 1}
-                active={activeIndex === index}
-                muted={muted}
-                paused={paused && activeIndex === index}
-                onToggleMuted={() => setMuted((current) => !current)}
-                onTogglePaused={setPaused}
+                onPlay={() => playWithSound(item, index)}
               />
             </section>
           );
         })}
+        <div
+          ref={playerHostRef}
+          className="absolute z-30 overflow-hidden bg-black"
+          style={{
+            opacity: currentVideo ? 1 : 0,
+            pointerEvents: currentVideo ? "auto" : "none",
+          }}
+          aria-hidden={!currentVideo}
+        />
+        {playerError && (
+          <p
+            role="status"
+            className="fixed inset-x-4 bottom-4 z-40 rounded bg-black p-3 text-center"
+          >
+            Video unavailable. Open it on YouTube.
+          </p>
+        )}
+        {soundBlocked && !muted && (
+          <button
+            type="button"
+            onClick={() => playWithSound()}
+            className="fixed bottom-4 right-4 z-40 min-h-10 rounded-full bg-white px-4 text-sm font-bold text-black"
+          >
+            Tap for sound
+          </button>
+        )}
+        {currentVideo && (
+          <div className="fixed bottom-4 left-4 z-40 flex gap-2">
+            <button
+              type="button"
+              onClick={togglePlayback}
+              aria-label={playing ? "Pause video" : "Play video"}
+              className="grid size-10 place-items-center rounded-full bg-black/80 text-white"
+            >
+              {playing ? (
+                <PauseIcon className="size-5" />
+              ) : (
+                <PlayIcon className="size-5" />
+              )}
+            </button>
+            <button
+              type="button"
+              onClick={toggleSound}
+              aria-label={muted || soundBlocked ? "Unmute video" : "Mute video"}
+              className="grid size-10 place-items-center rounded-full bg-black/80 text-white"
+            >
+              {muted || soundBlocked ? (
+                <SpeakerXMarkIcon className="size-5" />
+              ) : (
+                <SpeakerWaveIcon className="size-5" />
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </main>
   );

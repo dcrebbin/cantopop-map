@@ -19,6 +19,10 @@ export class YoutubePlayback {
     private hookTime = 0,
   ) {}
 
+  setHookTime(seconds: number) {
+    this.hookTime = seconds;
+  }
+
   sync(next: PlaybackIntent, userGesture = false) {
     const previous = this.intent;
     this.intent = next;

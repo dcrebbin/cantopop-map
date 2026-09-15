@@ -23,6 +23,10 @@ function setup(hookTime = 0) {
       seekTo: (seconds) => {
         calls.push(`seek:${seconds}`);
       },
+      getPlaylist: () => [],
+      getVideoUrl: () => "",
+      playVideoAt: () => { calls.push("at"); },
+      loadPlaylist: () => { calls.push("load"); },
       destroy: () => {
         calls.push("destroy");
       },

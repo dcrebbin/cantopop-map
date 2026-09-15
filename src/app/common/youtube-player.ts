@@ -4,6 +4,9 @@ export interface YoutubePlayer {
   mute(): void;
   unMute(): void;
   seekTo(seconds: number, allowSeekAhead: boolean): void;
+  getPlaylist(): string[];
+  getVideoUrl(): string;
+  playVideoAt(index: number): void;
   destroy(): void;
 }
 
