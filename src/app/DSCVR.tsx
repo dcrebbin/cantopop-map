@@ -111,9 +111,13 @@ function DscvrSlide({
   const { location } = item;
   const hookTime = location.hookTime ?? undefined;
   const embedUrl = youtubeEmbedUrl(location.url, hookTime);
-  const instagram = location.artists
-    .map((artist) => getInstagramByName(artist))
-    .find((handle) => handle !== null);
+  const artistInstagrams = location.artists.flatMap((artist) => {
+    const handle = getInstagramByName(artist)?.replace(/^@/, "");
+    return handle ? [{ artist, handle }] : [];
+  });
+  const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(
+    `${location.artists.join(" ")} ${location.name}`,
+  )}`;
   const youtubeUrl = youtubeWatchUrl(location.url);
   const thumbnail = location.highResImage ?? location.image;
 
@@ -246,35 +250,51 @@ function DscvrSlide({
           />
           <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/25 to-black/90" />
 
-          <div className="absolute inset-x-0 bottom-0 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6">
-            <h2 className="truncate font-[Cute] text-xl leading-none sm:text-2xl">
-              {location.artists.join(" x ")}
-            </h2>
-            <p className="mt-2 truncate text-sm font-bold text-white/90">
-              {location.name}
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div className="mt-4 absolute top-0 z-99 justify-center flex flex-wrap items-center gap-2 w-full">
+            <a
+              href={youtubeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex min-h-10 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 text-xs font-bold transition hover:bg-white hover:text-black"
+            >
+              YouTube
+              <img src="/icons/youtube.svg" alt="YouTube" className="size-6" />
+            </a>
+            <a
+              href={spotifyUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Find ${location.name} by ${location.artists.join(", ")} on Spotify`}
+              className="flex min-h-10 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 text-xs font-bold transition hover:bg-white hover:text-black"
+            >
+              <span>Spotify</span>
+              <img src="/icons/spotify.svg" alt="Spotify" className="size-6" />
+            </a>
+            {artistInstagrams.map(({ artist, handle }) => (
               <a
-                href={youtubeUrl}
+                key={`${artist}-${handle}`}
+                href={`https://www.instagram.com/${handle}`}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-10 items-center gap-2 rounded-full bg-white px-4 text-xs font-black text-black transition hover:bg-red-500 hover:text-white"
+                aria-label={`${artist} on Instagram: @${handle}`}
+                className="flex min-h-10 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 text-xs font-bold transition hover:bg-white hover:text-black"
               >
-                YouTube
-                <ArrowTopRightOnSquareIcon className="size-4" />
+                <span>@{handle}</span>
+                <img
+                  src="/icons/instagram.svg"
+                  alt="Instagram"
+                  className="size-6"
+                />
               </a>
-              {instagram && (
-                <a
-                  href={`https://www.instagram.com/${instagram.replace(/^@/, "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex min-h-10 items-center gap-2 rounded-full border border-white/40 bg-white/10 px-3 text-xs font-bold transition hover:bg-white hover:text-black"
-                >
-                  <InstagramIcon className="size-5" />
-                  <span>@{instagram.replace(/^@/, "")}</span>
-                </a>
-              )}
-            </div>
+            ))}
+          </div>
+          <div className="absolute inset-x-0 bottom-0 max-h-full overflow-y-auto p-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:p-6">
+            <h2 className="wrap-anywhere font-[Cute] text-xl leading-tight sm:text-2xl">
+              {location.artists.join(" x ")}
+            </h2>
+            <p className="mt-2 wrap-anywhere text-sm font-bold text-white/90">
+              {location.name}
+            </p>
           </div>
         </div>
       </div>
