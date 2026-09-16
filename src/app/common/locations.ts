@@ -701,6 +701,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     address: "Brewginning, Wang Chiu Rd, Kowloon, Hong Kong",
     coordinates: [22.3240751, 114.208873],
     name: "寫輪眼",
+    hookTime: 100,
     url: "https://youtu.be/oITQOtdoEwU?t=98",
     viewCount: 113477,
     channelSubscriberCount: 4190,

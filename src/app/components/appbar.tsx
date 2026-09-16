@@ -18,7 +18,7 @@ export default function Appbar({ suffix }: { suffix?: string }) {
           onClick={() => {
             posthog.capture("savecantonese_referral");
           }}
-          className="flex h-fit flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:text-xl md:no-underline"
+          className="flex h-fit pl-3 flex-row items-center justify-center gap-1 p-0 pb-2 text-center font-[Cute] text-base leading-none text-white underline drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:text-xl md:no-underline"
         >
           <span className="underline">savecantonese.org</span>
           <img

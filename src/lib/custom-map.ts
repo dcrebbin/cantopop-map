@@ -306,12 +306,12 @@ function createCustomMarker(
           },
           createElement(
             "p",
-            { className: "line-clamp-1 text-xs leading-tight font-bold" },
+            { className: "break-words text-xs leading-tight font-bold" },
             data.artists.join(", "),
           ),
           createElement(
             "p",
-            { className: "line-clamp-2 text-[0.65rem] leading-tight" },
+            { className: "break-words text-[0.65rem] leading-tight" },
             data.name,
           ),
         ),

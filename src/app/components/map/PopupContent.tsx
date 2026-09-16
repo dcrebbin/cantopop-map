@@ -143,7 +143,7 @@ export function PopupContent({
       </div>
       {actionButtons}
       <div className="flex w-full flex-col items-center justify-center">
-        <p className="text-center text-[0.6rem] leading-none tracking-tight">
+        <p className="text-center text-[0.6rem] leading-none tracking-tight pt-2">
           {data.address}
         </p>
       </div>
