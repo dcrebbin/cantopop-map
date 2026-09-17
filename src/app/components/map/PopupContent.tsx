@@ -111,9 +111,10 @@ export function PopupContent({
 
   return (
     <div
-      className="relative flex w-full flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
+      className="relative flex w-full select-text flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
       tabIndex={-1}
       data-song={`popup-${data.name}`}
+      data-popup-selectable=""
     >
       <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 p-2 text-black">
         <button
@@ -144,13 +145,16 @@ export function PopupContent({
       </div>
       {actionButtons}
       <div className="flex w-full flex-col items-center justify-center">
-        <p className="text-center text-[0.6rem] leading-none tracking-tight pt-2">
+        <p className="cursor-text select-text pt-2 text-center text-[0.6rem] leading-none tracking-tight">
           {data.address}
         </p>
         {data.optionalActions && data.optionalActions.length > 0 && (
           <div className="flex w-full flex-col items-center justify-center gap-2 text-xs">
             {data.optionalActions.map((action) => (
-              <div className="flex items-center justify-center text-blue-500 underline text-xs py-1">
+              <div
+                key={`${action.name}-${action.url}`}
+                className="flex items-center justify-center text-blue-500 underline text-xs py-1"
+              >
                 <a
                   href={action.url}
                   target="_blank"

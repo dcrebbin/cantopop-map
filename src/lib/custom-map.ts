@@ -230,8 +230,30 @@ function createCustomMarker(
 ) {
   const markerElement = document.createElement("div");
   markerElement.classList.add("group");
+  // Mapbox prevents default on mousedown at the marker itself. Stop selectable
+  // gestures on a child so they never reach that listener (or the map's pan).
+  const markerContent = document.createElement("div");
+  markerElement.appendChild(markerContent);
+  const stopSelectableGesturePropagation = (event: Event) => {
+    const target = event.target;
+    if (
+      target instanceof Element &&
+      target.closest("[data-popup-selectable]")
+    ) {
+      event.stopPropagation();
+    }
+  };
+  markerContent.addEventListener(
+    "pointerdown",
+    stopSelectableGesturePropagation,
+  );
+  markerContent.addEventListener("mousedown", stopSelectableGesturePropagation);
+  markerContent.addEventListener(
+    "touchstart",
+    stopSelectableGesturePropagation,
+  );
 
-  const markerRoot = createRoot(markerElement);
+  const markerRoot = createRoot(markerContent);
   markerRoots.set(markerElement, markerRoot);
   const id = `${data.artists.join(", ")}-${data.name}`;
   const closeMarker = () => {
@@ -270,39 +292,51 @@ function createCustomMarker(
         }),
       ),
       createElement(
-        "button",
+        "div",
         {
-          type: "button",
-          id,
           className:
-            "relative block h-16 w-[4.75rem] cursor-pointer self-center overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 transition-[width,height,transform] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.04] focus-visible:scale-[1.04] focus-visible:outline-none focus-visible:shadow-[0_0_0_3px_rgba(17,24,39,0.45)] motion-reduce:transition-none group-[.visible]:h-32 group-[.visible]:w-full group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem] group-[.visible]:hover:scale-100",
-          "data-marker-trigger": "",
-          "aria-label": `Show ${data.name} by ${data.artists.join(", ")}`,
-          onClick: () => {
-            const targetMap = mapInstance;
-            if (!targetMap) return;
-            const contentIsVisible =
-              markerElement.classList.contains("visible");
-            const { lastMarker: currentLastMarker } = useMapStore.getState();
-
-            if (contentIsVisible) {
-              return;
-            } else {
-              showPopup(currentLastMarker, data, markerElement);
-            }
-          },
+            "relative block h-16 w-[4.75rem] cursor-pointer self-center overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 transition-[width,height,transform] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.04] focus-within:scale-[1.04] focus-within:shadow-[0_0_0_3px_rgba(17,24,39,0.45)] motion-reduce:transition-none group-[.visible]:h-32 group-[.visible]:w-full group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem] group-[.visible]:hover:scale-100 group-[.visible]:focus-within:scale-100",
         },
-        createElement("img", {
-          src: data.image,
-          alt: "",
-          className:
-            "image-skeleton relative z-[1] block size-full rounded-[0.42rem] object-cover group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem]",
-        }),
+        createElement(
+          "button",
+          {
+            type: "button",
+            id,
+            className:
+              "absolute inset-0 block size-full cursor-pointer overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 focus-visible:outline-none",
+            "data-marker-trigger": "",
+            "aria-label": `Show ${data.name} by ${data.artists.join(", ")}`,
+            onClick: () => {
+              const targetMap = mapInstance;
+              if (!targetMap) return;
+              const contentIsVisible =
+                markerElement.classList.contains("visible");
+              const { lastMarker: currentLastMarker } = useMapStore.getState();
+
+              if (!contentIsVisible) {
+                showPopup(currentLastMarker, data, markerElement);
+              }
+            },
+          },
+          createElement("img", {
+            src: data.image,
+            alt: "",
+            draggable: false,
+            className:
+              "image-skeleton relative z-[1] block size-full rounded-[0.42rem] object-cover group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem]",
+          }),
+          createElement(ChevronUpIcon, {
+            "aria-hidden": true,
+            className:
+              "pointer-events-none absolute top-0 left-3 z-[3] size-5 -translate-x-1/2 text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.9)] transition-opacity duration-200 group-[.visible]:opacity-0",
+          }),
+        ),
         createElement(
           "div",
           {
             className:
-              "pointer-events-none absolute inset-x-0 bottom-0 z-[2] bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-left text-white opacity-0 transition-opacity duration-200 group-[.visible]:opacity-100",
+              "pointer-events-none absolute inset-x-0 bottom-0 z-[2] cursor-text select-text bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-left text-white opacity-0 transition-opacity duration-200 group-[.visible]:pointer-events-auto group-[.visible]:opacity-100",
+            "data-popup-selectable": "",
           },
           createElement(
             "p",
@@ -315,11 +349,6 @@ function createCustomMarker(
             data.name,
           ),
         ),
-        createElement(ChevronUpIcon, {
-          "aria-hidden": true,
-          className:
-            "pointer-events-none absolute top-0 left-3 z-[3] size-5 -translate-x-1/2 text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.9)] transition-opacity duration-200 group-[.visible]:opacity-0",
-        }),
       ),
     ),
   );

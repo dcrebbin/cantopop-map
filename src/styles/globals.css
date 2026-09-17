@@ -72,6 +72,11 @@ input[type="checkbox"] {
   z-index: 5000 !important;
 }
 
+.mapboxgl-marker [data-popup-selectable] {
+  -webkit-user-select: text !important;
+  user-select: text !important;
+}
+
 .full-height {
   height: 100dvh;
 }
