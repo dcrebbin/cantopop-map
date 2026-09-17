@@ -6,7 +6,7 @@ const defaulLocation = {
   coordinates: [0, 0],
   name: "",
   streetView: "",
-  url: "",
+  url: "https://youtu.be/YjKifCk-RU0?t=84",
   image: "https://i.ytimg.com/vi/youtube_id/mqdefault.jpg",
   contributors: {
     song: {},
@@ -15,6 +15,75 @@ const defaulLocation = {
 };
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
+  {
+    artists: ["ICHIBAN GIRLS"],
+    address: "Ocean Park Merry-Go-Round, Hong Kong Island, Hong Kong",
+    coordinates: [22.2447932, 114.1772857],
+    name: "旋轉木馬",
+    streetView: "https://maps.app.goo.gl/YxgsV5M24PVukb1w9",
+    url: "https://youtu.be/YjKifCk-RU0?t=84",
+    image: "https://i.ytimg.com/vi/YjKifCk-RU0/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["黃淑蔓", "Chick Chan"],
+        lyricist: ["黃淑蔓", "米爺", "Chick Chan", "李一丁"],
+        arranger: ["Chick Chan"],
+        producer: ["李一丁"],
+      },
+      musicVideo: {
+        stylist: ["Zico Szto", "Matthew Lee"],
+        makeUpArtist: ["Nana Wong", "Monique Ching"],
+        hair: [
+          "Janice Wong",
+          "Chan Tik Sang Dickson",
+          "Li Ka Ki Kit",
+          "Frankie Tang", // from feannaWongTeam
+          "Man Chan", // from edansTeam
+        ],
+        makeupAssistant: ["Jenny Tsang"], // from feannaWongTeam
+        makeupArtist: ["Kineks Ho", "San"],
+        artist: [
+          "Feanna Wong",
+          "Tommy Har",
+          "Arvin Tsang",
+          "Bryan Chan",
+          "Hannah Chan",
+          "Chick Chan",
+          "Stone Lam",
+        ],
+        cast: ["Feanna Wong", "Edan Lui", "Novel Fergus", "Humgorgor"],
+        specialGuest: ["Edan Lui", "Novel Fergus", "Humgorgor"],
+        directorOfPhotography: ["Kevin Chung 阿西"],
+        bCam: ["Ben Lee"],
+        firstAc: ["Himmy Ku"],
+        cameraDepartment: ["Lap Lap Yeung", "Kwan Ming Fai", "Kwan Yet Hei"],
+        gaffer: ["Tsie Ka Hei"],
+        lightingCrew: [
+          "Luk Yiu Cheung",
+          "Lee Cheuk Yuet",
+          "Wong Wei Tung",
+          "Li Chun Kit",
+        ],
+        graphicAndVfx: ["Chachaiii"],
+        colourGrading: ["Pete Ma"],
+        coverDesign: ["Wingyi Luk"],
+        still: ["Thomas Lam", "Wingyi Luk"],
+        btsTeam: ["Kelvin Cheung", "Him Cheung"],
+        projectManagement: ["Mandy Lau"], // from feannaWongTeam
+        styling: ["Anson Lau"], // from edansTeam
+        outfit: ["Piper Box", "Deopuz"], // from edansTeam
+        artistManagement: [
+          "Media Asia Talent Management Limited", // from feannaWongTeam
+          "Iwi Iu", // from artistManagement.arvinTsangAm
+          "Kayfung", // from artistManagement.fergusAm
+          "Dandan", // from artistManagement.hannahAm
+          "Aileen", // from artistManagement.stoneAm
+        ],
+        crewMeal: ["屋台牛丼", "宅伴廚房"],
+        venue: ["Ocean Park Hong Kong"],
+      },
+    },
+  },
   {
     artists: ["Abby艾比"],
     address: "Cafeteria Old Beach, New Territories, Hong Kong",
