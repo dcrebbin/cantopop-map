@@ -22,6 +22,7 @@ const discoverVideoIds = [
   "kwVF0t4SSIY",
   "ASfe0qnNQmQ",
   "Bt5ZOpbMPTE",
+  "oITQOtdoEwU",,
 ] as const;
 
 export default discoverVideoIds;

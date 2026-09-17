@@ -16,6 +16,21 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Ki Chan傑奇"],
+    address: "Hong Kong, 荃灣大帽山終端管制區監察雷達站民航處",
+    coordinates: [22.40859150519243, 114.12503235318239],
+    name: "Bamboo",
+    streetView: "https://maps.app.goo.gl/YozWvkJiRrbtcNLc6",
+    url: "https://youtu.be/Q36E_4ZxzAg&t=42",
+    image: "https://i.ytimg.com/vi/Q36E_4ZxzAg/mqdefault.jpg",
+    optionalActions: [
+      {
+        name: "Tai Po Fire Fund",
+        url: "https://www.taipofire.gov.hk/eng/fund.html",
+      },
+    ],
+  },
+  {
     artists: ["乙女新夢 Otome Syndream"],
     address: "Taiso Shrine, Itoshima, Fukuoka, Japan",
     coordinates: [33.5941589, 130.1093702],

@@ -8,6 +8,7 @@ import { locationIcon } from "~/lib/icons/locationIcon";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
 import { ArrowUpRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 function buildDirectionsUrl(data: MappableLocationItem) {
   return `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
@@ -146,6 +147,23 @@ export function PopupContent({
         <p className="text-center text-[0.6rem] leading-none tracking-tight pt-2">
           {data.address}
         </p>
+        {data.optionalActions && data.optionalActions.length > 0 && (
+          <div className="flex w-full flex-col items-center justify-center gap-2 text-xs">
+            {data.optionalActions.map((action) => (
+              <div className="flex items-center justify-center text-blue-500 underline text-xs py-1">
+                <a
+                  href={action.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={action.name}
+                >
+                  {action.name}
+                </a>
+                <GlobeAltIcon className="size-4" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
