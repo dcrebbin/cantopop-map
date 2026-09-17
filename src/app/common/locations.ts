@@ -16,6 +16,34 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Abby艾比"],
+    address: "Cafeteria Old Beach, New Territories, Hong Kong",
+    coordinates: [22.3752167, 113.9839578],
+    name: "晚安帽 Nightcap",
+    streetView: "https://maps.app.goo.gl/NxMypsUq5YwqQrv78",
+    url: "https://youtu.be/LqJvmfoncwc?t=24",
+    image: "https://i.ytimg.com/vi/LqJvmfoncwc/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Sy8", "S.Kin"],
+        lyricist: ["Abby艾比"],
+        arranger: ["Sy8"],
+        producer: ["S.Kin"],
+      },
+      musicVideo: {
+        director: ["ISY", "Eric Yung"],
+        productionAssistant: ["Ming"],
+        directorOfPhotography: ["Eric Yung"],
+        gaffer: ["Ronald Shek"],
+        editor: ["Eric Yung", "ISY"],
+        colorist: ["Eric Yung"],
+        titleDesigner: ["Darky☆"],
+        stillPhotographer: ["Ming"],
+        venue: ["Ming"],
+      },
+    },
+  },
+  {
     artists: ["Ki Chan傑奇"],
     address: "Hong Kong, 荃灣大帽山終端管制區監察雷達站民航處",
     coordinates: [22.40859150519243, 114.12503235318239],
