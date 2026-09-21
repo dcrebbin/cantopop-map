@@ -490,6 +490,7 @@ export const nameToInstagramMap = {
   "To Tsz Kin": "totszkin_",
   "Miko Chan": "gwiyomimiko",
   "Rinka 蔡若琳": "rinkabreadko",
+  "Kare 孫詠嵐": "kare.suen",
   "張蔓莎 Sabrina Cheung": "sabrinasa",
   "Kingjin Cheung": "kingjin.cheung",
   wui4sing1: "wui4sing1",

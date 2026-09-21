@@ -16,6 +16,35 @@ const defaulLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Kare 孫詠嵐"],
+    name: "小心通電 (Electric Crush)",
+    address: "Man Wan Main Street, Ma Wan, New Territories, Hong Kong",
+    coordinates: [22.3485632, 114.0554305],
+    streetView: "https://maps.app.goo.gl/4GYGM4XjwSmRTTQD8",
+    url: "https://youtu.be/CRzUiKOsJqU?t=14",
+    image: "https://i.ytimg.com/vi/CRzUiKOsJqU/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Bryan Chiu"],
+        lyricist: ["黃萱然 Zoe"],
+        arranger: ["Bryan Chiu", "Tim@KATER"],
+        producer: ["Bryan Chiu", "樂風"],
+      },
+      musicVideo: {
+        artistAssistant: ["Patrick Woo"],
+        stills: ["Frame of Vincent"],
+        productionAssistant: ["Linnary Li"],
+        coverArt: ["Kare 孫詠嵐", "Tommy Wong"],
+        coverAssistant: ["Jay Weng"],
+        casts: ["Kare 孫詠嵐", "Hartley Yu"],
+        director: ["Frame of Vincent"],
+        producer: ["Tommy Wong"],
+        videoEditor: ["Kare 孫詠嵐"],
+        colorist: ["Kare 孫詠嵐"],
+      },
+    },
+  },
+  {
     artists: ["Zpecial"],
     address: "Tai On Coffee & Tea Shop, Yau Ma Tei, Kowloon, Hong Kong",
     coordinates: [22.313329, 114.168362],
