@@ -17,7 +17,7 @@ const defaultLocation = {
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
     artists: ["衛蘭 Janice Vidal"],
-    address: "37 Pottinger street, LKF, Hong Kong Island, Hong Kong",
+    address: "37 Pottinger Street, Central, Hong Kong Island, Hong Kong",
     coordinates: [22.2820398, 114.1546898],
     name: "驗傷 (Wounded)",
     streetView: "https://maps.app.goo.gl/ow9nngPZBbpLkpr18",
