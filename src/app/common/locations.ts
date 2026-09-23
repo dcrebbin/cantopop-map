@@ -1,6 +1,6 @@
 import { RawLocationSchema } from "./lib";
 
-const defaulLocation = {
+const defaultLocation = {
   artists: [""],
   address: "",
   coordinates: [0, 0],
@@ -15,6 +15,42 @@ const defaulLocation = {
 };
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
+  {
+    artists: ["Freeeboyzzzz", "Sica"],
+    address: "Deep Water Bay Beach, Hong Kong Island, Hong Kong",
+    coordinates: [22.2448787, 114.1872391],
+    name: "和我散步牽手deep talk（可以嗎？XD）(Prod. SILVERSTRIKE)",
+    streetView: "https://maps.app.goo.gl/F1ByfH8DWejh8PTcA",
+    url: "https://youtu.be/tBUh3zkFIx8?t=192",
+    image: "https://i.ytimg.com/vi/tBUh3zkFIx8/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["SILVERSTRIKE", "Daniele Belli", "Tae Cho", "Sica"],
+        lyricist: ["Sica"],
+        arranger: ["SILVERSTRIKE"],
+        producer: ["SILVERSTRIKE"],
+      },
+      musicVideo: {
+        cast: ["Freeeboyzzzz", "Sica"],
+        creative: ["Freeeboyzzzz", "Sica"],
+        executiveDirector: ["Nicole Tsang"],
+        assistantDirector: ["Supmun"],
+        productionManager: ["Ngaming"],
+        productionAssistant: ["G"],
+        dop: ["Ivan Tong"],
+        ac: ["Wong Yan Shun"],
+        gaffer: ["Marco Boi"],
+        grip: ["Curt Fan"],
+        artDirector: ["Vanessa Lam"],
+        makeupArtist: ["Apple"],
+        hairStylist: ["Cookies"],
+        stillPhotographer: ["Curt Fan", "Wong Yan Shun"],
+        editor: ["Freeeboyzzzz", "Sica"],
+        colorist: ["Ivan Tong"],
+        specialThanks: ["Hong Kong True Light College"],
+      },
+    },
+  },
   {
     artists: ["Kare 孫詠嵐"],
     name: "小心通電 (Electric Crush)",
