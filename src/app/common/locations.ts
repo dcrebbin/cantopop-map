@@ -6,7 +6,7 @@ const defaultLocation = {
   coordinates: [0, 0],
   name: "",
   streetView: "",
-  url: "https://youtu.be/YjKifCk-RU0?t=84",
+  url: "",
   image: "https://i.ytimg.com/vi/youtube_id/mqdefault.jpg",
   contributors: {
     song: {},
@@ -15,6 +15,23 @@ const defaultLocation = {
 };
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
+  {
+    artists: ["衛蘭 Janice Vidal"],
+    address: "37 Pottinger street, LKF, Hong Kong Island, Hong Kong",
+    coordinates: [22.2820398, 114.1546898],
+    name: "驗傷 (Wounded)",
+    streetView: "https://maps.app.goo.gl/ow9nngPZBbpLkpr18",
+    url: "https://youtu.be/NGHLVq1Qu18?t=78",
+    image: "https://i.ytimg.com/vi/NGHLVq1Qu18/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["周錫漢"],
+        lyricist: ["林夕"],
+        arranger: ["周錫漢", "Patrick Lui"],
+        producer: ["周錫漢"],
+      },
+    },
+  },
   {
     artists: ["容祖兒 Joey Yung"],
     name: "陽光普照 (Bright Nights)",
