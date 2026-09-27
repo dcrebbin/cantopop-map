@@ -16,6 +16,40 @@ const defaultLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Helen So 蘇凱倫"],
+    name: "咖啡王子",
+    address: "32號 Boundary St, Tong Mi, Kowloon, Hong Kong",
+    coordinates: [22.3265007, 114.1669882],
+    streetView: "https://maps.app.goo.gl/4BUt6GYrYCTHaeER6",
+    url: "https://youtu.be/ZUYBzxysVU8?t=113",
+    image: "https://i.ytimg.com/vi/ZUYBzxysVU8/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Helen So 蘇凱倫"],
+        lyricist: ["Helen So 蘇凱倫"],
+        arranger: ["Frankie Yip"],
+        producer: ["Frankie Yip"],
+        mixingAndMastering: ["VUCHS"],
+      },
+      musicVideo: {
+        director: ["Cherie Kong"],
+        assistantDirector: ["Caster So"],
+        directorOfPhotography: ["James Mak"],
+        gaffer: ["Westinthepool"],
+        productionManager: ["Agnes Kahei"],
+        stylist: ["Cherie Kong"],
+        stylingAssistant: ["Sam Law"],
+        makeUpArtist: ["Agnes Yeung"],
+        hairStylist: ["Haffman Cheng"],
+        wardrobe: ["Aboutdotdotdot"],
+        offlineAndOnlineEditor: ["Raymond Chan"],
+        colorist: ["Eric Chan"],
+        titleDesigner: ["Manmen Tam"],
+        locationCourtesy: ["White Zone"],
+      },
+    },
+  },
+  {
     artists: ["Byejack"],
     address: "Japan, 〒150-0001 Tokyo, Shibuya, Jingumae",
     coordinates: [35.6631049, 139.7025134],
