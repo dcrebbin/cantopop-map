@@ -1428,7 +1428,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 7828799,
     channelSubscriberCount: 315000,
     youtubeChannelId: "UC4LyPYXnF07KF97Nb8vE_Pg",
-    image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/hq720.jpg",
+    image: "https://i.ytimg.com/vi/Lmm6dfPiJDM/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Lmm6dfPiJDM/maxresdefault.jpg",
     contributors: {
       song: {
@@ -1535,7 +1535,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     channelSubscriberCount: 543000,
     youtubeChannelId: "UCa2kD29VbGw5BAKJD2naREA",
     streetView: "https://maps.app.goo.gl/PWrotC3MuvHU428x8",
-    image: "https://i.ytimg.com/vi/rofcioTjhPs/hq720.jpg",
+    image: "https://i.ytimg.com/vi/rofcioTjhPs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/rofcioTjhPs/maxresdefault.jpg",
     contributors: {
       song: {
@@ -2067,7 +2067,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757527654563!6m8!1m7!1s8kZwr4vIuvgRmy85jUlOKA!2m2!1d22.44731071377599!2d113.9931841031054!3f196.45222955852861!4f-1.1711255918759207!5f1.5204554155564356",
     streetView: "https://maps.app.goo.gl/BvQZ3PEo2iVUVAq18",
-    image: "https://i.ytimg.com/vi/u14rrcxENDw/hq720.jpg",
+    image: "https://i.ytimg.com/vi/u14rrcxENDw/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/u14rrcxENDw/maxresdefault.jpg",
     contributors: {
       song: {
@@ -2239,7 +2239,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1763135327506!6m8!1m7!1sOUB1OjXP9rAg16OW9GycxA!2m2!1d23.01469603056407!2d120.2003660726244!3f280.7119411543199!4f-4.4422830164690055!5f1.8128431044599362",
     streetView: "https://maps.app.goo.gl/j1eH3DPkJoMtWTRW7",
-    image: "https://i.ytimg.com/vi/6Ebua_Zug1k/hq720.jpg",
+    image: "https://i.ytimg.com/vi/6Ebua_Zug1k/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/6Ebua_Zug1k/maxresdefault.jpg",
     contributors: {
       song: {},
@@ -2474,7 +2474,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     channelSubscriberCount: 131000,
     youtubeChannelId: "UCMIXW7ICDyTuCFcCHvBjfIQ",
     streetView: "https://maps.app.goo.gl/PC4kbcAzLtN5ANf16",
-    image: "https://i.ytimg.com/vi/OcK8sMt92DQ/hq720.jpg",
+    image: "https://i.ytimg.com/vi/OcK8sMt92DQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/OcK8sMt92DQ/maxresdefault.jpg",
     contributors: {
       song: {
@@ -2589,7 +2589,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     streetViewEmbed:
       "https://www.google.com/maps/embed?pb=!4v1757528023299!6m8!1m7!1sva_3cuxUNA0hRnsKcVVgVw!2m2!1d22.98849358840259!2d120.2209808058009!3f321.1557645257022!4f-11.260670884993061!5f0.4000000000000002",
     streetView: "https://maps.app.goo.gl/qXgnNfKoZHzybtRp6",
-    image: "https://i.ytimg.com/vi/AgEkYyeu3Jg/hq720.jpg",
+    image: "https://i.ytimg.com/vi/AgEkYyeu3Jg/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/AgEkYyeu3Jg/maxresdefault.jpg",
     contributors: {
       song: {
@@ -7792,7 +7792,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 40029582,
     channelSubscriberCount: 315000,
     youtubeChannelId: "UC4LyPYXnF07KF97Nb8vE_Pg",
-    image: "https://i.ytimg.com/vi/YZPFbnk_RS0/hq720.jpg",
+    image: "https://i.ytimg.com/vi/YZPFbnk_RS0/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/YZPFbnk_RS0/maxresdefault.jpg",
     contributors: {
       song: {
@@ -7831,7 +7831,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 4968514,
     channelSubscriberCount: 250000,
     youtubeChannelId: "UC5NMESRUXEIpoi5GzGiHEDA",
-    image: "https://i.ytimg.com/vi/325j6LVzpYI/hq720.jpg",
+    image: "https://i.ytimg.com/vi/325j6LVzpYI/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/325j6LVzpYI/maxresdefault.jpg",
   },
   {
@@ -7847,7 +7847,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "https://www.google.com/maps/embed?pb=!4v1757542170056!6m8!1m7!1su31CYnduqRoYhPYEkj2pKQ!2m2!1d22.28512634634416!2d114.1482969323193!3f311.6!4f-14.930000000000007!5f0.7820865974627469",
     streetView:
       "https://www.google.com/maps/place/22%C2%B017'06.7%22N+114%C2%B008'53.7%22E/@22.2851263,114.1482969,3a,75y,311.6h,75.07t/data=!3m7!1e1!3m5!1su31CYnduqRoYhPYEkj2pKQ!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fcb_client%3Dmaps_sv.tactile%26w%3D900%26h%3D600%26pitch%3D14.932997962100217%26panoid%3Du31CYnduqRoYhPYEkj2pKQ%26yaw%3D311.59964401687176!7i16384!8i8192!4m4!3m3!8m2!3d22.2851862!4d114.1482355?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D",
-    image: "https://i.ytimg.com/vi/7FPL4DRizgk/hq720.jpg",
+    image: "https://i.ytimg.com/vi/7FPL4DRizgk/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/7FPL4DRizgk/maxresdefault.jpg",
   },
   {
@@ -8089,7 +8089,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 16844042,
     channelSubscriberCount: 315000,
     youtubeChannelId: "UC4LyPYXnF07KF97Nb8vE_Pg",
-    image: "https://i.ytimg.com/vi/ESmaELNy8GE/hq720.jpg",
+    image: "https://i.ytimg.com/vi/ESmaELNy8GE/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/ESmaELNy8GE/maxresdefault.jpg",
     contributors: {
       song: {
@@ -8136,7 +8136,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 848042,
     channelSubscriberCount: 63800,
     youtubeChannelId: "UCgKWfVL9nbU3tHjhICV8IZw",
-    image: "https://i.ytimg.com/vi/O96-8g_6NII/hq720.jpg",
+    image: "https://i.ytimg.com/vi/O96-8g_6NII/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/O96-8g_6NII/maxresdefault.jpg",
     contributors: {
       song: {
@@ -8884,7 +8884,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 3696197,
     channelSubscriberCount: 208000,
     youtubeChannelId: "UC-0unh5x9WSd6aj0OGxrgaA",
-    image: "https://i.ytimg.com/vi/oSeRj1sW3To/hq720.jpg",
+    image: "https://i.ytimg.com/vi/oSeRj1sW3To/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/oSeRj1sW3To/maxresdefault.jpg",
     contributors: {
       song: {
@@ -8974,7 +8974,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 3843633,
     channelSubscriberCount: 178000,
     youtubeChannelId: "UCS8WprrGeExAwlAqDJB0LBw",
-    image: "https://i.ytimg.com/vi/RJFcyoDhzKU/hq720.jpg",
+    image: "https://i.ytimg.com/vi/RJFcyoDhzKU/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/RJFcyoDhzKU/maxresdefault.jpg",
   },
   {
@@ -9025,7 +9025,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 16239190,
     channelSubscriberCount: 315000,
     youtubeChannelId: "UC4LyPYXnF07KF97Nb8vE_Pg",
-    image: "https://i.ytimg.com/vi/JmjKVtw6BrQ/hq720.jpg",
+    image: "https://i.ytimg.com/vi/JmjKVtw6BrQ/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/JmjKVtw6BrQ/maxresdefault.jpg",
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d6379.986363075926!2d121.47850717715063!3d25.086840777782257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDA1JzEyLjYiTiAxMjHCsDI4JzUxLjkiRQ!5e1!3m2!1sen!2shk!4v1757779896993!5m2!1sen!2shk",
@@ -9041,7 +9041,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 18519635,
     channelSubscriberCount: 112000,
     youtubeChannelId: "UCXDQojAB3faJeGnSUXZBGXQ",
-    image: "https://i.ytimg.com/vi/Rp4iHpTvBY8/hq720.jpg",
+    image: "https://i.ytimg.com/vi/Rp4iHpTvBY8/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/Rp4iHpTvBY8/maxresdefault.jpg",
   },
   {
@@ -9892,7 +9892,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     viewCount: 606816,
     channelSubscriberCount: 78200,
     youtubeChannelId: "UChfG42mAZXV1Rejj64MZszw",
-    image: "https://i.ytimg.com/vi/NL0bqEs9Izs/hq720.jpg",
+    image: "https://i.ytimg.com/vi/NL0bqEs9Izs/mqdefault.jpg",
     highResImage: "https://i.ytimg.com/vi/NL0bqEs9Izs/maxresdefault.jpg",
     contributors: {
       song: {

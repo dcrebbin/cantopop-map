@@ -64,6 +64,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
       style: "mapbox://styles/mapbox/streets-v11",
       center: MAP_CENTER as mapboxgl.LngLatLike,
       zoom: MAP_ZOOM,
+      fadeDuration: 0,
     });
 
     setMap(newMap);

@@ -31,6 +31,7 @@ interface Manager {
   element: HTMLDivElement | null;
   root: Root | null;
   frame: number | null;
+  viewportFrame: number | null;
   ready: boolean;
   disposed: boolean;
   queuedImages: Set<string>;
@@ -201,8 +202,9 @@ function pumpImageQueue(manager: Manager) {
           });
           // A resolved-image fallback is cached by the symbol bucket. Rebuild
           // the GeoJSON source after atlas insertion so the real thumbnail is
-          // selected immediately instead of waiting for another interaction.
-          schedule(manager);
+          // selected immediately. During camera animation, wait for moveend so
+          // several completed images swap in with one source rebuild.
+          if (!manager.map.isMoving()) schedule(manager);
           manager.map.triggerRepaint();
         }
       })
@@ -225,6 +227,29 @@ function queueThumbnail(manager: Manager, location: MappableLocationItem) {
   manager.imageQueue.push(location);
   startSkeleton(manager);
   pumpImageQueue(manager);
+}
+
+function queueVisibleThumbnails(manager: Manager) {
+  if (!manager.ready || manager.disposed) return;
+  const visibleThumbnailIds = new Set(
+    manager.map
+      .queryRenderedFeatures({ layers: [CLUSTERS, POINTS] })
+      .map((feature) => String(feature.properties?.thumbnail ?? ""))
+      .filter(Boolean),
+  );
+
+  for (const location of manager.locations.values()) {
+    if (visibleThumbnailIds.has(thumbnailId(location))) {
+      queueThumbnail(manager, location);
+    }
+  }
+}
+
+function scheduleVisibleThumbnails(manager: Manager) {
+  manager.viewportFrame ??= requestAnimationFrame(() => {
+    manager.viewportFrame = null;
+    queueVisibleThumbnails(manager);
+  });
 }
 
 function debug(manager: Manager) {
@@ -264,7 +289,10 @@ function update(manager: Manager) {
   manager.frame = null;
   if (!manager.ready) return;
   manager.map.getSource<mapboxgl.GeoJSONSource>(SOURCE)?.setData(data(manager));
-  manager.map.once("idle", () => debug(manager));
+  manager.map.once("idle", () => {
+    queueVisibleThumbnails(manager);
+    debug(manager);
+  });
 }
 function schedule(manager: Manager) {
   manager.frame ??= requestAnimationFrame(() => update(manager));
@@ -382,10 +410,16 @@ function initialize(manager: Manager) {
       manager.map.getCanvas().style.cursor = "";
     });
   }
-  manager.map.on("moveend", () => debug(manager));
-  manager.map.on("resize", () => debug(manager));
-  for (const location of manager.locations.values())
-    queueThumbnail(manager, location);
+  manager.map.on("moveend", () => {
+    queueVisibleThumbnails(manager);
+    schedule(manager);
+    debug(manager);
+  });
+  manager.map.on("move", () => scheduleVisibleThumbnails(manager));
+  manager.map.on("resize", () => {
+    queueVisibleThumbnails(manager);
+    debug(manager);
+  });
   schedule(manager);
 }
 
@@ -400,6 +434,7 @@ function getManager(map: mapboxgl.Map) {
     element: null,
     root: null,
     frame: null,
+    viewportFrame: null,
     ready: false,
     disposed: false,
     queuedImages: new Set(),
@@ -414,6 +449,8 @@ function getManager(map: mapboxgl.Map) {
   map.once("remove", () => {
     manager.disposed = true;
     if (manager.frame !== null) cancelAnimationFrame(manager.frame);
+    if (manager.viewportFrame !== null)
+      cancelAnimationFrame(manager.viewportFrame);
     if (manager.skeletonFrame !== null)
       cancelAnimationFrame(manager.skeletonFrame);
     manager.root?.unmount();
@@ -568,7 +605,6 @@ export function addPlace(location: MappableLocationItem, map?: mapboxgl.Map) {
   if (!map) return;
   const manager = getManager(map);
   manager.locations.set(location.id, location);
-  if (manager.ready) queueThumbnail(manager, location);
   schedule(manager);
 }
 
