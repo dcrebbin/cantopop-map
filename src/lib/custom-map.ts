@@ -16,7 +16,6 @@ const CLUSTERS = "cantopop-clusters";
 const CLUSTER_BADGES = "cantopop-cluster-badges";
 const COUNTS = "cantopop-cluster-counts";
 const POINTS = "cantopop-points";
-const SKELETON_IMAGE = "image-skeleton";
 const THUMBNAIL_WIDTH = 76;
 const THUMBNAIL_HEIGHT = 64;
 const THUMBNAIL_PIXEL_RATIO = 2;
@@ -35,6 +34,9 @@ interface Manager {
   ready: boolean;
   disposed: boolean;
   queuedImages: Set<string>;
+  pendingImages: Set<string>;
+  loadedImages: Set<string>;
+  imageLayoutFrame: number | null;
   imageQueue: MappableLocationItem[];
   activeImageLoads: number;
   skeletonFrame: number | null;
@@ -148,12 +150,30 @@ function drawSkeleton(progress: number) {
   return context.getImageData(0, 0, canvas.width, canvas.height);
 }
 
+function registerThumbnails(manager: Manager) {
+  const skeleton = drawSkeleton(0);
+  for (const location of manager.locations.values()) {
+    const id = thumbnailId(location);
+    if (manager.map.hasImage(id)) continue;
+    // Keep the symbol's image identity and dimensions stable while it loads.
+    manager.map.addImage(id, skeleton, {
+      pixelRatio: THUMBNAIL_PIXEL_RATIO,
+    });
+    manager.pendingImages.add(id);
+  }
+}
+
 function animateSkeleton(manager: Manager, time: number) {
   manager.skeletonFrame = null;
-  if (manager.disposed || !manager.map.hasImage(SKELETON_IMAGE)) return;
+  if (manager.disposed) return;
   if (time - manager.lastSkeletonPaint >= 80) {
     manager.lastSkeletonPaint = time;
-    manager.map.updateImage(SKELETON_IMAGE, drawSkeleton((time % 1400) / 1400));
+    const skeleton = drawSkeleton((time % 1400) / 1400);
+    for (const id of manager.queuedImages) {
+      if (manager.pendingImages.has(id) && manager.map.hasImage(id)) {
+        manager.map.updateImage(id, skeleton);
+      }
+    }
     manager.map.triggerRepaint();
   }
   if (manager.imageQueue.length > 0 || manager.activeImageLoads > 0) {
@@ -185,6 +205,24 @@ function loadThumbnail(location: MappableLocationItem) {
   });
 }
 
+function scheduleThumbnailLayout(manager: Manager) {
+  manager.imageLayoutFrame ??= requestAnimationFrame(() => {
+    manager.imageLayoutFrame = null;
+    if (manager.disposed || !manager.ready) return;
+    // Explicitly change the symbol's image reference. Updating placeholder
+    // pixels leaves worker/cached tile snapshots able to retain the old image.
+    const image: mapboxgl.ExpressionSpecification = [
+      "case",
+      ["in", ["get", "thumbnail"], ["literal", [...manager.loadedImages]]],
+      ["concat", ["get", "thumbnail"], "-loaded"],
+      ["get", "thumbnail"],
+    ];
+    for (const layer of [CLUSTERS, POINTS]) {
+      manager.map.setLayoutProperty(layer, "icon-image", image);
+    }
+  });
+}
+
 function pumpImageQueue(manager: Manager) {
   while (
     !manager.disposed &&
@@ -196,22 +234,21 @@ function pumpImageQueue(manager: Manager) {
     manager.activeImageLoads++;
     void loadThumbnail(location)
       .then((image) => {
-        if (!manager.disposed && !manager.map.hasImage(id)) {
-          manager.map.addImage(id, image, {
+        if (!manager.disposed && manager.map.hasImage(id)) {
+          // Loaded photos are immutable atlas entries, separate from placeholders.
+          manager.map.addImage(`${id}-loaded`, image, {
             pixelRatio: THUMBNAIL_PIXEL_RATIO,
           });
-          // A resolved-image fallback is cached by the symbol bucket. Rebuild
-          // the GeoJSON source after atlas insertion so the real thumbnail is
-          // selected immediately. During camera animation, wait for moveend so
-          // several completed images swap in with one source rebuild.
-          if (!manager.map.isMoving()) schedule(manager);
+          manager.loadedImages.add(id);
+          scheduleThumbnailLayout(manager);
+          manager.pendingImages.delete(id);
           manager.map.triggerRepaint();
         }
       })
       .catch(() => {
-        // Leave the shared animated skeleton visible when an image fails. A
+        // Leave the placeholder visible when an image fails. A
         // later map initialization can retry instead of caching a false success.
-        manager.queuedImages.delete(id);
+        // Keep this attempt recorded so idle events do not retry indefinitely.
       })
       .finally(() => {
         manager.activeImageLoads--;
@@ -222,7 +259,7 @@ function pumpImageQueue(manager: Manager) {
 
 function queueThumbnail(manager: Manager, location: MappableLocationItem) {
   const id = thumbnailId(location);
-  if (manager.queuedImages.has(id) || manager.map.hasImage(id)) return;
+  if (manager.queuedImages.has(id) || !manager.pendingImages.has(id)) return;
   manager.queuedImages.add(id);
   manager.imageQueue.push(location);
   startSkeleton(manager);
@@ -287,12 +324,9 @@ function debug(manager: Manager) {
 
 function update(manager: Manager) {
   manager.frame = null;
-  if (!manager.ready) return;
+  if (!manager.ready || manager.disposed) return;
+  registerThumbnails(manager);
   manager.map.getSource<mapboxgl.GeoJSONSource>(SOURCE)?.setData(data(manager));
-  manager.map.once("idle", () => {
-    queueVisibleThumbnails(manager);
-    debug(manager);
-  });
 }
 function schedule(manager: Manager) {
   manager.frame ??= requestAnimationFrame(() => update(manager));
@@ -300,6 +334,7 @@ function schedule(manager: Manager) {
 
 function initialize(manager: Manager) {
   if (manager.ready || manager.map.getSource(SOURCE)) return;
+  registerThumbnails(manager);
   manager.map.addSource(SOURCE, {
     type: "geojson",
     data: data(manager),
@@ -313,14 +348,7 @@ function initialize(manager: Manager) {
       ],
     },
   });
-  manager.map.addImage(SKELETON_IMAGE, drawSkeleton(0), {
-    pixelRatio: THUMBNAIL_PIXEL_RATIO,
-  });
-  const thumbnailImage: mapboxgl.ExpressionSpecification = [
-    "coalesce",
-    ["image", ["get", "thumbnail"]],
-    ["image", SKELETON_IMAGE],
-  ];
+  const thumbnailImage: mapboxgl.ExpressionSpecification = ["get", "thumbnail"];
   manager.map.addLayer({
     id: CLUSTERS,
     type: "symbol",
@@ -410,12 +438,20 @@ function initialize(manager: Manager) {
       manager.map.getCanvas().style.cursor = "";
     });
   }
-  manager.map.on("moveend", () => {
+  // moveend can precede the worker's new zoom tiles and symbol placement.
+  // Check again once those symbols are actually rendered, without rebuilding
+  // the source (which used to make clicking a marker unstick image loading).
+  manager.map.on("idle", () => {
     queueVisibleThumbnails(manager);
-    schedule(manager);
     debug(manager);
   });
-  manager.map.on("move", () => scheduleVisibleThumbnails(manager));
+  manager.map.on("moveend", () => {
+    queueVisibleThumbnails(manager);
+    debug(manager);
+  });
+  // Discover newly placed symbols even while another image keeps the shimmer
+  // repainting, which prevents Mapbox from reaching idle.
+  manager.map.on("render", () => scheduleVisibleThumbnails(manager));
   manager.map.on("resize", () => {
     queueVisibleThumbnails(manager);
     debug(manager);
@@ -438,6 +474,9 @@ function getManager(map: mapboxgl.Map) {
     ready: false,
     disposed: false,
     queuedImages: new Set(),
+    pendingImages: new Set(),
+    loadedImages: new Set(),
+    imageLayoutFrame: null,
     imageQueue: [],
     activeImageLoads: 0,
     skeletonFrame: null,
@@ -451,6 +490,8 @@ function getManager(map: mapboxgl.Map) {
     if (manager.frame !== null) cancelAnimationFrame(manager.frame);
     if (manager.viewportFrame !== null)
       cancelAnimationFrame(manager.viewportFrame);
+    if (manager.imageLayoutFrame !== null)
+      cancelAnimationFrame(manager.imageLayoutFrame);
     if (manager.skeletonFrame !== null)
       cancelAnimationFrame(manager.skeletonFrame);
     manager.root?.unmount();
