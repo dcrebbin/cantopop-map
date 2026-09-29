@@ -49,7 +49,7 @@ import {
   nameToLocation,
   SONGS,
 } from "../common/lib";
-import { refreshMarkerClusters } from "~/lib/custom-map";
+import { setMarkerFilters } from "~/lib/custom-map";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
@@ -79,16 +79,6 @@ const MENU_ANIMATION_MS = 300;
 
 function includesQuery(text: string, query: string) {
   return text.includes(query);
-}
-
-function setsOverlap(left: Set<string>, right: Set<string>) {
-  if (left.size === 0 || right.size === 0) return false;
-  const [smaller, larger] =
-    left.size <= right.size ? [left, right] : [right, left];
-  for (const value of smaller) {
-    if (larger.has(value)) return true;
-  }
-  return false;
 }
 
 const SearchInput = memo(function SearchInput({
@@ -140,7 +130,6 @@ export default function Menu() {
     setSelectedLocationCredits,
   } = useUIStore();
 
-  const allMarkers = useMapStore((state) => state.allMarkers);
   const map = useMapStore((state) => state.map);
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
@@ -156,34 +145,9 @@ export default function Menu() {
   }));
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
-      const selectedArtistSet = new Set(nextSelectedArtists);
-      const selectedContributorSet = new Set(nextSelectedContributors);
-
-      for (const marker of allMarkers) {
-        const markerArtistSet = new Set(
-          marker.dataset.artist?.split(", ") ?? [],
-        );
-        const markerContributorSet = new Set(
-          marker.dataset.contributors?.split(", ") ?? [],
-        );
-
-        const hasArtistFilter = nextSelectedArtists.length > 0;
-        const hasContributorFilter = nextSelectedContributors.length > 0;
-
-        const artistMatch =
-          hasArtistFilter && setsOverlap(selectedArtistSet, markerArtistSet);
-
-        const contributorMatch =
-          hasContributorFilter &&
-          setsOverlap(selectedContributorSet, markerContributorSet);
-
-        const hasAnyFilter = hasArtistFilter || hasContributorFilter;
-        const shouldShow = !hasAnyFilter || artistMatch || contributorMatch;
-        marker.dataset.filterHidden = shouldShow ? "false" : "true";
-      }
-      refreshMarkerClusters(map);
+      setMarkerFilters(map, nextSelectedArtists, nextSelectedContributors);
     },
-    [allMarkers, map],
+    [map],
   );
 
   const syncFiltersToUrl = useCallback(
@@ -412,21 +376,8 @@ export default function Menu() {
   }
 
   useEffect(() => {
-    if (selectedArtists.length === 0 && selectedContributors.length === 0) {
-      for (const marker of allMarkers) {
-        marker.dataset.filterHidden = "false";
-      }
-      refreshMarkerClusters(map);
-    } else {
-      updateMarkerVisibility(selectedArtists, selectedContributors);
-    }
-  }, [
-    allMarkers,
-    map,
-    selectedArtists,
-    selectedContributors,
-    updateMarkerVisibility,
-  ]);
+    updateMarkerVisibility(selectedArtists, selectedContributors);
+  }, [map, selectedArtists, selectedContributors, updateMarkerVisibility]);
 
   useEffect(() => {
     if (!hasAppliedUrlFiltersRef.current) return;

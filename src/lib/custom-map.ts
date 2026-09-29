@@ -1,464 +1,580 @@
 import mapboxgl from "mapbox-gl";
+import { createElement, type SyntheticEvent } from "react";
 import { createRoot, type Root } from "react-dom/client";
-import { createElement } from "react";
+import posthog from "posthog-js";
 import {
   constructTitle,
   extractContributorNamesFromLocation,
   type MappableLocationItem,
 } from "~/app/common/lib";
 import { useMapStore } from "~/app/_state/map.store";
-import { useNewLocationStore } from "~/app/_state/new-location.store";
 import { useUIStore } from "~/app/_state/ui.store";
 import { PopupContent } from "~/app/components/map/PopupContent";
-import posthog from "posthog-js";
-import { ChevronUpIcon } from "@heroicons/react/24/solid";
 
-import { groupNearbyPoints } from "./marker-groups";
+const SOURCE = "cantopop-locations";
+const CLUSTERS = "cantopop-clusters";
+const CLUSTER_BADGES = "cantopop-cluster-badges";
+const COUNTS = "cantopop-cluster-counts";
+const POINTS = "cantopop-points";
+const SKELETON_IMAGE = "image-skeleton";
+const THUMBNAIL_WIDTH = 76;
+const THUMBNAIL_HEIGHT = 64;
+const THUMBNAIL_PIXEL_RATIO = 2;
+const MAX_IMAGE_LOADS = 8;
 
-const markerRoots = new WeakMap<HTMLDivElement, Root>();
-const CLUSTER_RADIUS_PX = 36;
-let nextMarkerId = 0;
-const MAX_CLUSTER_ZOOM = 18;
-
-interface MarkerEntry {
-  id: number;
-  data: MappableLocationItem;
-  element: HTMLDivElement;
-  marker: mapboxgl.Marker;
-  manager: ClusterManager;
-}
-
-interface MarkerGroup {
-  entries: MarkerEntry[];
-  x: number;
-  y: number;
-}
-
-interface ClusterManager {
+type Props = { locationId: string; selected: boolean; thumbnail: string };
+interface Manager {
   map: mapboxgl.Map;
-  entries: MarkerEntry[];
-  clusterMarkers: Map<string, mapboxgl.Marker>;
-  animationFrame: number | null;
-  update: () => void;
+  locations: Map<string, MappableLocationItem>;
+  visibleIds: Set<string> | null;
+  marker: mapboxgl.Marker | null;
+  element: HTMLDivElement | null;
+  root: Root | null;
+  frame: number | null;
+  ready: boolean;
+  disposed: boolean;
+  queuedImages: Set<string>;
+  imageQueue: MappableLocationItem[];
+  activeImageLoads: number;
+  skeletonFrame: number | null;
+  lastSkeletonPaint: number;
+}
+const managers = new WeakMap<mapboxgl.Map, Manager>();
+const elementManagers = new WeakMap<HTMLDivElement, Manager>();
+
+function thumbnailId(location: MappableLocationItem) {
+  return `cantopop-thumbnail-${location.id}`;
 }
 
-const clusterManagers = new WeakMap<mapboxgl.Map, ClusterManager>();
-const markerEntries = new WeakMap<HTMLDivElement, MarkerEntry>();
-
-function createClusterElement(group: MarkerGroup, targetMap: mapboxgl.Map) {
-  const representative = group.entries[0];
-  if (!representative) return null;
-
-  const hiddenMarkerCount = group.entries.length - 1;
-  const element = document.createElement("button");
-  element.type = "button";
-  element.className = "cantopop-cluster-marker";
-  element.setAttribute(
-    "aria-label",
-    `${group.entries.length} locations. Zoom in to reveal them.`,
-  );
-
-  const thumbnail = document.createElement("img");
-  thumbnail.src = representative.data.image;
-  thumbnail.alt = "";
-  thumbnail.className = "image-skeleton cantopop-cluster-thumbnail";
-  element.appendChild(thumbnail);
-
-  const count = document.createElement("span");
-  count.className = "cantopop-cluster-count";
-  count.textContent = `+${hiddenMarkerCount}`;
-  count.setAttribute("aria-hidden", "true");
-  element.appendChild(count);
-
-  element.addEventListener("click", (event) => {
-    event.stopPropagation();
-    const bounds = new mapboxgl.LngLatBounds();
-    for (const entry of group.entries) {
-      bounds.extend([entry.data.lng, entry.data.lat]);
-    }
-
-    const northEast = bounds.getNorthEast();
-    const southWest = bounds.getSouthWest();
-    const containsOneCoordinate =
-      northEast.lng === southWest.lng && northEast.lat === southWest.lat;
-
-    if (containsOneCoordinate) {
-      targetMap.easeTo({
-        center: [representative.data.lng, representative.data.lat],
-        zoom: Math.min(targetMap.getZoom() + 2, MAX_CLUSTER_ZOOM + 1),
-      });
-      return;
-    }
-
-    targetMap.fitBounds(bounds, {
-      padding: 96,
-      maxZoom: MAX_CLUSTER_ZOOM + 1,
-    });
-  });
-
-  return element;
-}
-
-function renderClusters(manager: ClusterManager) {
-  manager.animationFrame = null;
-  const visibleEntries = manager.entries.filter(
-    (entry) => entry.element.dataset.filterHidden !== "true",
-  );
-  const groups =
-    manager.map.getZoom() > MAX_CLUSTER_ZOOM
-      ? []
-      : groupNearbyPoints(
-          visibleEntries.filter(
-            (entry) => !entry.element.classList.contains("visible"),
-          ),
-          (entry) => manager.map.project([entry.data.lng, entry.data.lat]),
-          CLUSTER_RADIUS_PX,
-        );
-  const clusteredEntries = new Set<MarkerEntry>();
-  const activeClusters = new Set<string>();
-
-  for (const group of groups) {
-    if (group.entries.length < 2) continue;
-    for (const entry of group.entries) clusteredEntries.add(entry);
-    const key = group.entries.map((entry) => entry.id).join(",");
-    activeClusters.add(key);
-    if (manager.clusterMarkers.has(key)) continue;
-
-    const element = createClusterElement(group, manager.map);
-    if (!element) continue;
-    const center = group.entries.reduce(
-      (result, entry) => ({
-        lng: result.lng + entry.data.lng / group.entries.length,
-        lat: result.lat + entry.data.lat / group.entries.length,
-      }),
-      { lng: 0, lat: 0 },
-    );
-    const clusterMarker = new mapboxgl.Marker({ element, anchor: "center" })
-      .setLngLat([center.lng, center.lat])
-      .addTo(manager.map);
-    // Mapbox labels custom marker elements as images by default. This one is
-    // interactive, so restore its native button semantics after construction.
-    element.setAttribute("role", "button");
-    manager.clusterMarkers.set(key, clusterMarker);
-  }
-  for (const [key, marker] of manager.clusterMarkers) {
-    if (!activeClusters.has(key)) {
-      marker.remove();
-      manager.clusterMarkers.delete(key);
-    }
-  }
-  for (const entry of manager.entries) {
-    const display =
-      entry.element.dataset.filterHidden === "true" ||
-      clusteredEntries.has(entry)
-        ? "none"
-        : "block";
-    if (entry.element.style.display !== display)
-      entry.element.style.display = display;
-  }
-
-  if (import.meta.env.VITE_REACT_SCAN === "true") {
-    const standaloneMarkers = visibleEntries.length - clusteredEntries.size;
-    useMapStore.setState({
-      markerDebugStats: {
-        totalLocations: manager.entries.length,
-        filteredLocations: visibleEntries.length,
-        standaloneMarkers,
-        clusterMarkers: manager.clusterMarkers.size,
-        clusteredLocations: clusteredEntries.size,
-        renderedMarkers: standaloneMarkers + manager.clusterMarkers.size,
-        zoom: manager.map.getZoom(),
-      },
-    });
-  }
-}
-
-function scheduleClusterUpdate(manager: ClusterManager) {
-  if (manager.animationFrame !== null) return;
-  manager.animationFrame = window.requestAnimationFrame(() => {
-    renderClusters(manager);
-  });
-}
-
-function getClusterManager(map: mapboxgl.Map) {
-  const existingManager = clusterManagers.get(map);
-  if (existingManager) return existingManager;
-
-  const manager: ClusterManager = {
-    map,
-    entries: [],
-    clusterMarkers: new Map(),
-    animationFrame: null,
-    update: () => scheduleClusterUpdate(manager),
+function data(
+  manager: Manager,
+): GeoJSON.FeatureCollection<GeoJSON.Point, Props> {
+  const selected = useMapStore.getState().selectedLocationId;
+  return {
+    type: "FeatureCollection",
+    features: [...manager.locations.values()]
+      .filter(
+        (location) =>
+          manager.visibleIds === null || manager.visibleIds.has(location.id),
+      )
+      .map((location) => ({
+        type: "Feature",
+        geometry: { type: "Point", coordinates: [location.lng, location.lat] },
+        properties: {
+          locationId: location.id,
+          selected: location.id === selected,
+          thumbnail: thumbnailId(location),
+        },
+      })),
   };
-  clusterManagers.set(map, manager);
-  map.on("moveend", manager.update);
-  map.on("resize", manager.update);
+}
+
+function drawThumbnail(image?: CanvasImageSource) {
+  const scale = THUMBNAIL_PIXEL_RATIO;
+  const canvas = document.createElement("canvas");
+  canvas.width = THUMBNAIL_WIDTH * scale;
+  canvas.height = THUMBNAIL_HEIGHT * scale;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return new ImageData(canvas.width, canvas.height);
+
+  context.scale(scale, scale);
+  context.beginPath();
+  context.roundRect(0, 0, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 7);
+  context.clip();
+  context.fillStyle = "#d1d5db";
+  context.fillRect(0, 0, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+  if (image) {
+    const sourceWidth =
+      image instanceof HTMLImageElement
+        ? image.naturalWidth
+        : image instanceof ImageBitmap
+          ? image.width
+          : THUMBNAIL_WIDTH;
+    const sourceHeight =
+      image instanceof HTMLImageElement
+        ? image.naturalHeight
+        : image instanceof ImageBitmap
+          ? image.height
+          : THUMBNAIL_HEIGHT;
+    const sourceRatio = sourceWidth / sourceHeight;
+    const targetRatio = THUMBNAIL_WIDTH / THUMBNAIL_HEIGHT;
+    const cropWidth =
+      sourceRatio > targetRatio ? sourceHeight * targetRatio : sourceWidth;
+    const cropHeight =
+      sourceRatio > targetRatio ? sourceHeight : sourceWidth / targetRatio;
+    context.drawImage(
+      image,
+      (sourceWidth - cropWidth) / 2,
+      (sourceHeight - cropHeight) / 2,
+      cropWidth,
+      cropHeight,
+      0,
+      0,
+      THUMBNAIL_WIDTH,
+      THUMBNAIL_HEIGHT,
+    );
+  }
+
+  return context.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+function drawSkeleton(progress: number) {
+  const scale = THUMBNAIL_PIXEL_RATIO;
+  const canvas = document.createElement("canvas");
+  canvas.width = THUMBNAIL_WIDTH * scale;
+  canvas.height = THUMBNAIL_HEIGHT * scale;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return new ImageData(canvas.width, canvas.height);
+
+  context.scale(scale, scale);
+  context.beginPath();
+  context.roundRect(0, 0, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 7);
+  context.clip();
+  context.fillStyle = "#d1d5db";
+  context.fillRect(0, 0, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+  const bandCenter = -THUMBNAIL_WIDTH + progress * THUMBNAIL_WIDTH * 3;
+  const gradient = context.createLinearGradient(
+    bandCenter - THUMBNAIL_WIDTH,
+    0,
+    bandCenter + THUMBNAIL_WIDTH,
+    0,
+  );
+  gradient.addColorStop(0, "rgb(209 213 219 / 0%)");
+  gradient.addColorStop(0.5, "rgb(243 244 246 / 85%)");
+  gradient.addColorStop(1, "rgb(209 213 219 / 0%)");
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+  return context.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+function animateSkeleton(manager: Manager, time: number) {
+  manager.skeletonFrame = null;
+  if (manager.disposed || !manager.map.hasImage(SKELETON_IMAGE)) return;
+  if (time - manager.lastSkeletonPaint >= 80) {
+    manager.lastSkeletonPaint = time;
+    manager.map.updateImage(SKELETON_IMAGE, drawSkeleton((time % 1400) / 1400));
+    manager.map.triggerRepaint();
+  }
+  if (manager.imageQueue.length > 0 || manager.activeImageLoads > 0) {
+    manager.skeletonFrame = requestAnimationFrame((nextTime) =>
+      animateSkeleton(manager, nextTime),
+    );
+  }
+}
+
+function startSkeleton(manager: Manager) {
+  manager.skeletonFrame ??= requestAnimationFrame((time) =>
+    animateSkeleton(manager, time),
+  );
+}
+
+function loadThumbnail(location: MappableLocationItem) {
+  return new Promise<ImageData>((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => {
+      try {
+        resolve(drawThumbnail(image));
+      } catch (error) {
+        reject(error instanceof Error ? error : new Error("Invalid thumbnail"));
+      }
+    };
+    image.onerror = () => reject(new Error(`Unable to load ${location.image}`));
+    image.src = location.image;
+  });
+}
+
+function pumpImageQueue(manager: Manager) {
+  while (
+    !manager.disposed &&
+    manager.activeImageLoads < MAX_IMAGE_LOADS &&
+    manager.imageQueue.length > 0
+  ) {
+    const location = manager.imageQueue.shift()!;
+    const id = thumbnailId(location);
+    manager.activeImageLoads++;
+    void loadThumbnail(location)
+      .then((image) => {
+        if (!manager.disposed && !manager.map.hasImage(id)) {
+          manager.map.addImage(id, image, {
+            pixelRatio: THUMBNAIL_PIXEL_RATIO,
+          });
+          // A resolved-image fallback is cached by the symbol bucket. Rebuild
+          // the GeoJSON source after atlas insertion so the real thumbnail is
+          // selected immediately instead of waiting for another interaction.
+          schedule(manager);
+          manager.map.triggerRepaint();
+        }
+      })
+      .catch(() => {
+        // Leave the shared animated skeleton visible when an image fails. A
+        // later map initialization can retry instead of caching a false success.
+        manager.queuedImages.delete(id);
+      })
+      .finally(() => {
+        manager.activeImageLoads--;
+        pumpImageQueue(manager);
+      });
+  }
+}
+
+function queueThumbnail(manager: Manager, location: MappableLocationItem) {
+  const id = thumbnailId(location);
+  if (manager.queuedImages.has(id) || manager.map.hasImage(id)) return;
+  manager.queuedImages.add(id);
+  manager.imageQueue.push(location);
+  startSkeleton(manager);
+  pumpImageQueue(manager);
+}
+
+function debug(manager: Manager) {
+  if (import.meta.env.VITE_REACT_SCAN !== "true" || !manager.ready) return;
+  const canvas = manager.map.getCanvas();
+  const features = manager.map.queryRenderedFeatures(
+    [
+      [0, 0],
+      [canvas.clientWidth, canvas.clientHeight],
+    ],
+    { layers: [CLUSTERS, POINTS] },
+  );
+  let clusterMarkers = 0;
+  let clusteredLocations = 0;
+  let standaloneMarkers = 0;
+  for (const feature of features) {
+    const count = Number(feature.properties?.point_count ?? 0);
+    if (count) {
+      clusterMarkers++;
+      clusteredLocations += count;
+    } else standaloneMarkers++;
+  }
+  useMapStore.setState({
+    markerDebugStats: {
+      totalLocations: manager.locations.size,
+      filteredLocations: manager.visibleIds?.size ?? manager.locations.size,
+      standaloneMarkers,
+      clusterMarkers,
+      clusteredLocations,
+      renderedMarkers: features.length,
+      zoom: manager.map.getZoom(),
+    },
+  });
+}
+
+function update(manager: Manager) {
+  manager.frame = null;
+  if (!manager.ready) return;
+  manager.map.getSource<mapboxgl.GeoJSONSource>(SOURCE)?.setData(data(manager));
+  manager.map.once("idle", () => debug(manager));
+}
+function schedule(manager: Manager) {
+  manager.frame ??= requestAnimationFrame(() => update(manager));
+}
+
+function initialize(manager: Manager) {
+  if (manager.ready || manager.map.getSource(SOURCE)) return;
+  manager.map.addSource(SOURCE, {
+    type: "geojson",
+    data: data(manager),
+    cluster: true,
+    clusterRadius: 36,
+    clusterMaxZoom: 18,
+    clusterProperties: {
+      thumbnail: [
+        ["coalesce", ["accumulated"], ["get", "thumbnail"]],
+        ["get", "thumbnail"],
+      ],
+    },
+  });
+  manager.map.addImage(SKELETON_IMAGE, drawSkeleton(0), {
+    pixelRatio: THUMBNAIL_PIXEL_RATIO,
+  });
+  const thumbnailImage: mapboxgl.ExpressionSpecification = [
+    "coalesce",
+    ["image", ["get", "thumbnail"]],
+    ["image", SKELETON_IMAGE],
+  ];
+  manager.map.addLayer({
+    id: CLUSTERS,
+    type: "symbol",
+    source: SOURCE,
+    filter: ["has", "point_count"],
+    layout: {
+      "icon-image": thumbnailImage,
+      "icon-allow-overlap": true,
+      "icon-ignore-placement": true,
+    },
+  });
+  manager.map.addLayer({
+    id: CLUSTER_BADGES,
+    type: "circle",
+    source: SOURCE,
+    filter: ["has", "point_count"],
+    paint: {
+      "circle-color": "#111827",
+      "circle-radius": 11,
+      "circle-stroke-color": "#000000",
+      "circle-stroke-width": 1.5,
+      "circle-translate": [29, -24],
+      "circle-translate-anchor": "viewport",
+    },
+  });
+  manager.map.addLayer({
+    id: COUNTS,
+    type: "symbol",
+    source: SOURCE,
+    filter: ["has", "point_count"],
+    layout: {
+      "text-field": [
+        "concat",
+        "+",
+        ["to-string", ["-", ["get", "point_count"], 1]],
+      ],
+      "text-size": 12,
+      "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+      "text-allow-overlap": true,
+      "text-ignore-placement": true,
+    },
+    paint: { "text-color": "#fff", "text-translate": [29, -24] },
+  });
+  manager.map.addLayer({
+    id: POINTS,
+    type: "symbol",
+    source: SOURCE,
+    filter: [
+      "all",
+      ["!", ["has", "point_count"]],
+      ["==", ["get", "selected"], false],
+    ],
+    layout: {
+      "icon-image": thumbnailImage,
+      "icon-allow-overlap": true,
+      "icon-ignore-placement": true,
+    },
+  });
+  manager.ready = true;
+  manager.map.on("click", CLUSTERS, (event) => {
+    const feature = event.features?.[0];
+    const clusterId = Number(feature?.properties?.cluster_id);
+    if (!feature || !Number.isFinite(clusterId)) return;
+    const source = manager.map.getSource<mapboxgl.GeoJSONSource>(SOURCE)!;
+    source.getClusterExpansionZoom(clusterId, (error, zoom) => {
+      if (error || zoom == null) return;
+      manager.map.easeTo({
+        center: (feature.geometry as GeoJSON.Point).coordinates as [
+          number,
+          number,
+        ],
+        zoom,
+      });
+    });
+  });
+  manager.map.on("click", POINTS, (event) => {
+    const location = manager.locations.get(
+      String(event.features?.[0]?.properties?.locationId ?? ""),
+    );
+    if (location) openLocationPopup(location, manager.map);
+  });
+  for (const layer of [CLUSTERS, POINTS]) {
+    manager.map.on("mouseenter", layer, () => {
+      manager.map.getCanvas().style.cursor = "pointer";
+    });
+    manager.map.on("mouseleave", layer, () => {
+      manager.map.getCanvas().style.cursor = "";
+    });
+  }
+  manager.map.on("moveend", () => debug(manager));
+  manager.map.on("resize", () => debug(manager));
+  for (const location of manager.locations.values())
+    queueThumbnail(manager, location);
+  schedule(manager);
+}
+
+function getManager(map: mapboxgl.Map) {
+  const found = managers.get(map);
+  if (found) return found;
+  const manager: Manager = {
+    map,
+    locations: new Map(),
+    visibleIds: null,
+    marker: null,
+    element: null,
+    root: null,
+    frame: null,
+    ready: false,
+    disposed: false,
+    queuedImages: new Set(),
+    imageQueue: [],
+    activeImageLoads: 0,
+    skeletonFrame: null,
+    lastSkeletonPaint: 0,
+  };
+  managers.set(map, manager);
+  if (map.isStyleLoaded()) initialize(manager);
+  else map.once("load", () => initialize(manager));
   map.once("remove", () => {
-    if (manager.animationFrame !== null)
-      window.cancelAnimationFrame(manager.animationFrame);
-    map.off("moveend", manager.update);
-    map.off("resize", manager.update);
-    for (const entry of manager.entries) {
-      const root = markerRoots.get(entry.element);
-      // Map removal can run during the parent React root's cleanup.
-      // Unmount independent marker roots after that commit has finished.
-      if (root) queueMicrotask(() => root.unmount());
-      markerRoots.delete(entry.element);
-      markerEntries.delete(entry.element);
-      entry.marker.remove();
-    }
-    for (const marker of manager.clusterMarkers.values()) marker.remove();
-    manager.entries = [];
-    manager.clusterMarkers.clear();
-    clusterManagers.delete(map);
-    if (import.meta.env.VITE_REACT_SCAN === "true") {
-      useMapStore.setState({ markerDebugStats: null });
-    }
+    manager.disposed = true;
+    if (manager.frame !== null) cancelAnimationFrame(manager.frame);
+    if (manager.skeletonFrame !== null)
+      cancelAnimationFrame(manager.skeletonFrame);
+    manager.root?.unmount();
+    manager.marker?.remove();
+    managers.delete(map);
+    useMapStore.setState({ markerDebugStats: null });
   });
   return manager;
 }
 
 export function refreshMarkerClusters(map?: mapboxgl.Map | null) {
   if (!map) return;
-  const manager = clusterManagers.get(map);
-  if (manager) scheduleClusterUpdate(manager);
+  const manager = managers.get(map);
+  if (manager) schedule(manager);
 }
 
-export function showPopup(
-  currentLastMarker: HTMLDivElement | null,
-  data: MappableLocationItem,
-  markerElement: HTMLDivElement,
+export function setMarkerFilters(
+  map: mapboxgl.Map | null,
+  artists: string[],
+  contributors: string[],
 ) {
-  const songTitle = constructTitle(data);
-
-  markerElement?.classList.add("z-[2000]");
-
-  if (currentLastMarker !== null && currentLastMarker !== markerElement) {
-    hidePopup(currentLastMarker);
+  if (!map) return;
+  const manager = getManager(map);
+  if (!artists.length && !contributors.length) manager.visibleIds = null;
+  else {
+    const artistSet = new Set(artists);
+    const contributorSet = new Set(contributors);
+    manager.visibleIds = new Set(
+      [...manager.locations.values()]
+        .filter(
+          (location) =>
+            location.artists.some((name) => artistSet.has(name)) ||
+            extractContributorNamesFromLocation(location).some((name) =>
+              contributorSet.has(name),
+            ),
+        )
+        .map((location) => location.id),
+    );
   }
-  posthog.capture("view_location", {
-    artists: data.artists.join(", "),
-    songTitle: data.name,
-  });
-  markerElement.classList.add("visible");
-  const markerEntry = markerEntries.get(markerElement);
-  if (markerEntry) scheduleClusterUpdate(markerEntry.manager);
-  useMapStore.getState().setSelectedLocationId(data.id);
-  useMapStore.getState().setLastMarker(markerElement);
-  useUIStore.getState().setSelectedLocation({
-    value: data.name,
-    artists: data.artists,
-    streetViewEmbed: data.streetViewEmbed ?? "",
-  });
-  const params = new URLSearchParams(window.location.search);
-
-  params.set("title", songTitle);
-  const query = params.toString();
-  const newUrl = `${window.location.pathname}?${query}`;
-  window.history.pushState({}, "", newUrl);
+  schedule(manager);
 }
 
-function createCustomMarker(
-  data: MappableLocationItem,
-  mapInstance?: mapboxgl.Map,
-) {
-  const markerElement = document.createElement("div");
-  markerElement.classList.add("group");
-  // Mapbox prevents default on mousedown at the marker itself. Stop selectable
-  // gestures on a child so they never reach that listener (or the map's pan).
-  const markerContent = document.createElement("div");
-  markerElement.appendChild(markerContent);
-  const stopSelectableGesturePropagation = (event: Event) => {
-    const target = event.target;
-    if (
-      target instanceof Element &&
-      target.closest("[data-popup-selectable]")
-    ) {
-      event.stopPropagation();
-    }
-  };
-  markerContent.addEventListener(
-    "pointerdown",
-    stopSelectableGesturePropagation,
-  );
-  markerContent.addEventListener("mousedown", stopSelectableGesturePropagation);
-  markerContent.addEventListener(
-    "touchstart",
-    stopSelectableGesturePropagation,
-  );
-
-  const markerRoot = createRoot(markerContent);
-  markerRoots.set(markerElement, markerRoot);
-  const id = `${data.artists.join(", ")}-${data.name}`;
-  const closeMarker = () => {
-    const params = new URLSearchParams(window.location.search);
+function selectedElement(location: MappableLocationItem, manager: Manager) {
+  const element = document.createElement("div");
+  element.className =
+    "z-[2000] w-40 overflow-hidden rounded-[0.65rem] drop-shadow-[0_9px_14px_rgba(0,0,0,0.28)]";
+  element.dataset.song = location.name;
+  const root = createRoot(element);
+  const close = () => {
+    const params = new URLSearchParams(locationSearch());
     params.delete("title");
-    const query = params.toString();
-    const newUrl = query
-      ? `${window.location.pathname}?${query}`
-      : window.location.pathname;
-    window.history.pushState({}, "", newUrl);
-    useUIStore.getState().setSelectedLocation({
-      value: "",
-      artists: [],
-      streetViewEmbed: "",
-    });
-    hidePopup(markerElement);
+    history.pushState(
+      {},
+      "",
+      params.size
+        ? `${window.location.pathname}?${params}`
+        : window.location.pathname,
+    );
+    useUIStore
+      .getState()
+      .setSelectedLocation({ value: "", artists: [], streetViewEmbed: "" });
+    hidePopup(element);
   };
-  markerRoot.render(
+  root.render(
     createElement(
       "div",
       {
         className:
-          "flex w-[5.25rem] flex-col overflow-hidden rounded-[0.65rem] bg-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] transition-[width,filter] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none group-[.visible]:w-40 group-[.visible]:drop-shadow-[0_9px_14px_rgba(0,0,0,0.28)]",
+          "flex w-40 flex-col overflow-hidden rounded-[0.65rem] bg-transparent",
       },
+      createElement(PopupContent, { data: location, onClose: close }),
       createElement(
         "div",
         {
-          className:
-            "max-h-0 w-full origin-bottom translate-y-3 overflow-hidden opacity-0 transition-[max-height,opacity,transform] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] motion-reduce:transition-none group-[.visible]:max-h-64 group-[.visible]:translate-y-0 group-[.visible]:opacity-100",
+          className: "relative h-32 w-full overflow-hidden rounded-b-[0.65rem]",
         },
-        createElement(PopupContent, {
-          data,
-          onClose: closeMarker,
-          onDelete: () => deletePlace(data),
-          onEdit: () => editPlace(data),
-        }),
-      ),
-      createElement(
-        "div",
-        {
-          className:
-            "relative block h-16 w-[4.75rem] cursor-pointer self-center overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 transition-[width,height,transform] duration-[260ms] ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.04] focus-within:scale-[1.04] focus-within:shadow-[0_0_0_3px_rgba(17,24,39,0.45)] motion-reduce:transition-none group-[.visible]:h-32 group-[.visible]:w-full group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem] group-[.visible]:hover:scale-100 group-[.visible]:focus-within:scale-100",
-        },
-        createElement(
-          "button",
-          {
-            type: "button",
-            id,
-            className:
-              "absolute inset-0 block size-full cursor-pointer overflow-hidden rounded-[inherit] border-0 bg-transparent p-0 focus-visible:outline-none",
-            "data-marker-trigger": "",
-            "aria-label": `Show ${data.name} by ${data.artists.join(", ")}`,
-            onClick: () => {
-              const targetMap = mapInstance;
-              if (!targetMap) return;
-              const contentIsVisible =
-                markerElement.classList.contains("visible");
-              const { lastMarker: currentLastMarker } = useMapStore.getState();
-
-              if (!contentIsVisible) {
-                showPopup(currentLastMarker, data, markerElement);
-              }
-            },
+        createElement("img", {
+          src: location.image,
+          alt: "",
+          draggable: false,
+          className: "image-skeleton absolute inset-0 size-full object-cover",
+          onLoad: (event: SyntheticEvent<HTMLImageElement>) => {
+            event.currentTarget.classList.remove("image-skeleton");
           },
-          createElement("img", {
-            src: data.image,
-            alt: "",
-            draggable: false,
-            className:
-              "image-skeleton relative z-[1] block size-full rounded-[0.42rem] object-cover group-[.visible]:rounded-t-none group-[.visible]:rounded-b-[0.65rem]",
-          }),
-          createElement(ChevronUpIcon, {
-            "aria-hidden": true,
-            className:
-              "pointer-events-none absolute top-0 left-3 z-[3] size-5 -translate-x-1/2 text-white drop-shadow-[0_5px_6px_rgba(0,0,0,0.9)] transition-opacity duration-200 group-[.visible]:opacity-0",
-          }),
-        ),
+        }),
         createElement(
           "div",
           {
             className:
-              "pointer-events-none absolute inset-x-0 bottom-0 z-[2] cursor-text select-text bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-left text-white opacity-0 transition-opacity duration-200 group-[.visible]:pointer-events-auto group-[.visible]:opacity-100",
+              "absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-white",
             "data-popup-selectable": "",
           },
           createElement(
             "p",
-            { className: "break-words text-xs leading-tight font-bold" },
-            data.artists.join(", "),
+            { className: "text-xs leading-tight font-bold" },
+            location.artists.join(", "),
           ),
           createElement(
             "p",
-            { className: "break-words text-[0.65rem] leading-tight" },
-            data.name,
+            { className: "text-[0.65rem] leading-tight" },
+            location.name,
           ),
         ),
       ),
     ),
   );
-  markerElement.dataset.artist = data.artists.join(", ");
-  markerElement.dataset.song = data.name;
-  const contributorNames = extractContributorNamesFromLocation(data);
-  if (contributorNames.length > 0) {
-    markerElement.dataset.contributors = contributorNames.join(", ");
-  }
-  return markerElement;
+  manager.element = element;
+  manager.root = root;
+  elementManagers.set(element, manager);
+  return element;
 }
 
-export function addPlace(
-  data: MappableLocationItem,
-  mapInstance?: mapboxgl.Map,
+function locationSearch() {
+  return window.location.search;
+}
+
+export function openLocationPopup(
+  location: MappableLocationItem,
+  map?: mapboxgl.Map | null,
 ) {
-  const targetMap = mapInstance;
-  if (!targetMap) return;
-
-  const markerElement = createCustomMarker(data, targetMap);
-
-  const marker = new mapboxgl.Marker({
-    element: markerElement,
-    anchor: "bottom",
-  })
-    .setLngLat([data.lng, data.lat])
-    .addTo(targetMap);
-
-  const manager = getClusterManager(targetMap);
-  const entry = {
-    id: nextMarkerId++,
-    data,
-    element: markerElement,
-    marker,
-    manager,
-  };
-  manager.entries.push(entry);
-  markerEntries.set(markerElement, entry);
-  scheduleClusterUpdate(manager);
-
-  useMapStore.getState().addMarker(markerElement);
+  if (!map) return;
+  const manager = getManager(map);
+  if (manager.element) hidePopup(manager.element);
+  const element = selectedElement(location, manager);
+  manager.marker = new mapboxgl.Marker({ element, anchor: "bottom" })
+    .setLngLat([location.lng, location.lat])
+    .addTo(map);
+  posthog.capture("view_location", {
+    artists: location.artists.join(", "),
+    songTitle: location.name,
+  });
+  useMapStore.setState({
+    selectedLocationId: location.id,
+    lastMarker: element,
+  });
+  useUIStore.getState().setSelectedLocation({
+    value: location.name,
+    artists: location.artists,
+    streetViewEmbed: location.streetViewEmbed ?? "",
+  });
+  const params = new URLSearchParams(locationSearch());
+  params.set("title", constructTitle(location));
+  history.pushState({}, "", `${window.location.pathname}?${params}`);
+  schedule(manager);
 }
 
-export function hidePopup(marker: HTMLDivElement) {
-  marker.classList.remove("visible");
-  const markerEntry = markerEntries.get(marker);
-  if (markerEntry) scheduleClusterUpdate(markerEntry.manager);
-  marker?.classList.remove("z-[2000]");
+export function addPlace(location: MappableLocationItem, map?: mapboxgl.Map) {
+  if (!map) return;
+  const manager = getManager(map);
+  manager.locations.set(location.id, location);
+  if (manager.ready) queueThumbnail(manager, location);
+  schedule(manager);
+}
+
+export function hidePopup(element: HTMLDivElement) {
+  const manager = elementManagers.get(element);
+  if (!manager) return;
+  elementManagers.delete(element);
+  manager.marker?.remove();
+  manager.root?.unmount();
+  manager.marker = manager.element = manager.root = null;
   useMapStore.getState().clearSelectedLocation();
-}
-
-function editPlace(data: MappableLocationItem) {
-  useNewLocationStore.getState().setEditLocation(data);
-  useUIStore.getState().setNewLocationModalOpen(true);
-}
-
-function deletePlace(data: MappableLocationItem) {
-  const marker = document.querySelector(`[data-song="${data.name}"]`);
-  if (marker && marker instanceof HTMLDivElement) {
-    const entry = markerEntries.get(marker);
-    if (entry) {
-      entry.manager.entries = entry.manager.entries.filter(
-        (candidate) => candidate !== entry,
-      );
-      entry.marker.remove();
-      scheduleClusterUpdate(entry.manager);
-      markerEntries.delete(marker);
-    }
-    const markerRoot = markerRoots.get(marker);
-    if (markerRoot && typeof markerRoot.unmount === "function")
-      markerRoot.unmount();
-    markerRoots.delete(marker);
-    useMapStore.setState((state) => ({
-      allMarkers: state.allMarkers.filter((item) => item !== marker),
-    }));
-    if (!entry) marker.remove();
-  }
+  schedule(manager);
 }

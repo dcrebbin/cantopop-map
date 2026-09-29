@@ -5,6 +5,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import {
   type LocationItem,
+  type MappableLocationItem,
   MAP_LOCATIONS,
   nameToLocation,
 } from "../common/lib";
@@ -13,7 +14,7 @@ import Appbar from "./appbar";
 import LocationButton from "./location-button";
 import Menu from "./menu";
 import NewLocationModal from "./new-location-modal";
-import { addPlace } from "~/lib/custom-map";
+import { addPlace, openLocationPopup } from "~/lib/custom-map";
 import StreetView from "./street-view";
 import { useUIStore } from "../_state/ui.store";
 import PwaTutorial from "./pwa-tutorial";
@@ -32,12 +33,14 @@ const MAP_ZOOM = 10;
 
 function hasValidCoordinates(
   location: LocationItem | null | undefined,
-): location is LocationItem & { lat: number; lng: number } {
+): location is MappableLocationItem {
   return (
+    typeof location?.address === "string" &&
     typeof location?.lat === "number" &&
     Number.isFinite(location.lat) &&
     typeof location.lng === "number" &&
-    Number.isFinite(location.lng)
+    Number.isFinite(location.lng) &&
+    location.hidden === false
   );
 }
 
@@ -71,7 +74,6 @@ export default function HomePage({ location }: { location?: LocationItem }) {
       newMap.remove();
       useMapStore.setState({
         map: null,
-        allMarkers: [],
         markerDebugStats: null,
         lastMarker: null,
         selectedLocationId: null,
@@ -82,31 +84,12 @@ export default function HomePage({ location }: { location?: LocationItem }) {
 
   useEffect(() => {
     if (!map) return;
-    let initialLocation: LocationItem | null = null;
-    let retryCount = 0;
-    let retryTimeoutId: number | null = null;
-
-    const tryOpenInitialPopup = (targetLocation: LocationItem) => {
+    let initialLocation: MappableLocationItem | null = null;
+    let creditsLocation: LocationItem | null = null;
+    const tryOpenInitialPopup = (targetLocation: MappableLocationItem) => {
       if (hasOpenedInitialPopupRef.current) return;
-
-      const marker = useMapStore
-        .getState()
-        .allMarkers.find((item) => item.dataset.song === targetLocation.name);
-      const clickableMarkerImage = marker?.querySelector(
-        "[data-marker-trigger]",
-      );
-
-      if (clickableMarkerImage instanceof HTMLElement) {
-        clickableMarkerImage.click();
-        hasOpenedInitialPopupRef.current = true;
-        return;
-      }
-
-      if (retryCount >= 10) return;
-      retryCount += 1;
-      retryTimeoutId = window.setTimeout(() => {
-        tryOpenInitialPopup(targetLocation);
-      }, 100);
+      openLocationPopup(targetLocation, map);
+      hasOpenedInitialPopupRef.current = true;
     };
 
     if (hasValidCoordinates(location)) {
@@ -115,6 +98,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
       map.setZoom(15);
       toast(`Zoomed to ${location.name}`);
     } else if (location) {
+      creditsLocation = location;
       useUIStore.getState().setSelectedLocationCredits(location);
     }
 
@@ -134,16 +118,13 @@ export default function HomePage({ location }: { location?: LocationItem }) {
           streetViewEmbed: queryLocation.streetViewEmbed ?? "",
         });
       } else if (queryLocation) {
-        initialLocation = queryLocation;
+        creditsLocation = queryLocation;
         useUIStore.getState().setSelectedLocationCredits(queryLocation);
       }
       const viewCredits = url.get("view-credits");
-      if (viewCredits && initialLocation) {
-        useUIStore
-          .getState()
-          .setSelectedLocationCredits(
-            initialLocation as unknown as LocationItem,
-          );
+      const locationForCredits = creditsLocation ?? initialLocation;
+      if (viewCredits && locationForCredits) {
+        useUIStore.getState().setSelectedLocationCredits(locationForCredits);
       }
     }
 
@@ -151,11 +132,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
       tryOpenInitialPopup(initialLocation);
     }
 
-    return () => {
-      if (retryTimeoutId) {
-        clearTimeout(retryTimeoutId);
-      }
-    };
+    return undefined;
   }, [map, location]);
 
   return (

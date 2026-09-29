@@ -15,9 +15,6 @@ interface MapState {
   setSelectedLocationId: (id: string) => void;
   clearSelectedLocation: () => void;
   lastMarker: HTMLDivElement | null;
-  setLastMarker: (marker: HTMLDivElement) => void;
-  allMarkers: HTMLDivElement[];
-  addMarker: (marker: HTMLDivElement) => void;
   markerDebugStats: MarkerDebugStats | null;
   map: mapboxgl.Map | null;
   setMap: (map: mapboxgl.Map) => void;
@@ -31,10 +28,6 @@ export const useMapStore = create<MapState>((set) => ({
   clearSelectedLocation: () =>
     set({ selectedLocationId: null, lastMarker: null }),
   lastMarker: null,
-  setLastMarker: (marker: HTMLDivElement) => set({ lastMarker: marker }),
-  allMarkers: [],
-  addMarker: (marker: HTMLDivElement) =>
-    set((state) => ({ allMarkers: [...state.allMarkers, marker] })),
   markerDebugStats: null,
   map: null,
   setMap: (map: mapboxgl.Map) => set({ map }),

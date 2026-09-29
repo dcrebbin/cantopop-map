@@ -17,7 +17,6 @@ import { Route as IndexRouteImport } from './app/index'
 import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
 import { Route as RobotsTxtRouteImport } from './app/robots.txt'
 import { Route as LocationsSlugRouteImport } from './app/locations/$slug'
-import { Route as ApiProxyRouteImport } from './app/api/proxy'
 import { Route as ApiLocationReverseRouteImport } from './app/api/location/reverse'
 import { Route as ApiLocationAddressRouteImport } from './app/api/location/address'
 
@@ -61,11 +60,6 @@ const LocationsSlugRoute = LocationsSlugRouteImport.update({
   path: '/locations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiProxyRoute = ApiProxyRouteImport.update({
-  id: '/api/proxy',
-  path: '/api/proxy',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiLocationReverseRoute = ApiLocationReverseRouteImport.update({
   id: '/api/location/reverse',
   path: '/api/location/reverse',
@@ -83,7 +77,6 @@ export interface FileRoutesByFullPath {
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
-  '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -96,7 +89,6 @@ export interface FileRoutesByTo {
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
-  '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -110,7 +102,6 @@ export interface FileRoutesById {
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
   '/srt-quantize': typeof SrtQuantizeRoute
-  '/api/proxy': typeof ApiProxyRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/robots/txt': typeof RobotsTxtRoute
   '/sitemap/xml': typeof SitemapXmlRoute
@@ -125,7 +116,6 @@ export interface FileRouteTypes {
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
-    | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
@@ -138,7 +128,6 @@ export interface FileRouteTypes {
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
-    | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
@@ -151,7 +140,6 @@ export interface FileRouteTypes {
     | '/jobs'
     | '/leaderboard'
     | '/srt-quantize'
-    | '/api/proxy'
     | '/locations/$slug'
     | '/robots/txt'
     | '/sitemap/xml'
@@ -165,7 +153,6 @@ export interface RootRouteChildren {
   JobsRoute: typeof JobsRoute
   LeaderboardRoute: typeof LeaderboardRoute
   SrtQuantizeRoute: typeof SrtQuantizeRoute
-  ApiProxyRoute: typeof ApiProxyRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   RobotsTxtRoute: typeof RobotsTxtRoute
   SitemapXmlRoute: typeof SitemapXmlRoute
@@ -231,13 +218,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/proxy': {
-      id: '/api/proxy'
-      path: '/api/proxy'
-      fullPath: '/api/proxy'
-      preLoaderRoute: typeof ApiProxyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/api/location/reverse': {
       id: '/api/location/reverse'
       path: '/api/location/reverse'
@@ -261,7 +241,6 @@ const rootRouteChildren: RootRouteChildren = {
   JobsRoute: JobsRoute,
   LeaderboardRoute: LeaderboardRoute,
   SrtQuantizeRoute: SrtQuantizeRoute,
-  ApiProxyRoute: ApiProxyRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   RobotsTxtRoute: RobotsTxtRoute,
   SitemapXmlRoute: SitemapXmlRoute,
