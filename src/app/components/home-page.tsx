@@ -45,14 +45,16 @@ export default function HomePage({ location }: { location?: LocationItem }) {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const hasOpenedInitialPopupRef = useRef(false);
 
-  const { gameOpen, setTaiPoModalHasSeen } = useUIStore();
+  const gameOpen = useUIStore((state) => state.gameOpen);
 
-  const { map, setMap } = useMapStore();
+  const map = useMapStore((state) => state.map);
+  const setMap = useMapStore((state) => state.setMap);
 
-  const handleMapContainerRef = (node: HTMLDivElement | null) => {
-    if (!node || map) return;
+  useEffect(() => {
+    hasOpenedInitialPopupRef.current = false;
+    const node = mapContainer.current;
+    if (!node) return;
     if (!mapboxAccessToken) return;
-    mapContainer.current = node;
 
     const newMap = new mapboxgl.Map({
       container: node,
@@ -65,7 +67,18 @@ export default function HomePage({ location }: { location?: LocationItem }) {
     for (const location of MAP_LOCATIONS) {
       addPlace(location, newMap);
     }
-  };
+    return () => {
+      newMap.remove();
+      useMapStore.setState({
+        map: null,
+        allMarkers: [],
+        markerDebugStats: null,
+        lastMarker: null,
+        selectedLocationId: null,
+        personalMarker: null,
+      });
+    };
+  }, [setMap]);
 
   useEffect(() => {
     if (!map) return;
@@ -160,7 +173,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
         <CreditsModal />
         {gameOpen && <StreetView />}
 
-        <div ref={handleMapContainerRef} className="map-container relative" />
+        <div ref={mapContainer} className="map-container relative" />
       </div>
     </div>
   );

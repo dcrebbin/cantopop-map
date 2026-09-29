@@ -18,7 +18,7 @@ import {
 } from "react";
 import { LOCATIONS, type LocationItem } from "./common/lib";
 import { youtubeVideoId } from "./common/youtube-video-id";
-import discoverVideoIds from "../data/discover-video-ids";
+import { discoverList } from "../data/discover-list";
 import { getInstagramByName } from "./common/social-media";
 import { loadYoutubePlayer, type YoutubePlayer } from "./common/youtube-player";
 import { YoutubePlayback } from "./common/youtube-playback";
@@ -308,9 +308,17 @@ function DscvrPage() {
         return id ? [[id, location] as const] : [];
       }),
     );
-    return discoverVideoIds.flatMap((id) => {
-      const location = locationsByVideoId.get(id);
-      return location ? [location] : [];
+    return discoverList.flatMap((item) => {
+      const location = locationsByVideoId.get(item.id);
+      if (!location) return [];
+      return [
+        {
+          ...location,
+          artists: [...item.artists],
+          name: item.title,
+          url: item.url,
+        },
+      ];
     });
   }, []);
   const feedLocations = useMemo(

@@ -10,6 +10,11 @@ Alternatively, you can submit an issue with the location information or email me
 
 ## Local HTTPS Development
 
+React Scan loads automatically during development (`npm run dev` or
+`npm run dev:https`). Use its toolbar to highlight component renders and inspect
+render performance. The pinned script loads from unpkg, so it requires an internet
+connection. Production builds exclude it.
+
 1. Install [`mkcert`](https://github.com/FiloSottile/mkcert#installation) and run `mkcert -install` once to trust its certificate authority.
 2. Generate certificates in the project root:
    ```bash

@@ -140,7 +140,8 @@ export default function Menu() {
     setSelectedLocationCredits,
   } = useUIStore();
 
-  const { allMarkers, map } = useMapStore();
+  const allMarkers = useMapStore((state) => state.allMarkers);
+  const map = useMapStore((state) => state.map);
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
   const [menuAnimation, dispatchMenuAnimation] = useReducer(

@@ -1,5 +1,15 @@
 import { create } from "zustand";
 
+export interface MarkerDebugStats {
+  totalLocations: number;
+  filteredLocations: number;
+  standaloneMarkers: number;
+  clusterMarkers: number;
+  clusteredLocations: number;
+  renderedMarkers: number;
+  zoom: number;
+}
+
 interface MapState {
   selectedLocationId: string | null;
   setSelectedLocationId: (id: string) => void;
@@ -8,6 +18,7 @@ interface MapState {
   setLastMarker: (marker: HTMLDivElement) => void;
   allMarkers: HTMLDivElement[];
   addMarker: (marker: HTMLDivElement) => void;
+  markerDebugStats: MarkerDebugStats | null;
   map: mapboxgl.Map | null;
   setMap: (map: mapboxgl.Map) => void;
   personalMarker: mapboxgl.Marker | null;
@@ -24,6 +35,7 @@ export const useMapStore = create<MapState>((set) => ({
   allMarkers: [],
   addMarker: (marker: HTMLDivElement) =>
     set((state) => ({ allMarkers: [...state.allMarkers, marker] })),
+  markerDebugStats: null,
   map: null,
   setMap: (map: mapboxgl.Map) => set({ map }),
   personalMarker: null,

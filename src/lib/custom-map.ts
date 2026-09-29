@@ -13,11 +13,15 @@ import { PopupContent } from "~/app/components/map/PopupContent";
 import posthog from "posthog-js";
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 
+import { groupNearbyPoints } from "./marker-groups";
+
 const markerRoots = new WeakMap<HTMLDivElement, Root>();
-const CLUSTER_RADIUS_PX = 28;
+const CLUSTER_RADIUS_PX = 36;
+let nextMarkerId = 0;
 const MAX_CLUSTER_ZOOM = 18;
 
 interface MarkerEntry {
+  id: number;
   data: MappableLocationItem;
   element: HTMLDivElement;
   marker: mapboxgl.Marker;
@@ -33,7 +37,7 @@ interface MarkerGroup {
 interface ClusterManager {
   map: mapboxgl.Map;
   entries: MarkerEntry[];
-  clusterMarkers: mapboxgl.Marker[];
+  clusterMarkers: Map<string, mapboxgl.Marker>;
   animationFrame: number | null;
   update: () => void;
 }
@@ -97,49 +101,28 @@ function createClusterElement(group: MarkerGroup, targetMap: mapboxgl.Map) {
 
 function renderClusters(manager: ClusterManager) {
   manager.animationFrame = null;
-  for (const clusterMarker of manager.clusterMarkers) clusterMarker.remove();
-  manager.clusterMarkers = [];
-
   const visibleEntries = manager.entries.filter(
     (entry) => entry.element.dataset.filterHidden !== "true",
   );
-
-  for (const entry of manager.entries) {
-    entry.element.style.display =
-      entry.element.dataset.filterHidden === "true" ? "none" : "block";
-  }
-
-  if (manager.map.getZoom() > MAX_CLUSTER_ZOOM) return;
-
-  const groups: MarkerGroup[] = [];
-  for (const entry of visibleEntries) {
-    if (entry.element.classList.contains("visible")) continue;
-    const point = manager.map.project([entry.data.lng, entry.data.lat]);
-    let closestGroup: MarkerGroup | undefined;
-    let closestDistance = Number.POSITIVE_INFINITY;
-
-    for (const group of groups) {
-      const distance = Math.hypot(point.x - group.x, point.y - group.y);
-      if (distance <= CLUSTER_RADIUS_PX && distance < closestDistance) {
-        closestGroup = group;
-        closestDistance = distance;
-      }
-    }
-
-    if (!closestGroup) {
-      groups.push({ entries: [entry], x: point.x, y: point.y });
-      continue;
-    }
-
-    closestGroup.entries.push(entry);
-    const groupSize = closestGroup.entries.length;
-    closestGroup.x += (point.x - closestGroup.x) / groupSize;
-    closestGroup.y += (point.y - closestGroup.y) / groupSize;
-  }
+  const groups =
+    manager.map.getZoom() > MAX_CLUSTER_ZOOM
+      ? []
+      : groupNearbyPoints(
+          visibleEntries.filter(
+            (entry) => !entry.element.classList.contains("visible"),
+          ),
+          (entry) => manager.map.project([entry.data.lng, entry.data.lat]),
+          CLUSTER_RADIUS_PX,
+        );
+  const clusteredEntries = new Set<MarkerEntry>();
+  const activeClusters = new Set<string>();
 
   for (const group of groups) {
     if (group.entries.length < 2) continue;
-    for (const entry of group.entries) entry.element.style.display = "none";
+    for (const entry of group.entries) clusteredEntries.add(entry);
+    const key = group.entries.map((entry) => entry.id).join(",");
+    activeClusters.add(key);
+    if (manager.clusterMarkers.has(key)) continue;
 
     const element = createClusterElement(group, manager.map);
     if (!element) continue;
@@ -156,7 +139,37 @@ function renderClusters(manager: ClusterManager) {
     // Mapbox labels custom marker elements as images by default. This one is
     // interactive, so restore its native button semantics after construction.
     element.setAttribute("role", "button");
-    manager.clusterMarkers.push(clusterMarker);
+    manager.clusterMarkers.set(key, clusterMarker);
+  }
+  for (const [key, marker] of manager.clusterMarkers) {
+    if (!activeClusters.has(key)) {
+      marker.remove();
+      manager.clusterMarkers.delete(key);
+    }
+  }
+  for (const entry of manager.entries) {
+    const display =
+      entry.element.dataset.filterHidden === "true" ||
+      clusteredEntries.has(entry)
+        ? "none"
+        : "block";
+    if (entry.element.style.display !== display)
+      entry.element.style.display = display;
+  }
+
+  if (import.meta.env.VITE_REACT_SCAN === "true") {
+    const standaloneMarkers = visibleEntries.length - clusteredEntries.size;
+    useMapStore.setState({
+      markerDebugStats: {
+        totalLocations: manager.entries.length,
+        filteredLocations: visibleEntries.length,
+        standaloneMarkers,
+        clusterMarkers: manager.clusterMarkers.size,
+        clusteredLocations: clusteredEntries.size,
+        renderedMarkers: standaloneMarkers + manager.clusterMarkers.size,
+        zoom: manager.map.getZoom(),
+      },
+    });
   }
 }
 
@@ -174,13 +187,35 @@ function getClusterManager(map: mapboxgl.Map) {
   const manager: ClusterManager = {
     map,
     entries: [],
-    clusterMarkers: [],
+    clusterMarkers: new Map(),
     animationFrame: null,
     update: () => scheduleClusterUpdate(manager),
   };
   clusterManagers.set(map, manager);
   map.on("moveend", manager.update);
   map.on("resize", manager.update);
+  map.once("remove", () => {
+    if (manager.animationFrame !== null)
+      window.cancelAnimationFrame(manager.animationFrame);
+    map.off("moveend", manager.update);
+    map.off("resize", manager.update);
+    for (const entry of manager.entries) {
+      const root = markerRoots.get(entry.element);
+      // Map removal can run during the parent React root's cleanup.
+      // Unmount independent marker roots after that commit has finished.
+      if (root) queueMicrotask(() => root.unmount());
+      markerRoots.delete(entry.element);
+      markerEntries.delete(entry.element);
+      entry.marker.remove();
+    }
+    for (const marker of manager.clusterMarkers.values()) marker.remove();
+    manager.entries = [];
+    manager.clusterMarkers.clear();
+    clusterManagers.delete(map);
+    if (import.meta.env.VITE_REACT_SCAN === "true") {
+      useMapStore.setState({ markerDebugStats: null });
+    }
+  });
   return manager;
 }
 
@@ -378,7 +413,13 @@ export function addPlace(
     .addTo(targetMap);
 
   const manager = getClusterManager(targetMap);
-  const entry = { data, element: markerElement, marker, manager };
+  const entry = {
+    id: nextMarkerId++,
+    data,
+    element: markerElement,
+    marker,
+    manager,
+  };
   manager.entries.push(entry);
   markerEntries.set(markerElement, entry);
   scheduleClusterUpdate(manager);
@@ -414,6 +455,10 @@ function deletePlace(data: MappableLocationItem) {
     const markerRoot = markerRoots.get(marker);
     if (markerRoot && typeof markerRoot.unmount === "function")
       markerRoot.unmount();
+    markerRoots.delete(marker);
+    useMapStore.setState((state) => ({
+      allMarkers: state.allMarkers.filter((item) => item !== marker),
+    }));
     if (!entry) marker.remove();
   }
 }

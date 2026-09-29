@@ -50,7 +50,8 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "react-doctor": "^0.5.1",
     "tailwindcss": "^4.3.0",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "react-scan": "^0.5.7"
   },
   "ct3aMetadata": {
     "initVersion": "7.37.0"
