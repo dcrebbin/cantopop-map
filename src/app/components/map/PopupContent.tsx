@@ -73,7 +73,7 @@ export function PopupContent({
   const { setSelectedLocationCredits } = useUIStore();
 
   const actionButtons = (
-    <div className="mt-7 flex h-2 w-full items-center justify-center gap-2 text-black">
+    <div className="mt-7 flex h-2 left-2 w-full items-center justify-center gap-2 text-black">
       <a
         href={data.url}
         target="_blank"
@@ -113,6 +113,7 @@ export function PopupContent({
     <div
       className="relative flex w-full select-text flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
       tabIndex={-1}
+      data-test="hjhjhj"
       data-song={`popup-${data.name}`}
       data-popup-selectable=""
     >

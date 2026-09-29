@@ -538,7 +538,11 @@ export function openLocationPopup(
   const manager = getManager(map);
   if (manager.element) hidePopup(manager.element);
   const element = selectedElement(location, manager);
-  manager.marker = new mapboxgl.Marker({ element, anchor: "bottom" })
+  manager.marker = new mapboxgl.Marker({
+    element,
+    anchor: "bottom",
+    offset: [0, 35],
+  })
     .setLngLat([location.lng, location.lat])
     .addTo(map);
   posthog.capture("view_location", {
