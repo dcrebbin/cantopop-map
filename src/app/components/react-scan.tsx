@@ -10,12 +10,7 @@ export default function ReactScan() {
     if (!reactScanEnabled || typeof window === "undefined") {
       return;
     }
-
-    void import("react-scan").then(({ scan }) => {
-      scan({ enabled: true, showToolbar: true, log: false });
-    });
   }, []);
-
   if (!reactScanEnabled) return null;
 
   return (
