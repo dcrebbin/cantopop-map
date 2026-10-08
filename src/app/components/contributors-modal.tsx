@@ -8,8 +8,12 @@ import {
   humanizeRoleKey,
   type ContributorCredit,
   type LocationItem,
-} from "../common/locations";
-import { ShareIcon, XMarkIcon } from "@heroicons/react/24/outline";
+} from "../common/lib";
+import {
+  ArrowLeftIcon,
+  ShareIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { nameToInstagramMap } from "../common/social-media";
 import { InstagramIcon } from "~/lib/icons/instagramIcon";
 
@@ -37,13 +41,15 @@ function getRolesForPerson(
   contributorDisplayName: string,
 ): string[] {
   if (!bucket) return [];
+  const normalizedContributorDisplayName = contributorDisplayName.toLowerCase();
   const roles: string[] = [];
   for (const roleKey of Object.keys(bucket)) {
     const people = bucket[roleKey] ?? [];
     if (
       people.some(
         (person) =>
-          getContributorDisplayName(person) === contributorDisplayName,
+          getContributorDisplayName(person).toLowerCase() ===
+          normalizedContributorDisplayName,
       )
     ) {
       roles.push(humanizeRoleKey(roleKey));
@@ -68,6 +74,9 @@ export default function ContributorsModal() {
     selectedContributor,
     setSelectedContributor,
     setSelectedLocationCredits,
+    setMenuOpen,
+    contributorCreditsOrigin,
+    setContributorCreditsOrigin,
   } = useUIStore();
 
   const contributions = useMemo<Contribution[]>(() => {
@@ -120,9 +129,21 @@ export default function ContributorsModal() {
 
   if (!selectedContributor) return null;
 
+  function returnToContributors() {
+    if (contributorCreditsOrigin) {
+      showLocationCredits(contributorCreditsOrigin);
+      return;
+    }
+
+    setSelectedContributor(null);
+    setMenuOpen(true);
+    removeContributorModalUrl();
+  }
+
   function showLocationCredits(location: LocationItem) {
     setSelectedLocationCredits(location);
     setSelectedContributor(null);
+    setContributorCreditsOrigin(null);
 
     const url = new URL(window.location.href);
     url.searchParams.delete("view-portfolio");
@@ -184,17 +205,30 @@ export default function ContributorsModal() {
               {contributions.length === 1 ? "song" : "songs"}
             </p>
           </div>
-          <button
-            type="button"
-            aria-label="Close"
-            className="rounded-full p-1 hover:bg-white/10"
-            onClick={() => {
-              setSelectedContributor(null);
-              removeContributorModalUrl();
-            }}
-          >
-            <XMarkIcon className="size-6" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              aria-label={`Back to ${
+                contributorCreditsOrigin ? "credits" : "contributors"
+              }`}
+              className="rounded-full p-1 hover:bg-white/10"
+              onClick={returnToContributors}
+            >
+              <ArrowLeftIcon className="size-6" />
+            </button>
+            <button
+              type="button"
+              aria-label="Close"
+              className="rounded-full p-1 hover:bg-white/10"
+              onClick={() => {
+                setSelectedContributor(null);
+                setContributorCreditsOrigin(null);
+                removeContributorModalUrl();
+              }}
+            >
+              <XMarkIcon className="size-6" />
+            </button>
+          </div>
         </div>
 
         {(roleSummary.song.size > 0 || roleSummary.musicVideo.size > 0) && (
@@ -267,7 +301,7 @@ export default function ContributorsModal() {
                         alt={c.location.name}
                         width={160}
                         height={90}
-                        className="aspect-video h-20 w-auto rounded object-contain"
+                        className="image-skeleton aspect-video h-20 w-auto rounded object-contain"
                         style={{ aspectRatio: "16/9" }}
                       />
                     </a>

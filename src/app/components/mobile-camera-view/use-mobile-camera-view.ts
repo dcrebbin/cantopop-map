@@ -2,7 +2,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
-import { MAP_LOCATIONS } from "../../common/locations";
+import { MAP_LOCATIONS } from "../../common/lib";
 import { useUIStore } from "../../_state/ui.store";
 import {
   type AnnotatedLocation,

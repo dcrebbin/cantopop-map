@@ -48,12 +48,12 @@ import {
   constructTitle,
   nameToLocation,
   SONGS,
-} from "../common/locations";
+} from "../common/lib";
+import { setMarkerFilters } from "~/lib/custom-map";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
 import { SvgIcon } from "./map/PopupContent";
 import { arrowIcon } from "~/lib/icons/arrowIcon";
 import {
-  ArrowDownIcon,
   ArrowDownTrayIcon,
   ChevronDownIcon,
   XMarkIcon,
@@ -79,16 +79,6 @@ const MENU_ANIMATION_MS = 300;
 
 function includesQuery(text: string, query: string) {
   return text.includes(query);
-}
-
-function setsOverlap(left: Set<string>, right: Set<string>) {
-  if (left.size === 0 || right.size === 0) return false;
-  const [smaller, larger] =
-    left.size <= right.size ? [left, right] : [right, left];
-  for (const value of smaller) {
-    if (larger.has(value)) return true;
-  }
-  return false;
 }
 
 const SearchInput = memo(function SearchInput({
@@ -140,7 +130,7 @@ export default function Menu() {
     setSelectedLocationCredits,
   } = useUIStore();
 
-  const { allMarkers, map } = useMapStore();
+  const map = useMapStore((state) => state.map);
   const isOnMobile = useIsOnMobile();
   const hasAppliedUrlFiltersRef = useRef(false);
   const [menuAnimation, dispatchMenuAnimation] = useReducer(
@@ -155,33 +145,9 @@ export default function Menu() {
   }));
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
-      const selectedArtistSet = new Set(nextSelectedArtists);
-      const selectedContributorSet = new Set(nextSelectedContributors);
-
-      for (const marker of allMarkers) {
-        const markerArtistSet = new Set(
-          marker.dataset.artist?.split(", ") ?? [],
-        );
-        const markerContributorSet = new Set(
-          marker.dataset.contributors?.split(", ") ?? [],
-        );
-
-        const hasArtistFilter = nextSelectedArtists.length > 0;
-        const hasContributorFilter = nextSelectedContributors.length > 0;
-
-        const artistMatch =
-          hasArtistFilter && setsOverlap(selectedArtistSet, markerArtistSet);
-
-        const contributorMatch =
-          hasContributorFilter &&
-          setsOverlap(selectedContributorSet, markerContributorSet);
-
-        const hasAnyFilter = hasArtistFilter || hasContributorFilter;
-        const shouldShow = !hasAnyFilter || artistMatch || contributorMatch;
-        marker.style.display = shouldShow ? "block" : "none";
-      }
+      setMarkerFilters(map, nextSelectedArtists, nextSelectedContributors);
     },
-    [allMarkers],
+    [map],
   );
 
   const syncFiltersToUrl = useCallback(
@@ -410,19 +376,8 @@ export default function Menu() {
   }
 
   useEffect(() => {
-    if (selectedArtists.length === 0 && selectedContributors.length === 0) {
-      for (const marker of allMarkers) {
-        marker.style.display = "block";
-      }
-    } else {
-      updateMarkerVisibility(selectedArtists, selectedContributors);
-    }
-  }, [
-    allMarkers,
-    selectedArtists,
-    selectedContributors,
-    updateMarkerVisibility,
-  ]);
+    updateMarkerVisibility(selectedArtists, selectedContributors);
+  }, [map, selectedArtists, selectedContributors, updateMarkerVisibility]);
 
   useEffect(() => {
     if (!hasAppliedUrlFiltersRef.current) return;
@@ -581,7 +536,7 @@ export default function Menu() {
       </div>
       {menuAnimation.rendered && (
         <div
-          className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-180 lg:w-120 lg:bg-black/20 ${
+          className={`absolute top-0 right-0 z-10 -mt-1 max-h-screen w-screen rounded-md border-[3px] border-white bg-black/40 p-2 drop-shadow-md backdrop-blur-md transition-transform duration-300 ease-out motion-reduce:transition-none lg:max-h-180 lg:w-120 ${
             menuAnimation.animatedOpen
               ? "translate-x-0"
               : "pointer-events-none translate-x-full motion-reduce:translate-x-0"

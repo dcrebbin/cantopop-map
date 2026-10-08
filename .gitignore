@@ -7,12 +7,16 @@
 
 # testing
 /coverage
+/.cache
 
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal
 db.sqlite
 
+/modules/yt-dlp
+
+/custom/*.ttf
 # next.js
 /.next/
 /out/

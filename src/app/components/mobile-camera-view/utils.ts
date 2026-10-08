@@ -1,4 +1,4 @@
-import type { LocationItem } from "../../common/locations";
+import type { LocationItem } from "../../common/lib";
 
 export const DEG2RAD = Math.PI / 180;
 export const RAD2DEG = 180 / Math.PI;

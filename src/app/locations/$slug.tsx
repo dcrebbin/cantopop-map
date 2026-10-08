@@ -5,7 +5,7 @@ import {
   humanizeRoleKey,
   nameToLocation,
   type ContributorCredit,
-} from "~/app/common/locations";
+} from "~/app/common/lib";
 import { nameToInstagramMap } from "~/app/common/social-media";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import DynamicHomePage from "~/app/components/dynamic-home-page";
@@ -92,7 +92,8 @@ function LocationPage() {
     ? location?.url.split("youtu.be/")[1]?.split("?")[0]
     : location?.url.split("v=")[1]?.split("&")[0];
 
-  const time = location?.url.split("?t=")[1]?.split("&")[0];
+  const urlTime = location.url.split("?t=")[1]?.split("&")[0];
+  const time = location.hookTime ?? urlTime;
 
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
@@ -171,7 +172,7 @@ function LocationPage() {
         className="fixed z-95 flex h-screen w-screen flex-col items-center justify-center bg-black/30"
         id="location-modal"
       >
-        <div className="mb-10 mt-28 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-240 xl:w-7xl 2xl:w-360">
+        <div className="mt-28 mb-10 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-240 xl:w-7xl 2xl:w-360">
           <JsonLdScript data={jsonLd} />
           <div className="flex w-full flex-row items-center justify-between">
             <h1 className="text-xl font-semibold">
@@ -196,7 +197,7 @@ function LocationPage() {
               <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
                 {videoId ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${videoId}?start=${time}`}
+                    src={`https://www.youtube.com/embed/${videoId}${time !== undefined ? `?start=${time}` : ""}`}
                     width="100%"
                     height="100%"
                     title="Youtube Video"

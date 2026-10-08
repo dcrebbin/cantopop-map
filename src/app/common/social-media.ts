@@ -1,5 +1,8 @@
 export const nameToInstagramMap = {
   "Kiri T": "kiri_thy",
+  "6": "maubolung",
+  "雷暐樂 Peter Lui": "lui.wailok",
+  Kaelyn: "kaelynloveletters",
   "moon tang": "moonstyles_",
   "Nancy Kwai": "nancykwai",
   "Cloud 雲浩影": "cloudwann",
@@ -7,6 +10,7 @@ export const nameToInstagramMap = {
   "Gordon Flanders": "gordon4x",
   "Agnes Kahei": "AGNESCKH",
   "Edan 呂爵安": "edanlui",
+  Hanghang: "hiavmy",
   Zpecial: "zpecial_hk",
   "DAY 許軼": "6y_day",
   "MC 張天賦": "mcheung1201",
@@ -142,6 +146,7 @@ export const nameToInstagramMap = {
   "Jacky Suen": "jackysuench",
   "David Fok": "_david_fok_",
   Yulam: "yulam.fung",
+  Eastwindgoodart: "eastwindgoodart",
   "Leo Li": "leoliu_hk",
   Maia: "mariadonnadaza",
   "Matt Chow": "iammattchow",
@@ -437,7 +442,7 @@ export const nameToInstagramMap = {
   "Alvin Chu": "west_chu",
   "Edwin Tay": "tatt.mr.raccoon",
   Cow10: "cow10_",
-  "Edwardo Chan": "edwardochan",
+  Edwardo: "edwardochan",
   "Effy Leung": "effy_leunggggg",
   "Jim Chow": "j_pt_trainer",
   "Hero Pun": "hero.punk.oficial",
@@ -462,6 +467,7 @@ export const nameToInstagramMap = {
   "Rachael Leung": "rachellyt",
   "Mag Lam": "maglam_",
   "Pik Yi": "pikyilee",
+  Heily: "heiheibibii",
   Estelle: "estelleeee1",
   Mandy: "hymannndy",
   "Sum Tik": "sumtik",
@@ -477,12 +483,32 @@ export const nameToInstagramMap = {
   "Joey Young": "youngjoey32",
   "Nic Ko": "nickoletsgo",
   "Lele Cheung": "lelecheung_",
-  Eastwindgoodart: "eastwindgoodart",
   "Fanshu.F": "fanshu.f",
   "Sam Leung": "midwin_",
+  "陳健安 On Chan": "on_callstar",
+  "EGG 黃詠霖": "011011_egg",
   "To Tsz Kin": "totszkin_",
   "Miko Chan": "gwiyomimiko",
+  "Rinka 蔡若琳": "rinkabreadko",
+  "Kare 孫詠嵐": "kare.suen",
+  "張蔓莎 Sabrina Cheung": "sabrinasa",
   "Kingjin Cheung": "kingjin.cheung",
+  wui4sing1: "wui4sing1",
+  "J Jelly": "jjforjelly",
+  "$alty Chick鹽焗雞": "saltychick44",
+  Abby艾比: "punpun_abbyv3v",
+  "Paul Kwan 關立": "paulkwanpk",
+  "Cozy Syndrome": "cozy_syndrome",
+  "Vincy 蘇詠淳": "vincysoooo",
+  "范卓賢 Jacky Fan": "j.fcy",
+  "丘藍 YauLam": "yaulammmm",
+  阿O: "oooqe_",
+  "林靜翬 winifai": "winifai",
+  "Helen So 蘇凱倫": "sohoilun",
+  "Anna hisbbuR": "annahisbbur",
+  "HOPUI 何佩": "ho_pui",
+  "dessy 守一": "dcdessy",
+  WHIZZ: "whizz_hk",
   "Emmy Tam": "emmy_tam",
   "Vanko Ng": "vankco",
   "Cavin Lam": "cavin_creations",
@@ -584,8 +610,29 @@ export const nameToInstagramMap = {
   "Melody Fong": "melody.fong",
   "Tommy Tse": "tommytse_draw",
   Nosylxu: "nosylxu",
-  "J Jelly": "jjforjelly",
   "Travis Good": "travisgoood",
   Wenan: "wenan____",
   WanillaCoco: "wanillacoco",
 };
+
+function normalizeContributorName(name: string) {
+  return name
+    .normalize("NFKC")
+    .split("@")[0]
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLocaleLowerCase();
+}
+
+const normalizedNameToInstagramMap = new Map(
+  Object.entries(nameToInstagramMap).map(([name, instagram]) => [
+    normalizeContributorName(name),
+    instagram,
+  ]),
+);
+
+export function getInstagramByName(name: string): string | null {
+  return (
+    normalizedNameToInstagramMap.get(normalizeContributorName(name)) ?? null
+  );
+}

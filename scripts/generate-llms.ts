@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
 // Import location data directly from the source of truth
-import { nameToLocation } from "../src/app/common/locations";
+import { nameToLocation } from "../src/app/common/lib";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

@@ -4,7 +4,7 @@ import { useMemo, useReducer, useEffect, useRef } from "react";
 import {
   CONTRIBUTOR_ROLE_GROUPS,
   type ContributorRoleGroup,
-} from "../common/locations";
+} from "../common/lib";
 import { useUIStore } from "../_state/ui.store";
 
 const CONTRIBUTOR_CATEGORIES = [
@@ -124,7 +124,8 @@ export default function ContributorsList({
   selectedContributors,
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
-  const { setSelectedContributor, setMenuOpen } = useUIStore();
+  const { setSelectedContributor, setMenuOpen, setContributorCreditsOrigin } =
+    useUIStore();
   const [state, dispatch] = useReducer(
     contributorsListReducer,
     initialContributorsListState,
@@ -248,7 +249,8 @@ export default function ContributorsList({
   }, [groupsByCategory, state.openCategories]);
 
   useEffect(() => {
-    if (!state.isMounted || !containerRef.current || !state.scrollParent) return;
+    if (!state.isMounted || !containerRef.current || !state.scrollParent)
+      return;
 
     const updateOffset = () => {
       if (!containerRef.current || !state.scrollParent) return;
@@ -331,7 +333,7 @@ export default function ContributorsList({
                   ? `grp-${item.categoryKey}-${item.roleKey}`
                   : `item-${item.categoryKey}-${item.roleKey}-${item.name}`
             }
-            className="absolute left-0 right-0"
+            className="absolute right-0 left-0"
             style={{
               top: `${top}px`,
               height: `${ITEM_HEIGHT}px`,
@@ -369,6 +371,7 @@ export default function ContributorsList({
                   className="flex items-center text-sm"
                   onClick={() => {
                     updateContributorModalUrl(item.name);
+                    setContributorCreditsOrigin(null);
                     setSelectedContributor(item.name);
                     setMenuOpen(false);
                   }}

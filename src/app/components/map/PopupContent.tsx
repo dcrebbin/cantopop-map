@@ -1,16 +1,14 @@
 "use client";
 
-import { type MappableLocationItem } from "~/app/common/locations";
+import { type MappableLocationItem } from "~/app/common/lib";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
 import { streetViewIcon } from "~/lib/icons/streetViewIcon";
 import { locationIcon } from "~/lib/icons/locationIcon";
-import { useState } from "react";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
-import { ArrowUpRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { hidePopup } from "~/lib/custom-map";
-import { useMapStore } from "~/app/_state/map.store";
+import { ArrowUpRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 function buildDirectionsUrl(data: MappableLocationItem) {
   return `https://www.google.com/maps/dir//${data.lat},${data.lng}/`;
@@ -63,21 +61,19 @@ export function SvgIcon({
 
 export function PopupContent({
   data,
+  onClose,
   onDelete: _onDelete,
   onEdit: _onEdit,
 }: {
   data: MappableLocationItem;
+  onClose?: () => void;
   onDelete?: () => void;
   onEdit?: () => void;
 }) {
-  const [isExpanded] = useState(false);
-
   const { setSelectedLocationCredits } = useUIStore();
-  const mapStore = useMapStore();
-  const uiStore = useUIStore();
 
   const actionButtons = (
-    <div className="mt-2 flex h-2 w-full items-center justify-center gap-2 text-black">
+    <div className="mt-7 flex h-2 left-2 w-full items-center justify-center gap-2 text-black">
       <a
         href={data.url}
         target="_blank"
@@ -91,9 +87,10 @@ export function PopupContent({
         aria-label="Share location"
         onClick={() => void shareLocation(data)}
       >
-        <SvgIcon html={shareIcon} className="size-6" />
+        <SvgIcon html={shareIcon} className="size-6 cursor-pointer" />
       </button>
       <a
+        hidden={!data.streetView}
         href={buildStreetViewUrl(data)}
         target="_blank"
         rel="noreferrer"
@@ -114,46 +111,19 @@ export function PopupContent({
 
   return (
     <div
-      className="relative top-0 flex h-fit w-[150px] flex-col items-center justify-start rounded-md bg-white p-2"
+      className="relative flex w-full select-text flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
       tabIndex={-1}
-      style={{
-        maxHeight: isExpanded ? "none" : "",
-        height: isExpanded ? "350px" : "100%",
-        width: isExpanded ? "350px" : "150px",
-      }}
+      data-test="hjhjhj"
       data-song={`popup-${data.name}`}
+      data-popup-selectable=""
     >
-      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 text-black">
+      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 p-2 text-black">
         <button
           type="button"
-          aria-label="Close location popup"
-          onClick={() => {
-            const { lastPopup, lastMarker } = useMapStore.getState();
-            if (lastPopup && lastMarker) {
-              uiStore.setSelectedLocation({
-                value: "",
-                artists: [],
-                streetViewEmbed: "",
-              });
-              const params = new URLSearchParams(window.location.search);
-              params.delete("title");
-              const query = params.toString();
-              const newUrl = query
-                ? `${window.location.pathname}?${query}`
-                : window.location.pathname;
-              window.history.replaceState({}, "", newUrl);
-              if (mapStore.lastPopup && mapStore.lastMarker) {
-                hidePopup(
-                  mapStore.lastPopup,
-                  mapStore.lastMarker,
-                  mapStore.selectedLocationId ?? "",
-                );
-              }
-              mapStore.clearSelectedLocation();
-            }
-          }}
+          aria-label="Collapse location details"
+          onClick={onClose}
         >
-          <XMarkIcon className="size-4" />
+          <ChevronDownIcon className="size-4 cursor-pointer" />
         </button>
         {data.contributors && (
           <button
@@ -170,17 +140,36 @@ export function PopupContent({
               });
             }}
           >
-            <ArrowUpRightIcon className="size-3.5" />
+            <ArrowUpRightIcon className="size-4 cursor-pointer" />
           </button>
         )}
       </div>
-      <p className="text-center text-base font-bold">
-        {data.artists.join(", ")}
-      </p>
-      <p className="text-center text-xs">{data.name}</p>
-      <p className="text-center text-xs">{data.address}</p>
-
       {actionButtons}
+      <div className="flex w-full flex-col items-center justify-center">
+        <p className="cursor-text select-text pt-2 text-center text-[0.6rem] leading-none tracking-tight">
+          {data.address}
+        </p>
+        {data.optionalActions && data.optionalActions.length > 0 && (
+          <div className="flex w-full flex-col items-center justify-center gap-2 text-xs">
+            {data.optionalActions.map((action) => (
+              <div
+                key={`${action.name}-${action.url}`}
+                className="flex items-center justify-center text-blue-500 underline text-xs py-1"
+              >
+                <a
+                  href={action.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={action.name}
+                >
+                  {action.name}
+                </a>
+                <GlobeAltIcon className="size-4" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

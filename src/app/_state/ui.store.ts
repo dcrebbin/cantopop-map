@@ -1,10 +1,5 @@
 import { create } from "zustand";
-import {
-  ARTISTS,
-  CONTRIBUTORS,
-  SONGS,
-  type LocationItem,
-} from "../common/locations";
+import { ARTISTS, CONTRIBUTORS, SONGS, type LocationItem } from "../common/lib";
 
 interface UIState {
   menuOpen: boolean;
@@ -58,6 +53,8 @@ interface UIState {
   setSelectedContributor: (contributor: string | null) => void;
   selectedLocationCredits: LocationItem | null;
   setSelectedLocationCredits: (location: LocationItem) => void;
+  contributorCreditsOrigin: LocationItem | null;
+  setContributorCreditsOrigin: (location: LocationItem | null) => void;
   applyUrlFiltersFromParams: (filters: {
     artists?: string[];
     contributors?: string[];
@@ -123,6 +120,9 @@ export const useUIStore = create<UIState>((set) => ({
   selectedLocationCredits: null as LocationItem | null,
   setSelectedLocationCredits: (location: LocationItem) =>
     set({ selectedLocationCredits: location }),
+  contributorCreditsOrigin: null,
+  setContributorCreditsOrigin: (location: LocationItem | null) =>
+    set({ contributorCreditsOrigin: location }),
   applyUrlFiltersFromParams: (filters) => {
     const update: Partial<UIState> = {};
 
