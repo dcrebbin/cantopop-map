@@ -16,6 +16,43 @@ const defaultLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["WHIZZ"],
+    address:
+      "TOWNPLACE PIER, 10 Lai Ying St, Cheung Sha Wan, Kowloon, Hong Kong",
+    coordinates: [22.3256048, 114.1488987],
+    name: "Dancing Till The End",
+    streetView: "https://maps.app.goo.gl/NLGo6NmRQLTKKAvu6",
+    url: "https://youtu.be/ZRDK_3lmmkg?t=79",
+    image: "https://i.ytimg.com/vi/ZRDK_3lmmkg/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Jess@WHIZZ"],
+        lyricist: ["鄭敏"],
+        englishLyricist: ["WHIZZ"],
+        arranger: ["WHIZZ"],
+        producer: ["WHIZZ"],
+      },
+
+      musicVideo: {
+        choreographer: ["Jana"],
+        dancer: ["白水"],
+        actor: ["Jana", "白水"],
+        director: ["Jay Chow"],
+        producer: ["Joey Lam"],
+        directorOfPhotography: ["Sam Tam"],
+        gaffer: ["llc"],
+        artDirectorStylist: ["Freya Cheung"],
+        artStylingAssistant: ["Sherlock Liu"],
+        muaHair: ["Charlotte Lau"],
+        stillPhotographerBts: ["Ratachock"],
+        editor: ["Jay Chow"],
+        specialThanks: ["Wong Kwai Kwai"],
+        locationSponsor: ["渴喝"],
+      },
+    },
+  },
+
+  {
     artists: ["moon tang"],
     address: "Great Kanto Earthquake Ginkgo Tree, Chiyoda, Tokyo, Japan",
     name: "蚊螆 (your little mozzie)",
