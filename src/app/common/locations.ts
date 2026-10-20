@@ -51,6 +51,38 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       },
     },
   },
+  {
+    artists: ["Lewsz"],
+    address: "4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011, Japan",
+    coordinates: [35.6549265, 139.74558],
+    name: "話說開 (Talk It Out)",
+    streetView: "https://maps.app.goo.gl/hWE1QRmffE84Up917",
+    url: "https://youtu.be/N7VN6jX_5WE?t=25",
+    image: "https://i.ytimg.com/vi/N7VN6jX_5WE/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Lewsz"],
+        lyricist: ["Lewsz"],
+        arranger: ["Lewsz"],
+        producer: ["Lewsz"],
+      },
+
+      musicVideo: {
+        director: ["HALFTALK"],
+        producers: ["Haruko", "Hokiu Lam", "Yuki Leung"],
+        productionAssistant: ["Gigi Cheung"],
+        directorOfPhotography: ["Kalun"],
+        cameraAndLightingAssistants: ["Keiichiro Shiga", "Hiroshi Takahashi"],
+        makeupArtist: ["Natsuka Miya", "Misao Nakamura"],
+        stylist: ["Shukit Au"],
+        wardrobe: ["Midwest Vintage", "Pedro", "Solo HK"],
+        editor: ["Lauonin"],
+        colourist: [{ name: "Eric Chan", instagram: "ericcyc_" }],
+        stillPhotographer: ["Peter Lam"],
+        titleDesign: ["Peter Lam"],
+      },
+    },
+  },
 
   {
     artists: ["moon tang"],
@@ -3334,7 +3366,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       musicVideo: {
         producer: ["Colin 葉鑑濤"],
         assistantProducer: ["徐聰森"],
-        director: ["halftalk"],
+        director: ["HALFTALK"],
         artDirector: ["鄭力升"],
         assistantArtDirector: ["賴芷芸"],
         cinematographer: ["林登"],
@@ -4867,7 +4899,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       },
 
       musicVideo: {
-        director: ["Halftalk"],
+        director: ["HALFTALK"],
         producer: ["Anson Ng", "Alvin Chu"],
         makeupArtist: ["Chi Chi Li"],
         actor: ["Edwin Tay", "Gigi Cheung"],
@@ -9195,7 +9227,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       },
       musicVideo: {
         director: ["Elaine Lam"],
-        creative: ["Halftalk", "Elaine Lam"],
+        creative: ["HALFTALK", "Elaine Lam"],
         producer: ["Ryoko Yamamoto"],
         assistantProducer: ["Floydnimbus"],
         cinematographer: ["Kalun"],
