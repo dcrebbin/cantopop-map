@@ -1,23 +1,24 @@
 import { z } from "zod";
 import { RAW_LOCATIONS } from "./locations";
 import { getInstagramByName } from "./social-media";
+import {
+  MUSIC_VIDEO_ROLE_KEYS,
+  ROLE_LABELS,
+  SONG_ROLE_KEYS,
+  type RoleKey,
+} from "./roles";
 
-// Zod schema for raw items as written in the data file
+const CreditListSchema = z.array(
+  z.string().or(z.object({ name: z.string(), instagram: z.string() })),
+);
+
+// Zod schema for raw items as written in the data file. Role keys must be
+// canonical roles from ./roles.
 const ContributorsSchema = z
   .object({
-    song: z
-      .record(
-        z.array(
-          z.string().or(z.object({ name: z.string(), instagram: z.string() })),
-        ),
-      )
-      .optional(),
+    song: z.record(z.enum(SONG_ROLE_KEYS), CreditListSchema).optional(),
     musicVideo: z
-      .record(
-        z.array(
-          z.string().or(z.object({ name: z.string(), instagram: z.string() })),
-        ),
-      )
+      .record(z.enum(MUSIC_VIDEO_ROLE_KEYS), CreditListSchema)
       .optional(),
   })
   .optional();
@@ -222,11 +223,9 @@ export const CONTRIBUTORS: string[] = [
 type ContributorCategory = "song" | "musicVideo";
 
 export function humanizeRoleKey(roleKey: string): string {
-  const specialMap: Record<string, string> = {
-    directorOfPhotography: "Director of Photography",
-    productionAssistant: "Production Assistant",
-  };
-  if (specialMap[roleKey]) return specialMap[roleKey];
+  if (Object.hasOwn(ROLE_LABELS, roleKey)) {
+    return ROLE_LABELS[roleKey as RoleKey];
+  }
   // Insert spaces before capital letters and capitalize first letter
   const withSpaces = roleKey.replace(/([A-Z])/g, " $1");
   const words = withSpaces.split(" ").filter(Boolean);
