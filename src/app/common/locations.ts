@@ -57,7 +57,7 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
       "G/F, Friendship Commercial Building, Hong Kong Island, 105-107 Hollywood Rd, Hong Kong",
     coordinates: [22.2839278, 114.1494103],
     name: "還愛我嗎？ (zh)",
-    streetView: "https://maps.app.goo.gl/NLGo6NmRQLTKKAvu6",
+    streetView: "https://maps.app.goo.gl/Tb4rPTpDrPsW64RD6",
     url: "https://youtu.be/SC6Iq2dWJTU?t=47",
     image: "https://i.ytimg.com/vi/SC6Iq2dWJTU/mqdefault.jpg",
     contributors: {
