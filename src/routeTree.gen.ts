@@ -9,30 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './app/__root'
-import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
-import { Route as LeaderboardRouteImport } from './app/leaderboard'
-import { Route as JobsRouteImport } from './app/jobs'
-import { Route as DSCVRRouteImport } from './app/DSCVR'
 import { Route as IndexRouteImport } from './app/index'
-import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
-import { Route as RobotsTxtRouteImport } from './app/robots.txt'
+import { Route as DSCVRRouteImport } from './app/DSCVR'
+import { Route as JobsRouteImport } from './app/jobs'
+import { Route as LeaderboardRouteImport } from './app/leaderboard'
+import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
 import { Route as LocationsSlugRouteImport } from './app/locations/$slug'
-import { Route as ApiLocationReverseRouteImport } from './app/api/location/reverse'
+import { Route as RobotsTxtRouteImport } from './app/robots.txt'
+import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
 import { Route as ApiLocationAddressRouteImport } from './app/api/location/address'
+import { Route as ApiLocationReverseRouteImport } from './app/api/location/reverse'
 
-const SrtQuantizeRoute = SrtQuantizeRouteImport.update({
-  id: '/srt-quantize',
-  path: '/srt-quantize',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LeaderboardRoute = LeaderboardRouteImport.update({
-  id: '/leaderboard',
-  path: '/leaderboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JobsRoute = JobsRouteImport.update({
-  id: '/jobs',
-  path: '/jobs',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DSCVRRoute = DSCVRRouteImport.update({
@@ -40,19 +30,19 @@ const DSCVRRoute = DSCVRRouteImport.update({
   path: '/DSCVR',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const JobsRoute = JobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap/xml',
-  path: '/sitemap/xml',
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RobotsTxtRoute = RobotsTxtRouteImport.update({
-  id: '/robots/txt',
-  path: '/robots/txt',
+const SrtQuantizeRoute = SrtQuantizeRouteImport.update({
+  id: '/srt-quantize',
+  path: '/srt-quantize',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
@@ -60,14 +50,24 @@ const LocationsSlugRoute = LocationsSlugRouteImport.update({
   path: '/locations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiLocationReverseRoute = ApiLocationReverseRouteImport.update({
-  id: '/api/location/reverse',
-  path: '/api/location/reverse',
+const RobotsTxtRoute = RobotsTxtRouteImport.update({
+  id: '/robots/txt',
+  path: '/robots/txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap/xml',
+  path: '/sitemap/xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLocationAddressRoute = ApiLocationAddressRouteImport.update({
   id: '/api/location/address',
   path: '/api/location/address',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiLocationReverseRoute = ApiLocationReverseRouteImport.update({
+  id: '/api/location/reverse',
+  path: '/api/location/reverse',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -162,25 +162,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/srt-quantize': {
-      id: '/srt-quantize'
-      path: '/srt-quantize'
-      fullPath: '/srt-quantize'
-      preLoaderRoute: typeof SrtQuantizeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/leaderboard': {
-      id: '/leaderboard'
-      path: '/leaderboard'
-      fullPath: '/leaderboard'
-      preLoaderRoute: typeof LeaderboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jobs': {
-      id: '/jobs'
-      path: '/jobs'
-      fullPath: '/jobs'
-      preLoaderRoute: typeof JobsRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/DSCVR': {
@@ -190,25 +176,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DSCVRRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/jobs': {
+      id: '/jobs'
+      path: '/jobs'
+      fullPath: '/jobs'
+      preLoaderRoute: typeof JobsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap/xml': {
-      id: '/sitemap/xml'
-      path: '/sitemap/xml'
-      fullPath: '/sitemap/xml'
-      preLoaderRoute: typeof SitemapXmlRouteImport
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/robots/txt': {
-      id: '/robots/txt'
-      path: '/robots/txt'
-      fullPath: '/robots/txt'
-      preLoaderRoute: typeof RobotsTxtRouteImport
+    '/srt-quantize': {
+      id: '/srt-quantize'
+      path: '/srt-quantize'
+      fullPath: '/srt-quantize'
+      preLoaderRoute: typeof SrtQuantizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/locations/$slug': {
@@ -218,11 +204,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/location/reverse': {
-      id: '/api/location/reverse'
-      path: '/api/location/reverse'
-      fullPath: '/api/location/reverse'
-      preLoaderRoute: typeof ApiLocationReverseRouteImport
+    '/robots/txt': {
+      id: '/robots/txt'
+      path: '/robots/txt'
+      fullPath: '/robots/txt'
+      preLoaderRoute: typeof RobotsTxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap/xml': {
+      id: '/sitemap/xml'
+      path: '/sitemap/xml'
+      fullPath: '/sitemap/xml'
+      preLoaderRoute: typeof SitemapXmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/location/address': {
@@ -230,6 +223,13 @@ declare module '@tanstack/react-router' {
       path: '/api/location/address'
       fullPath: '/api/location/address'
       preLoaderRoute: typeof ApiLocationAddressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/location/reverse': {
+      id: '/api/location/reverse'
+      path: '/api/location/reverse'
+      fullPath: '/api/location/reverse'
+      preLoaderRoute: typeof ApiLocationReverseRouteImport
       parentRoute: typeof rootRouteImport
     }
   }

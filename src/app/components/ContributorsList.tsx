@@ -1,10 +1,7 @@
 "use client";
 import { ChevronDownIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useMemo, useReducer, useEffect, useRef } from "react";
-import {
-  CONTRIBUTOR_ROLE_GROUPS,
-  type ContributorRoleGroup,
-} from "../common/lib";
+import { type ContributorRoleGroup } from "../common/lib";
 import { useUIStore } from "../_state/ui.store";
 
 const CONTRIBUTOR_CATEGORIES = [
@@ -47,7 +44,7 @@ type FlatItem =
     };
 
 interface ContributorsListProps {
-  filteredContributors: string[];
+  groups: ContributorRoleGroup[];
   selectedContributors: string[];
   handleContributorCheckboxChange: (contributor: string) => void;
 }
@@ -120,7 +117,7 @@ function contributorsListReducer(
 }
 
 export default function ContributorsList({
-  filteredContributors,
+  groups,
   selectedContributors,
   handleContributorCheckboxChange,
 }: ContributorsListProps) {
@@ -178,23 +175,20 @@ export default function ContributorsList({
   }, [state.isMounted]);
 
   const groupsByCategory = useMemo(() => {
-    const filteredContributorsSet = new Set(filteredContributors);
-
     return CONTRIBUTOR_CATEGORIES.reduce(
       (acc, category) => {
-        acc[category.key] = CONTRIBUTOR_ROLE_GROUPS.reduce<
-          ContributorRoleGroupWithMatches[]
-        >((groups, group) => {
-          if (group.category !== category.key) return groups;
+        acc[category.key] = groups.reduce<ContributorRoleGroupWithMatches[]>(
+          (groups, group) => {
+            if (group.category !== category.key) return groups;
 
-          const namesToShow = group.names.filter((name) =>
-            filteredContributorsSet.has(name),
-          );
-          if (namesToShow.length === 0) return groups;
+            const namesToShow = group.names;
+            if (namesToShow.length === 0) return groups;
 
-          groups.push({ ...group, namesToShow });
-          return groups;
-        }, []);
+            groups.push({ ...group, namesToShow });
+            return groups;
+          },
+          [],
+        );
         return acc;
       },
       { song: [], musicVideo: [] } as Record<
@@ -202,7 +196,7 @@ export default function ContributorsList({
         ContributorRoleGroupWithMatches[]
       >,
     );
-  }, [filteredContributors]);
+  }, [groups]);
 
   function toggleCategory(category: ContributorCategoryKey) {
     dispatch({ type: "TOGGLE_CATEGORY", category });
@@ -281,9 +275,9 @@ export default function ContributorsList({
 
   const relativeScrollTop = Math.max(0, state.scrollTop - state.offsetTop);
 
-  const startIndex = Math.max(
-    0,
-    Math.floor(relativeScrollTop / ITEM_HEIGHT) - OVERSCAN,
+  const startIndex = Math.min(
+    Math.max(0, flatItems.length - 1),
+    Math.max(0, Math.floor(relativeScrollTop / ITEM_HEIGHT) - OVERSCAN),
   );
   const endIndex = Math.min(
     flatItems.length - 1,
