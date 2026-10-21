@@ -52,6 +52,26 @@ export const RAW_LOCATIONS: RawLocationSchema[] = [
     },
   },
   {
+    artists: ["HEIBI"],
+    address:
+      "G/F, Friendship Commercial Building, Hong Kong Island, 105-107 Hollywood Rd, Hong Kong",
+    coordinates: [22.2839278, 114.1494103],
+    name: "還愛我嗎？ (zh)",
+    streetView: "https://maps.app.goo.gl/NLGo6NmRQLTKKAvu6",
+    url: "https://youtu.be/SC6Iq2dWJTU?t=47",
+    image: "https://i.ytimg.com/vi/SC6Iq2dWJTU/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Y.Siu", "HEIBI"],
+        lyricist: ["HEIBI"],
+        arranger: ["Y.Siu"],
+        producer: ["Y.Siu"],
+      },
+
+      musicVideo: {},
+    },
+  },
+  {
     artists: ["Lewsz"],
     address: "4 Chome-2-8 Shibakoen, Minato City, Tokyo 105-0011, Japan",
     coordinates: [35.6549265, 139.74558],
