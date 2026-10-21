@@ -11,6 +11,22 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import DynamicHomePage from "~/app/components/dynamic-home-page";
 import CloseButton from "~/app/components/close-button";
 import { JsonLdScript } from "~/app/components/JsonLd";
+import {
+  SITE_URL,
+  absoluteUrl,
+  artistJsonLd,
+  artistPath,
+  describeLocation,
+  getLocationCredits,
+  personJsonLd,
+} from "~/app/common/seo";
+
+// Song credits that schema.org models directly; everything else becomes a
+// generic contributor Role so the job title is still machine readable.
+const SONG_ROLE_PROPERTIES: Record<string, "composer" | "lyricist"> = {
+  composer: "composer",
+  lyricist: "lyricist",
+};
 
 function getContributorInstagramUrl(contributor: ContributorCredit) {
   const name = getContributorName(contributor);
@@ -29,12 +45,13 @@ export const Route = createFileRoute("/locations/$slug")({
 
     const artistNames = location.artists.join(", ");
     const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
+    const path = `/locations/${encodeURIComponent(slug)}`;
     const locationDescription = location.address
-      ? ` at ${location.address}, Hong Kong`
+      ? ` at ${location.address}`
       : "";
     const description = `Discover the filming location for "${location.name}" by ${artistNames}${locationDescription}. Watch the music video and explore the credits with Cantopop Map.`;
+    const url = absoluteUrl(path);
     const images = location.image ? [location.image] : ["/images/og-image.png"];
-    const path = `/locations/${encodeURIComponent(params.slug)}`;
 
     return {
       meta: [
@@ -59,7 +76,7 @@ export const Route = createFileRoute("/locations/$slug")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "article" },
-        { property: "og:url", content: path },
+        { property: "og:url", content: url },
         { property: "og:site_name", content: "Cantopop Map" },
         { property: "og:locale", content: "en_HK" },
         ...images.map((image) => ({ property: "og:image", content: image })),
@@ -68,12 +85,7 @@ export const Route = createFileRoute("/locations/$slug")({
         { name: "twitter:description", content: description },
         ...images.map((image) => ({ name: "twitter:image", content: image })),
       ],
-      links: [
-        { rel: "canonical", href: path },
-        { rel: "alternate", hrefLang: "en", href: path },
-        { rel: "alternate", hrefLang: "zh-HK", href: path },
-        { rel: "alternate", hrefLang: "x-default", href: path },
-      ],
+      links: [{ rel: "canonical", href: url }],
     };
   },
   component: LocationPage,
@@ -95,19 +107,33 @@ function LocationPage() {
   const urlTime = location.url.split("?t=")[1]?.split("&")[0];
   const time = location.hookTime ?? urlTime;
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
+  const siteUrl = SITE_URL;
+  const pageUrl = `${siteUrl}/locations/${encodeURIComponent(slug)}`;
+  const credits = getLocationCredits(location);
+  const songCredits = credits.filter((credit) => credit.category === "song");
+  const videoCredits = credits.filter(
+    (credit) => credit.category === "musicVideo",
+  );
+  const asRole = (credit: (typeof credits)[number]) => ({
+    "@type": "Role",
+    roleName: credit.role,
+    contributor: personJsonLd(credit.name, credit.instagram),
+  });
+  const songRoleProperties = Object.fromEntries(
+    Object.values(SONG_ROLE_PROPERTIES).map((property) => [
+      property,
+      songCredits
+        .filter((credit) => SONG_ROLE_PROPERTIES[credit.roleKey] === property)
+        .map((credit) => personJsonLd(credit.name, credit.instagram)),
+    ]),
+  );
   const place =
     location.address && location.lat !== null && location.lng !== null
       ? {
           "@type": "Place",
-          "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#place`,
+          "@id": `${pageUrl}#place`,
           name: location.address,
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Hong Kong",
-            addressCountry: "HK",
-          },
+          address: location.address,
           geo: {
             "@type": "GeoCoordinates",
             latitude: location.lat,
@@ -121,15 +147,22 @@ function LocationPage() {
     "@graph": [
       {
         "@type": "MusicRecording",
-        "@id": `${siteUrl}/locations/${encodeURIComponent(slug)}#song`,
+        "@id": `${pageUrl}#song`,
         name: location.name,
-        byArtist: location.artists.map((a) => ({
-          "@type": "MusicGroup",
-          name: a,
-        })),
-        url: location.url,
+        genre: "Cantopop",
+        byArtist: location.artists.map((artist) => artistJsonLd(artist)),
+        url: pageUrl,
+        sameAs: [location.url],
         image: location.image,
         locationCreated: place,
+        recordingOf: {
+          "@type": "MusicComposition",
+          name: location.name,
+          ...songRoleProperties,
+        },
+        contributor: songCredits
+          .filter((credit) => !SONG_ROLE_PROPERTIES[credit.roleKey])
+          .map(asRole),
         potentialAction: {
           "@type": "WatchAction",
           target: location.url,
@@ -137,14 +170,30 @@ function LocationPage() {
       },
       {
         "@type": "VideoObject",
+        "@id": `${pageUrl}#video`,
         name: `${location.name} - Music Video`,
         description: `Official music video for "${location.name}" by ${location.artists.join(", ")}.`,
         thumbnailUrl: location.image,
         embedUrl: videoId
           ? `https://www.youtube.com/embed/${videoId}`
           : undefined,
-        contentUrl: location.url,
-        uploadDate: new Date().toISOString().split("T")[0],
+        url: location.url,
+        contentLocation: place,
+        director: videoCredits
+          .filter((credit) => credit.roleKey === "director")
+          .map((credit) => personJsonLd(credit.name, credit.instagram)),
+        contributor: videoCredits
+          .filter((credit) => credit.roleKey !== "director")
+          .map(asRole),
+      },
+      {
+        "@type": "WebPage",
+        "@id": pageUrl,
+        url: pageUrl,
+        name: `${location.artists.join(", ")} - ${location.name} | Music Video Location`,
+        description: describeLocation(location),
+        about: [{ "@id": `${pageUrl}#song` }, { "@id": `${pageUrl}#video` }],
+        isPartOf: { "@id": `${siteUrl}/#website` },
       },
       {
         "@type": "BreadcrumbList",
@@ -153,13 +202,13 @@ function LocationPage() {
             "@type": "ListItem",
             position: 1,
             name: "Cantopop Map",
-            item: siteUrl,
+            item: `${siteUrl}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: location.name,
-            item: `${siteUrl}/locations/${encodeURIComponent(slug)}`,
+            item: pageUrl,
           },
         ],
       },
@@ -182,6 +231,22 @@ function LocationPage() {
             <CloseButton />
           </div>
           <div className="flex w-full flex-col items-start justify-start px-4">
+            <p className="mt-2 text-sm">
+              {describeLocation(location)} More from{" "}
+              {location.artists.map((artist, index) => (
+                <span key={artist}>
+                  {index > 0 ? ", " : ""}
+                  <a href={artistPath(artist)} className="underline">
+                    {artist}
+                  </a>
+                </span>
+              ))}{" "}
+              or{" "}
+              <a href="/browse" className="underline">
+                browse every song
+              </a>
+              .
+            </p>
             <div className="mt-4 grid w-full justify-center gap-2 lg:grid-cols-2">
               <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
                 <iframe

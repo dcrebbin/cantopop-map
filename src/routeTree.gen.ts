@@ -11,12 +11,15 @@
 import { Route as rootRouteImport } from './app/__root'
 import { Route as IndexRouteImport } from './app/index'
 import { Route as DSCVRRouteImport } from './app/DSCVR'
+import { Route as BrowseRouteImport } from './app/browse'
 import { Route as JobsRouteImport } from './app/jobs'
 import { Route as LeaderboardRouteImport } from './app/leaderboard'
+import { Route as RobotsDottxtRouteImport } from './app/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './app/sitemap[.]xml'
 import { Route as SrtQuantizeRouteImport } from './app/srt-quantize'
+import { Route as ArtistsSlugRouteImport } from './app/artists/$slug'
 import { Route as LocationsSlugRouteImport } from './app/locations/$slug'
-import { Route as RobotsTxtRouteImport } from './app/robots.txt'
-import { Route as SitemapXmlRouteImport } from './app/sitemap.xml'
+import { Route as PeopleSlugRouteImport } from './app/people/$slug'
 import { Route as ApiLocationAddressRouteImport } from './app/api/location/address'
 import { Route as ApiLocationReverseRouteImport } from './app/api/location/reverse'
 
@@ -30,6 +33,11 @@ const DSCVRRoute = DSCVRRouteImport.update({
   path: '/DSCVR',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrowseRoute = BrowseRouteImport.update({
+  id: '/browse',
+  path: '/browse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const JobsRoute = JobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
@@ -40,9 +48,24 @@ const LeaderboardRoute = LeaderboardRouteImport.update({
   path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SrtQuantizeRoute = SrtQuantizeRouteImport.update({
   id: '/srt-quantize',
   path: '/srt-quantize',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtistsSlugRoute = ArtistsSlugRouteImport.update({
+  id: '/artists/$slug',
+  path: '/artists/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
@@ -50,14 +73,9 @@ const LocationsSlugRoute = LocationsSlugRouteImport.update({
   path: '/locations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RobotsTxtRoute = RobotsTxtRouteImport.update({
-  id: '/robots/txt',
-  path: '/robots/txt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapXmlRoute = SitemapXmlRouteImport.update({
-  id: '/sitemap/xml',
-  path: '/sitemap/xml',
+const PeopleSlugRoute = PeopleSlugRouteImport.update({
+  id: '/people/$slug',
+  path: '/people/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiLocationAddressRoute = ApiLocationAddressRouteImport.update({
@@ -74,24 +92,30 @@ const ApiLocationReverseRoute = ApiLocationReverseRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/DSCVR': typeof DSCVRRoute
+  '/browse': typeof BrowseRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/srt-quantize': typeof SrtQuantizeRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/robots/txt': typeof RobotsTxtRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/api/location/address': typeof ApiLocationAddressRoute
   '/api/location/reverse': typeof ApiLocationReverseRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/DSCVR': typeof DSCVRRoute
+  '/browse': typeof BrowseRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/srt-quantize': typeof SrtQuantizeRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/robots/txt': typeof RobotsTxtRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/api/location/address': typeof ApiLocationAddressRoute
   '/api/location/reverse': typeof ApiLocationReverseRoute
 }
@@ -99,12 +123,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/DSCVR': typeof DSCVRRoute
+  '/browse': typeof BrowseRoute
   '/jobs': typeof JobsRoute
   '/leaderboard': typeof LeaderboardRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/srt-quantize': typeof SrtQuantizeRoute
+  '/artists/$slug': typeof ArtistsSlugRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/robots/txt': typeof RobotsTxtRoute
-  '/sitemap/xml': typeof SitemapXmlRoute
+  '/people/$slug': typeof PeopleSlugRoute
   '/api/location/address': typeof ApiLocationAddressRoute
   '/api/location/reverse': typeof ApiLocationReverseRoute
 }
@@ -113,36 +140,45 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/DSCVR'
+    | '/browse'
     | '/jobs'
     | '/leaderboard'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/srt-quantize'
+    | '/artists/$slug'
     | '/locations/$slug'
-    | '/robots/txt'
-    | '/sitemap/xml'
+    | '/people/$slug'
     | '/api/location/address'
     | '/api/location/reverse'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/DSCVR'
+    | '/browse'
     | '/jobs'
     | '/leaderboard'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/srt-quantize'
+    | '/artists/$slug'
     | '/locations/$slug'
-    | '/robots/txt'
-    | '/sitemap/xml'
+    | '/people/$slug'
     | '/api/location/address'
     | '/api/location/reverse'
   id:
     | '__root__'
     | '/'
     | '/DSCVR'
+    | '/browse'
     | '/jobs'
     | '/leaderboard'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/srt-quantize'
+    | '/artists/$slug'
     | '/locations/$slug'
-    | '/robots/txt'
-    | '/sitemap/xml'
+    | '/people/$slug'
     | '/api/location/address'
     | '/api/location/reverse'
   fileRoutesById: FileRoutesById
@@ -150,12 +186,15 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DSCVRRoute: typeof DSCVRRoute
+  BrowseRoute: typeof BrowseRoute
   JobsRoute: typeof JobsRoute
   LeaderboardRoute: typeof LeaderboardRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SrtQuantizeRoute: typeof SrtQuantizeRoute
+  ArtistsSlugRoute: typeof ArtistsSlugRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
-  RobotsTxtRoute: typeof RobotsTxtRoute
-  SitemapXmlRoute: typeof SitemapXmlRoute
+  PeopleSlugRoute: typeof PeopleSlugRoute
   ApiLocationAddressRoute: typeof ApiLocationAddressRoute
   ApiLocationReverseRoute: typeof ApiLocationReverseRoute
 }
@@ -176,6 +215,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DSCVRRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/browse': {
+      id: '/browse'
+      path: '/browse'
+      fullPath: '/browse'
+      preLoaderRoute: typeof BrowseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/jobs': {
       id: '/jobs'
       path: '/jobs'
@@ -190,11 +236,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/srt-quantize': {
       id: '/srt-quantize'
       path: '/srt-quantize'
       fullPath: '/srt-quantize'
       preLoaderRoute: typeof SrtQuantizeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artists/$slug': {
+      id: '/artists/$slug'
+      path: '/artists/$slug'
+      fullPath: '/artists/$slug'
+      preLoaderRoute: typeof ArtistsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/locations/$slug': {
@@ -204,18 +271,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/robots/txt': {
-      id: '/robots/txt'
-      path: '/robots/txt'
-      fullPath: '/robots/txt'
-      preLoaderRoute: typeof RobotsTxtRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap/xml': {
-      id: '/sitemap/xml'
-      path: '/sitemap/xml'
-      fullPath: '/sitemap/xml'
-      preLoaderRoute: typeof SitemapXmlRouteImport
+    '/people/$slug': {
+      id: '/people/$slug'
+      path: '/people/$slug'
+      fullPath: '/people/$slug'
+      preLoaderRoute: typeof PeopleSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/location/address': {
@@ -238,12 +298,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DSCVRRoute: DSCVRRoute,
+  BrowseRoute: BrowseRoute,
   JobsRoute: JobsRoute,
   LeaderboardRoute: LeaderboardRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SrtQuantizeRoute: SrtQuantizeRoute,
+  ArtistsSlugRoute: ArtistsSlugRoute,
   LocationsSlugRoute: LocationsSlugRoute,
-  RobotsTxtRoute: RobotsTxtRoute,
-  SitemapXmlRoute: SitemapXmlRoute,
+  PeopleSlugRoute: PeopleSlugRoute,
   ApiLocationAddressRoute: ApiLocationAddressRoute,
   ApiLocationReverseRoute: ApiLocationReverseRoute,
 }

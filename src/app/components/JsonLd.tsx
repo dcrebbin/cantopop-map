@@ -1,7 +1,5 @@
 import { MAP_LOCATIONS } from "../common/lib";
-
-const siteUrl =
-  import.meta.env.NEXT_PUBLIC_SITE_URL ?? import.meta.env.SITE_URL ?? "";
+import { SITE_URL as siteUrl, locationPath } from "../common/seo";
 
 export function JsonLdScript({ data }: { data: object }) {
   return (
@@ -83,7 +81,7 @@ export function HomePageJsonLd() {
               latitude: location.lat,
               longitude: location.lng,
             },
-            url: `${siteUrl}/locations/${encodeURIComponent(location.name)}`,
+            url: `${siteUrl}${locationPath(location)}`,
           },
         })),
       },

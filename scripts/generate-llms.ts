@@ -4,22 +4,23 @@ import { dirname, resolve } from "node:path";
 
 // Import location data directly from the source of truth
 import { nameToLocation } from "../src/app/common/lib";
+import {
+  ARTIST_INDEX,
+  PEOPLE_INDEX,
+  SITE_URL,
+  artistPath,
+  personPath,
+} from "../src/app/common/seo";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-function getBaseUrl(): string {
-  const envBase =
-    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? "";
-  return envBase.replace(/\/$/, "");
-}
 
 async function generateLlmsTxt(): Promise<void> {
   const nowIso = new Date().toISOString();
 
   const slugs = Object.keys(nameToLocation).sort((a, b) => a.localeCompare(b));
 
-  const url = "https://cantopopmap.hk";
+  const url = SITE_URL;
 
   const headerLines = [
     "# Cantopop Map - LLMs directory",
@@ -28,6 +29,28 @@ async function generateLlmsTxt(): Promise<void> {
     `generated_at: ${nowIso}`,
     "",
     "## Important pages",
+  ];
+
+  const directoryLines = [
+    `${url}/browse | title="Browse every song, artist and credited person"`,
+  ];
+
+  const artistLines = [
+    "",
+    "## Artists",
+    ...[...ARTIST_INDEX.values()].map(
+      (artist) =>
+        `${url}${decodeURIComponent(artistPath(artist.name))} | title="${artist.name}" | songs=${artist.locations.length}`,
+    ),
+  ];
+
+  const peopleLines = [
+    "",
+    "## Credited people",
+    ...[...PEOPLE_INDEX.values()].map(
+      (person) =>
+        `${url}${decodeURIComponent(personPath(person.name))} | name="${person.name}"${person.instagram ? ` | instagram="@${person.instagram}"` : ""} | credits=${person.credits.length}`,
+    ),
   ];
 
   const rootUrl = `${url}/`;
@@ -48,7 +71,15 @@ async function generateLlmsTxt(): Promise<void> {
     return parts.join(" | ");
   });
 
-  const content = [...headerLines, rootLine, ...locationLines, ""].join("\n");
+  const content = [
+    ...headerLines,
+    rootLine,
+    ...directoryLines,
+    ...locationLines,
+    ...artistLines,
+    ...peopleLines,
+    "",
+  ].join("\n");
 
   const outPath = resolve(__dirname, "../public/llms.txt");
   await writeFile(outPath, content, "utf8");
