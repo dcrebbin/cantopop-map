@@ -4,14 +4,12 @@ import {
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
-import { HomePageJsonLd } from "./components/JsonLd";
 import { PostHogProvider } from "./components/PostHogProvider";
 import { SwCleanup } from "./components/sw-cleanup";
 import appCss from "~/styles/globals.css?url";
 import ReactScan from "./components/react-scan";
 
-const siteUrl =
-  import.meta.env.NEXT_PUBLIC_SITE_URL ?? import.meta.env.SITE_URL;
+import { SITE_URL as siteUrl } from "./common/seo";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -83,11 +81,6 @@ export const Route = createRootRoute({
       { rel: "manifest", href: "/manifest.json" },
       { rel: "icon", href: "/images/favicon.svg" },
       { rel: "apple-touch-icon", href: "/icons/icon-192x192.png" },
-      { rel: "canonical", href: "/" },
-      { rel: "alternate", hrefLang: "en", href: "/" },
-      { rel: "alternate", hrefLang: "zh-HK", href: "/" },
-      { rel: "alternate", hrefLang: "zh-Hant", href: "/" },
-      { rel: "alternate", hrefLang: "x-default", href: "/" },
     ],
   }),
   errorComponent: RootError,
@@ -113,7 +106,6 @@ function RootLayout() {
     <html lang="en">
       <head>
         <HeadContent />
-        <HomePageJsonLd />
       </head>
       <body>
         <SwCleanup />

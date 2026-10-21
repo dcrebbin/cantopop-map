@@ -1,7 +1,6 @@
 import {
   lazy,
   memo,
-  startTransition,
   Suspense,
   useCallback,
   useEffect,
@@ -39,15 +38,14 @@ function menuAnimationReducer(
       return state;
   }
 }
+import { searchCatalog, normalizeSearch } from "../common/search";
 import { useMapStore } from "../_state/map.store";
 import { useUIStore } from "../_state/ui.store";
 import {
   ARTISTS,
   CONTRIBUTORS,
-  CONTRIBUTOR_ROLE_GROUPS,
   constructTitle,
   nameToLocation,
-  SONGS,
 } from "../common/lib";
 import { setMarkerFilters } from "~/lib/custom-map";
 import { useIsOnMobile } from "../hooks/useIsOnMobile";
@@ -62,45 +60,29 @@ import { getDisplayMode } from "../hooks/getDisplayMode";
 
 const ContributorsList = lazy(() => import("./ContributorsList"));
 
-const ARTISTS_LOWER = ARTISTS.map((a: string) => a.toLowerCase());
 const ARTISTS_SET = new Set(ARTISTS);
-const SONGS_LOWER = SONGS.map((s: { name: string; artists: string[] }) => ({
-  name: s.name.toLowerCase(),
-  artists: s.artists.map((a) => a.toLowerCase()),
-}));
-const CONTRIBUTORS_LOWER = CONTRIBUTORS.map((c) => c.toLowerCase());
 const CONTRIBUTORS_SET = new Set(CONTRIBUTORS);
-const CONTRIBUTOR_ROLE_GROUPS_LOWER = CONTRIBUTOR_ROLE_GROUPS.map((g) => ({
-  categoryTitle: g.category === "musicVideo" ? "music video" : "song",
-  title: g.title.toLowerCase(),
-  names: g.names,
-}));
 const MENU_ANIMATION_MS = 300;
-
-function includesQuery(text: string, query: string) {
-  return text.includes(query);
-}
 
 const SearchInput = memo(function SearchInput({
   searchRef,
   onSearchChange,
+  value,
 }: {
   searchRef: React.RefObject<HTMLInputElement> | null;
   onSearchChange: (search: string) => void;
+  value: string;
 }) {
-  const [value, setValue] = useState("");
-
   return (
     <input
       type="text"
       placeholder="Search"
-      aria-label="Search songs, artists, and contributors"
+      aria-label="Search roles, songs, artists, and people"
       ref={searchRef}
       value={value}
       className="z-200 w-full rounded-md border-2 border-white p-2 text-white"
       onChange={(e) => {
         const nextValue = e.target.value;
-        setValue(nextValue);
         onSearchChange(nextValue);
       }}
     />
@@ -138,11 +120,21 @@ export default function Menu() {
     menuOpen,
     (open) => ({ rendered: open, animatedOpen: open }),
   );
-  const [searchResults, setSearchResults] = useState(() => ({
-    artists: ARTISTS,
-    songs: SONGS,
-    contributors: CONTRIBUTORS,
-  }));
+  const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchChange = useCallback(
+    (query: string) => {
+      if (!normalizeSearch(searchQuery) && normalizeSearch(query)) {
+        setSongsAndArtistsOpen(true);
+        setContributorsOpen(true);
+      }
+      setSearchQuery(query);
+    },
+    [searchQuery, setSongsAndArtistsOpen, setContributorsOpen],
+  );
+  const searchResults = useMemo(
+    () => searchCatalog(searchQuery),
+    [searchQuery],
+  );
   const updateMarkerVisibility = useCallback(
     (nextSelectedArtists: string[], nextSelectedContributors: string[]) => {
       setMarkerFilters(map, nextSelectedArtists, nextSelectedContributors);
@@ -256,102 +248,6 @@ export default function Menu() {
       dispatchMenuAnimation({ type: "CLOSE_COMPLETE" });
     }
   }
-
-  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const searchFrameRef = useRef<number | null>(null);
-
-  const runSearch = useCallback(
-    (search: string) => {
-      const q = search.toLowerCase();
-
-      if (q.length === 0) {
-        startTransition(() => {
-          setSearchResults({
-            artists: ARTISTS,
-            songs: SONGS,
-            contributors: CONTRIBUTORS,
-          });
-        });
-        return;
-      }
-
-      const artists: string[] = [];
-      for (let i = 0; i < ARTISTS.length; i++) {
-        if (includesQuery(ARTISTS_LOWER[i]!, q)) artists.push(ARTISTS[i]!);
-      }
-
-      const songs: { name: string; artists: string[] }[] = [];
-      for (let i = 0; i < SONGS.length; i++) {
-        const lower = SONGS_LOWER[i]!;
-        if (includesQuery(lower.name, q)) {
-          songs.push(SONGS[i]!);
-          continue;
-        }
-        for (const artist of lower.artists) {
-          if (includesQuery(artist, q)) {
-            songs.push(SONGS[i]!);
-            break;
-          }
-        }
-      }
-
-      const contributorsSet = new Set<string>();
-      for (let i = 0; i < CONTRIBUTORS.length; i++) {
-        if (includesQuery(CONTRIBUTORS_LOWER[i]!, q)) {
-          contributorsSet.add(CONTRIBUTORS[i]!);
-        }
-      }
-      for (const group of CONTRIBUTOR_ROLE_GROUPS_LOWER) {
-        if (
-          includesQuery(group.title, q) ||
-          includesQuery(group.categoryTitle, q)
-        ) {
-          const names = group.names;
-          for (const name of names) contributorsSet.add(name);
-        }
-      }
-
-      const contributors = Array.from(contributorsSet);
-
-      startTransition(() => {
-        setSearchResults({ artists, songs, contributors });
-      });
-    },
-    [setSearchResults],
-  );
-
-  const handleSearchChange = useCallback(
-    (search: string) => {
-      if (searchDebounceRef.current) {
-        clearTimeout(searchDebounceRef.current);
-      }
-      if (searchFrameRef.current !== null) {
-        cancelAnimationFrame(searchFrameRef.current);
-        searchFrameRef.current = null;
-      }
-      searchDebounceRef.current = setTimeout(() => {
-        searchFrameRef.current = requestAnimationFrame(() => {
-          searchFrameRef.current = requestAnimationFrame(() => {
-            runSearch(search);
-            searchFrameRef.current = null;
-          });
-        });
-      }, 120);
-    },
-    [runSearch],
-  );
-
-  useEffect(() => {
-    const debounceRef = searchDebounceRef;
-    const frameRef = searchFrameRef;
-
-    return () => {
-      const timeoutId = debounceRef.current;
-      const frameId = frameRef.current;
-      if (timeoutId) clearTimeout(timeoutId);
-      if (frameId !== null) cancelAnimationFrame(frameId);
-    };
-  }, []);
 
   function handleSongSelection(song: { name: string; artists: string[] }) {
     const title = constructTitle(song);
@@ -470,27 +366,11 @@ export default function Menu() {
     };
   }, [searchResults]);
 
-  const isPWA = getDisplayMode() !== "browser";
-  const MemoizedArrowDownTrayIcon = memo(ArrowDownTrayIcon);
-
   return (
     <div
       className="absolute top-0 right-0 m-0 flex flex-row gap-4"
       style={{ zIndex: menuAnimation.rendered ? 999999 : 90 }}
     >
-      {!isPWA && (
-        <button
-          type="button"
-          name="Download PWA Tutorial"
-          aria-label="Open PWA install tutorial"
-          className="drop-shadow-[0_0_2px_rgba(0,0,0,1)] md:hidden"
-          onClick={() => {
-            setIsPwaTutorialVisible(true);
-          }}
-        >
-          <MemoizedArrowDownTrayIcon className="block size-9 text-white" />
-        </button>
-      )}
       <div
         className="h-full w-fit"
         style={{ opacity: mobileCameraViewOpen ? 0 : 1 }}
@@ -548,6 +428,7 @@ export default function Menu() {
             <SearchInput
               searchRef={searchRef}
               onSearchChange={handleSearchChange}
+              value={searchQuery}
             />
 
             <div className="flex h-[83vh] w-full flex-col gap-2 overflow-x-hidden overflow-y-auto pb-20 lg:h-[60vh]">
@@ -602,9 +483,13 @@ export default function Menu() {
                 </div>
                 {songsAndArtistsOpen && (
                   <div className="flex w-full flex-col gap-2">
-                    {artistsToShow.map((artist: any) => {
+                    {artistsToShow.length === 0 && (
+                      <p className="py-4 text-center text-sm text-white/70">
+                        No songs or artists found.
+                      </p>
+                    )}
+                    {artistsToShow.map((artist: string) => {
                       const songsForArtist = songsByArtist.get(artist) ?? [];
-                      if (songsForArtist.length === 0) return null;
                       return (
                         <div
                           key={artist}
@@ -691,7 +576,7 @@ export default function Menu() {
                     }
                   >
                     <ContributorsList
-                      filteredContributors={searchResults.contributors}
+                      groups={searchResults.contributorGroups}
                       selectedContributors={selectedContributors}
                       handleContributorCheckboxChange={
                         handleContributorCheckboxChange

@@ -143,7 +143,6 @@ export default function HomePage({ location }: { location?: LocationItem }) {
         <Appbar />
         <Menu />
         <MobileCameraView />
-        <PwaTutorial />
         <SelectedLocation />
         <LocationButton />
         <NewLocationModal />

@@ -6,6 +6,7 @@ import {
   type ContributorCredit,
   type LocationItem,
 } from "./lib";
+import type { MusicVideoRoleKey, RoleKey } from "./roles";
 
 export type RoleFamilyId =
   | "art"
@@ -22,9 +23,7 @@ export interface RoleFamily {
   label: string;
   eyebrow: string;
   description: string;
-  rolePattern: RegExp;
-  rolePatternsByCategory?: Partial<Record<ContributorCategory, RegExp>>;
-  excludedRolePattern?: RegExp;
+  roleKeys: ReadonlySet<RoleKey>;
   categories: ContributorCategory[];
 }
 
@@ -53,6 +52,10 @@ export interface TalentProfile {
   artists: string[];
 }
 
+function musicVideoRoles(keys: MusicVideoRoleKey[]): ReadonlySet<RoleKey> {
+  return new Set(keys);
+}
+
 const BASE_ROLE_FAMILIES: RoleFamily[] = [
   {
     id: "art",
@@ -60,10 +63,24 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     eyebrow: "Sets, props & visual worlds",
     description:
       "Art directors, production designers, set designers and art crew.",
-    rolePattern:
-      /(^art(?!ist)|assistantArt|executiveArt|onSiteArt|imageDirectionAndArt|coverArt|productionDesigner|^set|prop|graphicDesign|illustrat|scenic|decor|titleArt)/i,
-    excludedRolePattern:
-      /(artist|makeup|makeUp|hair|styling|stylist|wardrobe|costume|vfx|cgi?|animat|photograph|management|setMedic)/i,
+    roleKeys: musicVideoRoles([
+      "productionDesigner",
+      "artDirector",
+      "assistantArtDirector",
+      "artAssistant",
+      "artTeam",
+      "setDesigner",
+      "setBuilder",
+      "setDecorator",
+      "props",
+      "illustrator",
+      "titleDesigner",
+      "typographer",
+      "calligrapher",
+      "graphicDesigner",
+      "creditsDesigner",
+      "coverDesigner",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -71,10 +88,13 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     label: "Direction",
     eyebrow: "Ideas into motion",
     description: "Directors, assistant directors and creative directors.",
-    rolePattern:
-      /(^director$|assistantDirector|assistantToDirector|directorAssistant|coAssistantDirector|coDirector|firstAssistantDirector|secondAssistantDirector|creativeAndDirector|creativeDirector|executiveDirector|visualDirector|imageDirector)/i,
-    excludedRolePattern:
-      /(art|photograph|animation|hair|makeup|makeUp|casting|choreograph|movement|production|editing)/i,
+    roleKeys: musicVideoRoles([
+      "director",
+      "coDirector",
+      "creativeDirector",
+      "assistantDirector",
+      "imageDirector",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -83,9 +103,29 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     eyebrow: "Frame, light, movement",
     description:
       "Cinematographers, camera crew, gaffers, grips and lighting teams.",
-    rolePattern:
-      /(cinemat|photograph|camera|dop|gaffer|grip|electrician|focusPull|^dit$|^ac$|firstAc|secondAc|lighting)/i,
-    excludedRolePattern: /(equipment|providedBy|coverArt)/i,
+    roleKeys: musicVideoRoles([
+      "directorOfPhotography",
+      "cameraOperator",
+      "focusPuller",
+      "firstAssistantCamera",
+      "secondAssistantCamera",
+      "cameraAssistant",
+      "cameraCrew",
+      "dit",
+      "steadicamOperator",
+      "droneOperator",
+      "craneOperator",
+      "gaffer",
+      "bestBoy",
+      "electrician",
+      "grip",
+      "lightingTechnician",
+      "stillPhotographer",
+      "photographyAssistant",
+      "coverPhotographer",
+      "btsPhotographer",
+      "btsVideographer",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -93,10 +133,19 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     label: "Production",
     eyebrow: "Make the shoot happen",
     description: "Producers, production managers, coordinators and assistants.",
-    rolePattern:
-      /(producer|production|projectManag|locationCoordinator|locationManag)/i,
-    excludedRolePattern:
-      /(postProduction|colorProducer|colourProducer|productionDesigner|productionDirector|stylingProducer|vfx.*Producer|vocalProduction|musicProducer|arrangerProducer)/i,
+    roleKeys: musicVideoRoles([
+      "executiveProducer",
+      "producer",
+      "associateProducer",
+      "lineProducer",
+      "productionManager",
+      "productionCoordinator",
+      "productionAssistant",
+      "productionCrew",
+      "productionCompany",
+      "locationManager",
+      "projectManager",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -104,10 +153,21 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     label: "Post-production",
     eyebrow: "Shape the final cut",
     description: "Editors, colourists, animators, VFX and finishing artists.",
-    rolePattern:
-      /(edit|colou?r|vfx|animat|postProduction|composit|finishing|retouch)/i,
-    excludedRolePattern:
-      /(hairColorist|colorProducer|colourProducer|executiveColorProducer)/i,
+    roleKeys: musicVideoRoles([
+      "editor",
+      "assistantEditor",
+      "onlineEditor",
+      "colourist",
+      "colourHouse",
+      "vfxArtist",
+      "vfxSupervisor",
+      "vfxStudio",
+      "cgArtist",
+      "animator",
+      "retoucher",
+      "postProductionProducer",
+      "subtitles",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -115,7 +175,23 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     label: "Styling & beauty",
     eyebrow: "Character through detail",
     description: "Stylists, costume, wardrobe, hair and makeup artists.",
-    rolePattern: /(styl|costume|wardrobe|makeUp|makeup|hair|manicure|nailArt)/i,
+    roleKeys: musicVideoRoles([
+      "stylist",
+      "stylingAssistant",
+      "costumeDesigner",
+      "costumeAssistant",
+      "wardrobe",
+      "wardrobeAssistant",
+      "hairStylist",
+      "hairStylistAssistant",
+      "makeupArtist",
+      "makeupAssistant",
+      "hairAndMakeup",
+      "hairAndMakeupAssistant",
+      "specialEffectsMakeup",
+      "nailArtist",
+      "foodStylist",
+    ]),
     categories: ["musicVideo"],
   },
   {
@@ -123,11 +199,10 @@ const BASE_ROLE_FAMILIES: RoleFamily[] = [
     label: "Sound & audio",
     eyebrow: "Sound for the screen",
     description: "Sound and audio teams credited on music videos.",
-    rolePattern: /(sound|audio|voiceOverMixing)/i,
+    roleKeys: musicVideoRoles(["soundDesigner", "soundMixer"]),
     categories: ["musicVideo"],
   },
 ];
-
 type CreditBuckets = {
   song?: Record<string, ContributorCredit[]>;
   musicVideo?: Record<string, ContributorCredit[]>;
@@ -143,11 +218,7 @@ type TalentProfileAccumulator = Omit<
 };
 
 function getCreditBuckets(location: LocationItem): CreditBuckets {
-  return location.contributors as CreditBuckets;
-}
-
-function escapeRegExp(value: string) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return location.contributors;
 }
 
 const songRoleKeys = new Set<string>();
@@ -166,7 +237,7 @@ const SONG_ROLE_FAMILIES: RoleFamily[] = [...songRoleKeys]
       label,
       eyebrow: "Song credit",
       description: `People credited for ${label.toLocaleLowerCase()} on Cantopop songs.`,
-      rolePattern: new RegExp(`^${escapeRegExp(roleKey)}$`),
+      roleKeys: new Set([roleKey as RoleKey]),
       categories: ["song" as const],
     };
   })
@@ -184,10 +255,7 @@ export function roleBelongsToFamily(
   roleKey: string,
 ) {
   if (!family.categories.includes(category)) return false;
-  const rolePattern =
-    family.rolePatternsByCategory?.[category] ?? family.rolePattern;
-  if (!rolePattern.test(roleKey)) return false;
-  return !family.excludedRolePattern?.test(roleKey);
+  return family.roleKeys.has(roleKey as RoleKey);
 }
 
 export function buildTalentProfiles(family: RoleFamily): TalentProfile[] {
