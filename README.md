@@ -8,6 +8,26 @@ Alternatively, you can submit an issue with the location information or email me
 
 多謝！
 
+## Search discoverability
+
+The interactive map is client rendered, while `/browse`, `/artists/:slug`,
+`/people/:slug` and `/locations/:slug` serve readable HTML without JavaScript.
+These pages use Traditional Chinese and Cantonese wording with English context,
+individual canonical URLs, and JSON-LD. Contributor case and spacing variants
+share a canonical profile; aliases permanently redirect. Companies are identified
+from explicit company/studio credits or organization names.
+
+Keep uncertain filming addresses marked as estimates in the location data. Pages
+expose source videos and playback timestamps without claiming independent
+verification. Add real Chinese place names to the source data when known rather
+than automatically guessing translations. There are no separate translated URLs,
+so the bilingual pages do not advertise alternate-language `hreflang` routes.
+
+Run `npm run test:seo` to build the production server and check its raw HTML,
+structured data, canonical links, sitemap, redirects and missing-page responses.
+Set `NEXT_PUBLIC_SITE_URL` consistently at build time to override the default
+canonical origin, `https://www.cantopopmap.hk`.
+
 ## Local HTTPS Development
 
 React Scan loads automatically during development (`npm run dev` or

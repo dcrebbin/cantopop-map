@@ -14,6 +14,7 @@ export default function CloseButton() {
   return (
     <button
       id="close-location-modal"
+      aria-label="關閉詳細資料 · Close details"
       type="button"
       onClick={handleCloseLocationModal}
     >

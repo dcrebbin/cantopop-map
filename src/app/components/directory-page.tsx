@@ -16,19 +16,19 @@ export function DirectoryPage({
 }) {
   return (
     <div className="min-h-screen w-full overflow-y-auto bg-[#e8eaed] text-black">
-      <div className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-6">
+      <main className="mx-auto flex max-w-4xl flex-col gap-6 px-4 py-6">
         <nav className="flex flex-row flex-wrap items-center gap-4 text-sm">
           <a href="/" className="font-[Cute] text-2xl">
             cantopop地圖
           </a>
           <a href="/" className="underline">
-            Map
+            地圖 · Map
           </a>
           <a href="/browse" className="underline">
-            Browse all songs
+            歌曲及拍攝地點 · Browse
           </a>
           <a href="/leaderboard" className="underline">
-            Contributors
+            社群貢獻者 · Contributors
           </a>
         </nav>
         <header className="flex flex-col gap-2">
@@ -38,7 +38,7 @@ export function DirectoryPage({
           ) : null}
         </header>
         {children}
-      </div>
+      </main>
     </div>
   );
 }
@@ -59,7 +59,7 @@ export function LocationList({
         >
           <img
             src={location.image}
-            alt={`${location.name} music video thumbnail`}
+            alt={`${location.artists.join("、")}《${location.name}》MV 縮圖`}
             width={120}
             height={68}
             loading="lazy"
@@ -83,7 +83,8 @@ export function LocationList({
               ))}
             </span>
             <span className="text-xs">
-              Filmed at {location.address ?? "an unknown location"}
+              拍攝地點 · Filming location:{" "}
+              {location.address ?? "尚未收錄 · Not yet listed"}
             </span>
             {note ? <span className="text-xs">{note(location)}</span> : null}
           </div>

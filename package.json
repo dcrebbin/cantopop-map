@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "tsx scripts/generate-llms.ts",
     "build": "vite build",
+    "test:seo": "npm run build && node --import tsx --test tests/seo.test.tsx tests/discoverability.test.ts",
     "dev": "vite dev --host 0.0.0.0 --port 3000",
     "dev:grab": "npx @react-grab/cursor@latest && vite dev",
     "dev:https": "NODE_ENV=development HOST=0.0.0.0 tsx scripts/dev-https.ts",

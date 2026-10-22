@@ -1,25 +1,23 @@
-import {
-  getContributorDisplayName,
-  getContributorInstagram,
-  getContributorName,
-  humanizeRoleKey,
-  nameToLocation,
-  type ContributorCredit,
-} from "~/app/common/lib";
-import { nameToInstagramMap } from "~/app/common/social-media";
+import { nameToLocation, type LocationItem } from "~/app/common/lib";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import DynamicHomePage from "~/app/components/dynamic-home-page";
 import CloseButton from "~/app/components/close-button";
 import { JsonLdScript } from "~/app/components/JsonLd";
 import {
-  SITE_URL,
   absoluteUrl,
   artistJsonLd,
   artistPath,
   describeLocation,
   getLocationCredits,
+  isEstimatedLocation,
+  locationPath,
+  personPath,
+  roleLabelZh,
+  videoStartSeconds,
   personJsonLd,
 } from "~/app/common/seo";
+
+import { youtubeVideoId } from "~/app/common/youtube-video-id";
 
 // Song credits that schema.org models directly; everything else becomes a
 // generic contributor Role so the job title is still machine readable.
@@ -28,30 +26,23 @@ const SONG_ROLE_PROPERTIES: Record<string, "composer" | "lyricist"> = {
   lyricist: "lyricist",
 };
 
-function getContributorInstagramUrl(contributor: ContributorCredit) {
-  const name = getContributorName(contributor);
-  const instagram =
-    getContributorInstagram(contributor) ??
-    nameToInstagramMap[name as keyof typeof nameToInstagramMap];
-
-  return instagram ? `https://www.instagram.com/${instagram}` : null;
-}
-
 export const Route = createFileRoute("/locations/$slug")({
+  beforeLoad: ({ params }) => {
+    if (!Object.hasOwn(nameToLocation, params.slug)) notFound({ throw: true });
+  },
   head: ({ params }) => {
-    const slug = decodeURIComponent(params.slug);
+    const slug = params.slug;
     const location = nameToLocation[slug];
     if (!location) return {};
 
     const artistNames = location.artists.join(", ");
-    const title = `${location.name} by ${artistNames} | Cantopop Map 粵語歌地圖`;
-    const path = `/locations/${encodeURIComponent(slug)}`;
-    const locationDescription = location.address
-      ? ` at ${location.address}`
-      : "";
-    const description = `Discover the filming location for "${location.name}" by ${artistNames}${locationDescription}. Watch the music video and explore the credits with Cantopop Map.`;
+    const title = `${artistNames}《${location.name}》MV 拍攝地點 | Cantopop Map`;
+    const path = locationPath(location);
+    const description = `${describeLocation(location, "zh")} ${describeLocation(location)}`;
     const url = absoluteUrl(path);
-    const images = location.image ? [location.image] : ["/images/og-image.png"];
+    const images = location.image
+      ? [location.image]
+      : [absoluteUrl("/images/og-image.png")];
 
     return {
       meta: [
@@ -78,7 +69,7 @@ export const Route = createFileRoute("/locations/$slug")({
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { property: "og:site_name", content: "Cantopop Map" },
-        { property: "og:locale", content: "en_HK" },
+        { property: "og:locale", content: "zh_HK" },
         ...images.map((image) => ({ property: "og:image", content: image })),
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
@@ -92,23 +83,16 @@ export const Route = createFileRoute("/locations/$slug")({
 });
 
 function LocationPage() {
-  const { slug: encodedSlug } = Route.useParams();
-  const slug = decodeURIComponent(encodedSlug);
+  const { slug } = Route.useParams();
   const location = nameToLocation[slug];
 
-  if (!location) {
-    throw notFound();
-  }
+  if (!location) return null;
 
-  const videoId = location?.url.includes("youtu.be")
-    ? location?.url.split("youtu.be/")[1]?.split("?")[0]
-    : location?.url.split("v=")[1]?.split("&")[0];
-
-  const urlTime = location.url.split("?t=")[1]?.split("&")[0];
-  const time = location.hookTime ?? urlTime;
-
-  const siteUrl = SITE_URL;
-  const pageUrl = `${siteUrl}/locations/${encodeURIComponent(slug)}`;
+  const videoId = youtubeVideoId(location.url);
+  const time = videoStartSeconds(location);
+  const pageUrl = absoluteUrl(locationPath(location));
+  const playbackUrl = new URL(location.url);
+  if (time !== null) playbackUrl.searchParams.set("t", String(time));
   const credits = getLocationCredits(location);
   const songCredits = credits.filter((credit) => credit.category === "song");
   const videoCredits = credits.filter(
@@ -154,7 +138,6 @@ function LocationPage() {
         url: pageUrl,
         sameAs: [location.url],
         image: location.image,
-        locationCreated: place,
         recordingOf: {
           "@type": "MusicComposition",
           name: location.name,
@@ -172,13 +155,13 @@ function LocationPage() {
         "@type": "VideoObject",
         "@id": `${pageUrl}#video`,
         name: `${location.name} - Music Video`,
-        description: `Official music video for "${location.name}" by ${location.artists.join(", ")}.`,
+        description: `${describeLocation(location, "zh")} ${describeLocation(location)}`,
         thumbnailUrl: location.image,
         embedUrl: videoId
           ? `https://www.youtube.com/embed/${videoId}`
           : undefined,
         url: location.url,
-        contentLocation: place,
+        contentLocation: isEstimatedLocation(location) ? undefined : place,
         director: videoCredits
           .filter((credit) => credit.roleKey === "director")
           .map((credit) => personJsonLd(credit.name, credit.instagram)),
@@ -191,9 +174,10 @@ function LocationPage() {
         "@id": pageUrl,
         url: pageUrl,
         name: `${location.artists.join(", ")} - ${location.name} | Music Video Location`,
-        description: describeLocation(location),
+        description: `${describeLocation(location, "zh")} ${describeLocation(location)}`,
+        inLanguage: ["zh-Hant-HK", "en"],
         about: [{ "@id": `${pageUrl}#song` }, { "@id": `${pageUrl}#video` }],
-        isPartOf: { "@id": `${siteUrl}/#website` },
+        isPartOf: { "@id": `${absoluteUrl("/")}#website` },
       },
       {
         "@type": "BreadcrumbList",
@@ -202,7 +186,7 @@ function LocationPage() {
             "@type": "ListItem",
             position: 1,
             name: "Cantopop Map",
-            item: `${siteUrl}/`,
+            item: absoluteUrl("/"),
           },
           {
             "@type": "ListItem",
@@ -218,21 +202,31 @@ function LocationPage() {
   return (
     <div className="relative h-screen w-screen">
       <div
-        className="fixed z-95 flex h-screen w-screen flex-col items-center justify-center bg-black/30"
+        className="fixed inset-0 z-[6000] flex items-center justify-center bg-black/30 px-4 py-6"
         id="location-modal"
       >
-        <div className="mt-28 mb-10 flex h-screen w-[90%] flex-col items-start justify-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/50 p-4 backdrop-blur-md lg:w-240 xl:w-7xl 2xl:w-360">
+        <main className="flex max-h-[calc(100dvh-3rem)] w-full max-w-6xl flex-col items-start overflow-y-auto rounded-lg border-2 border-white/50 bg-white/95 p-4 shadow-xl">
           <JsonLdScript data={jsonLd} />
           <div className="flex w-full flex-row items-center justify-between">
             <h1 className="text-xl font-semibold">
-              {location?.artists.join(", ")} - {location?.name} | Music Video
-              Location
+              {location.artists.join("、")}《{location.name}》MV 拍攝地點
             </h1>
             <CloseButton />
           </div>
           <div className="flex w-full flex-col items-start justify-start px-4">
-            <p className="mt-2 text-sm">
-              {describeLocation(location)} More from{" "}
+            <h2 className="mt-3 font-semibold">呢個 MV 喺邊度拍？</h2>
+            <p className="mt-2 text-sm">{describeLocation(location, "zh")}</p>
+            <p lang="en" className="mt-1 text-sm">
+              {describeLocation(location)}
+            </p>
+            {isEstimatedLocation(location) && (
+              <p className="mt-2 text-sm">
+                此地點為估計位置，尚待確認。
+                <span lang="en"> This location is an estimate.</span>
+              </p>
+            )}
+            <nav aria-label="相關歌曲及歌手" className="mt-2 text-sm">
+              更多作品 · More from{" "}
               {location.artists.map((artist, index) => (
                 <span key={artist}>
                   {index > 0 ? ", " : ""}
@@ -243,29 +237,52 @@ function LocationPage() {
               ))}{" "}
               or{" "}
               <a href="/browse" className="underline">
-                browse every song
+                瀏覽歌曲 · Browse songs
               </a>
-              .
+            </nav>
+            <p className="mt-3 text-sm">
+              <a
+                href={playbackUrl.toString()}
+                target="_blank"
+                rel="noreferrer"
+                className="underline"
+              >
+                觀看來源影片 · Watch source video
+                {time !== null
+                  ? ` (${Math.floor(time / 60)}:${String(time % 60).padStart(2, "0")})`
+                  : ""}
+              </a>
+              {time !== null && <span> — 播放起點 · Playback start</span>}
             </p>
+            {location.streetView && (
+              <a
+                href={location.streetView}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-2 text-sm underline"
+              >
+                查看街景 · Open Street View
+              </a>
+            )}
             <div className="mt-4 grid w-full justify-center gap-2 lg:grid-cols-2">
-              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
+              <div className="h-[200px] min-w-0 w-full rounded-lg lg:h-[300px]">
                 <iframe
                   src={location?.streetViewEmbed ?? location?.mapEmbed ?? ""}
                   width="100%"
                   height="100%"
-                  title="Street View"
+                  title={`${location.address ?? location.name} — 街景 Street View`}
                   className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
                   style={{ border: "0" }}
                   sandbox="allow-scripts allow-popups allow-forms allow-presentation"
                 ></iframe>
               </div>
-              <div className="h-[200px] w-[300px] rounded-lg lg:h-[300px] lg:w-auto">
+              <div className="h-[200px] min-w-0 w-full rounded-lg lg:h-[300px]">
                 {videoId ? (
                   <iframe
-                    src={`https://www.youtube.com/embed/${videoId}${time !== undefined ? `?start=${time}` : ""}`}
+                    src={`https://www.youtube.com/embed/${videoId}${time !== null ? `?start=${time}` : ""}`}
                     width="100%"
                     height="100%"
-                    title="Youtube Video"
+                    title={`${location.name} — 音樂錄像 Music video`}
                     className="h-[200px] rounded-lg drop-shadow-md lg:h-[300px]"
                     style={{ border: "0" }}
                     sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox allow-presentation allow-forms"
@@ -280,139 +297,91 @@ function LocationPage() {
             <hr className="my-2 w-full" />
             <div className="grid w-full grid-cols-2 gap-2">
               <div className="flex w-full flex-col items-start justify-start">
-                <p className="text-xs font-bold">Song Title</p>
+                <p className="text-xs font-bold">歌曲 · Song</p>
                 <p>{location?.name}</p>
               </div>
               <div className="flex w-full flex-col items-start justify-start">
-                <p className="text-xs font-bold">Artist(s)</p>
+                <p className="text-xs font-bold">歌手 · Artist(s)</p>
                 <p>{location?.artists.join(", ")}</p>
               </div>
               <div className="flex w-full flex-col items-start justify-start">
-                <p className="text-xs font-bold">Address</p>
-                <p>{location?.address ?? "Not available"}</p>
+                <p className="text-xs font-bold">地址 · Address</p>
+                <p>{location?.address ?? "尚未收錄 · Not yet listed"}</p>
               </div>
               <div className="flex w-full flex-col items-start justify-start">
-                <p className="text-xs font-bold">Location</p>
+                <p className="text-xs font-bold">座標 · Coordinates</p>
                 <p>
                   {location?.lat !== null && location?.lng !== null
                     ? `${location.lat}, ${location.lng}`
-                    : "Not available"}
+                    : "尚未收錄 · Not yet listed"}
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex w-full flex-row items-start justify-evenly gap-2">
-              <div className="flex w-full flex-col items-start justify-start overflow-y-auto font-bold">
-                <h3 className="my-1 text-base">Contributors</h3>
-                <hr className="my-1 w-full text-black" />
-                <h3 className="my-2">Song</h3>
-                {Object.entries(location.contributors?.song ?? {}).length ===
-                  0 && (
-                  <div className="flex w-full flex-col items-center justify-center text-sm">
-                    <p className="text-center">No song contributors found</p>
-                    <a
-                      className="my-2 font-normal underline"
-                      href={`mailto:devon@langpal.com.hk?subject=Cantopop地圖: ${location.name} Song Contributors`}
-                    >
-                      Submit contributors
-                    </a>
-                  </div>
-                )}
-                <div className="grid w-full grid-cols-2 gap-2">
-                  {Object.entries(location?.contributors?.song ?? {}).map(
-                    ([key, value]) => (
-                      <div
-                        className="flex flex-col items-start justify-start"
-                        key={key}
-                      >
-                        <p className="text-xs font-bold">
-                          {humanizeRoleKey(key)} <br></br>
-                        </p>
-                        <div className="flex flex-col gap-1 text-left text-xs font-normal">
-                          {Array.isArray(value)
-                            ? value.map((name) => {
-                                const displayName =
-                                  getContributorDisplayName(name);
-                                const instagramUrl =
-                                  getContributorInstagramUrl(name);
-                                if (instagramUrl) {
-                                  return (
-                                    <a
-                                      key={displayName}
-                                      href={instagramUrl}
-                                      target="_blank"
-                                      className="text-blue-500 underline"
-                                      rel="noreferrer"
-                                    >
-                                      {displayName}
-                                    </a>
-                                  );
-                                }
-                                return (
-                                  <span key={displayName}>{displayName}</span>
-                                );
-                              })
-                            : null}
-                        </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-                <h3 className="text-md my-2">Music Video</h3>
-                {Object.entries(location.contributors?.musicVideo ?? {})
-                  .length === 0 && (
-                  <div className="flex w-full flex-col items-center justify-center text-sm">
-                    <p className="text-center">
-                      No music video contributors found
-                    </p>
-                    <a
-                      className="my-2 font-normal underline"
-                      href={`mailto:devon@langpal.com.hk?subject=Cantopop地圖: ${location.name} Music Video Contributors`}
-                    >
-                      Submit contributors
-                    </a>
-                  </div>
-                )}
-                <div className="grid w-full grid-cols-2 gap-2">
-                  {Object.entries(location?.contributors?.musicVideo ?? {}).map(
-                    ([key, value]) => (
-                      <div
-                        className="flex w-full flex-col items-start justify-start"
-                        key={key}
-                      >
-                        <p className="text-xs font-bold">
-                          {humanizeRoleKey(key)} <br></br>
-                        </p>
-                        <div className="flex flex-col gap-1 text-left text-xs font-normal">
-                          {value.map((name) => {
-                            const displayName = getContributorDisplayName(name);
-                            const instagramUrl =
-                              getContributorInstagramUrl(name);
-                            if (instagramUrl) {
-                              return (
-                                <a
-                                  key={displayName}
-                                  href={instagramUrl}
-                                  target="_blank"
-                                  className="text-blue-500 underline"
-                                  rel="noreferrer"
-                                >
-                                  {displayName}
-                                </a>
-                              );
-                            }
-                            return <span key={displayName}>{displayName}</span>;
-                          })}
-                        </div>
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
+            <div className="mt-4 grid w-full gap-4 md:grid-cols-2">
+              <CreditSection location={location} category="song" />
+              <CreditSection location={location} category="musicVideo" />
             </div>
           </div>
-        </div>
+        </main>
       </div>
       <DynamicHomePage location={location} />
     </div>
+  );
+}
+
+function CreditSection({
+  location,
+  category,
+}: {
+  location: LocationItem;
+  category: "song" | "musicVideo";
+}) {
+  const credits = getLocationCredits(location).filter(
+    (credit) => credit.category === category,
+  );
+  const roles = [...new Set(credits.map((credit) => credit.roleKey))];
+  return (
+    <section>
+      <h2 className="font-semibold">
+        {category === "song"
+          ? "歌曲製作名單 · Song credits"
+          : "音樂錄像製作名單 · MV credits"}
+      </h2>
+      {credits.length === 0 ? (
+        <p className="mt-2 text-sm">尚未收錄 · No credits listed yet.</p>
+      ) : (
+        <dl className="mt-2 grid grid-cols-2 gap-3 text-sm">
+          {roles.map((role) => (
+            <div key={role}>
+              <dt className="font-semibold">
+                {roleLabelZh(role)}{" "}
+                <span lang="en" className="text-xs">
+                  {credits.find((credit) => credit.roleKey === role)?.role}
+                </span>
+              </dt>
+              <dd className="flex flex-col gap-1">
+                {credits
+                  .filter((credit) => credit.roleKey === role)
+                  .map((credit) => (
+                    <a
+                      key={credit.name}
+                      href={personPath(credit.name)}
+                      className="underline"
+                    >
+                      {credit.name}
+                    </a>
+                  ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      <a
+        href={`mailto:devon@langpal.com.hk?subject=${encodeURIComponent(`Cantopop地圖: ${location.name} ${category === "song" ? "Song" : "Music Video"} Contributors`)}`}
+        className="mt-3 inline-block text-sm underline"
+      >
+        補充製作名單 · Suggest credits
+      </a>
+    </section>
   );
 }

@@ -1,5 +1,6 @@
 import {
   createRootRoute,
+  isNotFound,
   HeadContent,
   Outlet,
   Scripts,
@@ -8,11 +9,12 @@ import { PostHogProvider } from "./components/PostHogProvider";
 import { SwCleanup } from "./components/sw-cleanup";
 import appCss from "~/styles/globals.css?url";
 import ReactScan from "./components/react-scan";
+import { DirectoryPage } from "./components/directory-page";
 
 import { SITE_URL as siteUrl } from "./common/seo";
 
 export const Route = createRootRoute({
-  head: () => ({
+  head: ({ matches }) => ({
     meta: [
       { charSet: "utf-8" },
       {
@@ -22,12 +24,12 @@ export const Route = createRootRoute({
       { name: "theme-color", content: "#e8eaed" },
       {
         title:
-          "Cantopop Map | 粵語歌地圖 - Discover Hong Kong Song Locations 🇭🇰",
+          "粵語歌地圖｜廣東歌 MV 拍攝地點・香港及海外取景地 | Cantopop Map",
       },
       {
         name: "description",
         content:
-          "Explore the Cantopop Map - an interactive guide to Hong Kong locations featured in your favourite Cantonese pop songs. Discover where iconic 粵語歌 music videos were filmed and the real places behind the cantopop lyrics.",
+          "想知廣東歌 MV 喺邊度拍？粵語歌地圖收錄香港及海外的音樂錄像拍攝地點、街景、歌手及製作名單。Discover Cantopop music video filming locations and credits.",
       },
       { name: "application-name", content: "Cantopop Map 粵語歌地圖" },
       { name: "author", content: "Cantopop Map" },
@@ -37,20 +39,31 @@ export const Route = createRootRoute({
         content:
           "cantopop map,cantopop,粵語歌地圖,粵語歌,hong kong music locations,cantonese pop,hk music map,hong kong song locations,cantopop filming locations,廣東歌,香港音樂地圖,canto pop,cantonese music,hong kong cantopop",
       },
-      { name: "robots", content: "index, follow" },
+      {
+        name: "robots",
+        content: matches.some(
+          (match) =>
+            match.status === "notFound" ||
+            match._notFound === true ||
+            isNotFound(match.error),
+        )
+          ? "noindex, follow"
+          : "index, follow",
+      },
       { property: "og:type", content: "website" },
       {
         property: "og:title",
-        content: "Cantopop Map | 粵語歌地圖 - Hong Kong Song Locations",
+        content: "粵語歌地圖｜廣東歌 MV 拍攝地點 | Cantopop Map",
       },
       {
         property: "og:description",
         content:
-          "Explore the interactive Cantopop Map to discover Hong Kong locations from your favourite Cantonese pop songs. Find where iconic music videos were filmed.",
+          "探索廣東歌 MV 在香港及海外的取景地，查看街景、音樂錄像與製作名單。Explore Cantopop music video filming locations.",
       },
       { property: "og:site_name", content: "Cantopop Map" },
-      { property: "og:locale", content: "en_HK" },
-      { property: "og:image", content: "/images/og-image.png" },
+      { property: "og:locale", content: "zh_HK" },
+      { property: "og:locale:alternate", content: "en_HK" },
+      { property: "og:image", content: `${siteUrl}/images/og-image.png` },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       {
@@ -62,9 +75,9 @@ export const Route = createRootRoute({
       {
         name: "twitter:description",
         content:
-          "Discover Hong Kong locations featured in your favourite Cantonese pop songs",
+          "探索廣東歌 MV 香港及海外拍攝地點。Discover Cantopop filming locations.",
       },
-      { name: "twitter:image", content: "/images/og-image.png" },
+      { name: "twitter:image", content: `${siteUrl}/images/og-image.png` },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       {
         name: "apple-mobile-web-app-status-bar-style",
@@ -84,18 +97,33 @@ export const Route = createRootRoute({
     ],
   }),
   errorComponent: RootError,
+  notFoundComponent: NotFoundPage,
   component: RootLayout,
 });
 
-function RootError({ error }: { error: Error }) {
+function NotFoundPage() {
   return (
-    <html lang="en">
+    <DirectoryPage title="找不到此頁面 · Page not found">
+      <p>這個連結可能已更改，或尚未收錄。</p>
+      <p lang="en">This page could not be found.</p>
+      <a href="/browse" className="underline">
+        瀏覽歌曲及拍攝地點 · Browse songs and locations
+      </a>
+    </DirectoryPage>
+  );
+}
+
+function RootError({ error }: { error: unknown }) {
+  return (
+    <html lang="zh-Hant-HK">
       <head>
         <title>Cantopop Map | Error</title>
       </head>
       <body className="bg-[#e8eaed] p-6 font-sans text-black">
         <h1 className="text-xl font-bold">Something went wrong</h1>
-        <p className="mt-2 text-sm">{error.message}</p>
+        <p className="mt-2 text-sm">
+          {error instanceof Error ? error.message : "Unable to load this page."}
+        </p>
       </body>
     </html>
   );
@@ -103,7 +131,7 @@ function RootError({ error }: { error: Error }) {
 
 function RootLayout() {
   return (
-    <html lang="en">
+    <html lang="zh-Hant-HK">
       <head>
         <HeadContent />
       </head>

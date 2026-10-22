@@ -10,7 +10,7 @@ import {
 } from "~/app/common/seo";
 
 function getArtist(slug: string) {
-  return ARTIST_INDEX.get(decodeURIComponent(slug));
+  return ARTIST_INDEX.get(slug);
 }
 
 function describeArtist(name: string, count: number) {
@@ -18,14 +18,17 @@ function describeArtist(name: string, count: number) {
 }
 
 export const Route = createFileRoute("/artists/$slug")({
+  beforeLoad: ({ params }) => {
+    if (!getArtist(params.slug)) notFound({ throw: true });
+  },
   head: ({ params }) => {
     const artist = getArtist(params.slug);
     if (!artist) return {};
-    const title = `${artist.name} music video filming locations | Cantopop Map 粵語歌地圖`;
-    const description = `${describeArtist(artist.name, artist.locations.length)} Includes ${artist.locations
+    const title = `${artist.name} MV 拍攝地點及取景地 | Cantopop Map 粵語歌地圖`;
+    const description = `想知 ${artist.name} 的 MV 喺邊度拍？瀏覽 ${artist.locations.length} 首歌曲的收錄拍攝地點、音樂錄像及製作名單，包括${artist.locations
       .slice(0, 5)
       .map((location) => location.name)
-      .join(", ")}.`;
+      .join("、")}。Explore ${artist.name} music video filming locations.`;
     const url = absoluteUrl(artistPath(artist.name));
     return {
       meta: [
@@ -46,7 +49,7 @@ export const Route = createFileRoute("/artists/$slug")({
 function ArtistPage() {
   const { slug } = Route.useParams();
   const artist = getArtist(slug);
-  if (!artist) throw notFound();
+  if (!artist) return null;
 
   const pageUrl = absoluteUrl(artistPath(artist.name));
   const jsonLd = {
@@ -66,6 +69,7 @@ function ArtistPage() {
         "@id": pageUrl,
         url: pageUrl,
         name: `${artist.name} music video filming locations`,
+        inLanguage: ["zh-Hant-HK", "en"],
         about: { "@id": `${pageUrl}#artist` },
         isPartOf: { "@id": `${absoluteUrl("/")}#website` },
       },
@@ -97,8 +101,18 @@ function ArtistPage() {
 
   return (
     <DirectoryPage
-      title={`${artist.name}: music video filming locations`}
-      intro={<p>{describeArtist(artist.name, artist.locations.length)}</p>}
+      title={`${artist.name} MV 拍攝地點`}
+      intro={
+        <>
+          <p>
+            {artist.name} 的 MV 喺邊度拍？本站收錄 {artist.locations.length}{" "}
+            首歌曲的音樂錄像、取景地及幕後製作名單。選擇歌曲查看詳細地址、街景及影片。
+          </p>
+          <p lang="en" className="mt-2">
+            {describeArtist(artist.name, artist.locations.length)}
+          </p>
+        </>
+      }
     >
       <JsonLdScript data={jsonLd} />
       <LocationList locations={artist.locations} />

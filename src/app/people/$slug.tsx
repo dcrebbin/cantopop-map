@@ -1,19 +1,16 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { JsonLdScript } from "~/app/components/JsonLd";
 import { DirectoryPage, LocationList } from "~/app/components/directory-page";
 import {
-  PEOPLE_INDEX,
+  getPersonEntry,
   absoluteUrl,
   instagramUrl,
   locationPath,
   personJsonLd,
   personPath,
+  roleLabelZh,
   type PersonEntry,
 } from "~/app/common/seo";
-
-function getPerson(slug: string) {
-  return PEOPLE_INDEX.get(decodeURIComponent(slug));
-}
 
 function uniqueRoles(person: PersonEntry) {
   return [...new Set(person.credits.map((credit) => credit.role))];
@@ -37,11 +34,23 @@ function describePerson(person: PersonEntry) {
 }
 
 export const Route = createFileRoute("/people/$slug")({
+  beforeLoad: ({ params }) => {
+    const person = getPersonEntry(params.slug);
+    if (!person) {
+      notFound({ throw: true });
+      return;
+    }
+    if (params.slug !== person.slug)
+      redirect({ href: personPath(person.name), statusCode: 301, throw: true });
+  },
   head: ({ params }) => {
-    const person = getPerson(params.slug);
+    const person = getPersonEntry(params.slug);
     if (!person) return {};
-    const title = `${person.name}: ${uniqueRoles(person).slice(0, 3).join(", ")} credits | Cantopop Map 粵語歌地圖`;
-    const description = describePerson(person);
+    const rolesZh = [
+      ...new Set(person.credits.map((credit) => roleLabelZh(credit.roleKey))),
+    ];
+    const title = `${person.name}｜${rolesZh.slice(0, 3).join("、")}・廣東歌製作名單 | Cantopop Map`;
+    const description = `${person.name} 的廣東歌及 MV 製作名單，收錄 ${uniqueLocations(person).length} 首作品，參與職務包括${rolesZh.join("、")}。Cantopop song and music video credits.`;
     const url = absoluteUrl(personPath(person.name));
     return {
       meta: [
@@ -60,8 +69,8 @@ export const Route = createFileRoute("/people/$slug")({
 
 function PersonPage() {
   const { slug } = Route.useParams();
-  const person = getPerson(slug);
-  if (!person) throw notFound();
+  const person = getPersonEntry(slug);
+  if (!person) return null;
 
   const pageUrl = absoluteUrl(personPath(person.name));
   const roles = uniqueRoles(person);
@@ -73,7 +82,7 @@ function PersonPage() {
     "@graph": [
       {
         ...personJsonLd(person.name, person.instagram),
-        jobTitle: roles,
+        ...(person.kind === "Person" ? { jobTitle: roles } : {}),
         description: describePerson(person),
       },
       {
@@ -81,6 +90,7 @@ function PersonPage() {
         "@id": pageUrl,
         url: pageUrl,
         name: `${person.name} credits`,
+        inLanguage: ["zh-Hant-HK", "en"],
         mainEntity: { "@id": `${pageUrl}#person` },
         isPartOf: { "@id": `${absoluteUrl("/")}#website` },
       },
@@ -102,10 +112,21 @@ function PersonPage() {
 
   return (
     <DirectoryPage
-      title={`${person.name}: Cantopop credits`}
+      title={`${person.name}：廣東歌及 MV 製作名單`}
       intro={
         <>
-          <p>{describePerson(person)}</p>
+          <p>
+            {person.name} 參與了本站收錄的 {locations.length} 首作品，職務包括
+            {[
+              ...new Set(
+                person.credits.map((credit) => roleLabelZh(credit.roleKey)),
+              ),
+            ].join("、")}
+            。以下列出相關歌曲、MV 拍攝地點與參與職務。
+          </p>
+          <p lang="en" className="mt-2">
+            {describePerson(person)}
+          </p>
           {instagram ? (
             <p className="mt-1">
               Instagram:{" "}
@@ -127,7 +148,7 @@ function PersonPage() {
           return credits
             .map(
               (credit) =>
-                `${credit.role} (${credit.category === "song" ? "song" : "music video"})`,
+                `${roleLabelZh(credit.roleKey)} · ${credit.role}（${credit.category === "song" ? "歌曲 Song" : "音樂錄像 MV"}）`,
             )
             .join(", ");
         }}
