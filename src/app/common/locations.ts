@@ -16,6 +16,53 @@ const defaultLocation = {
 
 export const RAW_LOCATIONS: RawLocationSchema[] = [
   {
+    artists: ["Candy 王家晴"],
+    address:
+      "Morning Queue, Shek Kip Mei Estate, Shek Kip Mei, Kowloon, Hong Kong",
+    coordinates: [22.3335342, 114.1633311],
+    name: "連名字你都說錯 (You Don't Even Remember My Name)",
+    streetView: "https://maps.app.goo.gl/rrTg73eACDHDuFNV6",
+    url: "https://youtu.be/xRm5XztdTW8?t=18",
+    image: "https://i.ytimg.com/vi/xRm5XztdTW8/mqdefault.jpg",
+    contributors: {
+      song: {
+        composer: ["Y.Siu"],
+        lyricist: ["黃偉文"],
+        arranger: ["Justin Yau"],
+        producer: ["徐浩"],
+      },
+
+      musicVideo: {
+        director: ["Heison Ng"],
+        cast: ["Candy 王家晴", "George Au"],
+        directorOfPhotography: ["Felix Leong"],
+        focusPuller: ["Sokin"],
+        gaffer: ["Malo Ma"],
+        grip: ["Jim Chow", "Tsang Cheung Lun"],
+        electrician: ["Jim Chow", "Tsang Cheung Lun"],
+        artDirector: ["Sasa"],
+        artTeam: ["Lok", "Tingkwan"],
+        producer: ["Anson Ng"],
+        colourist: ["Chung Chow"],
+        makeupArtist: ["Janice", "Matt Li"],
+        hairStylist: ["Crystal Chan", "Kin@Colpo Group"],
+        stylist: ["Cedric Cheung", "Kammie Cheung"],
+        stylingAssistant: ["Barbie Fong", "Honey", "Rei"],
+        wardrobe: ["Zara", "NBA Atelier"],
+        artistManagement: [
+          "Karen Li",
+          "Wing Tai",
+          "Ava Yau",
+          "Carmen Lam",
+          "Polly Wu",
+          "Sarah Yue",
+          "Kobi Chan",
+        ],
+        aAndR: ["Herman To", "Karton Ma"],
+      },
+    },
+  },
+  {
     artists: ["WHIZZ"],
     address:
       "TOWNPLACE PIER, 10 Lai Ying St, Cheung Sha Wan, Kowloon, Hong Kong",
