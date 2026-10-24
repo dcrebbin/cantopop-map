@@ -7,14 +7,6 @@ export default function SelectedLocation() {
   const uiStore = useUIStore();
   const mapStore = useMapStore();
 
-  function formatTitle() {
-    return (
-      uiStore.selectedLocation?.artists.join(", ") +
-      " - " +
-      uiStore.selectedLocation?.value
-    );
-  }
-
   function clearSelectedLocation() {
     uiStore.setSelectedLocation({
       value: "",
@@ -34,21 +26,19 @@ export default function SelectedLocation() {
     mapStore.clearSelectedLocation();
   }
 
-  if (!uiStore.selectedLocation?.value || uiStore.mobileCameraViewOpen)
+  if (!uiStore.selectedLocation?.address || uiStore.mobileCameraViewOpen)
     return null;
 
   return (
-    <div className="absolute bottom-0 left-0 z-[250] m-0 mb-[2rem] ml-2 flex max-w-[50vw] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 pr-6 backdrop-blur-sm sm:max-w-none xl:ml-4">
+    <div className="absolute bottom-0 left-0 z-[250] m-0 mb-[2rem] ml-2 flex max-w-[min(24rem,calc(100vw-7rem))] flex-row items-center gap-4 rounded-lg border border-white/50 bg-white/5 p-3 pr-8 backdrop-blur-sm xl:ml-4">
       <div className="relative min-w-0">
-        <h1 className="truncate text-sm font-bold text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-lg xl:text-xl">
-          {uiStore.selectedLocation?.artists.join(", ")}
-        </h1>
-        <h2 className="truncate text-xs text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-sm xl:text-base">
-          {uiStore.selectedLocation?.value}
-        </h2>
+        <p className="wrap-anywhere text-xs leading-snug font-semibold text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)] sm:text-sm xl:text-base">
+          {uiStore.selectedLocation.address}
+        </p>
       </div>
       <button
         type="button"
+        aria-label="Clear selected location"
         onClick={clearSelectedLocation}
         className="absolute -right-1 top-0 p-1 text-white drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
       >

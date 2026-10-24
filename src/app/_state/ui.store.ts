@@ -1,6 +1,13 @@
 import { create } from "zustand";
 import { ARTISTS, CONTRIBUTORS, SONGS, type LocationItem } from "../common/lib";
 
+interface SelectedMapLocation {
+  value: string;
+  artists: string[];
+  streetViewEmbed: string;
+  address?: string;
+}
+
 interface UIState {
   menuOpen: boolean;
   setMenuOpen: (open: boolean) => void;
@@ -31,16 +38,8 @@ interface UIState {
   setGameScore: (score: number) => void;
   setTotalLocations: (total: number) => void;
   setGameOpen: (open: boolean) => void;
-  selectedLocation: {
-    value: string;
-    artists: string[];
-    streetViewEmbed: string;
-  } | null;
-  setSelectedLocation: (location: {
-    value: string;
-    artists: string[];
-    streetViewEmbed: string;
-  }) => void;
+  selectedLocation: SelectedMapLocation | null;
+  setSelectedLocation: (location: SelectedMapLocation) => void;
   isPwaTutorialVisible: boolean;
   setIsPwaTutorialVisible: (visible: boolean) => void;
   combinedFilters: { type: "artist" | "contributor"; name: string }[];
@@ -99,11 +98,8 @@ export const useUIStore = create<UIState>((set) => ({
   setTotalLocations: (total: number) => set({ totalLocations: total }),
   setGameScore: (score: number) => set({ gameScore: score }),
   selectedLocation: null,
-  setSelectedLocation: (location: {
-    value: string;
-    artists: string[];
-    streetViewEmbed: string;
-  }) => set({ selectedLocation: location }),
+  setSelectedLocation: (location: SelectedMapLocation) =>
+    set({ selectedLocation: location }),
   isPwaTutorialVisible: false,
   setIsPwaTutorialVisible: (visible: boolean) =>
     set({ isPwaTutorialVisible: visible }),

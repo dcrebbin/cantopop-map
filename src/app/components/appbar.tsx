@@ -13,7 +13,7 @@ export default function Appbar({ suffix }: { suffix?: string }) {
       {!suffix && (
         <a
           href="/browse"
-          className="px-3 text-sm text-white underline drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
+          className="px-3 sr-only  text-sm text-white underline drop-shadow-[0_0_4px_rgba(0,0,0,1)]"
         >
           歌曲及拍攝地點 · Browse
         </a>

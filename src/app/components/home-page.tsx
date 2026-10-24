@@ -116,6 +116,7 @@ export default function HomePage({ location }: { location?: LocationItem }) {
         useUIStore.getState().setSelectedLocation({
           value: queryLocation.name,
           artists: queryLocation.artists,
+          address: queryLocation.address,
           streetViewEmbed: queryLocation.streetViewEmbed ?? "",
         });
       } else if (queryLocation) {

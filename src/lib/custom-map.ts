@@ -537,8 +537,10 @@ export function setMarkerFilters(
 function selectedElement(location: MappableLocationItem, manager: Manager) {
   const element = document.createElement("div");
   element.className =
-    "z-[2000] w-40 overflow-hidden rounded-[0.65rem] drop-shadow-[0_9px_14px_rgba(0,0,0,0.28)]";
+    "z-[2000] w-48 overflow-hidden rounded-[0.65rem] drop-shadow-[0_9px_14px_rgba(0,0,0,0.28)]";
   element.dataset.song = location.name;
+  // Keep clicks on popup actions from selecting a map symbol underneath.
+  element.addEventListener("click", (event) => event.stopPropagation());
   const root = createRoot(element);
   const close = () => {
     const params = new URLSearchParams(locationSearch());
@@ -560,7 +562,7 @@ function selectedElement(location: MappableLocationItem, manager: Manager) {
       "div",
       {
         className:
-          "flex w-40 flex-col overflow-hidden rounded-[0.65rem] bg-transparent",
+          "flex w-48 flex-col overflow-hidden rounded-[0.65rem] bg-transparent",
       },
       createElement(PopupContent, { data: location, onClose: close }),
       createElement(
@@ -581,18 +583,18 @@ function selectedElement(location: MappableLocationItem, manager: Manager) {
           "div",
           {
             className:
-              "absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pt-8 pb-2 text-white",
+              "absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 pb-2 text-white",
             "data-popup-selectable": "",
           },
           createElement(
             "p",
             { className: "text-xs leading-tight font-bold" },
-            location.artists.join(", "),
+            location.name,
           ),
           createElement(
             "p",
             { className: "text-[0.65rem] leading-tight" },
-            location.name,
+            location.artists.join(", "),
           ),
         ),
       ),
@@ -634,6 +636,7 @@ export function openLocationPopup(
   useUIStore.getState().setSelectedLocation({
     value: location.name,
     artists: location.artists,
+    address: location.address,
     streetViewEmbed: location.streetViewEmbed ?? "",
   });
   const params = new URLSearchParams(locationSearch());

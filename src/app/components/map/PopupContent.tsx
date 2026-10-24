@@ -3,11 +3,8 @@
 import { type MappableLocationItem } from "~/app/common/lib";
 import { youtubeIcon } from "~/lib/icons/youtubeIcon";
 import { shareIcon } from "~/lib/icons/shareIcon";
-import { streetViewIcon } from "~/lib/icons/streetViewIcon";
-import { locationIcon } from "~/lib/icons/locationIcon";
 import posthog from "posthog-js";
 import { useUIStore } from "~/app/_state/ui.store";
-import { ArrowUpRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 
 function buildDirectionsUrl(data: MappableLocationItem) {
@@ -73,7 +70,7 @@ export function PopupContent({
   const { setSelectedLocationCredits } = useUIStore();
 
   const actionButtons = (
-    <div className="mt-7 flex h-2 left-2 w-full items-center justify-center gap-2 text-black">
+    <div className="mt-4 z-1 flex h-2 left-2 w-full items-center justify-center gap-2 text-black">
       <a
         href={data.url}
         target="_blank"
@@ -96,7 +93,11 @@ export function PopupContent({
         rel="noreferrer"
         aria-label="Open Street View"
       >
-        <SvgIcon html={streetViewIcon} className="size-6" />
+        <img
+          src="/images/streetview.png"
+          alt="Street View"
+          className="size-6 mb-2"
+        />
       </a>
       <a
         href={buildDirectionsUrl(data)}
@@ -104,51 +105,43 @@ export function PopupContent({
         rel="noreferrer"
         aria-label="Open directions"
       >
-        <SvgIcon html={locationIcon} className="size-6" />
+        <img
+          src="/images/gmaps.png"
+          alt="Google Maps"
+          className="size-6 mb-2"
+        />
       </a>
+      {data.contributors && (
+        <button
+          type="button"
+          className="w-10 mb-1 relative bg-blue-500 rounded-lg  text-white flex items-center justify-center"
+          aria-label="Open location credits"
+          onClick={() => {
+            setSelectedLocationCredits(data);
+            const url = new URL(window.location.href);
+            url.searchParams.set("view-credits", "true");
+            window.history.replaceState({}, "", url.toString());
+            posthog.capture("toggle_contributor_section", {
+              artists: data.artists.join(", "),
+              songTitle: data.name,
+            });
+          }}
+        >
+          <span className="cursor-pointer text-sm font-bold">幕後</span>
+        </button>
+      )}
     </div>
   );
 
   return (
     <div
-      className="relative flex w-full select-text flex-col items-center justify-start gap-1 bg-white px-1 pt-1 pb-2"
+      className="relative flex w-full select-text flex-col items-center justify-start gap-0 bg-white px-1 pb-2"
       tabIndex={-1}
-      data-test="hjhjhj"
       data-song={`popup-${data.name}`}
       data-popup-selectable=""
     >
-      <div className="absolute top-0 left-0 flex w-full items-center justify-between gap-2 p-2 text-black">
-        <button
-          type="button"
-          aria-label="Collapse location details"
-          onClick={onClose}
-        >
-          <ChevronDownIcon className="size-4 cursor-pointer" />
-        </button>
-        {data.contributors && (
-          <button
-            type="button"
-            aria-label="Open location credits"
-            onClick={() => {
-              setSelectedLocationCredits(data);
-              const url = new URL(window.location.href);
-              url.searchParams.set("view-credits", "true");
-              window.history.replaceState({}, "", url.toString());
-              posthog.capture("toggle_contributor_section", {
-                artists: data.artists.join(", "),
-                songTitle: data.name,
-              });
-            }}
-          >
-            <ArrowUpRightIcon className="size-4 cursor-pointer" />
-          </button>
-        )}
-      </div>
       {actionButtons}
-      <div className="flex w-full flex-col items-center justify-center">
-        <p className="cursor-text select-text pt-2 text-center text-[0.6rem] leading-none tracking-tight">
-          {data.address}
-        </p>
+      <div className="flex w-full absolute top-8 z-10 flex-col items-center justify-center">
         {data.optionalActions && data.optionalActions.length > 0 && (
           <div className="flex w-full flex-col items-center justify-center gap-2 text-xs">
             {data.optionalActions.map((action) => (
